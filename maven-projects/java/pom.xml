@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>br.com.cams7</groupId>
+		<artifactId>sisbarc</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>br.com.cams7.sisbarc</groupId>
+	<artifactId>java</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Sistema Embarcado - Modulos Java</name>
+	<description>Modulo com todas as aplicacoes Java</description>
+	
+	<properties>
+	</properties>
+
+	<modules>
+		<module>base-app</module>
+		<module>base-gae</module>		
+		<module>acende_apaga_leds</module>
+	</modules>
+	
+	<dependencyManagement>
+		<dependencies>			
+			<dependency>
+				<groupId>br.com.cams7</groupId>
+				<artifactId>base-app</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>br.com.cams7</groupId>
+				<artifactId>base-gae</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>			
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>			
+	</dependencies>
+	
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>			
+			<modules>
+				<module>base-tomcat</module>
+				<module>arduino</module>
+			</modules>
+			<dependencyManagement>
+				<dependencies>					
+					<dependency>
+						<groupId>br.com.cams7</groupId>
+						<artifactId>base-tomcat</artifactId>
+						<version>${project.version}</version>
+						<type>jar</type>
+					</dependency>
+					<dependency>
+						<groupId>br.com.cams7.sisbarc</groupId>
+						<artifactId>arduino</artifactId>
+						<version>${project.version}</version>
+						<type>jar</type>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+		</profile>
+		
+		<profile>
+			<id>gae</id>				
+		</profile>			
+	</profiles>
+</project>

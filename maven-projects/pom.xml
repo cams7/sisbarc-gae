@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  	<modelVersion>4.0.0</modelVersion>
-	
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>br.com.cams7</groupId>
 		<artifactId>app</artifactId>
@@ -10,15 +10,15 @@
 
 	<artifactId>sisbarc</artifactId>
 	<packaging>pom</packaging>
-	
+
 	<name>Sistema Embarcado</name>
 	<description>Aplicação que ultiliza as tecnologias Arduino, Java EE e Android. O objetivo dessa aplicação e a introdução a Automação Residencial</description>
-	
-	<properties>			
+
+	<properties>
 	</properties>
-	
+
 	<modules>
-		<module>java</module>		
+		<module>java</module>
 	</modules>
 
 	<profiles>
@@ -26,14 +26,14 @@
 			<id>default</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
-			</activation>			
+			</activation>
 			<modules>
 				<module>android</module>
 			</modules>
 		</profile>
-		
+
 		<profile>
-			<id>gae</id>				
-		</profile>			
+			<id>gae</id>
+		</profile>
 	</profiles>
 </project>

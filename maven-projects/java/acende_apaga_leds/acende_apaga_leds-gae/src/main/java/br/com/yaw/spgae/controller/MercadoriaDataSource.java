@@ -35,7 +35,7 @@ import br.com.yaw.spgae.model.Mercadoria;
  * @author YaW Tecnologia
  */
 public class MercadoriaDataSource implements Serializable,
-		DataSource<Mercadoria> {
+		DataSource<Mercadoria, Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,44 +44,47 @@ public class MercadoriaDataSource implements Serializable,
 	private Map<Long, Mercadoria> data = new LinkedHashMap<Long, Mercadoria>();
 
 	@Override
-	public void add(Mercadoria m) {
-		if (m != null) {
-			this.data.put(m.getId(), m);
-		}
+	public void save(Mercadoria mercadoria) {
+		if (mercadoria != null)
+			data.put(mercadoria.getId(), mercadoria);
+
 		updateSession();
 	}
 
 	@Override
-	public void update(Mercadoria m) {
-		add(m);
+	public Mercadoria update(Mercadoria mercadoria) {
+		save(mercadoria);
+		return mercadoria;
 	}
 
 	@Override
-	public void remove(Mercadoria m) {
-		if (m != null) {
-			this.data.remove(m.getId());
-		}
+	public Mercadoria remove(Mercadoria mercadoria) {
+		if (mercadoria != null)
+			data.remove(mercadoria.getId());
+
 		updateSession();
+		return mercadoria;
 	}
 
 	@Override
-	public void synch(Collection<Mercadoria> collection) {
+	public void synch(Collection<Mercadoria> mercadorias) {
 		log.debug("Sincronizando datasource de mercadorias...");
-		this.data.clear();
-		if (collection == null) {
+		data.clear();
+
+		if (mercadorias == null)
 			return;
-		}
-		for (Mercadoria m : collection) {
-			if (m != null) {
-				this.data.put(m.getId(), m);
-			}
-		}
+
+		for (Mercadoria mercadoria : mercadorias)
+			if (mercadoria != null)
+				data.put(mercadoria.getId(), mercadoria);
+
 		updateSession();
 	}
 
 	@Override
-	public List<Mercadoria> getAll() {
-		return new ArrayList<Mercadoria>(data.values());
+	public List<Mercadoria> findAll() {
+		List<Mercadoria> mercadorias = new ArrayList<Mercadoria>(data.values());
+		return mercadorias;
 	}
 
 	@Override

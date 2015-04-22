@@ -1,10 +1,10 @@
 package br.com.yaw.spgae.model;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import br.com.cams7.jpa.domain.BaseEntity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -27,7 +27,7 @@ import com.googlecode.objectify.annotation.Id;
  * @author YaW Tecnologia
  */
 @Entity
-public class Mercadoria implements Serializable {
+public class Mercadoria extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +50,27 @@ public class Mercadoria implements Serializable {
 	private Double preco;
 
 	public Mercadoria() {
+		super();
+	}
+
+	public Mercadoria(Long id) {
+		super(id);
+	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getName() + " [id = " + getId() + ", nome = "
+				+ getNome() + ", descricao = " + getDescricao()
+				+ ", quantidade = " + getQuantidade() + ", preco = "
+				+ getPreco() + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -68,22 +89,6 @@ public class Mercadoria implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public Double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(Double preco) {
-		this.preco = preco;
-	}
-
 	public Integer getQuantidade() {
 		return quantidade;
 	}
@@ -92,31 +97,12 @@ public class Mercadoria implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-
-		if ((obj == null) || (obj.getClass() != this.getClass())) {
-			return false;
-		}
-
-		Mercadoria outro = (Mercadoria) obj;
-		boolean equal = (id != null && id.equals(outro.id))
-				|| (nome != null && nome.equals(outro.nome))
-				|| (descricao != null && descricao.equals(outro.descricao));
-		return equal;
+	public Double getPreco() {
+		return preco;
 	}
 
-	@Override
-	public int hashCode() {
-		int hash = 17;
-
-		hash = (31 * hash) + (id == null ? 0 : id.intValue());
-		hash = (31 * hash) + (nome == null ? 0 : nome.hashCode());
-		hash = (31 * hash) + (descricao == null ? 0 : descricao.hashCode());
-
-		return hash;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
 }

@@ -2,7 +2,9 @@ package br.com.yaw.spgae.controller;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
+
+import br.com.cams7.app.jpa.repository.BaseRepository;
+import br.com.cams7.jpa.domain.BaseEntity;
 
 /**
  * Define uma estrutura para armazenar e fornecer dados para um
@@ -14,28 +16,29 @@ import java.util.List;
  *            Tipo da informação mantida no <code>DataSource</code>, normalmente
  *            um <code>Model</code>.
  */
-public interface DataSource<T extends Serializable> {
+public interface DataSource<E extends BaseEntity<ID>, ID extends Serializable>
+		extends BaseRepository<E, ID> {
 
 	/**
 	 * Adiciona elemento ao <code>DataSource</code>.
 	 * 
 	 * @param t
 	 */
-	void add(T t);
+	// void add(T t);
 
 	/**
 	 * Atualiza elemento ao <code>DataSource</code>.
 	 * 
 	 * @param t
 	 */
-	void update(T t);
+	// void update(T t);
 
 	/**
 	 * Remove elemento ao <code>DataSource</code>.
 	 * 
 	 * @param t
 	 */
-	void remove(T t);
+	// void remove(T t);
 
 	/**
 	 * Sincroniza todos os elementos do <code>DataSource</code> com as
@@ -43,13 +46,13 @@ public interface DataSource<T extends Serializable> {
 	 * 
 	 * @param collection
 	 */
-	void synch(Collection<T> collection);
+	void synch(Collection<E> collection);
 
 	/**
 	 * @return <code>List</code> com todos os elementos contidos no
 	 *         <code>DataSource</code>.
 	 */
-	List<T> getAll();
+	// List<T> getAll();
 
 	boolean isEmpty();
 

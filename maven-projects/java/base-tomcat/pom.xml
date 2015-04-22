@@ -12,15 +12,20 @@
 	<groupId>br.com.cams7</groupId>
 	<artifactId>base-tomcat</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<name>TOMCAT - base</name>
 	<description>LIB comum as aplicacoes TOMCAT</description>
 
-	<dependencies>	
+	<dependencies>
 		<dependency>
 			<groupId>br.com.cams7</groupId>
 			<artifactId>base-app</artifactId>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
 		</dependency>
 	</dependencies>
 </project>

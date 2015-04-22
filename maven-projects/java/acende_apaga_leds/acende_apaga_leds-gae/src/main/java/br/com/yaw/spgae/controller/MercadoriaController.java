@@ -68,7 +68,7 @@ public class MercadoriaController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String listar(Model uiModel) {
-		uiModel.addAttribute("mercadorias", getDataSource().getAll());
+		uiModel.addAttribute("mercadorias", getDataSource().findAll());
 		return "lista";
 	}
 
@@ -106,7 +106,7 @@ public class MercadoriaController {
 			return "incluir";
 		}
 		dao.save(mercadoria);
-		getDataSource().add(mercadoria);
+		getDataSource().save(mercadoria);
 		log.debug("Mercadoria persistida: " + mercadoria.getId());
 		return "redirect:/";
 	}
@@ -122,9 +122,9 @@ public class MercadoriaController {
 	 */
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
 	public String editarForm(@PathVariable("id") Long id, Model uiModel) {
-		Mercadoria m = dao.findById(id);
-		if (m != null) {
-			uiModel.addAttribute("mercadoria", m);
+		Mercadoria mercadoria = dao.findById(id);
+		if (mercadoria != null) {
+			uiModel.addAttribute("mercadoria", mercadoria);
 			log.debug("Pronto para editar mercadoria");
 		}
 		return "editar";
@@ -165,11 +165,11 @@ public class MercadoriaController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String remover(@PathVariable("id") Long id, Model uiModel) {
-		Mercadoria m = dao.findById(id);
-		if (m != null) {
-			dao.remove(m);
-			getDataSource().remove(m);
-			log.debug("Mercadoria removida: " + m.getId());
+		Mercadoria mercadoria = dao.findById(id);
+		if (mercadoria != null) {
+			dao.remove(mercadoria);
+			getDataSource().remove(mercadoria);
+			log.debug("Mercadoria removida: " + mercadoria.getId());
 		}
 		return "redirect:/";
 	}

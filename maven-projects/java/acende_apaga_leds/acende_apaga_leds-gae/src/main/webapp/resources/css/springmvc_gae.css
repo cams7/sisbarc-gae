@@ -4,9 +4,9 @@
 }
 
 .logo {
-	float: left; 
+	float: left;
 	width: 158px;
-	height:71px;
+	height: 71px;
 	padding-right: 20px;
 }
 
@@ -14,7 +14,8 @@
 	font-size: 26px;
 	line-height: 38px;
 	padding-bottom: 40px;
-	margin:0; padding:0;
+	margin: 0;
+	padding: 0;
 	padding-top: 20px;
 	color: #D16727;
 }

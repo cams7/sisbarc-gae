@@ -97,7 +97,7 @@ public class MercadoriaController {
 	 * @return a url para a listagem, se algum erro de validação for encontrado
 	 *         volta para a pagina de inclusão.
 	 */
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "incluir", method = RequestMethod.POST)
 	public String criar(@Valid Mercadoria mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
@@ -141,7 +141,8 @@ public class MercadoriaController {
 	 * @return a url para a listagem, se algum erro de validação for encontrado
 	 *         volta para a pagina de edição.
 	 */
-	@RequestMapping(method = RequestMethod.PUT)
+	// @RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(value = "editar", method = RequestMethod.POST)
 	public String editar(@Valid Mercadoria mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {

@@ -15,10 +15,21 @@
 	<name>Acende Apaga LEDs - JPA</name>
 	<description>Todas entidades mapeadas do 'Acende Apaga LEDs' estão nesse modulo</description>
 
-	<dependencies>	
+	<dependencies>
 		<dependency>
 			<groupId>br.com.cams7</groupId>
 			<artifactId>base-app</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.objectify</groupId>
+			<artifactId>objectify</artifactId>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

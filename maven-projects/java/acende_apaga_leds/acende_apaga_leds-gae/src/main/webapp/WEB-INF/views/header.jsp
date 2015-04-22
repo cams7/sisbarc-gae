@@ -5,7 +5,7 @@
 	<div class="logo">
 		<img src="${banner}" />
 	</div>
-	
+
 	<spring:message code="app.title" var="app_title" htmlEscape="false" />
 	<h1 class="title">${app_title}</h1>
 </div>

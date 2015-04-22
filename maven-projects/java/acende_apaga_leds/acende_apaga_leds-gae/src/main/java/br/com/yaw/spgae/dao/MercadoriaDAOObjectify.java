@@ -44,7 +44,9 @@ public class MercadoriaDAOObjectify implements Serializable, MercadoriaDAO {
 
 	@Override
 	public List<Mercadoria> getAll() {
-		return ofy().load().type(Mercadoria.class).list();
+		List<Mercadoria> mercadorias = ofy().load().type(Mercadoria.class)
+				.list();
+		return mercadorias;
 	}
 
 	@Override

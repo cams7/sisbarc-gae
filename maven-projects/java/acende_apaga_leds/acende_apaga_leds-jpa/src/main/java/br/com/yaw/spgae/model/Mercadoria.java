@@ -35,9 +35,10 @@ public class Mercadoria implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Size(min = 5, max = 200)
+	@Size(min = 5, max = 30)
 	private String nome;
 
+	@Size(min = 5, max = 255)
 	private String descricao;
 
 	@NotNull

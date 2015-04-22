@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
-//import javax.validation.Valid;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +98,7 @@ public class MercadoriaController {
 	 *         volta para a pagina de inclusão.
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public String criar(/*@Valid*/ Mercadoria mercadoria,
+	public String criar(@Valid Mercadoria mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("mercadoria", mercadoria);
@@ -142,7 +142,7 @@ public class MercadoriaController {
 	 *         volta para a pagina de edição.
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public String editar(/*@Valid*/ Mercadoria mercadoria,
+	public String editar(@Valid Mercadoria mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("mercadoria", mercadoria);

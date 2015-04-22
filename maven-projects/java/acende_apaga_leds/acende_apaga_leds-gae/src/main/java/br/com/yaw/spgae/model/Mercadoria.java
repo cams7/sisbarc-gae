@@ -2,9 +2,9 @@ package br.com.yaw.spgae.model;
 
 import java.io.Serializable;
 
-//import javax.validation.constraints.Min;
-//import javax.validation.constraints.NotNull;
-//import javax.validation.constraints.Size;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -34,18 +34,18 @@ public class Mercadoria implements Serializable {
 	@Id
 	private Long id;
 
-	//@NotNull
-	//@Size(min = 5, max = 200)
+	@NotNull
+	@Size(min = 5, max = 200)
 	private String nome;
 
 	private String descricao;
 
-	//@NotNull
-	//@Min(value = 1)
+	@NotNull
+	@Min(value = 1)
 	private Integer quantidade;
 
-	//@NotNull
-	//@Min(value = 1)
+	@NotNull
+	@Min(value = 1)
 	private Double preco;
 
 	public Mercadoria() {

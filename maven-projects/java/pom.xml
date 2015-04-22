@@ -17,6 +17,9 @@
 	<description>Modulo com todas as aplicacoes Java</description>
 	
 	<properties>
+		<spring.version>4.1.6.RELEASE</spring.version>
+		<apache.tiles.version>2.2.2</apache.tiles.version>
+		<org.slf4j.version>1.7.10</org.slf4j.version>
 	</properties>
 
 	<modules>
@@ -40,12 +43,96 @@
 				<type>jar</type>
 			</dependency>		
 
-			<!--dependency>
+			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-web-api</artifactId>
 				<version>7.0</version>
 				<scope>provided</scope>
-			</dependency-->	
+			</dependency>	
+			
+			<!-- Compile/runtime dependencies -->
+			<dependency>
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-api-1.0-sdk</artifactId>
+				<version>1.9.19</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>jstl</groupId>
+				<artifactId>jstl</artifactId>
+				<version>1.2</version>
+			</dependency>
+
+			<!-- Test Dependencies -->
+			<dependency>
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-testing</artifactId>
+				<version>1.9.19</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-api-stubs</artifactId>
+				<version>1.9.19</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-endpoints</artifactId>
+				<version>1.9.19</version>
+			</dependency>
+
+			<!-- [START Objectify_Dependencies] -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>18.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.googlecode.objectify</groupId>
+				<artifactId>objectify</artifactId>
+				<version>5.1.5</version>
+			</dependency>
+			<!-- [END Objectify_Dependencies] -->
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.tiles</groupId>
+				<artifactId>tiles-core</artifactId>
+				<version>${apache.tiles.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tiles</groupId>
+				<artifactId>tiles-jsp</artifactId>
+				<version>${apache.tiles.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${org.slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${org.slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${org.slf4j.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -84,4 +171,41 @@
 			<id>gae</id>				
 		</profile>			
 	</profiles>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>2.1</version>
+					<executions>
+						<execution>
+							<phase>compile</phase>
+							<goals>
+								<goal>display-dependency-updates</goal>
+								<goal>display-plugin-updates</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>com.google.appengine</groupId>
+					<artifactId>appengine-maven-plugin</artifactId>
+					<version>1.9.19</version>
+					<configuration>
+						<enableJarClasses>false</enableJarClasses>
+						<!-- Comment in the below snippet to bind to all IPs instead of just 
+							localhost -->
+						<!-- address>0.0.0.0</address -->
+						<port>8888</port>
+						<!-- Comment in the below snippet to enable local debugging with a remove 
+							debugger like those included with Eclipse or IntelliJ -->
+						<!-- jvmFlags> <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag> 
+							</jvmFlags -->
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>

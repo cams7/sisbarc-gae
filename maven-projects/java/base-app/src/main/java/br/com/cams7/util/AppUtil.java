@@ -21,8 +21,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
-import br.com.cams7.app.jpa.repository.BaseRepository;
-import br.com.cams7.jpa.domain.BaseEntity;
+import br.com.cams7.app.BaseRepository;
+import br.com.cams7.domain.BaseEntity;
 
 /**
  * @author cams7

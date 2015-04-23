@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.cams7.gae.jpa.repository.RepositoryImpl;
+import br.com.cams7.gae.GaeRepositoryImpl;
+import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.repository.MercadoriaRepository;
-import br.com.yaw.spgae.model.Mercadoria;
 
 import com.googlecode.objectify.Key;
 
@@ -33,7 +33,7 @@ import com.googlecode.objectify.Key;
  * @author YaW Tecnologia
  */
 @Repository
-public class MercadoriaRepositoryImpl extends RepositoryImpl<Mercadoria, Long>
+public class MercadoriaRepositoryImpl extends GaeRepositoryImpl<MercadoriaEntity, Long>
 		implements MercadoriaRepository {
 
 	public MercadoriaRepositoryImpl() {
@@ -41,31 +41,31 @@ public class MercadoriaRepositoryImpl extends RepositoryImpl<Mercadoria, Long>
 	}
 
 	@Override
-	public void save(Mercadoria mercadoria) {
+	public void save(MercadoriaEntity mercadoria) {
 		ofy().save().entity(mercadoria).now();
 	}
 
 	@Override
-	public Mercadoria update(Mercadoria mercadoria) {
+	public MercadoriaEntity update(MercadoriaEntity mercadoria) {
 		save(mercadoria);
 		return mercadoria;
 	}
 
 	@Override
-	public Mercadoria remove(Mercadoria mercadoria) {
+	public MercadoriaEntity remove(MercadoriaEntity mercadoria) {
 		ofy().delete().entity(mercadoria).now();
 		return mercadoria;
 	}
 
 	@Override
-	public Mercadoria findOne(Long id) {
-		Key<Mercadoria> k = Key.create(Mercadoria.class, id);
+	public MercadoriaEntity findOne(Long id) {
+		Key<MercadoriaEntity> k = Key.create(MercadoriaEntity.class, id);
 		return ofy().load().key(k).now();
 	}
 
 	@Override
-	public List<Mercadoria> findAll() {
-		List<Mercadoria> entities = ofy().load().type(Mercadoria.class).list();
+	public List<MercadoriaEntity> findAll() {
+		List<MercadoriaEntity> entities = ofy().load().type(MercadoriaEntity.class).list();
 		return entities;
 	}
 

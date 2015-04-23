@@ -3,13 +3,13 @@
  */
 package br.com.cams7.sisbarc.aal.service;
 
-import br.com.cams7.gae.service.BaseService;
-import br.com.yaw.spgae.model.Mercadoria;
+import br.com.cams7.gae.GaeService;
+import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
 
 /**
  * @author cams7
  *
  */
-public interface MercadoriaService extends BaseService<Mercadoria, Long> {
+public interface MercadoriaService extends GaeService<MercadoriaEntity, Long> {
 
 }

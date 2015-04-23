@@ -1,22 +1,22 @@
 /**
  * 
  */
-package br.com.cams7.gae.jpa.repository;
+package br.com.cams7.gae;
 
 import java.io.Serializable;
 import java.util.List;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.jpa.domain.BaseEntity;
+import br.com.cams7.domain.BaseEntity;
 
 /**
  * @author cams7
  *
  */
-public abstract class RepositoryImpl<E extends BaseEntity<ID>, ID extends Serializable>
-		extends AbstractBase<E> implements Repository<E, ID> {
+public abstract class GaeRepositoryImpl<E extends BaseEntity<ID>, ID extends Serializable>
+		extends AbstractBase<E> implements GaeRepository<E, ID> {
 
-	public RepositoryImpl() {
+	public GaeRepositoryImpl() {
 		super();
 	}
 

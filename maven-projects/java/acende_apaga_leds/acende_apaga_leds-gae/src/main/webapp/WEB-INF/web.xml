@@ -39,7 +39,7 @@
 	<!-- Listener usado na inicializacao da aplicacao para configurar entidades 
 		do Objectify. -->
 	<listener>
-		<listener-class>br.com.yaw.spgae.config.ConfigStartup</listener-class>
+		<listener-class>br.com.cams7.sisbarc.aal.config.ConfigStartup</listener-class>
 	</listener>
 
 

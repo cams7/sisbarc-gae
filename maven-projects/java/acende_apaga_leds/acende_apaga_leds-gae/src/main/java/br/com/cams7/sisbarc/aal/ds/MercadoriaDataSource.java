@@ -12,8 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import br.com.cams7.gae.ds.DataSource;
-import br.com.yaw.spgae.model.Mercadoria;
+import br.com.cams7.gae.DataSource;
+import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
 
 /**
  * Define um <code>DataSource</code> para entidade (<code>Model</code>)
@@ -35,16 +35,16 @@ import br.com.yaw.spgae.model.Mercadoria;
  * @author YaW Tecnologia
  */
 public class MercadoriaDataSource implements Serializable,
-		DataSource<Mercadoria, Long> {
+		DataSource<MercadoriaEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	private static Logger log = Logger.getLogger(MercadoriaDataSource.class);
 
-	private Map<Long, Mercadoria> data = new LinkedHashMap<Long, Mercadoria>();
+	private Map<Long, MercadoriaEntity> data = new LinkedHashMap<Long, MercadoriaEntity>();
 
 	@Override
-	public void save(Mercadoria mercadoria) {
+	public void save(MercadoriaEntity mercadoria) {
 		if (mercadoria != null)
 			data.put(mercadoria.getId(), mercadoria);
 
@@ -52,13 +52,13 @@ public class MercadoriaDataSource implements Serializable,
 	}
 
 	@Override
-	public Mercadoria update(Mercadoria mercadoria) {
+	public MercadoriaEntity update(MercadoriaEntity mercadoria) {
 		save(mercadoria);
 		return mercadoria;
 	}
 
 	@Override
-	public Mercadoria remove(Mercadoria mercadoria) {
+	public MercadoriaEntity remove(MercadoriaEntity mercadoria) {
 		if (mercadoria != null)
 			data.remove(mercadoria.getId());
 
@@ -67,26 +67,26 @@ public class MercadoriaDataSource implements Serializable,
 	}
 
 	@Override
-	public Mercadoria findOne(Long id) {
-		Mercadoria mercadoria = data.get(id);
+	public MercadoriaEntity findOne(Long id) {
+		MercadoriaEntity mercadoria = data.get(id);
 		return mercadoria;
 	}
 
 	@Override
-	public List<Mercadoria> findAll() {
-		List<Mercadoria> mercadorias = new ArrayList<Mercadoria>(data.values());
+	public List<MercadoriaEntity> findAll() {
+		List<MercadoriaEntity> mercadorias = new ArrayList<MercadoriaEntity>(data.values());
 		return mercadorias;
 	}
 
 	@Override
-	public void synch(List<Mercadoria> mercadorias) {
+	public void synch(List<MercadoriaEntity> mercadorias) {
 		log.debug("Sincronizando datasource de mercadorias...");
 		data.clear();
 
 		if (mercadorias == null)
 			return;
 
-		for (Mercadoria mercadoria : mercadorias)
+		for (MercadoriaEntity mercadoria : mercadorias)
 			if (mercadoria != null)
 				data.put(mercadoria.getId(), mercadoria);
 

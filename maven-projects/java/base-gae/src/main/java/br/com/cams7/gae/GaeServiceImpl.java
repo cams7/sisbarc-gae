@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.gae.service;
+package br.com.cams7.gae;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,9 +14,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.app.jpa.repository.BaseRepository;
-import br.com.cams7.gae.ds.DataSource;
-import br.com.cams7.jpa.domain.BaseEntity;
+import br.com.cams7.app.BaseRepository;
+import br.com.cams7.domain.BaseEntity;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
 
@@ -24,8 +23,8 @@ import br.com.cams7.util.AppUtil;
  * @author cesar
  *
  */
-public abstract class BaseServiceImpl<R extends BaseRepository<E, ID>, D extends DataSource<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends AbstractBase<E> implements BaseService<E, ID> {
+public abstract class GaeServiceImpl<R extends BaseRepository<E, ID>, D extends DataSource<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
+		extends AbstractBase<E> implements GaeService<E, ID> {
 
 	private final byte DS_ARGUMENT_NUMBER = 1;
 	private final byte ENTITY_ARGUMENT_NUMBER = 2;
@@ -36,7 +35,7 @@ public abstract class BaseServiceImpl<R extends BaseRepository<E, ID>, D extends
 	private R repository;
 
 	@SuppressWarnings("unchecked")
-	public BaseServiceImpl() {
+	public GaeServiceImpl() {
 		super();
 
 		dsType = (Class<D>) AppUtil.getType(this, DS_ARGUMENT_NUMBER);

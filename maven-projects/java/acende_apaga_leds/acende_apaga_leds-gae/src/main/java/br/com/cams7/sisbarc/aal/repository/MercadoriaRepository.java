@@ -1,7 +1,7 @@
 package br.com.cams7.sisbarc.aal.repository;
 
-import br.com.cams7.gae.jpa.repository.Repository;
-import br.com.yaw.spgae.model.Mercadoria;
+import br.com.cams7.gae.GaeRepository;
+import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
 
 /**
  * Contrato de persistência para a entidade <code>Mercadoria</code>.
@@ -13,6 +13,6 @@ import br.com.yaw.spgae.model.Mercadoria;
  * 
  * @author YaW Tecnologia
  */
-public interface MercadoriaRepository extends Repository<Mercadoria, Long> {
+public interface MercadoriaRepository extends GaeRepository<MercadoriaEntity, Long> {
 
 }

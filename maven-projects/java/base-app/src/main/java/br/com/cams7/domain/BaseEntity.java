@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.jpa.domain;
+package br.com.cams7.domain;
 
 import java.io.Serializable;
 

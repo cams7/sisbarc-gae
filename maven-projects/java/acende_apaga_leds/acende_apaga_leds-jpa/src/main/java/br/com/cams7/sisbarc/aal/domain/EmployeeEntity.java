@@ -1,4 +1,4 @@
-package com.journaldev.jpa.data;
+package br.com.cams7.sisbarc.aal.domain;
 
 import java.util.Date;
 
@@ -10,14 +10,14 @@ import org.eclipse.persistence.nosql.annotations.DataFormatType;
 import org.eclipse.persistence.nosql.annotations.Field;
 import org.eclipse.persistence.nosql.annotations.NoSql;
 
-import br.com.cams7.jpa.domain.BaseEntity;
+import br.com.cams7.domain.BaseEntity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
 @Entity
 @NoSql(dataFormat = DataFormatType.MAPPED)
-public class Employee extends BaseEntity<String> {
+public class EmployeeEntity extends BaseEntity<String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,11 +32,11 @@ public class Employee extends BaseEntity<String> {
 
 	private double salary;
 
-	public Employee() {
+	public EmployeeEntity() {
 		super();
 	}
 
-	public Employee(String id) {
+	public EmployeeEntity(String id) {
 		super(id);
 	}
 

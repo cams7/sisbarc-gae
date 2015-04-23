@@ -1,9 +1,9 @@
-package br.com.cams7.app.jpa.repository;
+package br.com.cams7.app;
 
 import java.io.Serializable;
 import java.util.List;
 
-import br.com.cams7.jpa.domain.BaseEntity;
+import br.com.cams7.domain.BaseEntity;
 
 public interface BaseRepository<E extends BaseEntity<ID>, ID extends Serializable> {
 

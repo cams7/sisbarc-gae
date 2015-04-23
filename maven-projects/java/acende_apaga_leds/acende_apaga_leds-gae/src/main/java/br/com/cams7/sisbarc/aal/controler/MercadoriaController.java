@@ -1,26 +1,23 @@
 package br.com.cams7.sisbarc.aal.controler;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
 
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.cams7.app.BaseControler;
+import br.com.cams7.gae.GaeService;
+import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.service.MercadoriaService;
-import br.com.yaw.spgae.model.Mercadoria;
 
 /**
  * Principal componente do framework <code>Spring MVC</code>, esse é o
@@ -41,20 +38,16 @@ import br.com.yaw.spgae.model.Mercadoria;
  */
 @RequestMapping(value = "/")
 @Controller
-public class MercadoriaController {
-
-	private static Logger log = Logger.getLogger(MercadoriaController.class);
-
-	/**
-	 * Utiliza a injeção de dependência do <code>Spring Framework</code> para
-	 * resolver a instancia do <code>DAO</code>.
-	 */
-	@Autowired
-	private MercadoriaService service;
+public class MercadoriaController extends
+		BaseControler<MercadoriaService, MercadoriaEntity, Long> {
 
 	@Autowired
 	@Qualifier("sobreApp")
 	private ArrayList<?> sobre;
+
+	public MercadoriaController() {
+		super();
+	}
 
 	/**
 	 * Ponto de entrada da aplicação ("/").
@@ -65,7 +58,9 @@ public class MercadoriaController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String listar(Model uiModel) {
-		uiModel.addAttribute("mercadorias", service.findAll());
+		List<MercadoriaEntity> mercadorias = getService().findAll();
+		uiModel.addAttribute("mercadorias", mercadorias);
+
 		return "lista";
 	}
 
@@ -77,9 +72,12 @@ public class MercadoriaController {
 	 */
 	@RequestMapping(params = "form", method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
-		uiModel.addAttribute("mercadoria", new Mercadoria());
+		MercadoriaEntity mercadoria = new MercadoriaEntity();
+
+		uiModel.addAttribute("mercadoria", mercadoria);
 		uiModel.addAttribute("active", "incluir");
-		log.debug("Pronto para incluir mercadoria");
+
+		getLog().debug("Pronto para incluir mercadoria");
 		return "incluir";
 	}
 
@@ -95,16 +93,16 @@ public class MercadoriaController {
 	 *         volta para a pagina de inclusão.
 	 */
 	@RequestMapping(value = "incluir", method = RequestMethod.POST)
-	public String criar(@Valid Mercadoria mercadoria,
+	public String criar(@Valid MercadoriaEntity mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("mercadoria", mercadoria);
 			uiModel.addAttribute("active", "incluir");
 			return "incluir";
 		}
-		service.save(mercadoria);
-		// getDataSource().save(mercadoria);
-		// log.debug("Mercadoria persistida: " + mercadoria.getId());
+
+		getService().save(mercadoria);
+
 		return "redirect:/";
 	}
 
@@ -119,11 +117,13 @@ public class MercadoriaController {
 	 */
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
 	public String editarForm(@PathVariable("id") Long id, Model uiModel) {
-		Mercadoria mercadoria = service.findOne(id);
+		MercadoriaEntity mercadoria = getService().findOne(id);
+
 		if (mercadoria != null) {
 			uiModel.addAttribute("mercadoria", mercadoria);
-			log.debug("Pronto para editar mercadoria");
+			getLog().debug("Pronto para editar mercadoria");
 		}
+
 		return "editar";
 	}
 
@@ -140,15 +140,15 @@ public class MercadoriaController {
 	 */
 	// @RequestMapping(method = RequestMethod.PUT)
 	@RequestMapping(value = "editar", method = RequestMethod.POST)
-	public String editar(@Valid Mercadoria mercadoria,
+	public String editar(@Valid MercadoriaEntity mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("mercadoria", mercadoria);
 			return "editar";
 		}
-		service.update(mercadoria);
-		// getDataSource().update(mercadoria);
-		// log.debug("Mercadoria atualizada: " + mercadoria.getId());
+
+		getService().update(mercadoria);
+
 		return "redirect:/";
 	}
 
@@ -162,12 +162,11 @@ public class MercadoriaController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String remover(@PathVariable("id") Long id, Model uiModel) {
-		Mercadoria mercadoria = service.findOne(id);
-		if (mercadoria != null) {
-			service.remove(mercadoria);
-			// getDataSource().remove(mercadoria);
-			// log.debug("Mercadoria removida: " + mercadoria.getId());
-		}
+		MercadoriaEntity mercadoria = getService().findOne(id);
+
+		if (mercadoria != null)
+			getService().remove(mercadoria);
+
 		return "redirect:/";
 	}
 
@@ -179,7 +178,7 @@ public class MercadoriaController {
 	 */
 	@RequestMapping(value = "synch", method = RequestMethod.GET)
 	public String atualizar() {
-		service.synch();
+		((GaeService<?, ?>) getService()).synch();
 		return "redirect:/";
 	}
 
@@ -188,18 +187,6 @@ public class MercadoriaController {
 		uiModel.addAttribute("sobre", sobre);
 		uiModel.addAttribute("active", "sobre");
 		return "sobre";
-	}
-
-	/**
-	 * Configura um conversor para double em pt-BR, usado no campo de preço.
-	 * 
-	 * @param binder
-	 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Double.class, new CustomNumberEditor(
-				Double.class, NumberFormat.getInstance(new Locale("pt", "BR")),
-				true));
 	}
 
 }

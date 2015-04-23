@@ -1,10 +1,10 @@
-package br.com.yaw.spgae.model;
+package br.com.cams7.sisbarc.aal.domain;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.cams7.jpa.domain.BaseEntity;
+import br.com.cams7.domain.BaseEntity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -27,7 +27,7 @@ import com.googlecode.objectify.annotation.Id;
  * @author YaW Tecnologia
  */
 @Entity
-public class Mercadoria extends BaseEntity<Long> {
+public class MercadoriaEntity extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,11 +49,11 @@ public class Mercadoria extends BaseEntity<Long> {
 	@Min(value = 1)
 	private Double preco;
 
-	public Mercadoria() {
+	public MercadoriaEntity() {
 		super();
 	}
 
-	public Mercadoria(Long id) {
+	public MercadoriaEntity(Long id) {
 		super(id);
 	}
 

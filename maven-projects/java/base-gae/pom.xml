@@ -12,14 +12,49 @@
 	<groupId>br.com.cams7</groupId>
 	<artifactId>base-gae</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<name>GAE - base</name>
 	<description>LIB comum as aplicacoes GAE</description>
 
-	<dependencies>	
+	<dependencies>
 		<dependency>
 			<groupId>br.com.cams7</groupId>
 			<artifactId>base-app</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- dependency> <groupId>com.google.guava</groupId> <artifactId>guava</artifactId> 
+			<scope>provided</scope> </dependency -->
+		<dependency>
+			<groupId>com.googlecode.objectify</groupId>
+			<artifactId>objectify</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

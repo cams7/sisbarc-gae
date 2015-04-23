@@ -1,8 +1,7 @@
-package br.com.yaw.spgae.controller;
+package br.com.cams7.sisbarc.aal.ds;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import br.com.cams7.gae.ds.DataSource;
 import br.com.yaw.spgae.model.Mercadoria;
 
 /**
@@ -67,7 +67,19 @@ public class MercadoriaDataSource implements Serializable,
 	}
 
 	@Override
-	public void synch(Collection<Mercadoria> mercadorias) {
+	public Mercadoria findOne(Long id) {
+		Mercadoria mercadoria = data.get(id);
+		return mercadoria;
+	}
+
+	@Override
+	public List<Mercadoria> findAll() {
+		List<Mercadoria> mercadorias = new ArrayList<Mercadoria>(data.values());
+		return mercadorias;
+	}
+
+	@Override
+	public void synch(List<Mercadoria> mercadorias) {
 		log.debug("Sincronizando datasource de mercadorias...");
 		data.clear();
 
@@ -79,12 +91,6 @@ public class MercadoriaDataSource implements Serializable,
 				data.put(mercadoria.getId(), mercadoria);
 
 		updateSession();
-	}
-
-	@Override
-	public List<Mercadoria> findAll() {
-		List<Mercadoria> mercadorias = new ArrayList<Mercadoria>(data.values());
-		return mercadorias;
 	}
 
 	@Override

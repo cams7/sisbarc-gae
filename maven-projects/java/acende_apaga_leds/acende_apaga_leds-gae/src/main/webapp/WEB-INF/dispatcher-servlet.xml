@@ -9,8 +9,10 @@
 
 	<!-- Considera a estrutura de pacote para percorrer classes com as anotacoes 
 		de injecao de dependencia do Spring como: @Component, @Repository e @Service. -->
-	<context:component-scan base-package="br.com.yaw.spgae.controller" />
-	<context:component-scan base-package="br.com.yaw.spgae.dao" />
+
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository.impl" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controler" />
 
 	<!-- Habilita o uso de anotacoes para o Spring MVC. -->
 	<mvc:annotation-driven />

@@ -27,10 +27,33 @@
 			<artifactId>javaee-web-api</artifactId>
 		</dependency>
 
+		<!-- [START Objectify_Dependencies] -->
+		<!-- dependency> <groupId>com.google.guava</groupId> <artifactId>guava</artifactId> 
+			</dependency -->
 		<dependency>
 			<groupId>com.googlecode.objectify</groupId>
 			<artifactId>objectify</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<!-- [END Objectify_Dependencies] -->
+
+		<!-- Dependencies for Eclipse JPA Persistence API -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<!-- scope>provided</scope -->
+		</dependency>
+		<!-- Dependency for EclipseLink NoSQL Persistence API -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.nosql</artifactId>
+			<!-- scope>provided</scope -->
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<!-- scope>provided</scope -->
 		</dependency>
 	</dependencies>
 </project>

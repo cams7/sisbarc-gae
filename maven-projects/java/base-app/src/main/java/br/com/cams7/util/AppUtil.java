@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
+import br.com.cams7.app.jpa.repository.BaseRepository;
 import br.com.cams7.jpa.domain.BaseEntity;
 
 /**
@@ -377,6 +378,17 @@ public final class AppUtil {
 		Map<String, String> response = new HashMap<>();
 		response.put("error", exceptionMessage);
 		return response;
+	}
+
+	public static BaseRepository<?, ?> getNewDataSource(Class<?> dsType)
+			throws AppException {
+		try {
+			BaseRepository<?, ?> repository = (BaseRepository<?, ?>) dsType
+					.newInstance();
+			return repository;
+		} catch (InstantiationException | IllegalAccessException e) {
+			throw new AppException(e.getMessage(), e.getCause());
+		}
 	}
 
 }

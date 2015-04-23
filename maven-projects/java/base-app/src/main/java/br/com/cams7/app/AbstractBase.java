@@ -3,9 +3,11 @@
  */
 package br.com.cams7.app;
 
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import br.com.cams7.jpa.domain.BaseEntity;
+import br.com.cams7.util.AppUtil;
 
 /**
  * @author cesar
@@ -17,18 +19,27 @@ public abstract class AbstractBase<E extends BaseEntity<?>> {
 
 	private Logger log;
 
+	private Class<E> entityType;
+
+	@SuppressWarnings("unchecked")
 	public AbstractBase() {
 		super();
 
-		log = Logger.getLogger(this.getClass().getName());
+		log = Logger.getLogger(this.getClass());
+		entityType = (Class<E>) AppUtil
+				.getType(this, getEntityArgumentNumber());
+	}
+
+	protected Logger getLog() {
+		return log;
 	}
 
 	protected byte getEntityArgumentNumber() {
 		return ENTITY_ARGUMENT_NUMBER;
 	}
 
-	protected Logger getLog() {
-		return log;
+	protected Class<E> getEntityType() {
+		return entityType;
 	}
 
 }

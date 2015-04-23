@@ -1,7 +1,7 @@
-package br.com.yaw.spgae.controller;
+package br.com.cams7.gae.ds;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import br.com.cams7.app.jpa.repository.BaseRepository;
 import br.com.cams7.jpa.domain.BaseEntity;
@@ -44,9 +44,9 @@ public interface DataSource<E extends BaseEntity<ID>, ID extends Serializable>
 	 * Sincroniza todos os elementos do <code>DataSource</code> com as
 	 * instâncias da coleção.
 	 * 
-	 * @param collection
+	 * @param entities
 	 */
-	void synch(Collection<E> collection);
+	void synch(List<E> entities);
 
 	/**
 	 * @return <code>List</code> com todos os elementos contidos no

@@ -1,4 +1,4 @@
-package br.com.cams7.sisbarc.aal.controler;
+package br.com.cams7.sisbarc.aal.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.cams7.app.BaseControler;
+import br.com.cams7.app.BaseController;
 import br.com.cams7.gae.GaeService;
 import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.service.MercadoriaService;
@@ -39,7 +39,7 @@ import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 @RequestMapping(value = "/")
 @Controller
 public class MercadoriaController extends
-		BaseControler<MercadoriaService, MercadoriaEntity, Long> {
+		BaseController<MercadoriaService, MercadoriaEntity, Long> {
 
 	@Autowired
 	@Qualifier("sobreApp")

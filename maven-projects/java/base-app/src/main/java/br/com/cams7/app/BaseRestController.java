@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.cams7.domain.BaseEntity;
 
-public abstract class BaseRestControler<S extends BaseService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends BaseControler<S, E, ID> {
+public abstract class BaseRestController<S extends BaseService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
+		extends BaseController<S, E, ID> {
 
-	public BaseRestControler() {
+	public BaseRestController() {
 		super();
 	}
 

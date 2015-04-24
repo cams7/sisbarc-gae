@@ -7,13 +7,6 @@
 						http://www.springframework.org/schema/context 	http://www.springframework.org/schema/context/spring-context.xsd     
 						http://www.springframework.org/schema/mvc 		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<!-- Considera a estrutura de pacote para percorrer classes com as anotacoes 
-		de injecao de dependencia do Spring como: @Component, @Repository e @Service. -->
-
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository.impl" />
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controler" />
-
 	<!-- Habilita o uso de anotacoes para o Spring MVC. -->
 	<mvc:annotation-driven />
 
@@ -58,6 +51,22 @@
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"
 		p:defaultErrorView="errorPage" />
 
+
+	<!-- Configure to plugin JSON as request and response in method handler -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Configure bean to convert JSON to POJO and vice versa -->
+	<bean id="jsonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	</bean>
+
 	<bean class="java.util.ArrayList" id="sobreApp">
 		<constructor-arg>
 			<list>
@@ -68,4 +77,11 @@
 			</list>
 		</constructor-arg>
 	</bean>
+
+	<!-- Considera a estrutura de pacote para percorrer classes com as anotacoes 
+		de injecao de dependencia do Spring como: @Component, @Repository e @Service. -->
+
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository.impl" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />
 </beans>

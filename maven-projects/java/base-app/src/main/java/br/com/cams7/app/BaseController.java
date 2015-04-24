@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import br.com.cams7.app.AbstractBase;
 import br.com.cams7.domain.BaseEntity;
 
-public abstract class BaseControler<S extends BaseService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
+public abstract class BaseController<S extends BaseService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
 		extends AbstractBase<E> {
 
 	private final byte ENTITY_ARGUMENT_NUMBER = 1;
@@ -24,7 +24,7 @@ public abstract class BaseControler<S extends BaseService<E, ID>, E extends Base
 	@Autowired
 	private S service;
 
-	public BaseControler() {
+	public BaseController() {
 		super();
 	}
 

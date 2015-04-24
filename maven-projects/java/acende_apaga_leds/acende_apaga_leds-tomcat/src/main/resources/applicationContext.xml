@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+	xmlns:wss="http://jax-ws.dev.java.net/spring/servlet" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans.xsd	
+							http://www.springframework.org/schema/context	http://www.springframework.org/schema/context/spring-context.xsd
+							http://jax-ws.dev.java.net/spring/core    		http://jax-ws.dev.java.net/spring/core.xsd
+							http://jax-ws.dev.java.net/spring/servlet  		http://jax-ws.dev.java.net/spring/servlet.xsd">
+
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.ws" />
+
+	<wss:binding url="/sayhello">
+		<wss:service>
+			<ws:service bean="#helloWS" />
+		</wss:service>
+	</wss:binding>
+</beans>

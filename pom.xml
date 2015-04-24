@@ -111,7 +111,7 @@
 						<configuration>
 							<failOnMissingWebXml>true</failOnMissingWebXml>
 							<outputDirectory>deployments</outputDirectory>
-							<warName>ROOT</warName>
+							<!--warName>ROOT</warName-->
 						</configuration>
 					</plugin>					
 				</plugins>

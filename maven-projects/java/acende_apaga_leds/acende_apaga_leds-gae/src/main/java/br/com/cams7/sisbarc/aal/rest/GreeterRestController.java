@@ -1,4 +1,4 @@
-package br.com.cams7.sisbarc.aal.controller;
+package br.com.cams7.sisbarc.aal.rest;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class GreeterRestController {
 		String mensagem = service.sayHello(usuario);
 
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("saudacao", mensagem);
+		map.put("mensagem", mensagem);
 
 		ResponseEntity<?> response = new ResponseEntity<>(map, HttpStatus.OK);
 

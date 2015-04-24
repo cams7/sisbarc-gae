@@ -1,4 +1,4 @@
-package br.com.cams7.teste.ws;
+package br.com.cams7.sisbarc.aal.ws;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -9,7 +9,7 @@ import javax.jws.soap.SOAPBinding;
 public interface HelloService {
 
 	public static final String WEBSERVICE_NAME = "HelloService";
-	public static final String WEBSERVICE_TARGETNAMESPACE = "http://ws.teste.cams7.com.br/";
+	public static final String WEBSERVICE_TARGETNAMESPACE = "http://ws.aal.sisbarc.cams7.com.br/";
 
 	@WebMethod
 	public String printMessage(String message);

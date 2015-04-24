@@ -133,6 +133,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>acende_apaga_leds</finalName>
 		<!-- for hot reload of the web application -->
 		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 		<plugins>

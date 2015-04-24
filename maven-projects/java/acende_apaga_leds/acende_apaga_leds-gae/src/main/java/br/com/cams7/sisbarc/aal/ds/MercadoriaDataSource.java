@@ -67,6 +67,11 @@ public class MercadoriaDataSource implements Serializable,
 	}
 
 	@Override
+	public MercadoriaEntity remove(Long id) {
+		return null;
+	}
+
+	@Override
 	public MercadoriaEntity findOne(Long id) {
 		MercadoriaEntity mercadoria = data.get(id);
 		return mercadoria;
@@ -74,7 +79,8 @@ public class MercadoriaDataSource implements Serializable,
 
 	@Override
 	public List<MercadoriaEntity> findAll() {
-		List<MercadoriaEntity> mercadorias = new ArrayList<MercadoriaEntity>(data.values());
+		List<MercadoriaEntity> mercadorias = new ArrayList<MercadoriaEntity>(
+				data.values());
 		return mercadorias;
 	}
 

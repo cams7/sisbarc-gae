@@ -12,12 +12,12 @@
 		<li><em>${label_mercadorias}</em></li>
 
 		<li class="${empty active || active == 'lista' ? 'active' : ''}">
-			<a href="/">${menu_lista}</a>
+			<a href="/acende_apaga_leds/#">${menu_lista}</a>
 		</li>
 		<li class="${active == 'incluir' ? 'active' : ''}"><a
-			href="/?form">${menu_incluir}</a></li>
+			href="/acende_apaga_leds/?form">${menu_incluir}</a></li>
 		<li class="divider"></li>
-		<li class="${active == 'sobre' ? 'active' : ''}"><a href="/sobre">${menu_sobre}</a>
-		</li>
+		<li class="${active == 'sobre' ? 'active' : ''}"><a
+			href="/acende_apaga_leds/sobre">${menu_sobre}</a></li>
 	</ul>
 </div>

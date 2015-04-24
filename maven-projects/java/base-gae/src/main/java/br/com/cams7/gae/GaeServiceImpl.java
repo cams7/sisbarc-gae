@@ -64,10 +64,10 @@ public abstract class GaeServiceImpl<R extends BaseRepository<E, ID>, D extends 
 	// getRepository().update(entities);
 	// }
 
-	// @Transactional
-	// public E remove(ID id) {
-	// return getRepository().remove(id);
-	// }
+	@Transactional
+	public E remove(ID id) {
+		return getRepository().remove(id);
+	}
 
 	@Transactional
 	public E remove(E entity) {

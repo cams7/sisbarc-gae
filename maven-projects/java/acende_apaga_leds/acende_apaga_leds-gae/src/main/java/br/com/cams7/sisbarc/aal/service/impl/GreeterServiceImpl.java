@@ -25,7 +25,7 @@ import br.com.cams7.sisbarc.aal.ws.HelloServiceImplService;
 @Service
 public class GreeterServiceImpl implements GreeterService {
 
-	private final String HOST = "200.141.159.222";
+	private final String HOST = "localhost";
 	private final String PORT = "8080";
 
 	@WebServiceRef(value = HelloServiceImplService.class)

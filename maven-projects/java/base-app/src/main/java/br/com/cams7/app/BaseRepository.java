@@ -28,7 +28,7 @@ public interface BaseRepository<E extends BaseEntity<ID>, ID extends Serializabl
 	 */
 	public E remove(E entity);
 
-	// public E remove(ID id);
+	public E remove(ID id);
 
 	/**
 	 * @param id

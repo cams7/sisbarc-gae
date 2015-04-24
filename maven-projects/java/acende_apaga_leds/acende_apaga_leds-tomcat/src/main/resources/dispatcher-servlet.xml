@@ -83,11 +83,23 @@
 	<bean id="jsonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 	</bean>
+	
+	<bean class="java.util.ArrayList" id="sobreApp">
+		<constructor-arg>
+			<list>
+				<value>sobre.title</value>
+				<value>sobre.built</value>
+				<value>sobre.site</value>
+				<value>sobre.build</value>
+			</list>
+		</constructor-arg>
+	</bean>
 
 	<!-- Considera a estrutura de pacote para percorrer classes com as anotacoes 
 		de injecao de dependencia do Spring como: @Component, @Repository e @Service. -->
 
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository.impl" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.rest" />
 </beans>

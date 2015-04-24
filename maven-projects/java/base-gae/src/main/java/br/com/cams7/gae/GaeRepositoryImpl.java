@@ -37,6 +37,13 @@ public abstract class GaeRepositoryImpl<E extends BaseEntity<ID>, ID extends Ser
 		// return entity;
 		return null;
 	}
+	
+	
+	@Override
+	public E remove(ID id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public E findOne(ID id) {

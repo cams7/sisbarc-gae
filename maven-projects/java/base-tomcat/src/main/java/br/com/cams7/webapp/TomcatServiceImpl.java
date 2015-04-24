@@ -50,10 +50,10 @@ public abstract class TomcatServiceImpl<R extends BaseRepository<E, ID>, E exten
 		return getRepository().remove(entity);
 	}
 
-	// @Transactional
-	// public E remove(ID id) {
-	// return getRepository().remove(id);
-	// }
+	@Transactional
+	public E remove(ID id) {
+		return getRepository().remove(id);
+	}
 
 	@Transactional(readOnly = true)
 	public E findOne(ID id) {

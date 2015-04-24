@@ -41,11 +41,12 @@ public abstract class TomcatRepositoryImpl<E extends BaseEntity<ID>, ID extends 
 		return entity;
 	}
 
-	// public E remove(ID id) {
-	// E entity = findOne(id);
-	// getEntityManager().remove(entity);
-	// return entity;
-	// }
+	@Override
+	public E remove(ID id) {
+		E entity = findOne(id);
+		getEntityManager().remove(entity);
+		return entity;
+	}
 
 	@Override
 	public E findOne(ID id) {

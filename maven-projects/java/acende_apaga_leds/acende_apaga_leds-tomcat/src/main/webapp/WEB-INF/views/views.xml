@@ -4,4 +4,23 @@
 	<definition extends="default" name="errorPage">
 		<put-attribute name="body" value="/WEB-INF/views/errorPage.jsp" />
 	</definition>
+
+	<definition extends="default" name="sobre">
+		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
+	</definition>
+
+	<definition extends="default" name="lista">
+		<put-attribute name="body"
+			value="/WEB-INF/views/listaFuncionarios.jsp" />
+	</definition>
+
+	<definition extends="default" name="incluir">
+		<put-attribute name="body"
+			value="/WEB-INF/views/incluirFuncionario.jsp" />
+	</definition>
+
+	<definition extends="default" name="editar">
+		<put-attribute name="body"
+			value="/WEB-INF/views/editarFuncionario.jsp" />
+	</definition>
 </tiles-definitions>

@@ -32,18 +32,18 @@
 	
 	<!-- Com esse filtro eh possivel mapear as acoes (metodos) na controller 
 		com methodos HTTP (like REST). -->
-	<filter>
+	<!-- filter>
 		<filter-name>HttpMethodFilter</filter-name>
 		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>HttpMethodFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping-->
 	
-	<listener>
+	<!-- listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
+	</listener-->
 
 	<!-- Mantem informacoes da pagina (tree) no cliente (hidden). -->
 	<context-param>
@@ -55,7 +55,8 @@
 		eh melhor. -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Production</param-value>
+		<!-- param-value>Production</param-value-->
+		<param-value>Development</param-value>
 	</context-param>
 
 	<!-- Sufixo das paginas com conteudo JSF. -->
@@ -74,6 +75,11 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
+	
+	<!-- context-param>
+		<param-name>primefaces.skin</param-name>
+		<param-value>none</param-value>
+	</context-param-->
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

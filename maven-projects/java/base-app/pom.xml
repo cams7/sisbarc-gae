@@ -16,7 +16,7 @@
 	<name>App - base</name>
 	<description>LIB comum as aplicacoes</description>
 
-	<dependencies>
+	<dependencies>	
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>

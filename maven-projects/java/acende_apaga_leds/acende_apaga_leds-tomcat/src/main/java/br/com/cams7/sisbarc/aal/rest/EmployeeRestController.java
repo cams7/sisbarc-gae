@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cams7.sisbarc.aal.service.EmployeeService;
 import br.com.cams7.app.BaseRestController;
-
 import br.com.cams7.sisbarc.aal.domain.EmployeeEntity;
 
 /**

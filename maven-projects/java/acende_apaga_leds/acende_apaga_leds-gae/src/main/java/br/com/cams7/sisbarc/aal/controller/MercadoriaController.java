@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.cams7.gae.BaseMVCController;
 import br.com.cams7.gae.GaeService;
-import br.com.cams7.gae.MVCController;
 import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 
@@ -39,7 +39,7 @@ import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 @RequestMapping(value = "/")
 @Controller
 public class MercadoriaController extends
-		MVCController<MercadoriaService, MercadoriaEntity, Long> {
+		BaseMVCController<MercadoriaService, MercadoriaEntity, Long> {
 
 	private final String ATTRIBUTE_MERCADORIAS = "mercadorias";
 	private final String ATTRIBUTE_MERCADORIA = "mercadoria";

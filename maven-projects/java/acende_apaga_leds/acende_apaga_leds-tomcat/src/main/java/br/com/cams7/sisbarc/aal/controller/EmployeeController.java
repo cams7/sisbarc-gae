@@ -9,15 +9,16 @@ import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.cams7.sisbarc.aal.domain.EmployeeEntity;
 import br.com.cams7.sisbarc.aal.service.EmployeeService;
-import br.com.cams7.webapp.JSFController;
+import br.com.cams7.webapp.BaseJSFController;
 
 /**
  * Principal componente do framework <code>Spring MVC</code>, esse é o
@@ -37,14 +38,16 @@ import br.com.cams7.webapp.JSFController;
  * @author cams7
  *
  */
-@Controller("funcionarioMB")
-// @Scope("request")
-@Scope("session")
+@Controller(EmployeeController.CONTROLLER_NAME)
+@ManagedBean(name = EmployeeController.CONTROLLER_NAME)
+@ViewScoped
 public class EmployeeController extends
-		JSFController<EmployeeService, EmployeeEntity, String> implements
+		BaseJSFController<EmployeeService, EmployeeEntity, String> implements
 		Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	public final static String CONTROLLER_NAME = "funcionarioMB";
 
 	/**
 	 * Referência para o funcionario utiliza na inclusão (nova) ou edição.

@@ -10,7 +10,7 @@ public abstract class BaseController<S extends BaseService<E, ID>, E extends Bas
 		extends AbstractBase<E> {
 
 	private final byte ENTITY_ARGUMENT_NUMBER = 1;
-
+	
 	/**
 	 * Utiliza a injeção de dependência do <code>Spring Framework</code> para
 	 * resolver a instancia do <code>Service/code>.

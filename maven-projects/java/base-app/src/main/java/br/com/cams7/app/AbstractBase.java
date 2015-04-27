@@ -3,7 +3,6 @@
  */
 package br.com.cams7.app;
 
-//import java.util.logging.Logger;
 import org.apache.log4j.Logger;
 
 import br.com.cams7.domain.BaseEntity;

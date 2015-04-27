@@ -21,8 +21,7 @@ public abstract class BaseEntity<PK extends Serializable> implements
 		Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static final byte ALLOCATION_SIZE = 1;
-	public static final byte INITIAL_VALUE = 1;
+	protected static final String MONGODB_ID = "_id";
 
 	public BaseEntity() {
 		super();

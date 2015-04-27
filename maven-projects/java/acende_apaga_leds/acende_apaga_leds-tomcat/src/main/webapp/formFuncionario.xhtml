@@ -35,6 +35,34 @@
 					</h:inputText>
 				</div>
 			</div>
+
+			<div class="control-group">
+				<label class="control-label"><h:outputText
+						value="#{msg['label.funcionario.situacao']}" /></label>
+				<div class="controls">
+					<h:selectOneMenu id="status"
+						value="#{funcionarioMB.funcionario.status}"
+						label="#{msg['label.funcionario.situacao']}"
+						styleClass="input-large">
+						<f:selectItems value="#{funcionarioMB.situacoes}" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"> <h:outputText
+						value="#{msg['label.funcionario.ativo']}" /></label>
+				<div class="controls">
+					<h:selectOneRadio id="active"
+						value="#{funcionarioMB.funcionario.active}"
+						label="#{msg['label.funcionario.ativo']}" styleClass="input-small">
+						<f:selectItem itemValue="#{true}"
+							itemLabel="#{msg['label.funcionario.ativo.sim']}" />
+						<f:selectItem itemValue="#{false}"
+							itemLabel="#{msg['label.funcionario.ativo.nao']}" />
+					</h:selectOneRadio>
+				</div>
+			</div>
 		</fieldset>
 
 		<div class="control-group">

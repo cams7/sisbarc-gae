@@ -46,12 +46,23 @@
 						<f:convertNumber type="currency" />
 					</h:outputText>
 				</h:column>
-			</h:dataTable>
 
-			<h:panelGrid columns="1">
-				<h:commandButton action="#{funcionarioMB.atualizar}"
-					value="#{msg['button.atualizar']}" styleClass="btn btn-success" />
-			</h:panelGrid>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['label.funcionario.situacao']}" />
+					</f:facet>
+					<h:outputText value="#{funcionario.status}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['label.funcionario.ativo']}" />
+					</f:facet>
+					<h:outputText
+						value="#{funcionario.active ? msg['label.funcionario.ativo.sim']: msg['label.funcionario.ativo.nao']}"
+						rendered="#{funcionario.active != null}" />
+				</h:column>
+			</h:dataTable>
 		</h:form>
 		<h:messages />
 	</ui:define>

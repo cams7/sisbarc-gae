@@ -13,10 +13,10 @@ import br.com.cams7.domain.BaseEntity;
  * @author cams7
  *
  */
-public abstract class BaseJSFController<S extends BaseService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
+public abstract class TomcatController<S extends BaseService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
 		extends BaseController<S, E, ID> {
 
-	public BaseJSFController() {
+	public TomcatController() {
 		super();
 	}
 

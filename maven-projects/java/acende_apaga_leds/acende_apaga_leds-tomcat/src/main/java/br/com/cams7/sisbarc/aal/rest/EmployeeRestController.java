@@ -32,7 +32,7 @@ public class EmployeeRestController extends
 
 		EmployeeEntity employee = new EmployeeEntity();
 		employee.setName("Dummy");
-		employee.setSalary(4500);
+		employee.setSalary(4500.);
 		employee.setHireDate(new Date());
 
 		getService().save(employee);

@@ -17,8 +17,9 @@ import javax.faces.model.ListDataModel;
 import org.springframework.stereotype.Controller;
 
 import br.com.cams7.sisbarc.aal.domain.EmployeeEntity;
+import br.com.cams7.sisbarc.aal.domain.EmployeeEntity.Status;
 import br.com.cams7.sisbarc.aal.service.EmployeeService;
-import br.com.cams7.webapp.BaseJSFController;
+import br.com.cams7.webapp.TomcatController;
 
 /**
  * Principal componente do framework <code>Spring MVC</code>, esse é o
@@ -42,7 +43,7 @@ import br.com.cams7.webapp.BaseJSFController;
 @ManagedBean(name = EmployeeController.CONTROLLER_NAME)
 @ViewScoped
 public class EmployeeController extends
-		BaseJSFController<EmployeeService, EmployeeEntity, String> implements
+		TomcatController<EmployeeService, EmployeeEntity, String> implements
 		Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -169,14 +170,6 @@ public class EmployeeController extends
 	}
 
 	/**
-	 * Operação acionada pela tela de listagem, através do
-	 * <code>commandButton</code> <strong>Atualizar</strong>.
-	 */
-	public void atualizar() {
-		fillFuncionarios();
-	}
-
-	/**
 	 * Operação acionada toda a vez que a tela de listagem for carregada.
 	 */
 	public void reset() {
@@ -227,6 +220,10 @@ public class EmployeeController extends
 				null,
 				new FacesMessage(summary, summary.concat("<br/>")
 						.concat(detail)));
+	}
+
+	public Status[] getSituacoes() {
+		return Status.values();
 	}
 
 }

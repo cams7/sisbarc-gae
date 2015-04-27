@@ -34,6 +34,8 @@
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.ws" />
 
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.faces.convert" />
+
 	<wss:binding url="/sayhello">
 		<wss:service>
 			<ws:service bean="#helloWS" />

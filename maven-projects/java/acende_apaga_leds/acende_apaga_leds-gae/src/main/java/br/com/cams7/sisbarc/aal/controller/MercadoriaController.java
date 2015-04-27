@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.cams7.app.BaseController;
 import br.com.cams7.gae.GaeService;
+import br.com.cams7.gae.MVCController;
 import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 
@@ -39,7 +39,22 @@ import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 @RequestMapping(value = "/")
 @Controller
 public class MercadoriaController extends
-		BaseController<MercadoriaService, MercadoriaEntity, Long> {
+		MVCController<MercadoriaService, MercadoriaEntity, Long> {
+
+	private final String ATTRIBUTE_MERCADORIAS = "mercadorias";
+	private final String ATTRIBUTE_MERCADORIA = "mercadoria";
+	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
+
+	private final String ROOT_PAGE = "redirect:/";
+	private final String LIST_PAGE = "lista";
+
+	private final String FORM_PAGE = "form";
+	private final String INCLUDE_PAGE = "incluir";
+	private final String EDIT_PAGE = "editar";
+
+	// private final String DELETE_PAGE = "";
+
+	private final String ABOUT_PAGE = "sobre";
 
 	@Autowired
 	@Qualifier("sobreApp")
@@ -59,9 +74,9 @@ public class MercadoriaController extends
 	@RequestMapping(method = RequestMethod.GET)
 	public String listar(Model uiModel) {
 		List<MercadoriaEntity> mercadorias = getService().findAll();
-		uiModel.addAttribute("mercadorias", mercadorias);
+		uiModel.addAttribute(ATTRIBUTE_MERCADORIAS, mercadorias);
 
-		return "lista";
+		return LIST_PAGE;
 	}
 
 	/**
@@ -70,15 +85,15 @@ public class MercadoriaController extends
 	 * @param uiModel
 	 * @return url da página de inclusão.
 	 */
-	@RequestMapping(params = "form", method = RequestMethod.GET)
+	@RequestMapping(params = FORM_PAGE, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
 		MercadoriaEntity mercadoria = new MercadoriaEntity();
 
-		uiModel.addAttribute("mercadoria", mercadoria);
-		uiModel.addAttribute("active", "incluir");
+		uiModel.addAttribute(ATTRIBUTE_MERCADORIA, mercadoria);
+		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, INCLUDE_PAGE);
 
 		getLog().debug("Pronto para incluir mercadoria");
-		return "incluir";
+		return INCLUDE_PAGE;
 	}
 
 	/**
@@ -92,18 +107,18 @@ public class MercadoriaController extends
 	 * @return a url para a listagem, se algum erro de validação for encontrado
 	 *         volta para a pagina de inclusão.
 	 */
-	@RequestMapping(value = "incluir", method = RequestMethod.POST)
+	@RequestMapping(value = INCLUDE_PAGE, method = RequestMethod.POST)
 	public String criar(@Valid MercadoriaEntity mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute("mercadoria", mercadoria);
-			uiModel.addAttribute("active", "incluir");
-			return "incluir";
+			uiModel.addAttribute(ATTRIBUTE_MERCADORIA, mercadoria);
+			uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, INCLUDE_PAGE);
+			return INCLUDE_PAGE;
 		}
 
 		getService().save(mercadoria);
 
-		return "redirect:/";
+		return ROOT_PAGE;
 	}
 
 	/**
@@ -115,16 +130,16 @@ public class MercadoriaController extends
 	 *            armazena o objeto mercadoria que deverá ser alterado.
 	 * @return url da página de edição.
 	 */
-	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", params = FORM_PAGE, method = RequestMethod.GET)
 	public String editarForm(@PathVariable("id") Long id, Model uiModel) {
 		MercadoriaEntity mercadoria = getService().findOne(id);
 
 		if (mercadoria != null) {
-			uiModel.addAttribute("mercadoria", mercadoria);
+			uiModel.addAttribute(ATTRIBUTE_MERCADORIA, mercadoria);
 			getLog().debug("Pronto para editar mercadoria");
 		}
 
-		return "editar";
+		return EDIT_PAGE;
 	}
 
 	/**
@@ -139,17 +154,17 @@ public class MercadoriaController extends
 	 *         volta para a pagina de edição.
 	 */
 	// @RequestMapping(method = RequestMethod.PUT)
-	@RequestMapping(value = "editar", method = RequestMethod.POST)
+	@RequestMapping(value = EDIT_PAGE, method = RequestMethod.POST)
 	public String editar(@Valid MercadoriaEntity mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute("mercadoria", mercadoria);
-			return "editar";
+			uiModel.addAttribute(ATTRIBUTE_MERCADORIA, mercadoria);
+			return EDIT_PAGE;
 		}
 
 		getService().update(mercadoria);
 
-		return "redirect:/";
+		return ROOT_PAGE;
 	}
 
 	/**
@@ -167,7 +182,7 @@ public class MercadoriaController extends
 		if (mercadoria != null)
 			getService().remove(mercadoria);
 
-		return "redirect:/";
+		return ROOT_PAGE;
 	}
 
 	/**
@@ -179,14 +194,14 @@ public class MercadoriaController extends
 	@RequestMapping(value = "synch", method = RequestMethod.GET)
 	public String atualizar() {
 		((GaeService<?, ?>) getService()).synch();
-		return "redirect:/";
+		return ROOT_PAGE;
 	}
 
-	@RequestMapping(value = "sobre", method = RequestMethod.GET)
+	@RequestMapping(value = ABOUT_PAGE, method = RequestMethod.GET)
 	public String sobre(Model uiModel) {
-		uiModel.addAttribute("sobre", sobre);
-		uiModel.addAttribute("active", "sobre");
-		return "sobre";
+		uiModel.addAttribute(ABOUT_PAGE, sobre);
+		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, ABOUT_PAGE);
+		return ABOUT_PAGE;
 	}
 
 }

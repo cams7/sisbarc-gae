@@ -20,6 +20,7 @@
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<apache.tiles.version>2.2.2</apache.tiles.version>
 		<org.slf4j.version>1.7.10</org.slf4j.version>
+		<jsf.version>2.2.10</jsf.version>
 		
 		<eclipselink.version>2.6.0-M3</eclipselink.version>
 	</properties>
@@ -35,6 +36,11 @@
 			<id>oss.sonatype.org</id>
 			<name>OSS Sonatype Staging</name>
 			<url>https://oss.sonatype.org/content/groups/staging</url>
+		</repository>
+		<repository>
+			<id>primefaces-repository</id>
+			<name>Primefaces repository</name>
+			<url>http://repository.primefaces.org</url>
 		</repository>
 	</repositories>
 	
@@ -245,6 +251,29 @@
 						<artifactId>servlet-api</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>${jsf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>${jsf.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sun.el</groupId>
+				<artifactId>el-ri</artifactId>
+				<version>1.0</version>
+			</dependency>
+
+			<dependency> 
+				<groupId>org.primefaces</groupId> 
+				<artifactId>primefaces</artifactId> 
+				<version>5.2</version> 
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans.xsd     
-						http://www.springframework.org/schema/context 	http://www.springframework.org/schema/context/spring-context.xsd
-						http://www.springframework.org/schema/tx 		http://www.springframework.org/schema/tx/spring-tx.xsd 
+						http://www.springframework.org/schema/context 	http://www.springframework.org/schema/context/spring-context.xsd						 
 						http://www.springframework.org/schema/mvc 		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- Habilita o uso de anotacoes para o Spring MVC. -->
@@ -14,35 +13,15 @@
 	<!-- Permite utilizar a barra ("/") como conteudo mapeado pelo Spring MVC. -->
 	<mvc:default-servlet-handler />
 
-	<!-- Ativa o uso de anotacoes complementares ao contexto do Spring. -->
-	<context:annotation-config />
-
-	<!-- Necessary to get the entity manager injected into the factory bean -->
-	<bean
-		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-
-	<!-- Entity Manager Factory -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="acendeApagaLEDsUnit"></property>
-	</bean>
-	<!-- Transaction Manager -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-
-	<!-- Detect @Transactional -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
 	<!-- Bean para ativar o tiles com Spring MVC. -->
-	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+	<!-- bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"
 		id="tilesViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
-	</bean>
+	</bean-->
 
 	<!-- Bean para informar ao tiles as configuracoes de templates e telas. -->
-	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
+	<!-- bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
 		id="tilesConfigurer">
 		<property name="definitions">
 			<list>
@@ -50,24 +29,24 @@
 				<value>/WEB-INF/views/**/views.xml</value>
 			</list>
 		</property>
-	</bean>
+	</bean-->
 
 	<!-- Bean para ativar a leitura do properties de arcordo com o locale -->
-	<bean
+	<!-- bean
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
 		id="messageSource" p:basenames="WEB-INF/i18n/messages"
-		p:fallbackToSystemLocale="false" />
+		p:fallbackToSystemLocale="false" /-->
 
 	<!-- Configura a aplicacao com locale pt-BR por default. -->
-	<bean id="localeResolver"
+	<!-- bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="pt_BR" />
-	</bean>
+	</bean-->
 
 	<!-- Bean para mapear os erros para pagina de excecao do aplicativo -->
-	<bean
+	<!-- bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"
-		p:defaultErrorView="errorPage" />
+		p:defaultErrorView="errorPage" /-->
 
 	<!-- Configure to plugin JSON as request and response in method handler -->
 	<bean
@@ -84,7 +63,7 @@
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 	</bean>
 	
-	<bean class="java.util.ArrayList" id="sobreApp">
+	<!-- bean class="java.util.ArrayList" id="sobreApp">
 		<constructor-arg>
 			<list>
 				<value>sobre.title</value>
@@ -93,13 +72,10 @@
 				<value>sobre.build</value>
 			</list>
 		</constructor-arg>
-	</bean>
+	</bean-->
 
 	<!-- Considera a estrutura de pacote para percorrer classes com as anotacoes 
 		de injecao de dependencia do Spring como: @Component, @Repository e @Service. -->
-
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository.impl" />
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />
+		
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.rest" />
 </beans>

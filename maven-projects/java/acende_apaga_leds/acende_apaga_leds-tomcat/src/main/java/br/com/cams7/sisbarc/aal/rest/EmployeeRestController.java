@@ -19,7 +19,7 @@ import br.com.cams7.sisbarc.aal.domain.EmployeeEntity;
  * Handles requests for the Employee service.
  */
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/")
 public class EmployeeRestController extends
 		BaseRestController<EmployeeService, EmployeeEntity, String> {
 

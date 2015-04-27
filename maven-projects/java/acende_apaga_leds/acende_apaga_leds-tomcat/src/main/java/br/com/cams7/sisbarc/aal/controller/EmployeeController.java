@@ -1,22 +1,23 @@
 package br.com.cams7.sisbarc.aal.controller;
 
+import static javax.faces.context.FacesContext.getCurrentInstance;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-import javax.validation.Valid;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.cams7.app.BaseController;
 import br.com.cams7.sisbarc.aal.domain.EmployeeEntity;
 import br.com.cams7.sisbarc.aal.service.EmployeeService;
+import br.com.cams7.webapp.JSFController;
 
 /**
  * Principal componente do framework <code>Spring MVC</code>, esse é o
@@ -36,159 +37,193 @@ import br.com.cams7.sisbarc.aal.service.EmployeeService;
  * @author cams7
  *
  */
-@RequestMapping(value = "/")
-@Controller
+@Controller("funcionarioMB")
+// @Scope("request")
+@Scope("session")
 public class EmployeeController extends
-		BaseController<EmployeeService, EmployeeEntity, String> {
+		JSFController<EmployeeService, EmployeeEntity, String> implements
+		Serializable {
 
-	private final String ATTRIBUTE_EMPLOYEES = "funcionarios";
-	private final String ATTRIBUTE_EMPLOYEE = "funcionario";
-	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
+	private static final long serialVersionUID = 1L;
 
-	private final String ROOT_PAGE = "redirect:/";
-	private final String LIST_PAGE = "lista";
+	/**
+	 * Referência para o funcionario utiliza na inclusão (nova) ou edição.
+	 */
+	private EmployeeEntity funcionario;
 
-	private final String FORM_PAGE = "form";
-	private final String INCLUDE_PAGE = "incluir";
-	private final String EDIT_PAGE = "editar";
+	/**
+	 * Informação é utilizada na edição do funcionario, quando a seleção de um
+	 * registro na listagem ocorrer.
+	 */
+	private String idSelecionado;
 
-	// private final String DELETE_PAGE = "";
-
-	private final String ABOUT_PAGE = "sobre";
-
-	@Autowired
-	@Qualifier("sobreApp")
-	private ArrayList<?> sobre;
+	/**
+	 * Mantém os funcionarios apresentadas na listagem indexadas pelo id.
+	 * <strong>Importante:</strong> a consulta (query) no DataStore do App
+	 * Engine pode retornar <i>dados antigos</i>, que já foram removidos ou que
+	 * ainda não foram incluidos, devido a replicação dos dados.
+	 * 
+	 * Dessa forma esse hashmap mantém um espelho do datastore para minizar o
+	 * impacto desse modelo do App Engine.
+	 */
+	// private Map<String, EmployeeEntity> funcionarios;
+	private List<EmployeeEntity> funcionarios;
 
 	public EmployeeController() {
 		super();
 	}
 
-	/**
-	 * Ponto de entrada da aplicação ("/").
-	 * 
-	 * @param uiModel
-	 *            recebe a lista de funcionarios.
-	 * @return url para a pagina de listagem de funcionarios.
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public String listar(Model uiModel) {
-		List<EmployeeEntity> employees = getService().findAll();
-		uiModel.addAttribute(ATTRIBUTE_EMPLOYEES, employees);
+	@PostConstruct
+	private void ini() {
+		// getLog().info("Service = " + getService());
+		fillFuncionarios();
+	}
 
-		return LIST_PAGE;
+	public EmployeeEntity getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(EmployeeEntity funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public void setIdSelecionado(String idSelecionado) {
+		this.idSelecionado = idSelecionado;
+	}
+
+	public String getIdSelecionado() {
+		return idSelecionado;
 	}
 
 	/**
-	 * Método executado antes de carregar a tela de inclusão de funcionario.
-	 * 
-	 * @param uiModel
-	 * @return url da página de inclusão.
+	 * @return <code>DataModel</code> para carregar a lista de funcionarios.
 	 */
-	@RequestMapping(params = FORM_PAGE, method = RequestMethod.GET)
-	public String criarForm(Model uiModel) {
-		EmployeeEntity employee = new EmployeeEntity();
+	public DataModel<EmployeeEntity> getDmFuncionarios() {
+		return new ListDataModel<EmployeeEntity>(new ArrayList<EmployeeEntity>(
+				funcionarios));
+	}
 
-		uiModel.addAttribute(ATTRIBUTE_EMPLOYEE, employee);
-		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, INCLUDE_PAGE);
-
-		getLog().debug("Pronto para incluir funcionario");
-		return INCLUDE_PAGE;
+	private void fillFuncionarios() {
+		// try {
+		// List<EmployeeEntity> qryMercadorias = new ArrayList<EmployeeEntity>(
+		// getService().findAll());
+		// funcionarios = new HashMap<String, EmployeeEntity>();
+		// for (EmployeeEntity funcionario : qryMercadorias) {
+		// funcionarios.put(funcionario.getId(), funcionario);
+		// }
+		//
+		// getLog().debug(
+		// "Carregou a lista de funcionarios (" + funcionarios.size()
+		// + ")");
+		// } catch (Exception ex) {
+		// getLog().error("Erro ao carregar a lista de funcionarios.", ex);
+		// addMessage(getMessageFromI18N("msg.erro.listar.funcionario"),
+		// ex.getMessage());
+		// }
+		funcionarios = getService().findAll();
 	}
 
 	/**
-	 * Método executado na inserção de funcionario.
-	 * 
-	 * @param employee
-	 *            instância com os dados preenchidos na tela
-	 * @param bindingResult
-	 *            componente usado para verificar problemas com validação.
-	 * @param uiModel
-	 * @return a url para a listagem, se algum erro de validação for encontrado
-	 *         volta para a pagina de inclusão.
+	 * Ação executada quando a página de inclusão de funcionarios for carregada.
 	 */
-	@RequestMapping(value = INCLUDE_PAGE, method = RequestMethod.POST)
-	public String criar(@Valid EmployeeEntity employee,
-			BindingResult bindingResult, Model uiModel) {
-		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute(ATTRIBUTE_EMPLOYEE, employee);
-			uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, INCLUDE_PAGE);
-			return INCLUDE_PAGE;
+	public void incluir() {
+		funcionario = new EmployeeEntity();
+		getLog().debug("Pronto pra incluir");
+	}
+
+	/**
+	 * Ação executada quando a página de edição de funcionarios for carregada.
+	 */
+	public void editar() {
+		if (idSelecionado == null) {
+			return;
 		}
-
-		getService().save(employee);
-
-		return ROOT_PAGE;
+		funcionario = getService().findOne(idSelecionado);
+		getLog().debug("Pronto pra editar");
 	}
 
 	/**
-	 * Método executado antes de carregar a tela de edição de funcionarios.
+	 * Operação acionada pela tela de inclusão ou edição, através do
+	 * <code>commandButton</code> <strong>Salvar</strong>.
 	 * 
-	 * @param id
-	 *            do funcionario que deve ser editado.
-	 * @param uiModel
-	 *            armazena o objeto funcionario que deverá ser alterado.
-	 * @return url da página de edição.
+	 * @return Se a inclusão/edição foi realizada vai para listagem, senão
+	 *         permanece na mesma tela.
 	 */
-	@RequestMapping(value = "/{id}", params = FORM_PAGE, method = RequestMethod.GET)
-	public String editarForm(@PathVariable("id") String id, Model uiModel) {
-		EmployeeEntity employee = getService().findOne(id);
-
-		if (employee != null) {
-			uiModel.addAttribute(ATTRIBUTE_EMPLOYEE, employee);
-			getLog().debug("Pronto para editar funcionario");
+	public String salvar() {
+		try {
+			getService().save(funcionario);
+		} catch (Exception ex) {
+			getLog().error("Erro ao salvar funcionario.", ex);
+			addMessage(getMessageFromI18N("msg.erro.salvar.funcionario"),
+					ex.getMessage());
+			return null;
 		}
+		fillFuncionarios();
 
-		return EDIT_PAGE;
+		getLog().debug("Salvour funcionario " + funcionario.getId());
+
+		return "listaFuncionarios";
 	}
 
 	/**
-	 * Método executado ao salvar a edição de funcionario.
-	 * 
-	 * @param employee
-	 *            objeto com os dados enviados pela tela.
-	 * @param bindingResult
-	 *            componente usado para verificar problemas com validação.
-	 * @param uiModel
-	 * @return a url para a listagem, se algum erro de validação for encontrado
-	 *         volta para a pagina de edição.
+	 * Operação acionada pela tela de listagem, através do
+	 * <code>commandButton</code> <strong>Atualizar</strong>.
 	 */
-	// @RequestMapping(method = RequestMethod.PUT)
-	@RequestMapping(value = EDIT_PAGE, method = RequestMethod.POST)
-	public String editar(@Valid EmployeeEntity employee,
-			BindingResult bindingResult, Model uiModel) {
-		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute(ATTRIBUTE_EMPLOYEE, employee);
-			return EDIT_PAGE;
+	public void atualizar() {
+		fillFuncionarios();
+	}
+
+	/**
+	 * Operação acionada toda a vez que a tela de listagem for carregada.
+	 */
+	public void reset() {
+		funcionario = null;
+		idSelecionado = null;
+	}
+
+	/**
+	 * Operação acionada pela tela de edição, através do
+	 * <code>commandButton</code> <strong>Excluir</strong>.
+	 * 
+	 * @return Se a exclusão for realizada vai para a listagem, senão permanece
+	 *         na mesma tela.
+	 */
+	public String remover() {
+		try {
+			getService().remove(funcionario);
+			fillFuncionarios();
+		} catch (Exception ex) {
+			getLog().error("Erro ao remover funcionario.", ex);
+			addMessage(getMessageFromI18N("msg.erro.remover.funcionario"),
+					ex.getMessage());
+			return "";
 		}
-
-		getService().update(employee);
-
-		return ROOT_PAGE;
+		getLog().debug("Removeu funcionario " + funcionario.getId());
+		return "listaFuncionarios";
 	}
 
 	/**
-	 * Método executado na exclusão do funcionario.
-	 * 
-	 * @param id
-	 *            do funcionario que deverá ser removido.
-	 * @param uiModel
-	 * @return url da página de listagem.
+	 * @param key
+	 * @return Recupera a mensagem do arquivo properties
+	 *         <code>ResourceBundle</code>.
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public String remover(@PathVariable("id") String id, Model uiModel) {
-		EmployeeEntity employeee = getService().remove(id);
-		if (employeee != null)
-			getLog().debug("Funcionario removido");
-
-		return ROOT_PAGE;
+	private String getMessageFromI18N(String key) {
+		ResourceBundle bundle = ResourceBundle.getBundle("messages_labels",
+				getCurrentInstance().getViewRoot().getLocale());
+		return bundle.getString(key);
 	}
 
-	@RequestMapping(value = ABOUT_PAGE, method = RequestMethod.GET)
-	public String sobre(Model uiModel) {
-		uiModel.addAttribute(ABOUT_PAGE, sobre);
-		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, ABOUT_PAGE);
-		return ABOUT_PAGE;
+	/**
+	 * Adiciona um mensagem no contexto do Faces (<code>FacesContext</code>).
+	 * 
+	 * @param summary
+	 * @param detail
+	 */
+	private void addMessage(String summary, String detail) {
+		getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(summary, summary.concat("<br/>")
+						.concat(detail)));
 	}
 
 }

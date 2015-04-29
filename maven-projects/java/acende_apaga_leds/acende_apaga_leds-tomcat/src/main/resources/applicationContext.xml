@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:ws="http://jax-ws.dev.java.net/spring/core"
-	xmlns:wss="http://jax-ws.dev.java.net/spring/servlet" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans.xsd	
-							http://www.springframework.org/schema/context	http://www.springframework.org/schema/context/spring-context.xsd
-							http://www.springframework.org/schema/tx 		http://www.springframework.org/schema/tx/spring-tx.xsd
-							http://jax-ws.dev.java.net/spring/core    		http://jax-ws.dev.java.net/spring/core.xsd
-							http://jax-ws.dev.java.net/spring/servlet  		http://jax-ws.dev.java.net/spring/servlet.xsd"-->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans.xsd	
-							http://www.springframework.org/schema/context	http://www.springframework.org/schema/context/spring-context.xsd
-							http://www.springframework.org/schema/tx 		http://www.springframework.org/schema/tx/spring-tx.xsd">
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:ws="http://jax-ws.dev.java.net/spring/core" xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 			http://www.springframework.org/schema/beans/spring-beans.xsd	
+							http://www.springframework.org/schema/context		http://www.springframework.org/schema/context/spring-context.xsd
+							http://www.springframework.org/schema/tx 			http://www.springframework.org/schema/tx/spring-tx.xsd
+							http://www.springframework.org/schema/data/mongo 	http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+							http://jax-ws.dev.java.net/spring/core    			http://jax-ws.dev.java.net/spring/core.xsd
+							http://jax-ws.dev.java.net/spring/servlet  			http://jax-ws.dev.java.net/spring/servlet.xsd">
 
 	<!-- Ativa o uso de anotacoes complementares ao contexto do Spring. -->
 	<context:annotation-config />
@@ -40,12 +36,24 @@
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />
 
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.faces.convert" />
-	
-	<!-- context:component-scan base-package="br.com.cams7.sisbarc.aal.ws" />
 
-	<wss:binding url="/sayhello">
-		<wss:service>
-			<ws:service bean="#helloWS" />
-		</wss:service>
-	</wss:binding-->
+	<!-- context:component-scan base-package="br.com.cams7.sisbarc.aal.ws" /> 
+		<wss:binding url="/sayhello"> <wss:service> <ws:service bean="#helloWS" /> 
+		</wss:service> </wss:binding -->
+
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.domain" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository" />
+
+	<!-- mongo:mongo host="localhost" port="27017" /> <mongo:db-factory dbname="sisbarc" 
+		/> <mongo:repositories base-package="com.vitalflux.mongo.repositories" / -->
+
+	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+		<property name="host" value="localhost" />
+	</bean>
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="sisbarc" />
+	</bean>
+
+	<mongo:repositories base-package="br.com.cams7.sisbarc.aal.repository" />
 </beans>

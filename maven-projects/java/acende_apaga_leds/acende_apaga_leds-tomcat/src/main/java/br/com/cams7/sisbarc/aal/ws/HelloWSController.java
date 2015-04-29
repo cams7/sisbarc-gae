@@ -14,14 +14,14 @@ import org.springframework.stereotype.Controller;
 
 import br.com.cams7.sisbarc.aal.ws.HelloService;
 
-//@Controller("helloWS")
-//@WebService(endpointInterface = "br.com.cams7.sisbarc.aal.ws.HelloService")
-public class HelloWSController /*implements HelloService*/ {
+@Controller("helloWS")
+@WebService(endpointInterface = "br.com.cams7.sisbarc.aal.ws.HelloService")
+public class HelloWSController implements HelloService {
 
 	@Resource
 	private WebServiceContext serviceContext;
 
-//	@Override
+	@Override
 	public String printMessage(String message) {
 
 		MessageContext messageContext = serviceContext.getMessageContext();

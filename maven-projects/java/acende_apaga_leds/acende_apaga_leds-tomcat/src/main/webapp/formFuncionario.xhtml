@@ -1,87 +1,97 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<h:form styleClass="form-horizontal">
-		<fieldset>
-			<legend>
-				<h3>
-					<h:outputText value="#{msg['label.funcionario']}" />
-					<small> <h:outputText value="#{subtitle}" /></small>
-				</h3>
-			</legend>
-			<div class="control-group">
-				<label class="control-label"><h:outputText
-						value="#{msg['label.funcionario.nome']}" /></label>
-				<div class="controls">
-					<h:inputText value="#{funcionarioMB.funcionario.name}"
-						label="#{msg['label.funcionario.nome']}" required="true"
-						styleClass="input-large">
-						<f:validateLength minimum="5" maximum="60" />
-					</h:inputText>
-				</div>
-			</div>
+	<p:outputPanel id="funcionarioDetail" style="text-align:center;">
+		<p:panelGrid columns="2" columnClasses="value" style="width:100%"
+			rendered="#{not empty funcionario}">
+			<f:facet name="header">
+			</f:facet>
 
-			<div class="control-group">
-				<label class="control-label"><h:outputText
-						value="#{msg['label.funcionario.salario']}" /></label>
-				<div class="controls">
-					<h:inputText value="#{funcionarioMB.funcionario.salary}"
-						label="#{msg['label.funcionario.salario']}" required="true"
-						styleClass="input-small">
-						<f:convertNumber minFractionDigits="2" />
-						<f:validateDoubleRange minimum="1" />
-					</h:inputText>
-				</div>
-			</div>
+			<c:if test="#{funcionario.id != null}">
+				<p:outputLabel for="employeeId"
+					value="#{msg['label.funcionario.id']}" />
+				<h:outputText id="employeeId" value="#{funcionario.id}"
+					label="#{msg['label.funcionario.id']}" />
+			</c:if>
 
-			<div class="control-group">
-				<label class="control-label"><h:outputText
-						value="#{msg['label.funcionario.situacao']}" /></label>
-				<div class="controls">
-					<h:selectOneMenu id="status"
-						value="#{funcionarioMB.funcionario.status}"
-						label="#{msg['label.funcionario.situacao']}"
-						styleClass="input-large">
-						<f:selectItems value="#{funcionarioMB.situacoes}" />
-					</h:selectOneMenu>
-				</div>
-			</div>
+			<p:outputLabel for="employeeName"
+				value="#{msg['label.funcionario.nome']}" />
+			<h:inputText id="employeeName" value="#{funcionario.name}"
+				label="#{msg['label.funcionario.nome']}" styleClass="input-large" />
 
-			<div class="control-group">
-				<label class="control-label"> <h:outputText
-						value="#{msg['label.funcionario.ativo']}" /></label>
-				<div class="controls">
-					<h:selectOneRadio id="active"
-						value="#{funcionarioMB.funcionario.active}"
-						label="#{msg['label.funcionario.ativo']}" styleClass="input-small">
-						<f:selectItem itemValue="#{true}"
-							itemLabel="#{msg['label.funcionario.ativo.sim']}" />
-						<f:selectItem itemValue="#{false}"
-							itemLabel="#{msg['label.funcionario.ativo.nao']}" />
-					</h:selectOneRadio>
-				</div>
-			</div>
-		</fieldset>
+			<p:outputLabel for="employeeSalary"
+				value="#{msg['label.funcionario.salario']}" />
+			<h:inputText id="employeeSalary" value="#{funcionario.salary}"
+				label="#{msg['label.funcionario.salario']}" styleClass="input-small" />
 
-		<div class="control-group">
-			<div class="controls">
-				<h:commandButton value="#{msg['button.salvar']}"
-					action="#{funcionarioMB.salvar}" styleClass="btn btn-success" />
-				<h:button value="#{msg['button.cancelar']}"
-					outcome="listaFuncionarios" styleClass="btn" />
-				<h:commandButton value="#{msg['button.excluir']}"
-					action="#{funcionarioMB.remover}"
-					rendered="#{funcionarioMB.funcionario.id != null}" immediate="true"
-					styleClass="btn btn-danger" />
-			</div>
-		</div>
-	</h:form>
+			<p:outputLabel for="employeeHireDate"
+				value="#{msg['label.funcionario.dataAdmissao']}" />
+			<p:calendar id="employeeHireDate" value="#{funcionario.hireDate}" />
 
-	<h:panelGroup layout="block" class="alert alert-error"
-		rendered="#{facesContext.validationFailed or not empty facesContext.messageList }">
-		<h:messages showDetail="true" showSummary="false" />
-	</h:panelGroup>
+			<c:if test="#{funcionario.id != null}">
+				<p:outputLabel for="employeeResignationDate"
+					value="#{msg['label.funcionario.dataDemissao']}" />
+				<p:calendar id="employeeResignationDate"
+					value="#{funcionario.resignationDate}" />
+			</c:if>
 
+			<p:outputLabel for="employeeStatus"
+				value="#{msg['label.funcionario.situacao']}" />
+			<h:selectOneMenu id="employeeStatus" value="#{funcionario.status}"
+				label="#{msg['label.funcionario.situacao']}"
+				styleClass="input-large">
+				<f:selectItems value="#{funcionarioMB.situacoes}" />
+			</h:selectOneMenu>
+
+
+			<p:outputLabel for="employeeActive"
+				value="#{msg['label.funcionario.ativo']}" />
+			<h:selectOneRadio id="employeeActive" value="#{funcionario.active}"
+				label="#{msg['label.funcionario.ativo']}" styleClass="input-small">
+				<f:selectItem itemValue="#{true}"
+					itemLabel="#{msg['label.funcionario.ativo.sim']}" />
+				<f:selectItem itemValue="#{false}"
+					itemLabel="#{msg['label.funcionario.ativo.nao']}" />
+			</h:selectOneRadio>
+
+			<f:facet name="footer">
+				<c:choose>
+					<c:when test="#{funcionario.id != null}">
+						<p:commandButton value="#{msg['button.salvar']}"
+							actionListener="#{funcionarioMB.updateEntity}"
+							styleClass="btn btn-success"
+							oncomplete="handleUpdateRequest(xhr, status, args)"
+							update="mensagens" />
+						<p:commandButton value="#{msg['button.excluir']}"
+							actionListener="#{funcionarioMB.removeEntity}"
+							styleClass="btn btn-danger"
+							oncomplete="handleUpdateRequest(xhr, status, args)"
+							update="mensagens,funcionarios:totalRows" immediate="true"
+							rendered="#{funcionario.id != null}" />
+						<p:button value="#{msg['button.cancelar']}"
+							onclick="PF('funcionarioDialog').hide();" styleClass="btn" />
+					</c:when>
+					<c:otherwise>
+						<p:commandButton value="#{msg['button.salvar']}"
+							action="#{funcionarioMB.saveEntity}" styleClass="btn btn-success"
+							update="mensagens" />
+					</c:otherwise>
+				</c:choose>
+			</f:facet>
+		</p:panelGrid>
+	</p:outputPanel>
+
+	<script type="text/javascript">
+		function handleUpdateRequest(xhr, status, args) {
+			if (args.validationFailed || !args.changedEntity)
+				return;
+
+			PF('funcionarioDialog').hide();
+			PF('funcionariosTable').filter();
+		}
+	</script>
 </ui:fragment>

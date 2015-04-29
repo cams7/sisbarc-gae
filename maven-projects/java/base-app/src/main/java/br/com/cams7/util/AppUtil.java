@@ -77,21 +77,20 @@ public final class AppUtil {
 		return type;
 	}
 
-	public static BaseEntity<?> getNewEntity(Class<BaseEntity<?>> entityType)
-			throws AppException {
+	public static <E extends BaseEntity<ID>, ID extends Serializable> E getNewEntity(
+			Class<E> entityType) throws AppException {
 		try {
-			BaseEntity<?> entity = entityType.newInstance();
+			E entity = entityType.newInstance();
 			return entity;
 		} catch (InstantiationException | IllegalAccessException e) {
 			throw new AppException(e.getMessage(), e.getCause());
 		}
 	}
 
-	public static <ID extends Serializable> BaseEntity<ID> getNewEntity(
-			Class<BaseEntity<?>> entityType, ID id) throws AppException {
+	public static <E extends BaseEntity<ID>, ID extends Serializable> E getNewEntity(
+			Class<E> entityType, ID id) throws AppException {
 
-		@SuppressWarnings("unchecked")
-		BaseEntity<ID> entity = (BaseEntity<ID>) getNewEntity(entityType);
+		E entity = getNewEntity(entityType);
 		entity.setId(id);
 
 		return entity;

@@ -14,7 +14,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.app.BaseRepository;
 import br.com.cams7.domain.BaseEntity;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
@@ -23,7 +22,7 @@ import br.com.cams7.util.AppUtil;
  * @author cesar
  *
  */
-public abstract class GaeServiceImpl<R extends BaseRepository<E, ID>, D extends DataSource<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
+public abstract class GaeServiceImpl<R extends GaeRepository<E, ID>, D extends DataSource<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
 		extends AbstractBase<E> implements GaeService<E, ID> {
 
 	private final byte DS_ARGUMENT_NUMBER = 1;

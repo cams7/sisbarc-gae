@@ -13,7 +13,7 @@ import br.com.cams7.domain.BaseEntity;
  *
  */
 public interface GaeService<E extends BaseEntity<ID>, ID extends Serializable>
-		extends BaseService<E, ID> {
+		extends BaseService<E, ID>, GaeRepository<E, ID> {
 
 	void synch();
 

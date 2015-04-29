@@ -90,7 +90,7 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 	
-	<servlet>
+	<!-- servlet>
     	<servlet-name>sayhello</servlet-name>
     	<servlet-class>
     		com.sun.xml.ws.transport.http.servlet.WSSpringServlet
@@ -100,7 +100,7 @@
 	<servlet-mapping>
         <servlet-name>sayhello</servlet-name>
         <url-pattern>/sayhello</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping-->
         
 	<session-config>
 		<session-timeout>30</session-timeout>

@@ -13,6 +13,6 @@ import br.com.cams7.domain.BaseEntity;
  *
  */
 public interface TomcatService<E extends BaseEntity<ID>, ID extends Serializable>
-		extends BaseService<E, ID> {
+		extends BaseService<E, ID>, TomcatRepository<E, ID> {
 
 }

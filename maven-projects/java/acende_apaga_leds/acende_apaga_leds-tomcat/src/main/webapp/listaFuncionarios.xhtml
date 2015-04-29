@@ -1,9 +1,9 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/layout/template.xhtml">
 
-<ui:composition template="/layout/template.xhtml">
 	<ui:define name="pageTitle">
 		<h:outputText value="#{msg['page.title.lista.funcionario']}" />
 	</ui:define>
@@ -20,51 +20,105 @@
 			</h3>
 		</div>
 
-		<h:form>
-			<h:dataTable value="#{funcionarioMB.dmFuncionarios}"
-				var="funcionario" styleClass="table table-hover">
-				<h:column>
-					<f:facet name="header">#</f:facet>
+		<h:form id="formFuncionario">
+			<p:growl id="mensagens" showDetail="true" life="5000" />
+
+			<p:dataTable id="funcionarios" var="funcionario"
+				value="#{funcionarioMB.lazyModel}" paginator="true"
+				rows="#{funcionarioMB.rows}" first="#{funcionarioMB.first}"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="3,5,10,15" selectionMode="single"
+				selection="#{funcionarioMB.selectedEntity}" lazy="true"
+				emptyMessage="#{msg['label.funcionarios.naoCadastrados']}"
+				widgetVar="funcionariosTable" resizableColumns="true">
+
+				<p:ajax event="rowSelect" listener="#{funcionarioMB.onRowSelect}"
+					update=":formFuncionario:funcionarioDetail"
+					onsuccess="PF('funcionarioDialog').show();" />
+
+				<p:column headerText="#">
 					<h:outputText value="#{funcionario.id}" />
-				</h:column>
+				</p:column>
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#{msg['label.funcionario.nome']}" />
-					</f:facet>
-					<h:link outcome="editarFuncionario" value="#{funcionario.name}"
-						title="#{msg['label.editar']} #{funcionario.name}">
-						<f:param name="id" value="#{funcionario.id}" />
-					</h:link>
-				</h:column>
+				<p:column headerText="#{msg['label.funcionario.nome']}"
+					sortBy="#{funcionario.name}" filterBy="#{funcionario.name}"
+					filterMatchMode="contains">
+					<h:outputText value="#{funcionario.name}" />
+				</p:column>
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#{msg['label.funcionario.salario']}" />
-					</f:facet>
+				<p:column headerText="#{msg['label.funcionario.salario']}"
+					sortBy="#{funcionario.salary}">
 					<h:outputText value="#{funcionario.salary}">
 						<f:convertNumber type="currency" />
 					</h:outputText>
-				</h:column>
+				</p:column>
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#{msg['label.funcionario.situacao']}" />
+				<p:column headerText="#{msg['label.funcionario.dataAdmissao']}"
+					sortBy="#{funcionario.hireDate}">
+					<h:outputText value="#{funcionario.hireDate}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="#{msg['label.funcionario.dataDemissao']}"
+					sortBy="#{funcionario.resignationDate}">
+					<h:outputText value="#{funcionario.resignationDate}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column sortBy="#{funcionario.status}"
+					filterBy="#{funcionario.status}" filterMatchMode="in">
+					<f:facet name="filter">
+						<p:selectCheckboxMenu label="#{msg['label.funcionario.situacao']}"
+							onchange="PF('funcionariosTable').filter()"
+							panelStyle="width:300px" scrollHeight="260"
+							converter="employeeStatusConvert">
+							<f:selectItems value="#{funcionarioMB.situacoes}" />
+						</p:selectCheckboxMenu>
 					</f:facet>
 					<h:outputText value="#{funcionario.status}" />
-				</h:column>
+				</p:column>
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#{msg['label.funcionario.ativo']}" />
+				<p:column headerText="#{msg['label.funcionario.ativo']}"
+					sortBy="#{funcionario.active}" filterBy="#{funcionario.active}"
+					filterMatchMode="equals">
+					<f:facet name="filter">
+						<p:selectOneButton onchange="PF('funcionariosTable').filter()">
+							<f:converter converterId="javax.faces.Boolean" />
+							<f:selectItem itemLabel="*" itemValue="" />
+							<f:selectItem itemLabel="#{msg['label.funcionario.ativo.sim']}"
+								itemValue="true" />
+							<f:selectItem itemLabel="#{msg['label.funcionario.ativo.nao']}"
+								itemValue="false" />
+						</p:selectOneButton>
 					</f:facet>
 					<h:outputText
 						value="#{funcionario.active ? msg['label.funcionario.ativo.sim']: msg['label.funcionario.ativo.nao']}"
 						rendered="#{funcionario.active != null}" />
-				</h:column>
-			</h:dataTable>
+				</p:column>
+				
+				<f:facet name="footer">
+					<p:panelGrid id="totalRows" columns="1" columnClasses="value"
+						style="width:100%">
+						<h:outputFormat
+							value="#{msg['label.funcionarios.totalCadastrados']}">
+							<f:param value="#{funcionarioMB.totalRows}" />
+						</h:outputFormat>
+					</p:panelGrid>
+				</f:facet>
+			</p:dataTable>
+
+			<p:dialog header="#{msg['label.editar']}"
+				widgetVar="funcionarioDialog" modal="true" resizable="false">
+
+				<p:ajax event="close" listener="#{funcionarioMB.handleClose}" />
+
+				<ui:include src="formFuncionario.xhtml">
+					<ui:param name="funcionario"
+						value="#{funcionarioMB.selectedEntity}" />
+				</ui:include>
+			</p:dialog>
 		</h:form>
-		<h:messages />
 	</ui:define>
 </ui:composition>
-</html>

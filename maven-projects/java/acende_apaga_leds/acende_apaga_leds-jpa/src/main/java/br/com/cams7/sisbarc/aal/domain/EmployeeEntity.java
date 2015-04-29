@@ -2,6 +2,7 @@ package br.com.cams7.sisbarc.aal.domain;
 
 import java.util.Date;
 
+//import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,7 +24,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
 @Entity
-@NoSql(dataFormat = DataFormatType.MAPPED)
+@NoSql(dataType = "funcionario", dataFormat = DataFormatType.MAPPED)
 @NamedQueries({ @NamedQuery(name = "Employee.findAll", query = "SELECT employee FROM EmployeeEntity employee") })
 public class EmployeeEntity extends BaseEntity<String> {
 
@@ -38,30 +40,45 @@ public class EmployeeEntity extends BaseEntity<String> {
 	 */
 	@NotNull
 	@Size(min = 3, max = 30)
+	// @Basic
+	@Field(name = "nome")
 	private String name;
 
 	/**
 	 * Data de admissão do funcionario
 	 */
+	// @Basic
+	@Field(name = "admissao")
 	private Date hireDate;
 
 	/**
 	 * Salario do funcionario
 	 */
 	@NotNull
+	// @Basic
+	@Field(name = "salario")
 	private Double salary;
 
 	/**
 	 * Data de demissão do funcionario
 	 */
+	// @Basic
+	@Field(name = "demissao")
 	private Date resignationDate;
 
 	@NotNull
+	// @Basic
 	@Enumerated(EnumType.ORDINAL)
+	@Field(name = "situacao")
 	private Status status;
 
 	@NotNull
+	// @Basic
+	@Field(name = "ativo")
 	private Boolean active;
+
+	@Version
+	private long version;
 
 	public EmployeeEntity() {
 		super();
@@ -75,7 +92,9 @@ public class EmployeeEntity extends BaseEntity<String> {
 	public String toString() {
 		return this.getClass().getName() + "[id = " + getId() + ", name = "
 				+ getName() + ", hireDate = " + getHireDate() + ", salary = "
-				+ getSalary() + "]";
+				+ getSalary() + ", resignationDate = " + getResignationDate()
+				+ ", status = " + getStatus() + ", active = " + getActive()
+				+ "]";
 	}
 
 	public String getId() {
@@ -134,6 +153,14 @@ public class EmployeeEntity extends BaseEntity<String> {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	// public void setVersion(long version) {
+	// this.version = version;
+	// }
 
 	public enum Status {
 		HIRED, // Contratado

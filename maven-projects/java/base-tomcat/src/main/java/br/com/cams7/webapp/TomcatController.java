@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -138,18 +139,6 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 				Page<E> page = getService().search(lastPageFirst, lastPageSize,
 						lastSortField, direction, lastFilters);
 
-				System.out.println("number: " + page.getNumber()
-						+ ", numberOfElements: " + page.getNumberOfElements()
-						+ ", size: " + page.getSize());
-				System.out.println("totalElements: " + page.getTotalElements()
-						+ ", totalPages: " + page.getTotalPages());
-				System.out.println("hasContent: " + page.hasContent());
-				System.out.println("hasNext: " + page.hasNext()
-						+ ", hasPrevious: " + page.hasPrevious());
-				System.out.println("isFirst: " + page.isFirst() + ", isLast: "
-						+ page.isLast());
-				System.out.println("sort: " + page.getSort());
-
 				entities = page.getContent();
 
 				setRowCount((int) page.getTotalElements());
@@ -175,9 +164,9 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 	public void includeNewEntity() {
 		try {
 			setSelectedEntity(AppUtil.getNewEntity(getEntityType()));
-			getLog().debug("Nova entidade");
+			getLog().log(Level.INFO, "Nova entidade");
 		} catch (AppException e) {
-			getLog().fatal(e.getMessage(), e);
+			getLog().log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 
@@ -194,7 +183,7 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 		// addERRORMessage(getMessageFromI18N("msg.erro.salvar.funcionario"),
 		// e.getMessage());
 
-		getLog().debug("A entidade " + entitity + " foi salva");
+		getLog().log(Level.INFO, "A entidade " + entitity + " foi salva");
 
 		return getListPage();
 	}
@@ -209,7 +198,7 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 		// addERRORMessage(getMessageFromI18N("msg.erro.salvar.funcionario"),
 		// e.getMessage());
 
-		getLog().debug("A entidade " + entitity + " foi alterada");
+		getLog().log(Level.INFO, "A entidade " + entitity + " foi alterada");
 	}
 
 	/**
@@ -229,7 +218,8 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 		// addERRORMessage(getMessageFromI18N("msg.erro.remover.funcionario"),
 		// e.getMessage());
 		reset();
-		getLog().debug("A entidade " + getSelectedEntity() + " foi excluida");
+		getLog().log(Level.INFO,
+				"A entidade " + getSelectedEntity() + " foi excluida");
 	}
 
 	public void onRowSelect(SelectEvent event) {
@@ -256,12 +246,12 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 
 	protected void addWARNMessage(String summary, String detail) {
 		addMessage(FacesMessage.SEVERITY_WARN, summary, detail);
-		getLog().warn(detail);
+		getLog().log(Level.WARNING, detail);
 	}
 
 	protected void addERRORMessage(String summary, String detail) {
 		addMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
-		getLog().error(detail);
+		getLog().log(Level.SEVERE, detail);
 	}
 
 	/**

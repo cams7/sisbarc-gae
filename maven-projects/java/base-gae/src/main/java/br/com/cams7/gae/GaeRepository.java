@@ -16,6 +16,15 @@ public interface GaeRepository<E extends BaseEntity<ID>, ID extends Serializable
 		extends BaseRepository<E, ID> {
 
 	/**
+	 * Exclui o registro da Entidade na base de dados
+	 * 
+	 * @param Entidade
+	 * @return Entidade removida
+	 * @throws <code>RuntimeException</code> se algum problema ocorrer.
+	 */
+	public void delete(E entity);
+
+	/**
 	 * Faz a inserção ou atualização da Entidade na base de dados.
 	 * 
 	 * @param Entidade

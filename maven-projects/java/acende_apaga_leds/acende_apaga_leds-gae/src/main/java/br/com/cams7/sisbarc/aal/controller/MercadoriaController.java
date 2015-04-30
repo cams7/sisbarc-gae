@@ -2,6 +2,7 @@ package br.com.cams7.sisbarc.aal.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import javax.validation.Valid;
 
@@ -92,7 +93,7 @@ public class MercadoriaController extends
 		uiModel.addAttribute(ATTRIBUTE_MERCADORIA, mercadoria);
 		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, INCLUDE_PAGE);
 
-		getLog().debug("Pronto para incluir mercadoria");
+		getLog().log(Level.INFO, "Pronto para incluir mercadoria");
 		return INCLUDE_PAGE;
 	}
 
@@ -136,7 +137,7 @@ public class MercadoriaController extends
 
 		if (mercadoria != null) {
 			uiModel.addAttribute(ATTRIBUTE_MERCADORIA, mercadoria);
-			getLog().debug("Pronto para editar mercadoria");
+			getLog().log(Level.INFO, "Pronto para editar mercadoria");
 		}
 
 		return EDIT_PAGE;

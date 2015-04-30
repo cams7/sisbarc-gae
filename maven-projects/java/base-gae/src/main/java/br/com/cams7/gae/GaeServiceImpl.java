@@ -5,11 +5,11 @@ package br.com.cams7.gae;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -40,40 +40,31 @@ public abstract class GaeServiceImpl<R extends GaeRepository<E, ID>, D extends D
 		dsType = (Class<D>) AppUtil.getType(this, DS_ARGUMENT_NUMBER);
 	}
 
-	@Transactional
 	public E insert(E entity) {
 		getRepository().insert(entity);
 		getDataSource().insert(entity);
 
-		getLog().debug("Included: " + entity);
+		getLog().log(Level.INFO, "Included: " + entity);
 
 		return entity;
 	}
 
-	@Transactional
 	public E save(E entity) {
 		entity = getRepository().save(entity);
 		entity = getDataSource().save(entity);
 
-		getLog().debug("Updated: " + entity);
+		getLog().log(Level.INFO, "Updated: " + entity);
 
 		return entity;
 	}
 
-	// @Transactional
-	// public void update(List<E> entities) {
-	// getRepository().update(entities);
-	// }
-
-	@Transactional
 	public void delete(E entity) {
 		getRepository().delete(entity);
 		getDataSource().delete(entity);
 
-		getLog().debug("Removed: " + entity);
+		getLog().log(Level.INFO, "Removed: " + entity);
 	}
 
-	@Transactional(readOnly = true)
 	public E findOne(ID id) {
 		E entity = getRepository().findOne(id);
 		return entity;
@@ -84,12 +75,6 @@ public abstract class GaeServiceImpl<R extends GaeRepository<E, ID>, D extends D
 		List<E> entities = getDataSource().findAll();
 		return entities;
 	}
-
-	// @Transactional(readOnly = true)
-	// public List<E> findRange(int[] range) {
-	// List<E> entities = getRepository().findRange(range);
-	// return entities;
-	// }
 
 	@Override
 	public void synch() {
@@ -126,7 +111,7 @@ public abstract class GaeServiceImpl<R extends GaeRepository<E, ID>, D extends D
 				ds.synch(getRepository().findAll());
 				session.setAttribute(ATTRIBUTE_DS, ds);
 			} catch (AppException e) {
-				getLog().fatal(e.getMessage(), e);
+				getLog().log(Level.SEVERE, e.getMessage(), e);
 			}
 
 		}

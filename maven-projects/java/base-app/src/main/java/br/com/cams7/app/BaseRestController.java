@@ -1,6 +1,7 @@
 package br.com.cams7.app;
 
 import java.io.Serializable;
+import java.util.logging.Level;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public abstract class BaseRestController<S extends BaseService<E, ID>, E extends
 
 		ResponseEntity<?> response = new ResponseEntity<>(
 				getHeaders(errorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
-		getLog().error(errorMessage, exception);
+		getLog().log(Level.SEVERE, errorMessage, exception);
 
 		return response;
 	}

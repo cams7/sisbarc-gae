@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -39,22 +40,24 @@ public class MercadoriaDataSource implements Serializable,
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger log = Logger.getLogger(MercadoriaDataSource.class);
+	private static final Logger LOG = Logger
+			.getLogger(MercadoriaDataSource.class.getName());
 
 	private Map<Long, MercadoriaEntity> data = new LinkedHashMap<Long, MercadoriaEntity>();
 
 	@Override
 	public MercadoriaEntity insert(MercadoriaEntity mercadoria) {
-		if (mercadoria != null)
-			data.put(mercadoria.getId(), mercadoria);
-
-		updateSession();
-		return mercadoria;
+		return save(mercadoria);
 	}
 
 	@Override
 	public MercadoriaEntity save(MercadoriaEntity mercadoria) {
-		return insert(mercadoria);
+		if (mercadoria != null)
+			data.put(mercadoria.getId(), mercadoria);
+
+		updateSession();
+
+		return mercadoria;
 	}
 
 	@Override
@@ -80,7 +83,7 @@ public class MercadoriaDataSource implements Serializable,
 
 	@Override
 	public void synch(List<MercadoriaEntity> mercadorias) {
-		log.debug("Sincronizando datasource de mercadorias...");
+		LOG.log(Level.INFO, "Sincronizando datasource de mercadorias...");
 		data.clear();
 
 		if (mercadorias == null)

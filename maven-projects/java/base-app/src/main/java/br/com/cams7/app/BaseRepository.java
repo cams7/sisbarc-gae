@@ -8,15 +8,6 @@ import br.com.cams7.domain.BaseEntity;
 public interface BaseRepository<E extends BaseEntity<ID>, ID extends Serializable> {
 
 	/**
-	 * Exclui o registro da Entidade na base de dados
-	 * 
-	 * @param Entidade
-	 * @return Entidade removida
-	 * @throws <code>RuntimeException</code> se algum problema ocorrer.
-	 */
-	public void delete(E entity);
-
-	/**
 	 * @param id
 	 *            filtro da pesquisa.
 	 * @return Entidade com filtro no id

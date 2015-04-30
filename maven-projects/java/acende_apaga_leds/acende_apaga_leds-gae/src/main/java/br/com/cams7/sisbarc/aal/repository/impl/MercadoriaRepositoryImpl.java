@@ -43,13 +43,14 @@ public class MercadoriaRepositoryImpl extends
 
 	@Override
 	public MercadoriaEntity insert(MercadoriaEntity mercadoria) {
-		ofy().save().entity(mercadoria).now();
-		return mercadoria;
+		return save(mercadoria);
 	}
 
 	@Override
 	public MercadoriaEntity save(MercadoriaEntity mercadoria) {
-		return insert(mercadoria);
+		ofy().save().entity(mercadoria).now();
+		
+		return mercadoria;
 	}
 
 	@Override

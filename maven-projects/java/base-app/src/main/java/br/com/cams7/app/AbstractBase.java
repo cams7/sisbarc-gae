@@ -3,7 +3,9 @@
  */
 package br.com.cams7.app;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
+
+import java.util.logging.Logger;
 
 import br.com.cams7.domain.BaseEntity;
 import br.com.cams7.util.AppUtil;
@@ -24,7 +26,7 @@ public abstract class AbstractBase<E extends BaseEntity<?>> {
 	public AbstractBase() {
 		super();
 
-		log = Logger.getLogger(this.getClass());
+		log = Logger.getLogger(this.getClass().getName());
 		entityType = (Class<E>) AppUtil
 				.getType(this, getEntityArgumentNumber());
 	}

@@ -44,31 +44,25 @@ public class MercadoriaDataSource implements Serializable,
 	private Map<Long, MercadoriaEntity> data = new LinkedHashMap<Long, MercadoriaEntity>();
 
 	@Override
-	public void save(MercadoriaEntity mercadoria) {
+	public MercadoriaEntity insert(MercadoriaEntity mercadoria) {
 		if (mercadoria != null)
 			data.put(mercadoria.getId(), mercadoria);
 
 		updateSession();
-	}
-
-	@Override
-	public MercadoriaEntity update(MercadoriaEntity mercadoria) {
-		save(mercadoria);
 		return mercadoria;
 	}
 
 	@Override
-	public MercadoriaEntity remove(MercadoriaEntity mercadoria) {
+	public MercadoriaEntity save(MercadoriaEntity mercadoria) {
+		return insert(mercadoria);
+	}
+
+	@Override
+	public void delete(MercadoriaEntity mercadoria) {
 		if (mercadoria != null)
 			data.remove(mercadoria.getId());
 
 		updateSession();
-		return mercadoria;
-	}
-
-	@Override
-	public MercadoriaEntity remove(Long id) {
-		return null;
 	}
 
 	@Override

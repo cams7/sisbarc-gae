@@ -116,7 +116,7 @@ public class MercadoriaController extends
 			return INCLUDE_PAGE;
 		}
 
-		getService().save(mercadoria);
+		getService().insert(mercadoria);
 
 		return ROOT_PAGE;
 	}
@@ -162,7 +162,7 @@ public class MercadoriaController extends
 			return EDIT_PAGE;
 		}
 
-		getService().update(mercadoria);
+		getService().save(mercadoria);
 
 		return ROOT_PAGE;
 	}
@@ -180,7 +180,7 @@ public class MercadoriaController extends
 		MercadoriaEntity mercadoria = getService().findOne(id);
 
 		if (mercadoria != null)
-			getService().remove(mercadoria);
+			getService().delete(mercadoria);
 
 		return ROOT_PAGE;
 	}

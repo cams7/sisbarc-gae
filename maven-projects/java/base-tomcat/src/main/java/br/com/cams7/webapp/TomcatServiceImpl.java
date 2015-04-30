@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import br.com.cams7.app.AbstractBase;
 import br.com.cams7.domain.BaseEntity;
-import br.com.cams7.webapp.domain.SortOrderField;
 
 /**
  * @author cesar
@@ -30,71 +32,103 @@ public abstract class TomcatServiceImpl<R extends TomcatRepository<E, ID>, E ext
 		super();
 	}
 
-	@Transactional
-	public void save(E entity) {
-		getRepository().save(entity);
-	}
-
-	@Transactional
-	public E update(E entity) {
-		entity = getRepository().update(entity);
-		return entity;
-	}
-
-	// @Transactional
-	// public void update(List<E> entities) {
-	// getRepository().update(entities);
-	// }
-
-	@Transactional
-	public E remove(E entity) {
-		return getRepository().remove(entity);
-	}
-
-	@Transactional
-	public E remove(ID id) {
-		return getRepository().remove(id);
-	}
-
-	@Transactional(readOnly = true)
-	public E findOne(ID id) {
-		E entity = getRepository().findOne(id);
-		return entity;
-	}
-
-	@Transactional(readOnly = true)
+	@Override
 	public List<E> findAll() {
-		List<E> entities = getRepository().findAll();
-		return entities;
+		return repository.findAll();
 	}
 
-	// @Transactional(readOnly = true)
-	// public List<E> findRange(int[] range) {
-	// List<E> entities = getRepository().findRange(range);
-	// return entities;
-	// }
+	@Override
+	public List<E> findAll(Sort sort) {
+		return repository.findAll(sort);
+	}
 
-	@Transactional(readOnly = true)
+	@Override
+	public Page<E> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
+	}
+
+	@Override
+	public Iterable<E> findAll(Iterable<ID> i) {
+		return repository.findAll(i);
+	}
+
+	@Override
+	public E findOne(ID id) {
+		return repository.findOne(id);
+	}
+
+	@Override
+	public <T extends E> T insert(T entity) {
+		return repository.insert(entity);
+	}
+
+	@Override
+	public <T extends E> List<T> insert(Iterable<T> i) {
+		return repository.insert(i);
+	}
+
+//	@Override
+//	public E insertEntity(E entity) {
+//		return insert(entity);
+//	}
+
+	@Override
+	public <T extends E> T save(T entity) {
+		return repository.save(entity);
+	}
+
+	@Override
+	public <T extends E> List<T> save(Iterable<T> i) {
+		return repository.save(i);
+	}
+
+//	@Override
+//	public E update(E entity) {
+//		return save(entity);
+//	}
+
 	@Override
 	public long count() {
-		long count = getRepository().count();
-		return count;
+		return repository.count();
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public long count(Map<String, Object> filters) {
-		long count = getRepository().count(filters);
-		return count;
+	public void delete(ID id) {
+		repository.delete(id);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public List<E> search(short first, byte pageSize, String sortField,
-			SortOrderField sortOrder, Map<String, Object> filters) {
-		List<E> entities = getRepository().search(first, pageSize, sortField,
-				sortOrder, filters);
-		return entities;
+	public void delete(E entity) {
+		repository.delete(entity);
+	}
+
+	@Override
+	public void delete(Iterable<? extends E> i) {
+		repository.delete(i);
+	}
+
+	public void deleteAll() {
+		repository.deleteAll();
+	}
+
+	@Override
+	public boolean exists(ID id) {
+		return repository.exists(id);
+	}
+
+	@Override
+	public Page<E> search(short first, byte pageSize, String sortField,
+			Sort.Direction direction, Map<String, Object> filters) {
+
+		Pageable pageable;
+		if (direction != null)
+			pageable = new PageRequest(first / pageSize, pageSize, direction,
+					sortField);
+		else
+			pageable = new PageRequest(first / pageSize, pageSize);
+
+		Page<E> page = findAll(pageable);
+		return page;
 	}
 
 	@Override

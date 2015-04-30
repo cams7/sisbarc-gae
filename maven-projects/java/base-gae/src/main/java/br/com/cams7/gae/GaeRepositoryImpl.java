@@ -21,28 +21,19 @@ public abstract class GaeRepositoryImpl<E extends BaseEntity<ID>, ID extends Ser
 	}
 
 	@Override
-	public void save(E entity) {
+	public E insert(E entity) {
 		// ofy().save().entity(entity).now();
+		return null;
 	}
 
 	@Override
-	public E update(E entity) {
+	public E save(E entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public E remove(E entity) {
-		// ofy().delete().entity(entity).now();
-		// return entity;
-		return null;
-	}
-	
-	
-	@Override
-	public E remove(ID id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(E entity) {
 	}
 
 	@Override

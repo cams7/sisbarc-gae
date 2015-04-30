@@ -45,8 +45,8 @@ public class EmployeeController extends
 	}
 
 	@Override
-	public String saveEntity() {
-		String listPage = super.saveEntity();
+	public String createEntity() {
+		String listPage = super.createEntity();
 
 		addINFOMessage(
 				getMessageFromI18N("msg.ok.summary.salvar.funcionario"),

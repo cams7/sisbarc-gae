@@ -36,13 +36,8 @@
 					update=":formFuncionario:funcionarioDetail"
 					onsuccess="PF('funcionarioDialog').show();" />
 
-				<p:column headerText="#">
-					<h:outputText value="#{funcionario.id}" />
-				</p:column>
-
 				<p:column headerText="#{msg['label.funcionario.nome']}"
-					sortBy="#{funcionario.name}" filterBy="#{funcionario.name}"
-					filterMatchMode="contains">
+					sortBy="#{funcionario.name}">
 					<h:outputText value="#{funcionario.name}" />
 				</p:column>
 
@@ -67,37 +62,17 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column sortBy="#{funcionario.status}"
-					filterBy="#{funcionario.status}" filterMatchMode="in">
-					<f:facet name="filter">
-						<p:selectCheckboxMenu label="#{msg['label.funcionario.situacao']}"
-							onchange="PF('funcionariosTable').filter()"
-							panelStyle="width:300px" scrollHeight="260"
-							converter="employeeStatusConvert">
-							<f:selectItems value="#{funcionarioMB.situacoes}" />
-						</p:selectCheckboxMenu>
-					</f:facet>
+				<!-- p:column headerText="#{msg['label.funcionario.situacao']}" sortBy="#{funcionario.status}">					
 					<h:outputText value="#{funcionario.status}" />
-				</p:column>
+				</p:column-->
 
 				<p:column headerText="#{msg['label.funcionario.ativo']}"
-					sortBy="#{funcionario.active}" filterBy="#{funcionario.active}"
-					filterMatchMode="equals">
-					<f:facet name="filter">
-						<p:selectOneButton onchange="PF('funcionariosTable').filter()">
-							<f:converter converterId="javax.faces.Boolean" />
-							<f:selectItem itemLabel="*" itemValue="" />
-							<f:selectItem itemLabel="#{msg['label.funcionario.ativo.sim']}"
-								itemValue="true" />
-							<f:selectItem itemLabel="#{msg['label.funcionario.ativo.nao']}"
-								itemValue="false" />
-						</p:selectOneButton>
-					</f:facet>
+					sortBy="#{funcionario.active}">
 					<h:outputText
 						value="#{funcionario.active ? msg['label.funcionario.ativo.sim']: msg['label.funcionario.ativo.nao']}"
 						rendered="#{funcionario.active != null}" />
 				</p:column>
-				
+
 				<f:facet name="footer">
 					<p:panelGrid id="totalRows" columns="1" columnClasses="value"
 						style="width:100%">
@@ -117,6 +92,7 @@
 				<ui:include src="formFuncionario.xhtml">
 					<ui:param name="funcionario"
 						value="#{funcionarioMB.selectedEntity}" />
+					<ui:param name="createEntity" value="#{false}" />
 				</ui:include>
 			</p:dialog>
 		</h:form>

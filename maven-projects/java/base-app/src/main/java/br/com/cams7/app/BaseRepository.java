@@ -8,27 +8,13 @@ import br.com.cams7.domain.BaseEntity;
 public interface BaseRepository<E extends BaseEntity<ID>, ID extends Serializable> {
 
 	/**
-	 * Faz a inserção ou atualização da Entidade na base de dados.
-	 * 
-	 * @param Entidade
-	 * @throws <code>RuntimeException</code> se algum problema ocorrer.
-	 */
-	public void save(E entity);
-
-	public E update(E entity);
-
-	// public void update(List<E> entities);
-
-	/**
 	 * Exclui o registro da Entidade na base de dados
 	 * 
 	 * @param Entidade
 	 * @return Entidade removida
 	 * @throws <code>RuntimeException</code> se algum problema ocorrer.
 	 */
-	public E remove(E entity);
-
-	public E remove(ID id);
+	public void delete(E entity);
 
 	/**
 	 * @param id

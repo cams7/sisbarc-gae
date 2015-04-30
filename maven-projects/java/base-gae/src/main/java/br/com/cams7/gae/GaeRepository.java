@@ -15,4 +15,14 @@ import br.com.cams7.domain.BaseEntity;
 public interface GaeRepository<E extends BaseEntity<ID>, ID extends Serializable>
 		extends BaseRepository<E, ID> {
 
+	/**
+	 * Faz a inserção ou atualização da Entidade na base de dados.
+	 * 
+	 * @param Entidade
+	 * @throws <code>RuntimeException</code> se algum problema ocorrer.
+	 */
+	public E insert(E entity);
+
+	public E save(E entity);
+
 }

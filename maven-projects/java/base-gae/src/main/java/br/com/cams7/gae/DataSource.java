@@ -3,7 +3,6 @@ package br.com.cams7.gae;
 import java.io.Serializable;
 import java.util.List;
 
-import br.com.cams7.app.BaseRepository;
 import br.com.cams7.domain.BaseEntity;
 
 /**
@@ -17,7 +16,7 @@ import br.com.cams7.domain.BaseEntity;
  *            um <code>Model</code>.
  */
 public interface DataSource<E extends BaseEntity<ID>, ID extends Serializable>
-		extends BaseRepository<E, ID> {
+		extends GaeRepository<E, ID> {
 
 	/**
 	 * Adiciona elemento ao <code>DataSource</code>.

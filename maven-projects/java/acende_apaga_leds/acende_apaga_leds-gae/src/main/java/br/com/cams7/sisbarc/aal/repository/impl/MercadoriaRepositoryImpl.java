@@ -33,28 +33,28 @@ import com.googlecode.objectify.Key;
  * @author YaW Tecnologia
  */
 @Repository
-public class MercadoriaRepositoryImpl extends GaeRepositoryImpl<MercadoriaEntity, Long>
-		implements MercadoriaRepository {
+public class MercadoriaRepositoryImpl extends
+		GaeRepositoryImpl<MercadoriaEntity, Long> implements
+		MercadoriaRepository {
 
 	public MercadoriaRepositoryImpl() {
 		super();
 	}
 
 	@Override
-	public void save(MercadoriaEntity mercadoria) {
+	public MercadoriaEntity insert(MercadoriaEntity mercadoria) {
 		ofy().save().entity(mercadoria).now();
-	}
-
-	@Override
-	public MercadoriaEntity update(MercadoriaEntity mercadoria) {
-		save(mercadoria);
 		return mercadoria;
 	}
 
 	@Override
-	public MercadoriaEntity remove(MercadoriaEntity mercadoria) {
+	public MercadoriaEntity save(MercadoriaEntity mercadoria) {
+		return insert(mercadoria);
+	}
+
+	@Override
+	public void delete(MercadoriaEntity mercadoria) {
 		ofy().delete().entity(mercadoria).now();
-		return mercadoria;
 	}
 
 	@Override
@@ -65,7 +65,8 @@ public class MercadoriaRepositoryImpl extends GaeRepositoryImpl<MercadoriaEntity
 
 	@Override
 	public List<MercadoriaEntity> findAll() {
-		List<MercadoriaEntity> entities = ofy().load().type(MercadoriaEntity.class).list();
+		List<MercadoriaEntity> entities = ofy().load()
+				.type(MercadoriaEntity.class).list();
 		return entities;
 	}
 

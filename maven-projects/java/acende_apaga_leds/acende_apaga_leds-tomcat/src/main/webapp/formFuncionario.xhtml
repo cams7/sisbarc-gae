@@ -11,7 +11,7 @@
 			<f:facet name="header">
 			</f:facet>
 
-			<c:if test="#{funcionario.id != null}">
+			<c:if test="#{not createEntity}">
 				<p:outputLabel for="employeeId"
 					value="#{msg['label.funcionario.id']}" />
 				<h:outputText id="employeeId" value="#{funcionario.id}"
@@ -32,20 +32,20 @@
 				value="#{msg['label.funcionario.dataAdmissao']}" />
 			<p:calendar id="employeeHireDate" value="#{funcionario.hireDate}" />
 
-			<c:if test="#{funcionario.id != null}">
+			<c:if test="#{not createEntity}">
 				<p:outputLabel for="employeeResignationDate"
 					value="#{msg['label.funcionario.dataDemissao']}" />
 				<p:calendar id="employeeResignationDate"
 					value="#{funcionario.resignationDate}" />
 			</c:if>
 
-			<p:outputLabel for="employeeStatus"
+			<!-- p:outputLabel for="employeeStatus"
 				value="#{msg['label.funcionario.situacao']}" />
 			<h:selectOneMenu id="employeeStatus" value="#{funcionario.status}"
 				label="#{msg['label.funcionario.situacao']}"
 				styleClass="input-large">
 				<f:selectItems value="#{funcionarioMB.situacoes}" />
-			</h:selectOneMenu>
+			</h:selectOneMenu-->
 
 
 			<p:outputLabel for="employeeActive"
@@ -60,7 +60,7 @@
 
 			<f:facet name="footer">
 				<c:choose>
-					<c:when test="#{funcionario.id != null}">
+					<c:when test="#{not createEntity}">
 						<p:commandButton value="#{msg['button.salvar']}"
 							actionListener="#{funcionarioMB.updateEntity}"
 							styleClass="btn btn-success"
@@ -71,13 +71,13 @@
 							styleClass="btn btn-danger"
 							oncomplete="handleUpdateRequest(xhr, status, args)"
 							update="mensagens,funcionarios:totalRows" immediate="true"
-							rendered="#{funcionario.id != null}" />
+							rendered="#{not createEntity}" />
 						<p:button value="#{msg['button.cancelar']}"
 							onclick="PF('funcionarioDialog').hide();" styleClass="btn" />
 					</c:when>
 					<c:otherwise>
 						<p:commandButton value="#{msg['button.salvar']}"
-							action="#{funcionarioMB.saveEntity}" styleClass="btn btn-success"
+							action="#{funcionarioMB.createEntity}" styleClass="btn btn-success"
 							update="mensagens" />
 					</c:otherwise>
 				</c:choose>

@@ -26,6 +26,7 @@
 				<ui:include src="formFuncionario.xhtml">
 					<ui:param name="funcionario"
 						value="#{funcionarioMB.selectedEntity}" />
+					<ui:param name="createEntity" value="#{true}"/>
 				</ui:include>
 			</fieldset>
 		</h:form>

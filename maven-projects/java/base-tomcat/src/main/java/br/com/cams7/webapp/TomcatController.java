@@ -20,12 +20,13 @@ import org.primefaces.event.CloseEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
 import br.com.cams7.app.BaseController;
 import br.com.cams7.domain.BaseEntity;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
-import br.com.cams7.webapp.domain.SortOrderField;
 
 /**
  * @author cams7
@@ -100,7 +101,6 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 					SortOrder sortOrder, Map<String, Object> filters) {
 
 				filters = AppUtil.removeEmptyArray(filters);
-				boolean rowCountChanged = false;
 
 				if (pageSize != lastPageSize) {
 					lastPageSize = (byte) pageSize;
@@ -117,21 +117,42 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 							lastFilters = filters;
 						else
 							lastFilters = null;
-
-						rowCountChanged = true;
 					}
 				}
 
 				lastPageFirst = (short) first;
 
-				entities = getService().search(lastPageFirst, lastPageSize,
-						lastSortField,
-						SortOrderField.valueOf(lastSortOrder.name()),
-						lastFilters);
+				Sort.Direction direction = null;
 
-				// rowCount
-				if (rowCountChanged)
-					setRowCount((int) getService().count(lastFilters));
+				switch (lastSortOrder) {
+				case ASCENDING:
+					direction = Sort.Direction.ASC;
+					break;
+				case DESCENDING:
+					direction = Sort.Direction.DESC;
+					break;
+				default:
+					break;
+				}
+
+				Page<E> page = getService().search(lastPageFirst, lastPageSize,
+						lastSortField, direction, lastFilters);
+
+				System.out.println("number: " + page.getNumber()
+						+ ", numberOfElements: " + page.getNumberOfElements()
+						+ ", size: " + page.getSize());
+				System.out.println("totalElements: " + page.getTotalElements()
+						+ ", totalPages: " + page.getTotalPages());
+				System.out.println("hasContent: " + page.hasContent());
+				System.out.println("hasNext: " + page.hasNext()
+						+ ", hasPrevious: " + page.hasPrevious());
+				System.out.println("isFirst: " + page.isFirst() + ", isLast: "
+						+ page.isLast());
+				System.out.println("sort: " + page.getSort());
+
+				entities = page.getContent();
+
+				setRowCount((int) page.getTotalElements());
 
 				return entities;
 			}
@@ -167,13 +188,13 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 	 * @return Se a inclusão foi realizada vai para listagem, senão permanece na
 	 *         mesma tela.
 	 */
-	public String saveEntity() {
-		getService().save(getSelectedEntity());
+	public String createEntity() {
+		E entitity = getService().insert(getSelectedEntity());
 
 		// addERRORMessage(getMessageFromI18N("msg.erro.salvar.funcionario"),
 		// e.getMessage());
 
-		getLog().debug("A entidade " + getSelectedEntity() + " foi salva");
+		getLog().debug("A entidade " + entitity + " foi salva");
 
 		return getListPage();
 	}
@@ -181,14 +202,14 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 	public void updateEntity() {
 		RequestContext context = RequestContext.getCurrentInstance();
 
-		getService().update(getSelectedEntity());
+		E entitity = getService().save(getSelectedEntity());
 		context.addCallbackParam(CALLBACK_PARAM, true);
 
 		// context.addCallbackParam(CALLBACK_PARAM, false);
 		// addERRORMessage(getMessageFromI18N("msg.erro.salvar.funcionario"),
 		// e.getMessage());
 
-		getLog().debug("A entidade " + getSelectedEntity() + " foi alterada");
+		getLog().debug("A entidade " + entitity + " foi alterada");
 	}
 
 	/**
@@ -201,7 +222,7 @@ public abstract class TomcatController<S extends TomcatService<E, ID>, E extends
 	public void removeEntity() {
 		RequestContext context = RequestContext.getCurrentInstance();
 
-		getService().remove(getSelectedEntity());
+		getService().delete(getSelectedEntity().getId());
 		context.addCallbackParam(CALLBACK_PARAM, true);
 
 		// context.addCallbackParam(CALLBACK_PARAM, false);

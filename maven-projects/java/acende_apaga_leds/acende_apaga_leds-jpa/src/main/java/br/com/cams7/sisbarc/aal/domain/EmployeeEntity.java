@@ -2,83 +2,73 @@ package br.com.cams7.sisbarc.aal.domain;
 
 import java.util.Date;
 
-//import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+//import javax.persistence.EnumType;
+//import javax.persistence.Enumerated;
+//import javax.persistence.Version;
 
-import org.eclipse.persistence.nosql.annotations.DataFormatType;
-import org.eclipse.persistence.nosql.annotations.Field;
-import org.eclipse.persistence.nosql.annotations.NoSql;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import br.com.cams7.domain.BaseEntity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
-@Entity
-@NoSql(dataType = "funcionario", dataFormat = DataFormatType.MAPPED)
-@NamedQueries({ @NamedQuery(name = "Employee.findAll", query = "SELECT employee FROM EmployeeEntity employee") })
+//import javax.persistence.Basic;
+
+@Document(collection = "funcionario")
 public class EmployeeEntity extends BaseEntity<String> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
-	@Field(name = MONGODB_ID)
 	private String id;
 
 	/**
 	 * Nome do funcionario
 	 */
-	@NotNull
-	@Size(min = 3, max = 30)
+	// @NotNull
+	// @Size(min = 3, max = 30)
 	// @Basic
-	@Field(name = "nome")
+	@Field("nome")
 	private String name;
 
 	/**
 	 * Data de admissão do funcionario
 	 */
 	// @Basic
-	@Field(name = "admissao")
+	@Field("admissao")
 	private Date hireDate;
 
 	/**
 	 * Salario do funcionario
 	 */
-	@NotNull
+	// @NotNull
 	// @Basic
-	@Field(name = "salario")
+	@Field("salario")
 	private Double salary;
 
 	/**
 	 * Data de demissão do funcionario
 	 */
 	// @Basic
-	@Field(name = "demissao")
+	@Field("demissao")
 	private Date resignationDate;
 
-	@NotNull
+	// @NotNull
 	// @Basic
-	@Enumerated(EnumType.ORDINAL)
-	@Field(name = "situacao")
-	private Status status;
+	// @Enumerated(EnumType.ORDINAL)
+	// @Field("situacao")
+	// private Status status;
 
-	@NotNull
+	// @NotNull
 	// @Basic
-	@Field(name = "ativo")
+	@Field("ativo")
 	private Boolean active;
 
-	@Version
-	private long version;
+	// @Version
+	// private long version;
 
 	public EmployeeEntity() {
 		super();
@@ -93,8 +83,7 @@ public class EmployeeEntity extends BaseEntity<String> {
 		return this.getClass().getName() + "[id = " + getId() + ", name = "
 				+ getName() + ", hireDate = " + getHireDate() + ", salary = "
 				+ getSalary() + ", resignationDate = " + getResignationDate()
-				+ ", status = " + getStatus() + ", active = " + getActive()
-				+ "]";
+				+ ", active = " + getActive() + "]";
 	}
 
 	public String getId() {
@@ -130,6 +119,7 @@ public class EmployeeEntity extends BaseEntity<String> {
 		this.salary = salary;
 	}
 
+	@JsonSerialize(using = DateSerializer.class)
 	public Date getResignationDate() {
 		return resignationDate;
 	}
@@ -138,13 +128,13 @@ public class EmployeeEntity extends BaseEntity<String> {
 		this.resignationDate = resignationDate;
 	}
 
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+	// public Status getStatus() {
+	// return status;
+	// }
+	//
+	// public void setStatus(Status status) {
+	// this.status = status;
+	// }
 
 	public Boolean getActive() {
 		return active;
@@ -154,9 +144,9 @@ public class EmployeeEntity extends BaseEntity<String> {
 		this.active = active;
 	}
 
-	public long getVersion() {
-		return version;
-	}
+	// public long getVersion() {
+	// return version;
+	// }
 
 	// public void setVersion(long version) {
 	// this.version = version;

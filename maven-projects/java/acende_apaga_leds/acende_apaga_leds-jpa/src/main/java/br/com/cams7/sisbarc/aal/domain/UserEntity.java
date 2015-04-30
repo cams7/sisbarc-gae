@@ -3,8 +3,13 @@ package br.com.cams7.sisbarc.aal.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import br.com.cams7.domain.BaseEntity;
+
 @Document(collection = "users")
-public class UserEntity {
+public class UserEntity extends BaseEntity<String> {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private String id;
 
@@ -16,12 +21,12 @@ public class UserEntity {
 	}
 
 	public UserEntity(String id) {
-		super();
-		this.id = id;
+		super(id);
 	}
 
 	public UserEntity(String firstName, String lastName) {
-		super();
+		this();
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}

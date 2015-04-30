@@ -3,6 +3,9 @@ package br.com.cams7.sisbarc.aal.rest;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.cams7.sisbarc.aal.service.EmployeeService;
 import br.com.cams7.app.BaseRestController;
 import br.com.cams7.sisbarc.aal.domain.EmployeeEntity;
+import br.com.cams7.sisbarc.aal.service.EmployeeService;
 
 /**
  * Handles requests for the Employee service.
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/employee")
 public class EmployeeRestController extends
 		BaseRestController<EmployeeService, EmployeeEntity, String> {
 
@@ -26,7 +29,7 @@ public class EmployeeRestController extends
 		super();
 	}
 
-	@RequestMapping(value = "/employee/dummy", method = RequestMethod.GET)
+	@RequestMapping(value = "/dummy", method = RequestMethod.GET)
 	public @ResponseBody EmployeeEntity getDummyEmployee() {
 		getLog().info("Start getDummyEmployee");
 
@@ -35,11 +38,11 @@ public class EmployeeRestController extends
 		employee.setSalary(4500.);
 		employee.setHireDate(new Date());
 
-		getService().save(employee);
+		employee = getService().insert(employee);
 		return employee;
 	}
 
-	@RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody EmployeeEntity getEmployee(
 			@PathVariable("id") String employeeId) {
 		getLog().info("Start getEmployee(id = " + employeeId + ")");
@@ -48,7 +51,7 @@ public class EmployeeRestController extends
 		return employee;
 	}
 
-	@RequestMapping(value = "/employees", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public @ResponseBody List<EmployeeEntity> getAllEmployees() {
 		getLog().info("Start getAllEmployees");
 
@@ -56,33 +59,40 @@ public class EmployeeRestController extends
 		return allEmployees;
 	}
 
-	@RequestMapping(value = "/employee/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public @ResponseBody EmployeeEntity createEmployee(
 			@RequestBody EmployeeEntity employee) {
 		getLog().info("Start createEmployee");
 
-		getService().save(employee);
+		employee = getService().insert(employee);
 		return employee;
 	}
 
-	@RequestMapping(value = "/employee/update/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
 	public @ResponseBody EmployeeEntity updateEmployee(
 			@PathVariable("id") String employeeId,
 			@RequestBody EmployeeEntity employee) {
 		getLog().info("Start updateEmployee");
 
 		employee.setId(employeeId);
-		employee = getService().update(employee);
+		employee = getService().save(employee);
 		return employee;
 	}
 
-	@RequestMapping(value = "/employee/delete/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody EmployeeEntity deleteEmployee(
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody ResponseEntity<?> deleteEmployee(
 			@PathVariable("id") String employeeId) {
 		getLog().info("Start deleteEmployee");
 
-		EmployeeEntity employee = getService().remove(employeeId);
-		return employee;
+		getService().delete(employeeId);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "O funcionario id '" + employeeId
+				+ "' foi excluido com sucesso");
+		ResponseEntity<?> response = new ResponseEntity<>(headers,
+				HttpStatus.OK);
+
+		return response;
 	}
 
 }

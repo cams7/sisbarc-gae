@@ -1,9 +1,11 @@
 package br.com.cams7.sisbarc.aal.repository;
 
-import br.com.cams7.webapp.TomcatRepository;
+import org.springframework.stereotype.Repository;
 
 import br.com.cams7.sisbarc.aal.domain.EmployeeEntity;
+import br.com.cams7.webapp.TomcatRepository;
 
+@Repository
 public interface EmployeeRepository extends TomcatRepository<EmployeeEntity, String> {
 
 }

@@ -41,17 +41,19 @@ public abstract class GaeServiceImpl<R extends GaeRepository<E, ID>, D extends D
 	}
 
 	@Transactional
-	public void save(E entity) {
-		getRepository().save(entity);
-		getDataSource().save(entity);
+	public E insert(E entity) {
+		getRepository().insert(entity);
+		getDataSource().insert(entity);
 
 		getLog().debug("Included: " + entity);
+
+		return entity;
 	}
 
 	@Transactional
-	public E update(E entity) {
-		entity = getRepository().update(entity);
-		entity = getDataSource().update(entity);
+	public E save(E entity) {
+		entity = getRepository().save(entity);
+		entity = getDataSource().save(entity);
 
 		getLog().debug("Updated: " + entity);
 
@@ -64,17 +66,11 @@ public abstract class GaeServiceImpl<R extends GaeRepository<E, ID>, D extends D
 	// }
 
 	@Transactional
-	public E remove(ID id) {
-		return getRepository().remove(id);
-	}
-
-	@Transactional
-	public E remove(E entity) {
-		entity = getRepository().remove(entity);
-		entity = getDataSource().remove(entity);
+	public void delete(E entity) {
+		getRepository().delete(entity);
+		getDataSource().delete(entity);
 
 		getLog().debug("Removed: " + entity);
-		return entity;
 	}
 
 	@Transactional(readOnly = true)

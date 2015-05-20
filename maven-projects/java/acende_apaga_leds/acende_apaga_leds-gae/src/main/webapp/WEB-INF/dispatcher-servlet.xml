@@ -83,5 +83,4 @@
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository.impl" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.rest" />
 </beans>

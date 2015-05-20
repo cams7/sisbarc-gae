@@ -27,16 +27,6 @@
 			<artifactId>javaee-web-api</artifactId>
 		</dependency>
 
-		<!-- [START Objectify_Dependencies] -->
-		<!-- dependency> <groupId>com.google.guava</groupId> <artifactId>guava</artifactId> 
-			</dependency -->
-		<dependency>
-			<groupId>com.googlecode.objectify</groupId>
-			<artifactId>objectify</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- [END Objectify_Dependencies] -->
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -44,8 +34,21 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.googlecode.objectify</groupId>
+			<artifactId>objectify</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Hibernate Validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

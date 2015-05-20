@@ -17,8 +17,10 @@ import br.com.cams7.sisbarc.aal.ws.HelloService;
  * version: 2.2
  * 
  */
-@WebServiceClient(name = HelloServiceImplService.WEBSERVICECLIENT_FULLNAME, targetNamespace = HelloService.WEBSERVICE_TARGETNAMESPACE, wsdlLocation = HelloServiceImplService.WEBSERVICECLIENT_WSDLLOCATION)
+@WebServiceClient(name = HelloServiceImplService.WEBSERVICECLIENT_FULLNAME, targetNamespace = HelloServiceImplService.WEBSERVICECLIENT_TARGETNAMESPACE, wsdlLocation = HelloServiceImplService.WEBSERVICECLIENT_WSDLLOCATION)
 public class HelloServiceImplService extends Service {
+
+	public static final String WEBSERVICECLIENT_TARGETNAMESPACE = "http://ws.controller.aal.sisbarc.cams7.com.br/";
 
 	public static final String WEBSERVICECLIENT_NAME = "HelloWSController";
 
@@ -29,7 +31,7 @@ public class HelloServiceImplService extends Service {
 	private final static URL HELLOSERVICEIMPLSERVICE_WSDL_LOCATION;
 	private final static WebServiceException HELLOSERVICEIMPLSERVICE_EXCEPTION;
 	private final static QName HELLOSERVICEIMPLSERVICE_QNAME = new QName(
-			HelloService.WEBSERVICE_TARGETNAMESPACE,
+			HelloServiceImplService.WEBSERVICECLIENT_TARGETNAMESPACE,
 			HelloServiceImplService.WEBSERVICECLIENT_FULLNAME);
 
 	static {
@@ -77,7 +79,8 @@ public class HelloServiceImplService extends Service {
 	// HelloServiceImplPort
 	@WebEndpoint(name = WEBSERVICECLIENT_NAME + "Port")
 	public HelloService getHelloServiceImplPort() {
-		return super.getPort(new QName(HelloService.WEBSERVICE_TARGETNAMESPACE,
+		return super.getPort(new QName(
+				HelloServiceImplService.WEBSERVICECLIENT_TARGETNAMESPACE,
 				WEBSERVICECLIENT_NAME + "Port"), HelloService.class);
 	}
 
@@ -92,7 +95,8 @@ public class HelloServiceImplService extends Service {
 	 */
 	@WebEndpoint(name = WEBSERVICECLIENT_NAME + "Port")
 	public HelloService getHelloServiceImplPort(WebServiceFeature... features) {
-		return super.getPort(new QName(HelloService.WEBSERVICE_TARGETNAMESPACE,
+		return super.getPort(new QName(
+				HelloServiceImplService.WEBSERVICECLIENT_TARGETNAMESPACE,
 				WEBSERVICECLIENT_NAME + "Port"), HelloService.class, features);
 	}
 

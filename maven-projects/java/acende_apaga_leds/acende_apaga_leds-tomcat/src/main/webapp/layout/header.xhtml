@@ -1,12 +1,61 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
-    
-    <div class="logo">
-    	<img src="resources/img/logo_yaw.png" alt="#{msg['label.logo.yaw']}" title="#{msg['label.logo.yaw']}" />
-    </div>
-    
-	<h1 class="title"><h:outputText value="#{msg['app.title']}" /></h1>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
 
+	<div style="margin-top: 20px; padding-bottom: 20px;">
+		<p:menubar>
+			<p:submenu label="#{msg['menu.inicio']}" icon="ui-icon-document">
+				<p:menuitem value="#{msg['menu.home']}" outcome="/home"
+					icon="ui-icon-home" />
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<p:submenu label="#{msg['menu.incluir']}" icon="ui-icon-disk">
+						<p:menuitem value="#{msg['menu.usuario']}" outcome="/usuario/novo"
+							icon="ui-icon-person" />
+						<p:menuitem value="#{msg['menu.funcionario']}"
+							outcome="/funcionario/novo" icon="ui-icon-contact" />
+					</p:submenu>
+				</sec:authorize>
+				<sec:authorize access="isAnonymous()">
+					<p:separator />
+					<p:menuitem value="#{msg['menu.login']}" outcome="/login"
+						icon="ui-icon-person" />
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<p:separator />
+					<p:menuitem value="#{msg['menu.sair']}"
+						url="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout"
+						icon="ui-icon-extlink" />
+				</sec:authorize>
+			</p:submenu>
+
+			<sec:authorize access="isAuthenticated()">
+				<p:submenu label="#{msg['menu.lista']}" icon="ui-icon-search">
+					<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+						<p:menuitem value="#{msg['menu.usuarios']}"
+							outcome="/usuario/lista" icon="ui-icon-person" />
+					</sec:authorize>
+
+					<p:menuitem value="#{msg['menu.funcionarios']}"
+						outcome="/funcionario/lista" icon="ui-icon-contact" />
+				</p:submenu>
+			</sec:authorize>
+
+			<p:submenu label="#{msg['menu.ajuda']}" icon="ui-icon-help">
+				<p:menuitem value="#{msg['menu.sobre']}" outcome="/sobre"
+					icon="ui-icon-gear" />
+			</p:submenu>
+
+			<sec:authorize access="isAuthenticated()">
+				<f:facet name="options">
+					<h:outputFormat value="#{msg['menu.welcome']}">
+						<f:param
+							value="#{facesContext.externalContext.request.userPrincipal.name}" />
+					</h:outputFormat>
+				</f:facet>
+			</sec:authorize>
+		</p:menubar>
+	</div>
 </ui:fragment>

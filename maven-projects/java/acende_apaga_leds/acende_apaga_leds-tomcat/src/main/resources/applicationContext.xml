@@ -11,7 +11,7 @@
 							http://jax-ws.dev.java.net/spring/servlet  			http://jax-ws.dev.java.net/spring/servlet.xsd">
 
 	<!-- Ativa o uso de anotacoes complementares ao contexto do Spring. -->
-	<context:annotation-config />
+	<!-- context:annotation-config /-->
 
 	<mongo:mongo id="mongoConnection" host="localhost" port="27017" />
 	<!-- mongo:db-factory dbname="sisbarc" / -->
@@ -25,11 +25,11 @@
 
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.domain" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller.bean" />
 
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.faces.convert" />
 
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.ws" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller.ws" />
 	<wss:binding url="/sayhello">
 		<wss:service>
 			<ws:service bean="#helloWS" />

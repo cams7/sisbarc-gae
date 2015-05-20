@@ -14,7 +14,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.cams7.gae.DataSource;
-import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 
 /**
  * Define um <code>DataSource</code> para entidade (<code>Model</code>)

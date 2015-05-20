@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import br.com.cams7.gae.GaeRepositoryImpl;
-import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.repository.MercadoriaRepository;
 
 import com.googlecode.objectify.Key;

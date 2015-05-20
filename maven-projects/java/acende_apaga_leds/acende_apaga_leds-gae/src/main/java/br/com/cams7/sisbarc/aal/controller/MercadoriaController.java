@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.cams7.gae.GaeController;
 import br.com.cams7.gae.GaeService;
-import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 
 /**

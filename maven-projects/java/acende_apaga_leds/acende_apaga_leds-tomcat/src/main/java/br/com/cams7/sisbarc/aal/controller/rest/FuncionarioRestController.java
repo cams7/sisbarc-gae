@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cams7.app.BaseRestController;
-import br.com.cams7.sisbarc.aal.domain.FuncionarioEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.FuncionarioEntity;
 import br.com.cams7.sisbarc.aal.service.FuncionarioService;
 
 /**

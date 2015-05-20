@@ -1,4 +1,4 @@
-package br.com.cams7.sisbarc.aal.domain;
+package br.com.cams7.sisbarc.aal.domain.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;

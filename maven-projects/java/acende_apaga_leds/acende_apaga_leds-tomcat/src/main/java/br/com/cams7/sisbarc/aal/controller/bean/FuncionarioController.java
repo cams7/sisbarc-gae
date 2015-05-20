@@ -5,7 +5,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.springframework.stereotype.Controller;
 
-import br.com.cams7.sisbarc.aal.domain.FuncionarioEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.FuncionarioEntity;
 import br.com.cams7.sisbarc.aal.service.FuncionarioService;
 import br.com.cams7.webapp.AppController;
 

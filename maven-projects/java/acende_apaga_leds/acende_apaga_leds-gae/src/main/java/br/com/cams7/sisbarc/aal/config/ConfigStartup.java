@@ -3,7 +3,7 @@ package br.com.cams7.sisbarc.aal.config;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 
 import com.googlecode.objectify.ObjectifyService;
 

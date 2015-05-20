@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.cams7.sisbarc.aal.domain.UsuarioEntity;
-import br.com.cams7.sisbarc.aal.domain.UsuarioEntity.Autorizacao;
+import br.com.cams7.sisbarc.aal.domain.entity.UsuarioEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.UsuarioEntity.Autorizacao;
 import br.com.cams7.sisbarc.aal.service.UsuarioService;
 
 @Service("userDetailsService")

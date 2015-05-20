@@ -1,7 +1,7 @@
 package br.com.cams7.sisbarc.aal.repository;
 
 import br.com.cams7.gae.GaeRepository;
-import br.com.cams7.sisbarc.aal.domain.MercadoriaEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 
 /**
  * Contrato de persistência para a entidade <code>Mercadoria</code>.

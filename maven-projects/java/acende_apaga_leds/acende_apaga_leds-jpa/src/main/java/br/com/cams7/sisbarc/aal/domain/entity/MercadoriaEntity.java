@@ -1,4 +1,4 @@
-package br.com.cams7.sisbarc.aal.domain;
+package br.com.cams7.sisbarc.aal.domain.entity;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

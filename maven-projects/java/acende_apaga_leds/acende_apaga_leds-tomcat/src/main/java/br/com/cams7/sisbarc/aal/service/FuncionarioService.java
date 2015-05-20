@@ -1,6 +1,6 @@
 package br.com.cams7.sisbarc.aal.service;
 
-import br.com.cams7.sisbarc.aal.domain.FuncionarioEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.FuncionarioEntity;
 import br.com.cams7.sisbarc.aal.repository.FuncionarioRepository;
 import br.com.cams7.webapp.AppService;
 

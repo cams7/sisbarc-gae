@@ -261,126 +261,104 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 	}
 
 	@Override
-	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado) {
+	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado)
+			throws ArduinoException {
 		ArduinoPinType tipoPino = pino.getTipo();
 		byte pinoLED = pino.getCodigo().byteValue();
 
 		boolean estadoLED = (estado == EstadoLED.ACESO);
 
-		try {
-			if (tipoPino == ArduinoPinType.DIGITAL) {
-				sendPinDigitalUSART(ArduinoStatus.SEND_RESPONSE, pinoLED,
-						estadoLED);
-				serialThreadInterval();
+		if (tipoPino == ArduinoPinType.DIGITAL) {
+			sendPinDigitalUSART(ArduinoStatus.SEND_RESPONSE, pinoLED, estadoLED);
+			serialThreadInterval();
 
-				return getEstadoLED(pino, ArduinoEvent.EXECUTE);
-			}
-		} catch (ArduinoException e) {
-			getLog().log(Level.SEVERE, e.getMessage());
+			return getEstadoLED(pino, ArduinoEvent.EXECUTE);
 		}
+
 		return null;
 	}
 
 	@Override
-	public LEDEntity[] buscaEstadoLEDs(Pino[] pinos) {
-		try {
-			for (Pino pino : pinos) {
-				ArduinoPinType tipoPino = pino.getTipo();
-				byte pinoLED = pino.getCodigo().byteValue();
+	public LEDEntity[] buscaEstadoLEDs(Pino[] pinos) throws ArduinoException {
+		for (Pino pino : pinos) {
+			ArduinoPinType tipoPino = pino.getTipo();
+			byte pinoLED = pino.getCodigo().byteValue();
 
-				if (tipoPino == ArduinoPinType.DIGITAL)
-					sendPinDigitalUSARTMessage(ArduinoStatus.SEND_RESPONSE,
-							pinoLED);
-			}
-
-			serialThreadInterval();
-
-			LEDEntity[] leds = new LEDEntity[pinos.length];
-			for (short i = 0; i < pinos.length; i++) {
-				Pino pino = pinos[i];
-				EstadoLED estado = getEstadoLED(pino, ArduinoEvent.MESSAGE);
-
-				leds[i] = new LEDEntity(pino.getTipo(), pino.getCodigo());
-				leds[i].setEstado(estado);
-			}
-			return leds;
-		} catch (ArduinoException e) {
-			getLog().log(Level.SEVERE, e.getMessage());
+			if (tipoPino == ArduinoPinType.DIGITAL)
+				sendPinDigitalUSARTMessage(ArduinoStatus.SEND_RESPONSE, pinoLED);
 		}
-		return null;
 
+		serialThreadInterval();
+
+		LEDEntity[] leds = new LEDEntity[pinos.length];
+		for (short i = 0; i < pinos.length; i++) {
+			Pino pino = pinos[i];
+			EstadoLED estado = getEstadoLED(pino, ArduinoEvent.MESSAGE);
+
+			leds[i] = new LEDEntity(pino.getTipo(), pino.getCodigo());
+			leds[i].setEstado(estado);
+		}
+		return leds;
 	}
 
 	@Override
-	public Evento alteraEvento(Pino pinoId, Evento evento, Intervalo intervalo) {
-		try {
-			sendEEPROMWrite(ArduinoStatus.SEND_RESPONSE, pinoId.getTipo(),
-					pinoId.getCodigo().byteValue(), (byte) intervalo.ordinal(),
-					(byte) evento.ordinal());
+	public Evento alteraEvento(Pino pinoId, Evento evento, Intervalo intervalo)
+			throws ArduinoException {
 
-			serialThreadInterval();
+		sendEEPROMWrite(ArduinoStatus.SEND_RESPONSE, pinoId.getTipo(), pinoId
+				.getCodigo().byteValue(), (byte) intervalo.ordinal(),
+				(byte) evento.ordinal());
 
-			return getEvento(pinoId);
-		} catch (ArduinoException e) {
-			getLog().log(Level.SEVERE, e.getMessage());
-		}
-		return null;
+		serialThreadInterval();
+
+		return getEvento(pinoId);
 	}
 
 	@Override
-	public AbstractPino[] alteraEventos(AbstractPino[] pinos) {
-		try {
-			for (AbstractPino pino : pinos) {
-				Pino id = pino.getPino();
-				sendEEPROMWrite(ArduinoStatus.SEND_RESPONSE, id.getTipo(), id
-						.getCodigo().byteValue(), (byte) pino.getIntervalo()
-						.ordinal(), (byte) pino.getEvento().ordinal());
-			}
+	public AbstractPino[] alteraEventos(AbstractPino[] pinos)
+			throws ArduinoException {
 
-			serialThreadInterval();
-
-			for (AbstractPino pino : pinos)
-				pino.setEvento(getEvento(pino.getPino()));
-
-			return pinos;
-		} catch (ArduinoException e) {
-			getLog().log(Level.SEVERE, e.getMessage());
+		for (AbstractPino pino : pinos) {
+			Pino id = pino.getPino();
+			sendEEPROMWrite(ArduinoStatus.SEND_RESPONSE, id.getTipo(), id
+					.getCodigo().byteValue(), (byte) pino.getIntervalo()
+					.ordinal(), (byte) pino.getEvento().ordinal());
 		}
-		return null;
+
+		serialThreadInterval();
+
+		for (AbstractPino pino : pinos)
+			pino.setEvento(getEvento(pino.getPino()));
+
+		return pinos;
 	}
 
 	@Override
-	public AbstractPino[] buscaDados(Pino[] ids) {
-		try {
-			for (Pino id : ids)
-				sendEEPROMRead(ArduinoStatus.SEND_RESPONSE, id.getTipo(), id
-						.getCodigo().byteValue());
+	public AbstractPino[] buscaDados(Pino[] ids) throws ArduinoException {
+		for (Pino id : ids)
+			sendEEPROMRead(ArduinoStatus.SEND_RESPONSE, id.getTipo(), id
+					.getCodigo().byteValue());
 
-			serialThreadInterval();
+		serialThreadInterval();
 
-			AbstractPino[] pinos = new AbstractPino[ids.length];
+		AbstractPino[] pinos = new AbstractPino[ids.length];
 
-			for (short i = 0; i < ids.length; i++) {
-				Pino id = ids[i];
-				pinos[i] = new AbstractPino(id.getTipo(), id.getCodigo()) {
-					private static final long serialVersionUID = 1L;
-				};
+		for (short i = 0; i < ids.length; i++) {
+			Pino id = ids[i];
+			pinos[i] = new AbstractPino(id.getTipo(), id.getCodigo()) {
+				private static final long serialVersionUID = 1L;
+			};
 
-				EEPROMData data = getDados(id);
+			EEPROMData data = getDados(id);
 
-				if (data != null) {
-					pinos[i].setEvento(Evento.values()[data.getActionEvent()]);
-					pinos[i].setIntervalo(Intervalo.values()[data
-							.getThreadInterval()]);
-				}
+			if (data != null) {
+				pinos[i].setEvento(Evento.values()[data.getActionEvent()]);
+				pinos[i].setIntervalo(Intervalo.values()[data
+						.getThreadInterval()]);
 			}
-
-			return pinos;
-		} catch (ArduinoException e) {
-			getLog().log(Level.SEVERE, e.getMessage());
 		}
-		return null;
 
+		return pinos;
 	}
 
 	private Arduino getArduinoResponse(ArduinoEvent event, Pino pinoId) {
@@ -444,8 +422,8 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 	 *            - Numero do PINO DIGITAL/ANALOG
 	 * @return EVENTO do LED
 	 */
-	private Evento getEvento(Pino pinoId) {
-		Arduino arduino = getArduinoResponse(Arduino.ArduinoEvent.WRITE, pinoId);
+	private Evento getEvento(Pino pino) {
+		Arduino arduino = getArduinoResponse(Arduino.ArduinoEvent.WRITE, pino);
 		if (arduino == null)
 			return null;
 
@@ -506,7 +484,7 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 
 	private void serialThreadInterval() {
 		try {
-			Thread.sleep(getThreadInterval());
+			Thread.sleep(getSerialThreadInterval());
 		} catch (InterruptedException e) {
 			getLog().log(Level.WARNING, e.getMessage());
 		}

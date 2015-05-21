@@ -136,7 +136,7 @@
 				<c:choose>
 					<c:when test="#{not createEntity}">
 						<p:commandButton value="#{msg['button.atualizar']}"
-							actionListener="#{ledMB.updateEntity}"
+							actionListener="#{ledMB.atualizaPino}"
 							styleClass="btn btn-success"
 							oncomplete="handleUpdateRequest(xhr, status, args);"
 							process="@form" />

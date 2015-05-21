@@ -50,8 +50,8 @@ public class AppArduinoWSController implements AppArduinoService {
 	}
 
 	@Override
-	public int getThreadInterval() {
-		return scheduler.getThreadInterval();
+	public int getSerialThreadInterval() {
+		return scheduler.getSerialThreadInterval();
 	}
 
 	@Override
@@ -60,27 +60,30 @@ public class AppArduinoWSController implements AppArduinoService {
 	}
 
 	@Override
-	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado) {
+	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado)
+			throws ArduinoException {
 		return scheduler.alteraEstadoLED(pino, estado);
 	}
 
 	@Override
-	public LEDEntity[] buscaEstadoLEDs(Pino[] pinos) {
+	public LEDEntity[] buscaEstadoLEDs(Pino[] pinos) throws ArduinoException {
 		return scheduler.buscaEstadoLEDs(pinos);
 	}
 
 	@Override
-	public Evento alteraEvento(Pino pino, Evento evento, Intervalo intervalo) {
+	public Evento alteraEvento(Pino pino, Evento evento, Intervalo intervalo)
+			throws ArduinoException {
 		return scheduler.alteraEvento(pino, evento, intervalo);
 	}
 
 	@Override
-	public AbstractPino[] alteraEventos(AbstractPino[] pinos) {
+	public AbstractPino[] alteraEventos(AbstractPino[] pinos)
+			throws ArduinoException {
 		return scheduler.alteraEventos(pinos);
 	}
 
 	@Override
-	public AbstractPino[] buscaDados(Pino[] pinos) {
+	public AbstractPino[] buscaDados(Pino[] pinos) throws ArduinoException {
 		return scheduler.buscaDados(pinos);
 	}
 

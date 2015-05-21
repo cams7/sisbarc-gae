@@ -7,6 +7,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
+import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.arduino.ArduinoService;
 import br.com.cams7.sisbarc.aal.domain.AbstractPino;
 import br.com.cams7.sisbarc.aal.domain.AbstractPino.Evento;
@@ -39,7 +40,7 @@ public interface AppArduinoService extends ArduinoService {
 	 * 
 	 */
 	@WebMethod
-	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado);
+	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado) throws ArduinoException;
 
 	/**
 	 * Busca os ESTADOs dos LEDs, que pode ser ACESO ou APAGADO
@@ -48,7 +49,7 @@ public interface AppArduinoService extends ArduinoService {
 	 *            dos LEDs - Numero do PINO DIGITAL
 	 */
 	@WebMethod
-	public LEDEntity[] buscaEstadoLEDs(Pino[] ids);
+	public LEDEntity[] buscaEstadoLEDs(Pino[] ids) throws ArduinoException;
 
 	/**
 	 * Altera o EVENTO e o INTERVALO
@@ -60,14 +61,16 @@ public interface AppArduinoService extends ArduinoService {
 	 * @param INTERVALO
 	 */
 	@WebMethod
-	public Evento alteraEvento(Pino pino, Evento evento, Intervalo intervalo);
+	public Evento alteraEvento(Pino pino, Evento evento, Intervalo intervalo)
+			throws ArduinoException;
 
 	/**
 	 * @param pinos
 	 * @return
 	 */
 	@WebMethod
-	public AbstractPino[] alteraEventos(AbstractPino[] pinos);
+	public AbstractPino[] alteraEventos(AbstractPino[] pinos)
+			throws ArduinoException;
 
 	/**
 	 * Obtem os Dados na EEPROM do ARDUINO
@@ -76,6 +79,6 @@ public interface AppArduinoService extends ArduinoService {
 	 *            - Numero do PINO DIGITAL/ANALOGICO
 	 */
 	@WebMethod
-	public AbstractPino[] buscaDados(Pino[] pinos);
+	public AbstractPino[] buscaDados(Pino[] pinos) throws ArduinoException;
 
 }

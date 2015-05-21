@@ -561,7 +561,7 @@ public abstract class ArduinoScheduler implements ArduinoService, Runnable,
 	 * @see br.com.cams7.arduino.ArduinoService#getThreadInterval()
 	 */
 	@Override
-	public int getThreadInterval() {
+	public int getSerialThreadInterval() {
 		return threadInterval;
 	}
 

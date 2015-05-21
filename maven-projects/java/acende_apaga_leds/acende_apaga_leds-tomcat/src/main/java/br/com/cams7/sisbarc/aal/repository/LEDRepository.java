@@ -3,6 +3,9 @@
  */
 package br.com.cams7.sisbarc.aal.repository;
 
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
@@ -14,5 +17,7 @@ import br.com.cams7.webapp.AppRepository;
  */
 @Repository
 public interface LEDRepository extends AppRepository<LEDEntity, String> {
-
+	
+	@Query("{ 'ativadoPorBotao' : true }")
+	public List<LEDEntity> buscaLEDsAtivadoPorBotao();
 }

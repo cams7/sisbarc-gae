@@ -39,7 +39,7 @@ public abstract class AppController<S extends AppService<E, ID>, E extends BaseE
 	private static final long serialVersionUID = 1L;
 
 	private final String RESOURCE_BUNDLE = "i18n/messages";
-	private final String PARAM_CHANGED = "changed";
+	protected final String PARAM_CHANGED = "changed";
 	private final String PARAM_MESSAGE = "message";
 
 	/**

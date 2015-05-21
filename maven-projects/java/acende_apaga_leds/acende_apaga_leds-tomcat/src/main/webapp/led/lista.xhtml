@@ -23,8 +23,8 @@
 		</div>
 
 		<h:form id="formLED">
-			<p:growl showDetail="true" showSummary="true" life="5000"
-				widgetVar="mensagens" />
+			<p:growl id="mensagens" widgetVar="mensagens" showDetail="true"
+				showSummary="true" life="5000" />
 
 			<p:dataTable id="leds" var="led" value="#{ledMB.lazyModel}"
 				paginator="true" rows="#{ledMB.rows}" first="#{ledMB.first}"
@@ -53,12 +53,12 @@
 					sortBy="#{led.evento}">
 					<h:outputText value="#{led.evento}" />
 				</p:column>
-				
+
 				<p:column headerText="#{msg['label.led.intervalo']}"
 					sortBy="#{led.intervalo}">
 					<h:outputText value="#{led.intervalo}" />
 				</p:column>
-				
+
 				<p:column headerText="#{msg['label.led.cor']}" sortBy="#{led.cor}">
 					<h:outputText value="#{led.cor}" />
 				</p:column>
@@ -76,12 +76,22 @@
 				</p:column>
 
 				<f:facet name="footer">
-					<p:panelGrid id="totalRows" columns="1" columnClasses="value"
-						style="width:100%">
+					<p:panelGrid columns="3" columnClasses="value" style="width:100%">
 						<h:outputFormat value="#{msg['label.leds.totalCadastrados']}">
 							<f:param value="#{ledMB.totalRows}" />
 						</h:outputFormat>
+
+						<p:commandButton value="#{msg['button.arduino.synchronize']}"
+							styleClass="btn btn-success"
+							actionListener="#{ledMB.sincronizaPinos}"
+							oncomplete="PF('ledsTable').filter()" update=":formLED:mensagens" />
+
+						<p:commandButton value="#{msg['button.arduino.update']}"
+							styleClass="btn btn-success"
+							actionListener="#{ledMB.atualizaPinos}"
+							update=":formLED:mensagens" />
 					</p:panelGrid>
+
 				</f:facet>
 			</p:dataTable>
 

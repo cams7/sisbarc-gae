@@ -16,7 +16,7 @@ public interface ArduinoService {
 
 	public int getSerialBaudRate();
 
-	public int getThreadInterval();
+	public int getSerialThreadInterval();
 
 	public boolean isConnected();
 }

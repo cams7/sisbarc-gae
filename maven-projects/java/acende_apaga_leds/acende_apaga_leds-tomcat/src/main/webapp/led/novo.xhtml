@@ -17,10 +17,8 @@
 			<p:growl id="mensagens" showDetail="true" life="5000" />
 			<fieldset>
 				<legend>
-					<h3>
-						<h:outputText value="#{msg['label.led']}" />
-						<small> <h:outputText value="#{msg['label.incluir']}" /></small>
-					</h3>
+					<h:outputText value="#{msg['label.led']}" />
+					<small> <h:outputText value="#{msg['label.incluir']}" /></small>
 				</legend>
 				<ui:include src="formulario.xhtml">
 					<ui:param name="led" value="#{ledMB.selectedEntity}" />

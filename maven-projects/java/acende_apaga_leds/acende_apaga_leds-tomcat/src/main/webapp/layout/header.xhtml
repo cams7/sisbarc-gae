@@ -13,9 +13,9 @@
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<p:submenu label="#{msg['menu.incluir']}" icon="ui-icon-disk">
 						<p:menuitem value="#{msg['menu.usuario']}" outcome="/usuario/novo"
-							icon="ui-icon-person" />
-						<p:menuitem value="#{msg['menu.funcionario']}"
-							outcome="/funcionario/novo" icon="ui-icon-contact" />
+							icon="ui-icon-person" />						
+						<p:menuitem value="#{msg['menu.led']}"
+							outcome="/led/novo" icon="ui-icon-contact" />
 					</p:submenu>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
@@ -38,8 +38,8 @@
 							outcome="/usuario/lista" icon="ui-icon-person" />
 					</sec:authorize>
 
-					<p:menuitem value="#{msg['menu.funcionarios']}"
-						outcome="/funcionario/lista" icon="ui-icon-contact" />
+					<p:menuitem value="#{msg['menu.leds']}"
+						outcome="/led/lista" icon="ui-icon-contact" />
 				</p:submenu>
 			</sec:authorize>
 

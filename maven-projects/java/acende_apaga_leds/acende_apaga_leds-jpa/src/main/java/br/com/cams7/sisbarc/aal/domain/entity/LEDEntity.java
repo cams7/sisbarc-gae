@@ -30,9 +30,11 @@ public class LEDEntity extends AbstractPino {
 	@NotNull
 	private CorLED cor;
 
-	private boolean ativo;
+	@NotNull
+	private Boolean ativo;
 
-	private boolean ativadoPorBotao;
+	@NotNull
+	private Boolean ativadoPorBotao;
 
 	@Transient
 	private EstadoLED estado;
@@ -49,6 +51,13 @@ public class LEDEntity extends AbstractPino {
 		super(tipo, pino);
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + "[cor = " + getCor() + ", ativo = "
+				+ getAtivo() + ", ativadoPorBotao = " + getAtivadoPorBotao()
+				+ ", estado = " + getEstado() + "]";
+	}
+
 	public CorLED getCor() {
 		return cor;
 	}
@@ -57,19 +66,19 @@ public class LEDEntity extends AbstractPino {
 		this.cor = cor;
 	}
 
-	public boolean isAtivo() {
+	public Boolean getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
 
-	public boolean isAtivadoPorBotao() {
+	public Boolean getAtivadoPorBotao() {
 		return ativadoPorBotao;
 	}
 
-	public void setAtivadoPorBotao(boolean ativadoPorBotao) {
+	public void setAtivadoPorBotao(Boolean ativadoPorBotao) {
 		this.ativadoPorBotao = ativadoPorBotao;
 	}
 

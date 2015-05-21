@@ -21,7 +21,7 @@ import br.com.cams7.sisbarc.aal.domain.Pino;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
-import br.com.cams7.sisbarc.arduino.ArduinoServiceImpl;
+import br.com.cams7.sisbarc.arduino.ArduinoScheduler;
 import br.com.cams7.sisbarc.arduino.vo.Arduino;
 import br.com.cams7.sisbarc.arduino.vo.Arduino.ArduinoEvent;
 import br.com.cams7.sisbarc.arduino.vo.Arduino.ArduinoStatus;
@@ -33,8 +33,8 @@ import br.com.cams7.sisbarc.arduino.vo.EEPROMData;
  * @author cams7
  *
  */
-@Component
-public class ArduinoScheduler extends ArduinoServiceImpl implements
+@Component("arduinoScheduler")
+public class AppArduinoScheduler extends ArduinoScheduler implements
 		AppArduinoService {
 
 	private final byte D13_LED_PISCA = 13; // Pino 13 Digital
@@ -48,7 +48,7 @@ public class ArduinoScheduler extends ArduinoServiceImpl implements
 
 	private final byte A0_POTENCIOMETRO = 0; // Pino 0 Analogico
 
-	public ArduinoScheduler() {
+	public AppArduinoScheduler() {
 		super();
 	}
 
@@ -271,7 +271,7 @@ public class ArduinoScheduler extends ArduinoServiceImpl implements
 			if (tipoPino == ArduinoPinType.DIGITAL) {
 				sendPinDigitalUSART(ArduinoStatus.SEND_RESPONSE, pinoLED,
 						estadoLED);
-				serialThreadTime();
+				serialThreadInterval();
 
 				return getEstadoLED(pino, ArduinoEvent.EXECUTE);
 			}
@@ -293,7 +293,7 @@ public class ArduinoScheduler extends ArduinoServiceImpl implements
 							pinoLED);
 			}
 
-			serialThreadTime();
+			serialThreadInterval();
 
 			LEDEntity[] leds = new LEDEntity[pinos.length];
 			for (short i = 0; i < pinos.length; i++) {
@@ -318,7 +318,7 @@ public class ArduinoScheduler extends ArduinoServiceImpl implements
 					pinoId.getCodigo().byteValue(), (byte) intervalo.ordinal(),
 					(byte) evento.ordinal());
 
-			serialThreadTime();
+			serialThreadInterval();
 
 			return getEvento(pinoId);
 		} catch (ArduinoException e) {
@@ -337,7 +337,7 @@ public class ArduinoScheduler extends ArduinoServiceImpl implements
 						.ordinal(), (byte) pino.getEvento().ordinal());
 			}
 
-			serialThreadTime();
+			serialThreadInterval();
 
 			for (AbstractPino pino : pinos)
 				pino.setEvento(getEvento(pino.getPino()));
@@ -356,7 +356,7 @@ public class ArduinoScheduler extends ArduinoServiceImpl implements
 				sendEEPROMRead(ArduinoStatus.SEND_RESPONSE, id.getTipo(), id
 						.getCodigo().byteValue());
 
-			serialThreadTime();
+			serialThreadInterval();
 
 			AbstractPino[] pinos = new AbstractPino[ids.length];
 
@@ -504,11 +504,9 @@ public class ArduinoScheduler extends ArduinoServiceImpl implements
 	//
 	// }
 
-	private void serialThreadTime() {
+	private void serialThreadInterval() {
 		try {
-			int threadTime = Integer.valueOf(getContext().getInitParameter(
-					"SERIAL_THREAD_TIME"));
-			Thread.sleep(threadTime);
+			Thread.sleep(getThreadInterval());
 		} catch (InterruptedException e) {
 			getLog().log(Level.WARNING, e.getMessage());
 		}

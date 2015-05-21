@@ -38,7 +38,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
+public abstract class ArduinoScheduler implements ArduinoService, Runnable,
 		SerialPortEventListener {
 
 	private Logger log;
@@ -51,7 +51,11 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 
 	private Map<String, Arduino> currentStatus;
 
-	private boolean initialized;
+	private String serialPort;
+	private int serialBaudRate;
+	private int threadInterval;
+
+	private boolean connected;
 
 	@Autowired
 	private ServletContext context;
@@ -59,49 +63,43 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 	/**
 	 * 
 	 */
-	protected ArduinoServiceImpl() {
+	protected ArduinoScheduler() {
 		super();
 	}
 
 	@PostConstruct
 	@Override
-	public void connect() {
+	public void openConnection() throws ArduinoException {
 		log = Logger.getLogger(this.getClass().getName());
 
-		getLog().info("Component has STARTED: connect()");
+		getLog().info("Component has STARTED: openConnection()");
 
-		String serialPort = context.getInitParameter("SERIAL_PORT");
-		int serialBaudRate = Integer.valueOf(context
+		serialPort = context.getInitParameter("SERIAL_PORT");
+		serialBaudRate = Integer.valueOf(context
 				.getInitParameter("SERIAL_BAUD_RATE"));
+		threadInterval = Integer.valueOf(getContext().getInitParameter(
+				"SERIAL_THREAD_TIME"));
 
 		serialData = new Byte[SisbarcProtocol.TOTAL_BYTES_PROTOCOL];
 		serialDataIndex = 0x00;
 
 		currentStatus = new HashMap<String, Arduino>();
 
-		try {
-			connect(serialPort, serialBaudRate);
-		} catch (ArduinoException e) {
-			getLog().log(Level.SEVERE, e.getMessage());
-		}
+		connect();
 	}
 
 	@PreDestroy
 	@Override
-	public void close() {
-		try {
-			disconnect();
-		} catch (ArduinoException e) {
-			getLog().log(Level.SEVERE, e.getMessage());
-		}
-		getLog().info("Component has STOPPED: close()");
+	public void closeConnection() throws ArduinoException {
+		disconnect();
+
+		getLog().info("Component has STOPPED: closeConnection()");
 	}
 
 	/**
 	 * Metodo que verifica se a comunicacao com a porta serial esta OK
 	 */
-	private void connect(String serialPort, int serialBaudRate)
-			throws ArduinoException {
+	private void connect() throws ArduinoException {
 		// close();
 
 		// Define uma variavel portId do tipo CommPortIdentifier para
@@ -136,7 +134,7 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 
 			Thread readThread = new Thread(this);
 			readThread.start();
-			initialized = true;
+			connected = true;
 		} catch (PortInUseException | IOException | TooManyListenersException
 				| UnsupportedCommOperationException e) {
 			throw new ArduinoException("Erro na comunicacao serial",
@@ -144,7 +142,6 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 		} finally {
 			disconnect();
 		}
-
 	}
 
 	/**
@@ -152,7 +149,7 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 	 */
 	private void disconnect() throws ArduinoException {
 		ArduinoException exception = new ArduinoException(
-				"Nao foi possivel fechar a porta serial");
+				"Nao foi possivel fechar a porta '" + serialPort + "'");
 		try {
 			if (input != null)
 				input.close();
@@ -226,7 +223,6 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 	}
 
 	private void receiveDataBySerial(byte data) {
-
 		byte lastBit = Binary.getLastBitByte(data);
 
 		if (0x01 == lastBit) {
@@ -254,7 +250,6 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 					"O dado '" + Integer.toBinaryString(data)
 							+ "' foi corrompido");
 		}
-
 	}
 
 	protected void addCurrentStatus(Arduino arduino) {
@@ -368,7 +363,6 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 		default:
 			break;
 		}
-
 	}
 
 	protected abstract void receiveExecute(ArduinoPinType pinType, byte pin,
@@ -460,7 +454,6 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 		ArduinoUSART arduino = new ArduinoUSART(status, ArduinoPinType.DIGITAL,
 				digitalPin, pinValue);
 		sendPinPWM(arduino);
-
 	}
 
 	protected void sendPinPWMUSARTMessage(ArduinoStatus status, byte digitalPin)
@@ -468,7 +461,6 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 		ArduinoUSARTMessage arduino = new ArduinoUSARTMessage(status,
 				ArduinoPinType.DIGITAL, digitalPin);
 		sendPinPWM(arduino);
-
 	}
 
 	private void sendPinAnalog(ArduinoUSART arduino) throws ArduinoException {
@@ -543,9 +535,44 @@ public abstract class ArduinoServiceImpl implements ArduinoService, Runnable,
 		return context;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.cams7.arduino.ArduinoService#getSerialPort()
+	 */
 	@Override
-	public boolean isInitialized() {
-		return initialized;
+	public String getSerialPort() {
+		return serialPort;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.cams7.arduino.ArduinoService#getSerialBaudRate()
+	 */
+	@Override
+	public int getSerialBaudRate() {
+		return serialBaudRate;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.cams7.arduino.ArduinoService#getThreadInterval()
+	 */
+	@Override
+	public int getThreadInterval() {
+		return threadInterval;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.cams7.arduino.ArduinoService#isConnected()
+	 */
+	@Override
+	public boolean isConnected() {
+		return connected;
 	}
 
 }

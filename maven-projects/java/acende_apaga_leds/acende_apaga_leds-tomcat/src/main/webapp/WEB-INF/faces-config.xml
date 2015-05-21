@@ -23,13 +23,13 @@
 	<!-- Define a navegacao global para a pagina com a lista de mercadorias. -->
 	<navigation-rule>
 		<navigation-case>
-			<from-outcome>listaFuncionarios</from-outcome>
-			<to-view-id>/funcionario/lista.xhtml</to-view-id>
+			<from-outcome>listaUsuarios</from-outcome>
+			<to-view-id>/usuario/lista.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>listaUsuarios</from-outcome>
-			<to-view-id>/usuario/lista.xhtml</to-view-id>
+			<from-outcome>listaLEDs</from-outcome>
+			<to-view-id>/led/lista.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

@@ -8,9 +8,15 @@ package br.com.cams7.arduino;
  *
  */
 public interface ArduinoService {
-	public void connect();
+	public void openConnection() throws ArduinoException;
 
-	public void close();
+	public void closeConnection() throws ArduinoException;
 
-	public boolean isInitialized();
+	public String getSerialPort();
+
+	public int getSerialBaudRate();
+
+	public int getThreadInterval();
+
+	public boolean isConnected();
 }

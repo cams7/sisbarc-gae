@@ -32,12 +32,14 @@ public abstract class AbstractPino extends BaseEntity<String> {
 	@NotNull
 	private Evento evento;
 
-	private boolean alteraEvento;
+	@NotNull
+	private Boolean alteraEvento;
 
 	@NotNull
 	private Intervalo intervalo;
 
-	private boolean alteraIntervalo;
+	@NotNull
+	private Boolean alteraIntervalo;
 
 	public AbstractPino() {
 		super();
@@ -49,6 +51,15 @@ public abstract class AbstractPino extends BaseEntity<String> {
 
 	public AbstractPino(ArduinoPinType pinType, Short pino) {
 		setPino(new Pino(pinType, pino));
+	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + "[id = " + getId()
+				+ ", pino = " + getPino() + ", evento = " + getEvento()
+				+ ",  alteraEvento = " + getAlteraEvento() + ", intervalo = "
+				+ getIntervalo() + ", alteraIntervalo = "
+				+ getAlteraIntervalo() + "]";
 	}
 
 	public String getId() {
@@ -93,7 +104,7 @@ public abstract class AbstractPino extends BaseEntity<String> {
 	/**
 	 * @return the alteraEvento
 	 */
-	public boolean isAlteraEvento() {
+	public Boolean getAlteraEvento() {
 		return alteraEvento;
 	}
 
@@ -101,7 +112,7 @@ public abstract class AbstractPino extends BaseEntity<String> {
 	 * @param alteraEvento
 	 *            the alteraEvento to set
 	 */
-	public void setAlteraEvento(boolean alteraEvento) {
+	public void setAlteraEvento(Boolean alteraEvento) {
 		this.alteraEvento = alteraEvento;
 	}
 
@@ -123,7 +134,7 @@ public abstract class AbstractPino extends BaseEntity<String> {
 	/**
 	 * @return the alteraIntervalo
 	 */
-	public boolean isAlteraIntervalo() {
+	public Boolean getAlteraIntervalo() {
 		return alteraIntervalo;
 	}
 
@@ -131,7 +142,7 @@ public abstract class AbstractPino extends BaseEntity<String> {
 	 * @param alteraIntervalo
 	 *            the alteraIntervalo to set
 	 */
-	public void setAlteraIntervalo(boolean alteraIntervalo) {
+	public void setAlteraIntervalo(Boolean alteraIntervalo) {
 		this.alteraIntervalo = alteraIntervalo;
 	}
 

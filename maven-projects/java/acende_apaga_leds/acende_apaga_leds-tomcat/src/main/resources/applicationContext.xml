@@ -44,7 +44,7 @@
 		</wss:service>
 	</wss:binding>
 
-	<bean id="arduinoScheduler" class="br.com.cams7.sisbarc.aal.task.ArduinoScheduler" />
+	<bean id="arduinoScheduler" class="br.com.cams7.sisbarc.aal.task.AppArduinoScheduler" />
 
 	<!-- Run every 5 seconds -->
 	<task:scheduled-tasks>

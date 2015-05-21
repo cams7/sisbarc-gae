@@ -44,7 +44,8 @@ public class Pino implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pino[tipo = " + getTipo() + ", codigo = " + getCodigo() + "]";
+		return this.getClass().getSimpleName() + "[tipo = " + getTipo()
+				+ ", codigo = " + getCodigo() + "]";
 	}
 
 	/*

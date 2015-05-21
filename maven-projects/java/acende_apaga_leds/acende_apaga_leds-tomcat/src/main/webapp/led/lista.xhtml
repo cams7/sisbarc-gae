@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/layout/template.xhtml">
+
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.lista.led']}" />
+	</ui:define>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{ledMB.reset}" />
+	</f:metadata>
+
+	<ui:define name="content">
+		<div style="border-bottom: 1px solid #E5E5E5;">
+			<h3>
+				<h:outputText value="#{msg['label.leds']}" />
+				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
+			</h3>
+		</div>
+
+		<h:form id="formLED">
+			<p:growl showDetail="true" showSummary="true" life="5000"
+				widgetVar="mensagens" />
+
+			<p:dataTable id="leds" var="led" value="#{ledMB.lazyModel}"
+				paginator="true" rows="#{ledMB.rows}" first="#{ledMB.first}"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="3,5,10,15" selectionMode="single"
+				selection="#{ledMB.selectedEntity}" lazy="true"
+				emptyMessage="#{msg['label.leds.naoCadastrados']}"
+				widgetVar="ledsTable" resizableColumns="true">
+
+				<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+					<p:ajax event="rowSelect" listener="#{ledMB.onRowSelect}"
+						update=":formLED:ledDetail" onsuccess="PF('ledDialog').show();" />
+				</sec:authorize>
+
+				<p:column headerText="#{msg['label.led.tipo']}"
+					sortBy="#{led.pino.tipo}">
+					<h:outputText value="#{led.pino.tipo}" />
+				</p:column>
+
+				<p:column headerText="#{msg['label.led.pino']}"
+					sortBy="#{led.pino.codigo}">
+					<h:outputText value="#{led.pino.codigo}" />
+				</p:column>
+
+				<p:column headerText="#{msg['label.led.evento']}"
+					sortBy="#{led.evento}">
+					<h:outputText value="#{led.evento}" />
+				</p:column>
+				
+				<p:column headerText="#{msg['label.led.intervalo']}"
+					sortBy="#{led.intervalo}">
+					<h:outputText value="#{led.intervalo}" />
+				</p:column>
+				
+				<p:column headerText="#{msg['label.led.cor']}" sortBy="#{led.cor}">
+					<h:outputText value="#{led.cor}" />
+				</p:column>
+
+				<p:column headerText="#{msg['label.led.ativo']}"
+					sortBy="#{led.ativo}">
+					<h:outputText
+						value="#{led.ativo ? msg['label.sim']: msg['label.nao']}" />
+				</p:column>
+
+				<p:column headerText="#{msg['label.led.ativadoPorBotao']}"
+					sortBy="#{led.ativadoPorBotao}">
+					<h:outputText
+						value="#{led.ativadoPorBotao ? msg['label.sim']: msg['label.nao']}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:panelGrid id="totalRows" columns="1" columnClasses="value"
+						style="width:100%">
+						<h:outputFormat value="#{msg['label.leds.totalCadastrados']}">
+							<f:param value="#{ledMB.totalRows}" />
+						</h:outputFormat>
+					</p:panelGrid>
+				</f:facet>
+			</p:dataTable>
+
+			<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+				<p:dialog header="#{msg['label.editar']}" widgetVar="ledDialog"
+					modal="true" resizable="false">
+
+					<p:ajax event="close" listener="#{ledMB.handleClose}" />
+
+					<ui:include src="formulario.xhtml">
+						<ui:param name="led" value="#{ledMB.selectedEntity}" />
+						<ui:param name="createEntity" value="#{false}" />
+					</ui:include>
+				</p:dialog>
+			</sec:authorize>
+		</h:form>
+	</ui:define>
+</ui:composition>

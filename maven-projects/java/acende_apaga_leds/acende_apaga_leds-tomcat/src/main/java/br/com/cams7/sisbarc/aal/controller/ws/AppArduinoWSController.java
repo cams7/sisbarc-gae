@@ -8,13 +8,14 @@ import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.sisbarc.aal.domain.AbstractPino;
 import br.com.cams7.sisbarc.aal.domain.AbstractPino.Evento;
 import br.com.cams7.sisbarc.aal.domain.AbstractPino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
-import br.com.cams7.sisbarc.aal.task.ArduinoScheduler;
+import br.com.cams7.sisbarc.aal.task.AppArduinoScheduler;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 
 /**
@@ -23,49 +24,64 @@ import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
  */
 @Controller("arduinoWS")
 @WebService(endpointInterface = "br.com.cams7.sisbarc.aal.ws.AppArduinoService")
-public class ArduinoWSController implements AppArduinoService {
+public class AppArduinoWSController implements AppArduinoService {
 
 	@Autowired
-	private ArduinoScheduler monitor;
+	private AppArduinoScheduler scheduler;
 
 	@Override
-	public void connect() {
-		monitor.connect();
+	public void openConnection() throws ArduinoException {
+		scheduler.openConnection();
 	}
 
 	@Override
-	public void close() {
-		monitor.close();
+	public void closeConnection() throws ArduinoException {
+		scheduler.closeConnection();
 	}
 
 	@Override
-	public boolean isInitialized() {
-		return monitor.isInitialized();
+	public String getSerialPort() {
+		return scheduler.getSerialPort();
+	}
+
+	@Override
+	public int getSerialBaudRate() {
+		return scheduler.getSerialBaudRate();
+	}
+
+	@Override
+	public int getThreadInterval() {
+		return scheduler.getThreadInterval();
+	}
+
+	@Override
+	public boolean isConnected() {
+		return scheduler.isConnected();
 	}
 
 	@Override
 	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado) {
-		return monitor.alteraEstadoLED(pino, estado);
+		return scheduler.alteraEstadoLED(pino, estado);
 	}
 
 	@Override
 	public LEDEntity[] buscaEstadoLEDs(Pino[] pinos) {
-		return monitor.buscaEstadoLEDs(pinos);
+		return scheduler.buscaEstadoLEDs(pinos);
 	}
 
 	@Override
 	public Evento alteraEvento(Pino pino, Evento evento, Intervalo intervalo) {
-		return monitor.alteraEvento(pino, evento, intervalo);
+		return scheduler.alteraEvento(pino, evento, intervalo);
 	}
 
 	@Override
 	public AbstractPino[] alteraEventos(AbstractPino[] pinos) {
-		return monitor.alteraEventos(pinos);
+		return scheduler.alteraEventos(pinos);
 	}
 
 	@Override
 	public AbstractPino[] buscaDados(Pino[] pinos) {
-		return monitor.buscaDados(pinos);
+		return scheduler.buscaDados(pinos);
 	}
 
 }

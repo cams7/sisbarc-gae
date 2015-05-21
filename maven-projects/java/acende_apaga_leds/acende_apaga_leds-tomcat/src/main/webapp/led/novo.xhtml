@@ -5,12 +5,11 @@
 	xmlns:p="http://primefaces.org/ui" template="/layout/template.xhtml">
 
 	<ui:define name="pageTitle">
-		<h:outputText value="#{msg['page.title.incluir.funcionario']}" />
+		<h:outputText value="#{msg['page.title.lista.led']}" />
 	</ui:define>
 
 	<f:metadata>
-		<f:event type="preRenderView"
-			listener="#{funcionarioMB.includeNewEntity}" />
+		<f:event type="preRenderView" listener="#{ledMB.includeNewEntity}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -19,13 +18,12 @@
 			<fieldset>
 				<legend>
 					<h3>
-						<h:outputText value="#{msg['label.funcionario']}" />
+						<h:outputText value="#{msg['label.led']}" />
 						<small> <h:outputText value="#{msg['label.incluir']}" /></small>
 					</h3>
 				</legend>
 				<ui:include src="formulario.xhtml">
-					<ui:param name="funcionario"
-						value="#{funcionarioMB.selectedEntity}" />
+					<ui:param name="led" value="#{ledMB.selectedEntity}" />
 					<ui:param name="createEntity" value="#{true}" />
 				</ui:include>
 			</fieldset>

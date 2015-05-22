@@ -16,6 +16,8 @@
 							icon="ui-icon-person" />						
 						<p:menuitem value="#{msg['menu.led']}"
 							outcome="/led/novo" icon="ui-icon-contact" />
+						<p:menuitem value="#{msg['menu.potenciometro']}"
+							outcome="/potenciometro/novo" icon="ui-icon-contact" />
 					</p:submenu>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
@@ -40,6 +42,9 @@
 
 					<p:menuitem value="#{msg['menu.leds']}"
 						outcome="/led/lista" icon="ui-icon-contact" />
+						
+					<p:menuitem value="#{msg['menu.potenciometros']}"
+						outcome="/potenciometro/lista" icon="ui-icon-contact" />
 				</p:submenu>
 			</sec:authorize>
 

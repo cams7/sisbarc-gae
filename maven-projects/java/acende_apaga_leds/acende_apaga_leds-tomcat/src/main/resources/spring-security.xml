@@ -32,6 +32,9 @@
 		
 		<intercept-url pattern="/led/lista.jsf" access="isAuthenticated()" />
 		<intercept-url pattern="/led/novo.jsf" access="hasRole('ROLE_ADMIN')" />
+		
+		<intercept-url pattern="/potenciometro/lista.jsf" access="isAuthenticated()" />
+		<intercept-url pattern="/potenciometro/novo.jsf" access="hasRole('ROLE_ADMIN')" />
 
 		<intercept-url pattern="/sobre.jsf" access="permitAll" />
 		

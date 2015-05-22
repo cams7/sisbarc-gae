@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.springframework.stereotype.Controller;
 
+import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.CorLED;
 import br.com.cams7.sisbarc.aal.service.LEDService;
@@ -63,6 +64,16 @@ public class LEDController extends AALController<LEDService, LEDEntity, String> 
 	 */
 	public CorLED[] getCores() {
 		return CorLED.values();
+	}
+
+	@Override
+	public Evento[] getEventos() {
+		Evento[] eventos = new Evento[3];
+		eventos[0] = Evento.ACENDE_APAGA;
+		eventos[1] = Evento.PISCA_PISCA;
+		eventos[2] = Evento.FADE;
+
+		return eventos;
 	}
 
 	/*

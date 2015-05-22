@@ -1,0 +1,106 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/layout/template.xhtml">
+
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.lista.potenciometro']}" />
+	</ui:define>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{potenciometroMB.reset}" />
+	</f:metadata>
+
+	<ui:define name="content">
+		<div style="border-bottom: 1px solid #E5E5E5;">
+			<h3>
+				<h:outputText value="#{msg['label.potenciometros']}" />
+				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
+			</h3>
+		</div>
+
+		<h:form id="formPotenciometro">
+			<p:growl id="mensagens" widgetVar="mensagens" showDetail="true"
+				showSummary="true" life="5000" />
+
+			<p:dataTable id="potenciometros" var="potenciometro"
+				value="#{potenciometroMB.lazyModel}" paginator="true"
+				rows="#{potenciometroMB.rows}" first="#{potenciometroMB.first}"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="3,5,10,15" selectionMode="single"
+				selection="#{potenciometroMB.selectedEntity}" lazy="true"
+				emptyMessage="#{msg['label.potenciometros.naoCadastrados']}"
+				widgetVar="potenciometrosTable" resizableColumns="true">
+
+				<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+					<p:ajax event="rowSelect" listener="#{potenciometroMB.onRowSelect}"
+						update=":formPotenciometro:potenciometroDetail"
+						onsuccess="PF('potenciometroDialog').show();" />
+				</sec:authorize>
+
+				<p:column headerText="#{msg['label.potenciometro.tipo']}"
+					sortBy="#{potenciometro.pino.tipo}">
+					<h:outputText value="#{potenciometro.pino.tipo}" />
+				</p:column>
+
+				<p:column headerText="#{msg['label.potenciometro.pino']}"
+					sortBy="#{potenciometro.pino.codigo}">
+					<h:outputText value="#{potenciometro.pino.codigo}" />
+				</p:column>
+
+				<p:column headerText="#{msg['label.potenciometro.evento']}"
+					sortBy="#{potenciometro.evento}">
+					<h:outputText value="#{potenciometro.evento}" />
+				</p:column>
+
+				<p:column headerText="#{msg['label.potenciometro.intervalo']}"
+					sortBy="#{potenciometro.intervalo}">
+					<h:outputText value="#{potenciometro.intervalo}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+						<p:panelGrid id="totalRows" columns="3" columnClasses="value" style="width:100%">
+							<h:outputFormat value="#{msg['label.potenciometros.totalCadastrados']}">
+								<f:param value="#{potenciometroMB.totalRows}" />
+							</h:outputFormat>
+
+							<p:commandButton value="#{msg['button.arduino.synchronize']}"
+								styleClass="btn btn-success"
+								actionListener="#{potenciometroMB.sincronizaPinos}"
+								oncomplete="PF('potenciometrosTable').filter()"
+								update=":formPotenciometro:mensagens" />
+
+							<p:commandButton value="#{msg['button.arduino.update']}"
+								styleClass="btn btn-success"
+								actionListener="#{potenciometroMB.atualizaPinos}"
+								update=":formPotenciometro:mensagens" />
+						</p:panelGrid>
+					</sec:authorize>
+					<sec:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
+						<h:outputFormat id="totalRows" value="#{msg['label.potenciometros.totalCadastrados']}">
+							<f:param value="#{potenciometroMB.totalRows}" />
+						</h:outputFormat>
+					</sec:authorize>
+				</f:facet>
+			</p:dataTable>
+
+			<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+				<p:dialog header="#{msg['label.editar']}"
+					widgetVar="potenciometroDialog" modal="true" resizable="false">
+
+					<p:ajax event="close" listener="#{potenciometroMB.handleClose}" />
+
+					<ui:include src="formulario.xhtml">
+						<ui:param name="potenciometro"
+							value="#{potenciometroMB.selectedEntity}" />
+						<ui:param name="createEntity" value="#{false}" />
+					</ui:include>
+				</p:dialog>
+			</sec:authorize>
+		</h:form>
+	</ui:define>
+</ui:composition>

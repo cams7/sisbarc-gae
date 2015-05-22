@@ -5,11 +5,12 @@
 	xmlns:p="http://primefaces.org/ui" template="/layout/template.xhtml">
 
 	<ui:define name="pageTitle">
-		<h:outputText value="#{msg['page.title.incluir.led']}" />
+		<h:outputText value="#{msg['page.title.incluir.potenciometro']}" />
 	</ui:define>
 
 	<f:metadata>
-		<f:event type="preRenderView" listener="#{ledMB.includeNewEntity}" />
+		<f:event type="preRenderView"
+			listener="#{potenciometroMB.includeNewEntity}" />
 	</f:metadata>
 
 	<ui:define name="content">
@@ -17,11 +18,12 @@
 			<p:growl id="mensagens" showDetail="true" life="5000" />
 			<fieldset>
 				<legend>
-					<h:outputText value="#{msg['label.led']}" />
+					<h:outputText value="#{msg['label.potenciometro']}" />
 					<small> <h:outputText value="#{msg['label.incluir']}" /></small>
 				</legend>
 				<ui:include src="formulario.xhtml">
-					<ui:param name="led" value="#{ledMB.selectedEntity}" />
+					<ui:param name="potenciometro"
+						value="#{potenciometroMB.selectedEntity}" />
 					<ui:param name="createEntity" value="#{true}" />
 				</ui:include>
 			</fieldset>

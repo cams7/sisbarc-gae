@@ -6,6 +6,7 @@ package br.com.cams7.sisbarc.aal.task;
 //import java.util.Hashtable;
 import java.util.logging.Level;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.cams7.arduino.ArduinoException;
@@ -13,13 +14,14 @@ import br.com.cams7.arduino.ArduinoException;
 //import javax.naming.InitialContext;
 //import javax.naming.NamingException;
 import br.com.cams7.arduino.ArduinoPinType;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino;
-//import br.com.cams7.sisbarc.aal.ejb.service.AppWildflyService;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Evento;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.Pino;
+//import br.com.cams7.sisbarc.aal.ejb.service.AppWildflyService;
+import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
+import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
+import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
+import br.com.cams7.sisbarc.aal.service.LEDService;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 import br.com.cams7.sisbarc.arduino.ArduinoScheduler;
 import br.com.cams7.sisbarc.arduino.vo.Arduino;
@@ -33,9 +35,14 @@ import br.com.cams7.sisbarc.arduino.vo.EEPROMData;
  * @author cams7
  *
  */
-@Component("arduinoScheduler")
+@Component(AppArduinoScheduler.COMPONENT_NAME)
 public class AppArduinoScheduler extends ArduinoScheduler implements
 		AppArduinoService {
+
+	@Autowired
+	private LEDService service;
+
+	public static final String COMPONENT_NAME = "arduinoScheduler";
 
 	private final byte D13_LED_PISCA = 13; // Pino 13 Digital
 
@@ -73,12 +80,12 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 				break;
 			}
 			case D13_LED_PISCA: {
-				getLog().info(
-						"USART -> LED Pisca ("
-								+ pin
-								+ "): "
-								+ (pinValue == 0x0001 ? EstadoLED.ACESO
-										: EstadoLED.APAGADO));
+				// getLog().info(
+				// "USART -> LED Pisca ("
+				// + pin
+				// + "): "
+				// + (pinValue == 0x0001 ? EstadoLED.ACESO
+				// : EstadoLED.APAGADO));
 				break;
 			}
 			default:
@@ -261,65 +268,64 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 	}
 
 	@Override
-	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado)
+	public EstadoLED alteraEstadoLED(PinoKey id, EstadoLED estado)
 			throws ArduinoException {
-		ArduinoPinType tipoPino = pino.getTipo();
-		byte pinoLED = pino.getCodigo().byteValue();
+		ArduinoPinType tipo = id.getTipo();
+		byte pino = id.getCodigo().byteValue();
 
 		boolean estadoLED = (estado == EstadoLED.ACESO);
 
-		if (tipoPino == ArduinoPinType.DIGITAL) {
-			sendPinDigitalUSART(ArduinoStatus.SEND_RESPONSE, pinoLED, estadoLED);
+		if (tipo == ArduinoPinType.DIGITAL) {
+			sendPinDigitalUSART(ArduinoStatus.SEND_RESPONSE, pino, estadoLED);
 			serialThreadInterval();
 
-			return getEstadoLED(pino, ArduinoEvent.EXECUTE);
+			return getEstadoLED(id, ArduinoEvent.EXECUTE);
 		}
 
 		return null;
 	}
 
 	@Override
-	public LEDEntity[] buscaEstadoLEDs(Pino[] pinos) throws ArduinoException {
-		for (Pino pino : pinos) {
-			ArduinoPinType tipoPino = pino.getTipo();
-			byte pinoLED = pino.getCodigo().byteValue();
+	public LEDEntity[] buscaEstadoLEDs(PinoKey[] ids) throws ArduinoException {
+		for (PinoKey id : ids) {
+			ArduinoPinType tipo = id.getTipo();
+			byte pino = id.getCodigo().byteValue();
 
-			if (tipoPino == ArduinoPinType.DIGITAL)
-				sendPinDigitalUSARTMessage(ArduinoStatus.SEND_RESPONSE, pinoLED);
+			if (tipo == ArduinoPinType.DIGITAL)
+				sendPinDigitalUSARTMessage(ArduinoStatus.SEND_RESPONSE, pino);
 		}
 
 		serialThreadInterval();
 
-		LEDEntity[] leds = new LEDEntity[pinos.length];
-		for (short i = 0; i < pinos.length; i++) {
-			Pino pino = pinos[i];
-			EstadoLED estado = getEstadoLED(pino, ArduinoEvent.MESSAGE);
+		LEDEntity[] leds = new LEDEntity[ids.length];
+		for (short i = 0; i < ids.length; i++) {
+			PinoKey id = ids[i];
+			EstadoLED estado = getEstadoLED(id, ArduinoEvent.MESSAGE);
 
-			leds[i] = new LEDEntity(pino.getTipo(), pino.getCodigo());
+			leds[i] = new LEDEntity(id.getTipo(), id.getCodigo());
 			leds[i].setEstado(estado);
 		}
 		return leds;
 	}
 
 	@Override
-	public Evento alteraEvento(Pino pinoId, Evento evento, Intervalo intervalo)
+	public Evento alteraEvento(PinoKey id, Evento evento, Intervalo intervalo)
 			throws ArduinoException {
 
-		sendEEPROMWrite(ArduinoStatus.SEND_RESPONSE, pinoId.getTipo(), pinoId
+		sendEEPROMWrite(ArduinoStatus.SEND_RESPONSE, id.getTipo(), id
 				.getCodigo().byteValue(), (byte) intervalo.ordinal(),
 				(byte) evento.ordinal());
 
 		serialThreadInterval();
 
-		return getEvento(pinoId);
+		return getEvento(id);
 	}
 
 	@Override
-	public AbstractPino[] alteraEventos(AbstractPino[] pinos)
-			throws ArduinoException {
+	public Pino[] alteraEventos(Pino[] pinos) throws ArduinoException {
 
-		for (AbstractPino pino : pinos) {
-			Pino id = pino.getPino();
+		for (Pino pino : pinos) {
+			PinoKey id = pino.getPino();
 			sendEEPROMWrite(ArduinoStatus.SEND_RESPONSE, id.getTipo(), id
 					.getCodigo().byteValue(), (byte) pino.getIntervalo()
 					.ordinal(), (byte) pino.getEvento().ordinal());
@@ -327,25 +333,25 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 
 		serialThreadInterval();
 
-		for (AbstractPino pino : pinos)
+		for (Pino pino : pinos)
 			pino.setEvento(getEvento(pino.getPino()));
 
 		return pinos;
 	}
 
 	@Override
-	public AbstractPino[] buscaDados(Pino[] ids) throws ArduinoException {
-		for (Pino id : ids)
+	public Pino[] buscaDados(PinoKey[] ids) throws ArduinoException {
+		for (PinoKey id : ids)
 			sendEEPROMRead(ArduinoStatus.SEND_RESPONSE, id.getTipo(), id
 					.getCodigo().byteValue());
 
 		serialThreadInterval();
 
-		AbstractPino[] pinos = new AbstractPino[ids.length];
+		Pino[] pinos = new Pino[ids.length];
 
 		for (short i = 0; i < ids.length; i++) {
-			Pino id = ids[i];
-			pinos[i] = new AbstractPino(id.getTipo(), id.getCodigo()) {
+			PinoKey id = ids[i];
+			pinos[i] = new Pino(id.getTipo(), id.getCodigo()) {
 				private static final long serialVersionUID = 1L;
 			};
 
@@ -361,11 +367,11 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 		return pinos;
 	}
 
-	private Arduino getArduinoResponse(ArduinoEvent event, Pino pinoId) {
-		ArduinoPinType pinType = pinoId.getTipo();
-		byte pin = pinoId.getCodigo().byteValue();
+	private Arduino getArduinoResponse(ArduinoEvent event, PinoKey id) {
+		ArduinoPinType tipo = id.getTipo();
+		byte pino = id.getCodigo().byteValue();
 
-		String key = getKeyCurrentStatus(event, pinType, pin);
+		String key = getKeyCurrentStatus(event, tipo, pino);
 
 		if (getCurrentStatus().isEmpty()
 				|| !getCurrentStatus().containsKey(key))
@@ -391,12 +397,12 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 	 *            do LED - Numero do PINO DIGITAL
 	 * @return ESTADO do LED
 	 */
-	private EstadoLED getEstadoLED(Pino pinoId, ArduinoEvent arduinoEvent) {
+	private EstadoLED getEstadoLED(PinoKey id, ArduinoEvent arduinoEvent) {
 		if (arduinoEvent != ArduinoEvent.EXECUTE
 				&& arduinoEvent != ArduinoEvent.MESSAGE)
 			return null;
 
-		Arduino arduino = getArduinoResponse(arduinoEvent, pinoId);
+		Arduino arduino = getArduinoResponse(arduinoEvent, id);
 		if (arduino == null)
 			return null;
 
@@ -422,8 +428,8 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 	 *            - Numero do PINO DIGITAL/ANALOG
 	 * @return EVENTO do LED
 	 */
-	private Evento getEvento(Pino pino) {
-		Arduino arduino = getArduinoResponse(Arduino.ArduinoEvent.WRITE, pino);
+	private Evento getEvento(PinoKey id) {
+		Arduino arduino = getArduinoResponse(Arduino.ArduinoEvent.WRITE, id);
 		if (arduino == null)
 			return null;
 
@@ -439,8 +445,8 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 	 *            - Numero do PINO DIGITAL/ANALOGICO
 	 * @return DADOS da EEPROM no ARDUINO
 	 */
-	private EEPROMData getDados(Pino pino) {
-		Arduino arduino = getArduinoResponse(Arduino.ArduinoEvent.READ, pino);
+	private EEPROMData getDados(PinoKey id) {
+		Arduino arduino = getArduinoResponse(Arduino.ArduinoEvent.READ, id);
 		if (arduino == null)
 			return null;
 
@@ -453,34 +459,13 @@ public class AppArduinoScheduler extends ArduinoScheduler implements
 
 		estadoPino = 0x0000;
 
-		// try {
-		// AppWildflyService service = lookupAppWildflyService();
-		//
-		// EstadoLED estado = service.getEstadoLEDAtivadoPorBotao(pinoLED);
-		//
-		// if (estado != null && estado == EstadoLED.ACESO)
-		// estadoPino = (short) 0x0001;
-		//
-		// } catch (NamingException e) {
-		// getLog().log(Level.SEVERE, e.getMessage());
-		// }
+		EstadoLED estado = service.getEstadoLEDAtivadoPorBotao(pinoLED);
+
+		if (estado != null && estado == EstadoLED.ACESO)
+			estadoPino = (short) 0x0001;
 
 		return estadoPino;
 	}
-
-	// private AppWildflyService lookupAppWildflyService() throws
-	// NamingException {
-	// final Hashtable<String, String> jndiProperties = new Hashtable<String,
-	// String>();
-	// jndiProperties.put(Context.URL_PKG_PREFIXES,
-	// "org.jboss.ejb.client.naming");
-	// final Context context = new InitialContext(jndiProperties);
-	//
-	// return (AppWildflyService) context
-	// .lookup("ejb:sisbarc/acende_apaga_leds-ejb//LEDServiceImpl!"
-	// + AppWildflyService.class.getName());
-	//
-	// }
 
 	private void serialThreadInterval() {
 		try {

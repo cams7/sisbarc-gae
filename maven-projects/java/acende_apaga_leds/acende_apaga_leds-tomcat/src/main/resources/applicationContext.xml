@@ -30,7 +30,7 @@
 
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.faces.convert" />
 
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller.ws" />
+	<!-- context:component-scan base-package="br.com.cams7.sisbarc.aal.controller.ws" />
 	<wss:binding url="/sayhello">
 		<wss:service>
 			<ws:service bean="#helloWS" />
@@ -40,7 +40,7 @@
 		<wss:service>
 			<ws:service bean="#arduinoWS" />
 		</wss:service>
-	</wss:binding>
+	</wss:binding-->
 
 	<bean id="arduinoScheduler" class="br.com.cams7.sisbarc.aal.task.AppArduinoScheduler" />
 

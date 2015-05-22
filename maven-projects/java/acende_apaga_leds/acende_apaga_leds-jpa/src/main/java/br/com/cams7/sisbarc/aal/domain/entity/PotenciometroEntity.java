@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.cams7.arduino.ArduinoPinType;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino;
+import br.com.cams7.sisbarc.aal.domain.Pino;
 
 /**
  * @author cams7
@@ -16,7 +16,7 @@ import br.com.cams7.sisbarc.aal.domain.AbstractPino;
  */
 @XmlRootElement
 @Document(collection = "potenciometro")
-public class PotenciometroEntity extends AbstractPino {
+public class PotenciometroEntity extends Pino {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,7 @@ public class PotenciometroEntity extends AbstractPino {
 	 * @param tipo
 	 * @param pino
 	 */
-	public PotenciometroEntity(ArduinoPinType tipo, Short pino) {
+	public PotenciometroEntity(ArduinoPinType tipo, Byte pino) {
 		super(tipo, pino);
 	}
 

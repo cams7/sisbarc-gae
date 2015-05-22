@@ -13,7 +13,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.cams7.arduino.ArduinoPinType;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino;
+import br.com.cams7.sisbarc.aal.domain.Pino;
 
 /**
  * @author cams7
@@ -23,7 +23,7 @@ import br.com.cams7.sisbarc.aal.domain.AbstractPino;
 @XmlType(name = "ledEntity", propOrder = { "cor", "ativo", "ativadoPorBotao",
 		"estado" })
 @Document(collection = "led")
-public class LEDEntity extends AbstractPino {
+public class LEDEntity extends Pino {
 
 	private static final long serialVersionUID = 1L;
 
@@ -47,7 +47,7 @@ public class LEDEntity extends AbstractPino {
 		super(id);
 	}
 
-	public LEDEntity(ArduinoPinType tipo, Short pino) {
+	public LEDEntity(ArduinoPinType tipo, Byte pino) {
 		super(tipo, pino);
 	}
 

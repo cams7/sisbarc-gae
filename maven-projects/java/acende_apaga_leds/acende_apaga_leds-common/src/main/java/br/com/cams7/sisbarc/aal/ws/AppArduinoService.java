@@ -9,10 +9,10 @@ import javax.jws.soap.SOAPBinding;
 
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.arduino.ArduinoService;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Evento;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.Pino;
+import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
+import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
+import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 
@@ -40,7 +40,8 @@ public interface AppArduinoService extends ArduinoService {
 	 * 
 	 */
 	@WebMethod
-	public EstadoLED alteraEstadoLED(Pino pino, EstadoLED estado) throws ArduinoException;
+	public EstadoLED alteraEstadoLED(PinoKey id, EstadoLED estado)
+			throws ArduinoException;
 
 	/**
 	 * Busca os ESTADOs dos LEDs, que pode ser ACESO ou APAGADO
@@ -49,7 +50,7 @@ public interface AppArduinoService extends ArduinoService {
 	 *            dos LEDs - Numero do PINO DIGITAL
 	 */
 	@WebMethod
-	public LEDEntity[] buscaEstadoLEDs(Pino[] ids) throws ArduinoException;
+	public LEDEntity[] buscaEstadoLEDs(PinoKey[] ids) throws ArduinoException;
 
 	/**
 	 * Altera o EVENTO e o INTERVALO
@@ -61,7 +62,7 @@ public interface AppArduinoService extends ArduinoService {
 	 * @param INTERVALO
 	 */
 	@WebMethod
-	public Evento alteraEvento(Pino pino, Evento evento, Intervalo intervalo)
+	public Evento alteraEvento(PinoKey id, Evento evento, Intervalo intervalo)
 			throws ArduinoException;
 
 	/**
@@ -69,8 +70,7 @@ public interface AppArduinoService extends ArduinoService {
 	 * @return
 	 */
 	@WebMethod
-	public AbstractPino[] alteraEventos(AbstractPino[] pinos)
-			throws ArduinoException;
+	public Pino[] alteraEventos(Pino[] pinos) throws ArduinoException;
 
 	/**
 	 * Obtem os Dados na EEPROM do ARDUINO
@@ -79,6 +79,6 @@ public interface AppArduinoService extends ArduinoService {
 	 *            - Numero do PINO DIGITAL/ANALOGICO
 	 */
 	@WebMethod
-	public AbstractPino[] buscaDados(Pino[] pinos) throws ArduinoException;
+	public Pino[] buscaDados(PinoKey[] ids) throws ArduinoException;
 
 }

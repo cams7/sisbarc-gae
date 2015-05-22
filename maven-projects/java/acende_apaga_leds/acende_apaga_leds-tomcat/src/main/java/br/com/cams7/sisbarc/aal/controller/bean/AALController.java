@@ -15,10 +15,10 @@ import org.primefaces.context.RequestContext;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.domain.BaseEntity;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Evento;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.Pino;
+import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
+import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
+import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.service.AALService;
 import br.com.cams7.webapp.AppController;
 import br.com.cams7.webapp.AppService;
@@ -40,14 +40,14 @@ public abstract class AALController<S extends AppService<E, ID>, E extends BaseE
 	public void includeNewEntity() {
 		super.includeNewEntity();
 
-		AbstractPino pino = (AbstractPino) getSelectedEntity();
-		pino.setPino(new Pino());
+		Pino pino = (Pino) getSelectedEntity();
+		pino.setPino(new PinoKey());
 	}
 
 	public void atualizaPino(ActionEvent event) {
 		E entidade = getSelectedEntity();
 
-		AbstractPino pino = (AbstractPino) entidade;
+		Pino pino = (Pino) entidade;
 
 		final String MSG_ERROR_UPDATE = getMessageFromI18N(
 				"error.msg.pin.update", pino.getPino().getTipo().name(), pino

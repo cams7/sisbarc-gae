@@ -109,7 +109,7 @@
 		</context-param> <listener> <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> 
 		</listener -->
 
-	<servlet>
+	<!-- servlet>
 		<servlet-name>sayhello</servlet-name>
 		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
@@ -127,7 +127,7 @@
 	<servlet-mapping>
 		<servlet-name>arduino</servlet-name>
 		<url-pattern>/arduino</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping-->
 
 	<context-param>
 		<param-name>SERIAL_PORT</param-name>

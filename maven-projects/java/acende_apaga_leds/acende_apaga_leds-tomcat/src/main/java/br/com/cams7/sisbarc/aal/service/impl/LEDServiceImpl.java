@@ -12,7 +12,8 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import br.com.cams7.arduino.ArduinoException;
-import br.com.cams7.sisbarc.aal.domain.Pino;
+import br.com.cams7.arduino.ArduinoPinType;
+import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 import br.com.cams7.sisbarc.aal.repository.LEDRepository;
@@ -36,6 +37,16 @@ public class LEDServiceImpl extends
 	@Override
 	public List<LEDEntity> buscaLEDsAtivadoPorBotao() {
 		return getRepository().buscaLEDsAtivadoPorBotao();
+	}
+
+	@Override
+	public LEDEntity findOne(PinoKey id) {
+		return getRepository().findOne(id);
+	}
+
+	@Override
+	public LEDEntity estaAtivo(PinoKey id) {
+		return getRepository().estaAtivo(id);
 	}
 
 	@Async
@@ -72,13 +83,13 @@ public class LEDServiceImpl extends
 
 		LEDEntity[] array = getScheduler().buscaEstadoLEDs(getIDs(leds));
 
-		for (LEDEntity l : array) {
-			Pino id = l.getPino();
-			EstadoLED estado = l.getEstado();
+		for (LEDEntity led : array) {
+			PinoKey id = led.getPino();
+			EstadoLED estado = led.getEstado();
 
-			for (LEDEntity led : leds)
-				if (id.equals(led.getId())) {
-					led.setEstado(estado);
+			for (LEDEntity l : leds)
+				if (id.equals(l.getPino())) {
+					l.setEstado(estado);
 					break;
 				}
 		}
@@ -87,28 +98,11 @@ public class LEDServiceImpl extends
 	}
 
 	@Override
-	public EstadoLED getEstadoLEDAtivadoPorBotao(byte pin) {
-		// CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-		// CriteriaQuery<Boolean> criteria = builder.createQuery(Boolean.class);
-		//
-		// Root<LEDEntity> root = criteria.from(getEntityType());
-		//
-		// criteria.select(root.get(LEDEntity_.ativo));
-		//
-		// Predicate isActiveButton = builder.isTrue(root
-		// .get(LEDEntity_.ativadoPorBotao));
-		// Predicate equalPin = builder.equal(root.get(LEDEntity_.id), new
-		// PinPK(
-		// ArduinoPinType.DIGITAL, Short.valueOf(pin)));
-		//
-		// Predicate and = builder.and(isActiveButton, equalPin);
-		//
-		// criteria.where(and);
-		//
-		// TypedQuery<Boolean> query = getEntityManager().createQuery(criteria);
-		// Boolean active = query.getSingleResult();
-		// if (active == Boolean.TRUE)
-		// return EstadoLED.ACESO;
+	public EstadoLED getEstadoLEDAtivadoPorBotao(Byte pino) {
+		LEDEntity led = estaAtivo(new PinoKey(ArduinoPinType.DIGITAL, pino));
+
+		if (led.getAtivo() == Boolean.TRUE)
+			return EstadoLED.ACESO;
 
 		return EstadoLED.APAGADO;
 	}

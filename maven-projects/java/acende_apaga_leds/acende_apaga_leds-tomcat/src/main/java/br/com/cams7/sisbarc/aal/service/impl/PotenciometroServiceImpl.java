@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
 import br.com.cams7.sisbarc.aal.repository.PotenciometroRepository;
 import br.com.cams7.sisbarc.aal.service.PotenciometroService;
-import br.com.cams7.webapp.AppServiceImpl;
 
 /**
  * @author cams7
@@ -16,7 +15,7 @@ import br.com.cams7.webapp.AppServiceImpl;
  */
 @Service
 public class PotenciometroServiceImpl extends
-		AppServiceImpl<PotenciometroRepository, PotenciometroEntity, String>
+		AALServiceImpl<PotenciometroRepository, PotenciometroEntity, String>
 		implements PotenciometroService {
 
 	/**

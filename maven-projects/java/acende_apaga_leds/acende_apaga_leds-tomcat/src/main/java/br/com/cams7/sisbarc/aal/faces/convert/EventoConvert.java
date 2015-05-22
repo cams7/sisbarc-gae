@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 
 import org.springframework.stereotype.Component;
 
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Evento;
+import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 
 /**
  * @author cams7

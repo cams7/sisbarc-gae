@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.util.AppException;
 
 public abstract class BaseRestController<S extends BaseService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
 		extends BaseController<S, E, ID> {
@@ -18,8 +19,9 @@ public abstract class BaseRestController<S extends BaseService<E, ID>, E extends
 		super();
 	}
 
-	@ExceptionHandler({ Exception.class })
-	public @ResponseBody ResponseEntity<?> handleException(Exception exception) {
+	@ExceptionHandler({ AppException.class })
+	public @ResponseBody ResponseEntity<?> handleException(
+			AppException exception) {
 		String errorMessage = exception.getMessage();
 
 		ResponseEntity<?> response = new ResponseEntity<>(

@@ -6,17 +6,19 @@ import java.util.concurrent.Future;
 import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.domain.BaseEntity;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Evento;
-import br.com.cams7.sisbarc.aal.domain.AbstractPino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.Pino;
+import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
+import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
+import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.service.AALService;
 import br.com.cams7.sisbarc.aal.task.AppArduinoScheduler;
+import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 import br.com.cams7.webapp.AppRepository;
 import br.com.cams7.webapp.AppServiceImpl;
 
@@ -28,26 +30,27 @@ public abstract class AALServiceImpl<R extends AppRepository<E, ID>, E extends B
 		extends AppServiceImpl<R, E, ID> implements AALService<E, ID> {
 
 	@Autowired
-	private AppArduinoScheduler scheduler;
+	@Qualifier(AppArduinoScheduler.COMPONENT_NAME)
+	private AppArduinoService scheduler;
 
 	public AALServiceImpl() {
 		super();
 	}
 
-	protected Pino[] getIDs(List<E> entidades) {
-		Pino[] ids = new Pino[entidades.size()];
+	protected PinoKey[] getIDs(List<E> entidades) {
+		PinoKey[] ids = new PinoKey[entidades.size()];
 
 		for (byte i = 0; i < entidades.size(); i++)
-			ids[i] = ((AbstractPino) entidades.get(i)).getPino();
+			ids[i] = ((Pino) entidades.get(i)).getPino();
 
 		return ids;
 	}
 
-	protected AbstractPino[] getPinos(List<E> entidades) {
-		AbstractPino[] pinos = new AbstractPino[entidades.size()];
+	protected Pino[] getPinos(List<E> entidades) {
+		Pino[] pinos = new Pino[entidades.size()];
 
 		for (byte i = 0; i < entidades.size(); i++)
-			pinos[i] = (AbstractPino) entidades.get(i);
+			pinos[i] = (Pino) entidades.get(i);
 
 		return pinos;
 	}
@@ -61,9 +64,9 @@ public abstract class AALServiceImpl<R extends AppRepository<E, ID>, E extends B
 	 */
 	@Async
 	public Future<Boolean> atualizaPino(E entidade) throws ArduinoException {
-		AbstractPino pino = (AbstractPino) entidade;
+		Pino pino = (Pino) entidade;
 
-		Pino id = pino.getPino();
+		PinoKey id = pino.getPino();
 		Evento evento = pino.getEvento();
 		Intervalo intervalo = pino.getIntervalo();
 
@@ -99,22 +102,22 @@ public abstract class AALServiceImpl<R extends AppRepository<E, ID>, E extends B
 	public Future<Boolean> sincronizaEventos(List<E> entidades)
 			throws ArduinoException {
 
-		AbstractPino[] pinos = scheduler.buscaDados(getIDs(entidades));
+		Pino[] pinos = scheduler.buscaDados(getIDs(entidades));
 
 		Boolean arduinoRun = Boolean.TRUE;
 
-		for (AbstractPino pino : pinos) {
+		for (Pino pino : pinos) {
 			if (pino.getEvento() == null && pino.getIntervalo() == null) {
 				arduinoRun = Boolean.FALSE;
 				break;
 			}
 
-			Pino id = pino.getPino();
+			PinoKey id = pino.getPino();
 			Evento evento = pino.getEvento();
 			Intervalo intervalo = pino.getIntervalo();
 
 			for (E entidade : entidades) {
-				AbstractPino p = (AbstractPino) entidade;
+				Pino p = (Pino) entidade;
 				if (id.equals(p.getPino())) {
 					p.setEvento(evento);
 					p.setIntervalo(intervalo);
@@ -145,11 +148,11 @@ public abstract class AALServiceImpl<R extends AppRepository<E, ID>, E extends B
 	public Future<Boolean> alteraEventos(List<E> entidades)
 			throws ArduinoException {
 
-		AbstractPino[] pinos = scheduler.alteraEventos(getPinos(entidades));
+		Pino[] pinos = scheduler.alteraEventos(getPinos(entidades));
 
 		Boolean arduinoRun = Boolean.TRUE;
 
-		for (AbstractPino pino : pinos)
+		for (Pino pino : pinos)
 			if (pino.getEvento() == null) {
 				arduinoRun = Boolean.FALSE;
 				break;
@@ -164,7 +167,7 @@ public abstract class AALServiceImpl<R extends AppRepository<E, ID>, E extends B
 		return new AsyncResult<Boolean>(arduinoRun);
 	}
 
-	protected AppArduinoScheduler getScheduler() {
+	protected AppArduinoService getScheduler() {
 		return scheduler;
 	}
 

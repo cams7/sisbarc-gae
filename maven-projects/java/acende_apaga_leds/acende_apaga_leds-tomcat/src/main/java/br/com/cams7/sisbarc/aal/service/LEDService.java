@@ -24,6 +24,6 @@ public interface LEDService extends AALService<LEDEntity, String>,
 	public Future<List<LEDEntity>> getLEDsAtivadoPorBotao()
 			throws ArduinoException;
 
-	public EstadoLED getEstadoLEDAtivadoPorBotao(byte pin);
+	public EstadoLED getEstadoLEDAtivadoPorBotao(Byte pino);
 
 }

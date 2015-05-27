@@ -17,7 +17,7 @@ import br.com.cams7.webapp.AppRepository;
  *
  */
 @Repository
-public interface LEDRepository extends AppRepository<LEDEntity, String> {
+public interface LEDRepository extends AppRepository<LEDEntity> {
 
 	@Query("{ 'ativadoPorBotao' : true }")
 	public List<LEDEntity> buscaLEDsAtivadoPorBotao();

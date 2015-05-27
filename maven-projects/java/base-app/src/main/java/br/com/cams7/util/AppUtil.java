@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
 import java.util.Arrays;
@@ -77,8 +76,8 @@ public final class AppUtil {
 		return type;
 	}
 
-	public static <E extends BaseEntity<ID>, ID extends Serializable> E getNewEntity(
-			Class<E> entityType) throws AppException {
+	public static <E extends BaseEntity> E getNewEntity(Class<E> entityType)
+			throws AppException {
 		try {
 			E entity = entityType.newInstance();
 			return entity;
@@ -87,8 +86,8 @@ public final class AppUtil {
 		}
 	}
 
-	public static <E extends BaseEntity<ID>, ID extends Serializable> E getNewEntity(
-			Class<E> entityType, ID id) throws AppException {
+	public static <E extends BaseEntity> E getNewEntity(Class<E> entityType,
+			Long id) throws AppException {
 
 		E entity = getNewEntity(entityType);
 		entity.setId(id);
@@ -379,10 +378,10 @@ public final class AppUtil {
 		return response;
 	}
 
-	public static BaseRepository<?, ?> getNewDataSource(Class<?> dsType)
+	public static BaseRepository<?> getNewDataSource(Class<?> dsType)
 			throws AppException {
 		try {
-			BaseRepository<?, ?> repository = (BaseRepository<?, ?>) dsType
+			BaseRepository<?> repository = (BaseRepository<?>) dsType
 					.newInstance();
 			return repository;
 		} catch (InstantiationException | IllegalAccessException e) {

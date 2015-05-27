@@ -27,7 +27,7 @@ import com.googlecode.objectify.annotation.Id;
  * @author YaW Tecnologia
  */
 @Entity
-public class MercadoriaEntity extends BaseEntity<Long> {
+public class MercadoriaEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 

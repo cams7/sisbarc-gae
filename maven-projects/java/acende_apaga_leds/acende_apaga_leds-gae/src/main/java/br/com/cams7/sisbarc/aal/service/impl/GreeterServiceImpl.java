@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceRef;
+//import javax.xml.ws.WebServiceRef;
 import javax.xml.ws.handler.MessageContext;
 
 import org.springframework.stereotype.Service;
@@ -28,8 +28,8 @@ public class GreeterServiceImpl implements GreeterService {
 	private final String HOST = "localhost";
 	private final String PORT = "8080";
 
-	@WebServiceRef(value = HelloServiceImplService.class)
-	private HelloService port;
+	// @WebServiceRef(value = HelloServiceImplService.class)
+	// private HelloService port;
 
 	public GreeterServiceImpl() {
 		super();
@@ -44,6 +44,7 @@ public class GreeterServiceImpl implements GreeterService {
 	 */
 	@Override
 	public String sayHello(String name) {
+		HelloService port = getPort();
 		Map<String, Object> context = ((BindingProvider) port)
 				.getRequestContext();
 
@@ -72,6 +73,22 @@ public class GreeterServiceImpl implements GreeterService {
 
 		String message = port.printMessage(name);
 		return message;
+	}
+
+	public HelloService getPort() {
+		HelloService port = (new HelloServiceImplService())
+				.getHelloServiceImplPort();
+
+		// Map<String, Object> context = ((BindingProvider) port)
+		// .getRequestContext();
+		//
+		// final String WSDL_LOCATION =
+		// "http://localhost:8080/acende_apaga_leds/sayhello";
+
+		// context.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+		// WSDL_LOCATION);
+
+		return port;
 	}
 
 }

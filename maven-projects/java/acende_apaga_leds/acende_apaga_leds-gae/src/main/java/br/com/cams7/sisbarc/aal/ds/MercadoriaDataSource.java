@@ -36,7 +36,7 @@ import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
  * @author YaW Tecnologia
  */
 public class MercadoriaDataSource implements Serializable,
-		DataSource<MercadoriaEntity, Long> {
+		DataSource<MercadoriaEntity> {
 
 	private static final long serialVersionUID = 1L;
 

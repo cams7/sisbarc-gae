@@ -29,7 +29,7 @@ import br.com.cams7.util.AppException;
 @RestController
 @RequestMapping("/led")
 public class AppArduinoRestController extends
-		BaseRestController<LEDService, LEDEntity, String> {
+		BaseRestController<LEDService, LEDEntity> {
 
 	/**
 	 * 

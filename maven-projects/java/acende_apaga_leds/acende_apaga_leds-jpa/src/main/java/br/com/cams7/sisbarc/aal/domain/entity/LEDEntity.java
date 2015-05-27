@@ -43,7 +43,7 @@ public class LEDEntity extends Pino {
 		super();
 	}
 
-	public LEDEntity(String id) {
+	public LEDEntity(Long id) {
 		super(id);
 	}
 

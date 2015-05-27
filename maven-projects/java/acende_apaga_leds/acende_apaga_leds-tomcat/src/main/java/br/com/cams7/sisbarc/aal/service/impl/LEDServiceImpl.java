@@ -24,8 +24,8 @@ import br.com.cams7.sisbarc.aal.service.LEDService;
  *
  */
 @Service
-public class LEDServiceImpl extends
-		AALServiceImpl<LEDRepository, LEDEntity, String> implements LEDService {
+public class LEDServiceImpl extends AALServiceImpl<LEDRepository, LEDEntity>
+		implements LEDService {
 
 	/**
 	 * 

@@ -3,7 +3,6 @@
  */
 package br.com.cams7.webapp;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -15,18 +14,22 @@ import org.springframework.data.domain.Sort;
 
 import br.com.cams7.app.AbstractBase;
 import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.webapp.sequence.SequenceRepository;
 
 /**
  * @author cesar
  *
  */
-public abstract class AppServiceImpl<R extends AppRepository<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends AbstractBase<E> implements AppService<E, ID> {
+public abstract class AppServiceImpl<R extends AppRepository<E>, E extends BaseEntity>
+		extends AbstractBase<E> implements AppService<E> {
 
 	private final byte ENTITY_ARGUMENT_NUMBER = 1;
 
 	@Autowired
 	private R repository;
+
+	@Autowired
+	private SequenceRepository sequence;
 
 	public AppServiceImpl() {
 		super();
@@ -48,23 +51,27 @@ public abstract class AppServiceImpl<R extends AppRepository<E, ID>, E extends B
 	}
 
 	@Override
-	public Iterable<E> findAll(Iterable<ID> i) {
-		return repository.findAll(i);
+	public Iterable<E> findAll(Iterable<Long> ids) {
+		return repository.findAll(ids);
 	}
 
 	@Override
-	public E findOne(ID id) {
+	public E findOne(Long id) {
 		return repository.findOne(id);
 	}
 
 	@Override
 	public <T extends E> T insert(T entity) {
+		entity.setId(getNextId());
 		return repository.insert(entity);
 	}
 
 	@Override
-	public <T extends E> List<T> insert(Iterable<T> i) {
-		return repository.insert(i);
+	public <T extends E> List<T> insert(Iterable<T> entities) {
+		for (E entity : entities)
+			entity.setId(getNextId());
+
+		return repository.insert(entities);
 	}
 
 	@Override
@@ -73,8 +80,8 @@ public abstract class AppServiceImpl<R extends AppRepository<E, ID>, E extends B
 	}
 
 	@Override
-	public <T extends E> List<T> save(Iterable<T> i) {
-		return repository.save(i);
+	public <T extends E> List<T> save(Iterable<T> entities) {
+		return repository.save(entities);
 	}
 
 	@Override
@@ -83,7 +90,7 @@ public abstract class AppServiceImpl<R extends AppRepository<E, ID>, E extends B
 	}
 
 	@Override
-	public void delete(ID id) {
+	public void delete(Long id) {
 		repository.delete(id);
 	}
 
@@ -93,8 +100,8 @@ public abstract class AppServiceImpl<R extends AppRepository<E, ID>, E extends B
 	}
 
 	@Override
-	public void delete(Iterable<? extends E> i) {
-		repository.delete(i);
+	public void delete(Iterable<? extends E> entities) {
+		repository.delete(entities);
 	}
 
 	public void deleteAll() {
@@ -102,7 +109,7 @@ public abstract class AppServiceImpl<R extends AppRepository<E, ID>, E extends B
 	}
 
 	@Override
-	public boolean exists(ID id) {
+	public boolean exists(Long id) {
 		return repository.exists(id);
 	}
 
@@ -119,6 +126,11 @@ public abstract class AppServiceImpl<R extends AppRepository<E, ID>, E extends B
 
 		Page<E> page = findAll(pageable);
 		return page;
+	}
+
+	private long getNextId() {
+		long id = sequence.getNextId(getEntityType().getName());
+		return id;
 	}
 
 	@Override

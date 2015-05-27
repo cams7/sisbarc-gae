@@ -3,7 +3,6 @@
  */
 package br.com.cams7.gae;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.com.cams7.app.AbstractBase;
@@ -13,8 +12,8 @@ import br.com.cams7.domain.BaseEntity;
  * @author cams7
  *
  */
-public abstract class GaeRepositoryImpl<E extends BaseEntity<ID>, ID extends Serializable>
-		extends AbstractBase<E> implements GaeRepository<E, ID> {
+public abstract class GaeRepositoryImpl<E extends BaseEntity> extends
+		AbstractBase<E> implements GaeRepository<E> {
 
 	public GaeRepositoryImpl() {
 		super();
@@ -37,7 +36,7 @@ public abstract class GaeRepositoryImpl<E extends BaseEntity<ID>, ID extends Ser
 	}
 
 	@Override
-	public E findOne(ID id) {
+	public E findOne(Long id) {
 		// TODO: Corrigir erro
 		// Key<E> k = Key.create(getEntityType(), id);
 		// return ofy().load().key(k).now();

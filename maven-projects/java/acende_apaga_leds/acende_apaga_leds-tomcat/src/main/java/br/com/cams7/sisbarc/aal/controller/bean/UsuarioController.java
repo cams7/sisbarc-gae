@@ -26,7 +26,7 @@ import br.com.cams7.webapp.AppController;
 @ManagedBean(name = UsuarioController.CONTROLLER_NAME)
 @ViewScoped
 public class UsuarioController extends
-		AppController<UsuarioService, UsuarioEntity, String> {
+		AppController<UsuarioService, UsuarioEntity> {
 
 	private static final long serialVersionUID = 1L;
 

@@ -11,7 +11,7 @@ import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 @Service
 public class MercadoriaServiceImpl
 		extends
-		GaeServiceImpl<MercadoriaRepository, MercadoriaDataSource, MercadoriaEntity, Long>
+		GaeServiceImpl<MercadoriaRepository, MercadoriaDataSource, MercadoriaEntity>
 		implements MercadoriaService {
 
 	public MercadoriaServiceImpl() {

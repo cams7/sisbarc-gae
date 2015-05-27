@@ -17,11 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType
-public abstract class BaseEntity<PK extends Serializable> implements
-		Serializable {
+public abstract class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	protected static final String MONGODB_ID = "_id";
 
 	public BaseEntity() {
 		super();
@@ -30,25 +27,10 @@ public abstract class BaseEntity<PK extends Serializable> implements
 	/**
 	 * @param id
 	 */
-	public BaseEntity(PK id) {
+	public BaseEntity(Long id) {
 		this();
 
 		setId(id);
-	}
-
-	@XmlTransient
-	// @XmlJavaTypeAdapter(SerializableAdapter.class)
-	public abstract PK getId();
-
-	public abstract void setId(PK id);
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.domain.Persistable#isNew()
-	 */
-	public boolean isNew() {
-		return null == getId();
 	}
 
 	/*
@@ -82,7 +64,7 @@ public abstract class BaseEntity<PK extends Serializable> implements
 			return false;
 		}
 
-		BaseEntity<?> e = (BaseEntity<?>) entity;
+		BaseEntity e = (BaseEntity) entity;
 
 		return null == this.getId() ? false : this.getId().equals(e.getId());
 	}
@@ -101,5 +83,11 @@ public abstract class BaseEntity<PK extends Serializable> implements
 
 		return hashCode;
 	}
+
+	@XmlTransient
+	// @XmlJavaTypeAdapter(SerializableAdapter.class)
+	public abstract Long getId();
+
+	public abstract void setId(Long id);
 
 }

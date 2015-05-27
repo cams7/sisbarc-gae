@@ -15,8 +15,7 @@ import br.com.cams7.sisbarc.aal.repository.LEDRepository;
  * @author cams7
  *
  */
-public interface LEDService extends AALService<LEDEntity, String>,
-		LEDRepository {
+public interface LEDService extends AALService<LEDEntity>, LEDRepository {
 
 	public Future<LEDEntity> alteraLEDEstado(LEDEntity led)
 			throws ArduinoException;

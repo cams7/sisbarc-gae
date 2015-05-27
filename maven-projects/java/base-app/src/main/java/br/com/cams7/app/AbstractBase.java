@@ -14,7 +14,7 @@ import br.com.cams7.util.AppUtil;
  * @author cesar
  *
  */
-public abstract class AbstractBase<E extends BaseEntity<?>> {
+public abstract class AbstractBase<E extends BaseEntity> {
 
 	private final byte ENTITY_ARGUMENT_NUMBER = 0;
 

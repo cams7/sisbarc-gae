@@ -1,6 +1,5 @@
 package br.com.cams7.gae;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.com.cams7.domain.BaseEntity;
@@ -15,8 +14,7 @@ import br.com.cams7.domain.BaseEntity;
  *            Tipo da informação mantida no <code>DataSource</code>, normalmente
  *            um <code>Model</code>.
  */
-public interface DataSource<E extends BaseEntity<ID>, ID extends Serializable>
-		extends GaeRepository<E, ID> {
+public interface DataSource<E extends BaseEntity> extends GaeRepository<E> {
 
 	/**
 	 * Adiciona elemento ao <code>DataSource</code>.

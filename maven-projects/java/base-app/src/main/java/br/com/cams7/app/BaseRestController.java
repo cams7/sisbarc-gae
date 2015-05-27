@@ -1,6 +1,5 @@
 package br.com.cams7.app;
 
-import java.io.Serializable;
 import java.util.logging.Level;
 
 import org.springframework.http.HttpHeaders;
@@ -12,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.cams7.domain.BaseEntity;
 import br.com.cams7.util.AppException;
 
-public abstract class BaseRestController<S extends BaseService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends BaseController<S, E, ID> {
+public abstract class BaseRestController<S extends BaseService<E>, E extends BaseEntity>
+		extends BaseController<S, E> {
 
 	public BaseRestController() {
 		super();

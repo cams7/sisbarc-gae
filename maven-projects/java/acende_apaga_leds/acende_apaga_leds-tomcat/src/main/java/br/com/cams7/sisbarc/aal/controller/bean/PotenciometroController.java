@@ -21,7 +21,7 @@ import br.com.cams7.sisbarc.aal.service.PotenciometroService;
 @ManagedBean(name = PotenciometroController.CONTROLLER_NAME)
 @ViewScoped
 public class PotenciometroController extends
-		AALController<PotenciometroService, PotenciometroEntity, String> {
+		AALController<PotenciometroService, PotenciometroEntity> {
 
 	private static final long serialVersionUID = 1L;
 

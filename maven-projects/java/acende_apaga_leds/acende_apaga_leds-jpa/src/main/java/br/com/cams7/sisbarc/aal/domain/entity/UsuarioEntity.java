@@ -9,12 +9,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import br.com.cams7.domain.BaseEntity;
 
 @Document(collection = "usuario")
-public class UsuarioEntity extends BaseEntity<String> {
+public class UsuarioEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String id;
+	private Long id;
 
 	@NotBlank
 	@Indexed(unique = true)
@@ -39,11 +39,11 @@ public class UsuarioEntity extends BaseEntity<String> {
 				+ getAutorizacoes() + "]";
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

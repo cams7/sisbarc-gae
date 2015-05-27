@@ -33,8 +33,8 @@ import br.com.cams7.util.AppUtil;
  * @author cams7
  *
  */
-public abstract class AppController<S extends AppService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends BaseController<S, E, ID> implements Serializable {
+public abstract class AppController<S extends AppService<E>, E extends BaseEntity>
+		extends BaseController<S, E> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

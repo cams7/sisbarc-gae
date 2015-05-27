@@ -1,6 +1,5 @@
 package br.com.cams7.sisbarc.aal.service.impl;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -26,8 +25,8 @@ import br.com.cams7.webapp.AppServiceImpl;
  * @author cams7
  *
  */
-public abstract class AALServiceImpl<R extends AppRepository<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends AppServiceImpl<R, E, ID> implements AALService<E, ID> {
+public abstract class AALServiceImpl<R extends AppRepository<E>, E extends BaseEntity>
+		extends AppServiceImpl<R, E> implements AALService<E> {
 
 	@Autowired
 	@Qualifier(AppArduinoScheduler.COMPONENT_NAME)

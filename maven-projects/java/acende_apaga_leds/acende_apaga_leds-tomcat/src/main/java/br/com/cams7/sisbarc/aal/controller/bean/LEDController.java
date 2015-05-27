@@ -20,7 +20,7 @@ import br.com.cams7.sisbarc.aal.service.LEDService;
 @Controller(LEDController.CONTROLLER_NAME)
 @ManagedBean(name = LEDController.CONTROLLER_NAME)
 @ViewScoped
-public class LEDController extends AALController<LEDService, LEDEntity, String> {
+public class LEDController extends AALController<LEDService, LEDEntity> {
 
 	private static final long serialVersionUID = 1L;
 

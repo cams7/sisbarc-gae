@@ -13,6 +13,6 @@ import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
  * 
  * @author YaW Tecnologia
  */
-public interface MercadoriaRepository extends GaeRepository<MercadoriaEntity, Long> {
+public interface MercadoriaRepository extends GaeRepository<MercadoriaEntity> {
 
 }

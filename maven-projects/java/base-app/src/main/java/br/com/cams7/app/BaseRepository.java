@@ -1,11 +1,10 @@
 package br.com.cams7.app;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.com.cams7.domain.BaseEntity;
 
-public interface BaseRepository<E extends BaseEntity<ID>, ID extends Serializable> {
+public interface BaseRepository<E extends BaseEntity> {
 
 	/**
 	 * @param id
@@ -13,7 +12,7 @@ public interface BaseRepository<E extends BaseEntity<ID>, ID extends Serializabl
 	 * @return Entidade com filtro no id
 	 * @throws <code>RuntimeException</code> se algum problema ocorrer.
 	 */
-	public E findOne(ID id);
+	public E findOne(Long id);
 
 	/**
 	 * @return Lista com todas as entidades cadastradas na base de dados.

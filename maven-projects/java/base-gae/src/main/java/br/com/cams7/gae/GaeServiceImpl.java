@@ -3,7 +3,6 @@
  */
 package br.com.cams7.gae;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -22,8 +21,8 @@ import br.com.cams7.util.AppUtil;
  * @author cesar
  *
  */
-public abstract class GaeServiceImpl<R extends GaeRepository<E, ID>, D extends DataSource<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends AbstractBase<E> implements GaeService<E, ID> {
+public abstract class GaeServiceImpl<R extends GaeRepository<E>, D extends DataSource<E>, E extends BaseEntity>
+		extends AbstractBase<E> implements GaeService<E> {
 
 	private final byte DS_ARGUMENT_NUMBER = 1;
 	private final byte ENTITY_ARGUMENT_NUMBER = 2;
@@ -65,7 +64,7 @@ public abstract class GaeServiceImpl<R extends GaeRepository<E, ID>, D extends D
 		getLog().log(Level.INFO, "Removed: " + entity);
 	}
 
-	public E findOne(ID id) {
+	public E findOne(Long id) {
 		E entity = getRepository().findOne(id);
 		return entity;
 	}

@@ -34,8 +34,7 @@ import com.googlecode.objectify.Key;
  */
 @Repository
 public class MercadoriaRepositoryImpl extends
-		GaeRepositoryImpl<MercadoriaEntity, Long> implements
-		MercadoriaRepository {
+		GaeRepositoryImpl<MercadoriaEntity> implements MercadoriaRepository {
 
 	public MercadoriaRepositoryImpl() {
 		super();
@@ -49,7 +48,7 @@ public class MercadoriaRepositoryImpl extends
 	@Override
 	public MercadoriaEntity save(MercadoriaEntity mercadoria) {
 		ofy().save().entity(mercadoria).now();
-		
+
 		return mercadoria;
 	}
 

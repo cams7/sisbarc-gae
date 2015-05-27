@@ -40,7 +40,7 @@ import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 @RequestMapping(value = "/")
 @Controller
 public class MercadoriaController extends
-		GaeController<MercadoriaService, MercadoriaEntity, Long> {
+		GaeController<MercadoriaService, MercadoriaEntity> {
 
 	private final String ATTRIBUTE_MERCADORIAS = "mercadorias";
 	private final String ATTRIBUTE_MERCADORIA = "mercadoria";
@@ -194,7 +194,7 @@ public class MercadoriaController extends
 	 */
 	@RequestMapping(value = "synch", method = RequestMethod.GET)
 	public String atualizar() {
-		((GaeService<?, ?>) getService()).synch();
+		((GaeService<?>) getService()).synch();
 		return ROOT_PAGE;
 	}
 

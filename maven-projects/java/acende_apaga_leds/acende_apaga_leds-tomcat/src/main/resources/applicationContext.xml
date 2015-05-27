@@ -23,6 +23,8 @@
 	</bean>
 
 	<mongo:repositories base-package="br.com.cams7.sisbarc.aal.repository" />
+	
+	<context:component-scan base-package="br.com.cams7.webapp.sequence" />
 
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.domain" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />

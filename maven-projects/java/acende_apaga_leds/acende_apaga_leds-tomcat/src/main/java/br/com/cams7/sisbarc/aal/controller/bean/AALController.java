@@ -3,7 +3,6 @@
  */
 package br.com.cams7.sisbarc.aal.controller.bean;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -27,8 +26,8 @@ import br.com.cams7.webapp.AppService;
  * @author cams7
  *
  */
-public abstract class AALController<S extends AppService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends AppController<S, E, ID> {
+public abstract class AALController<S extends AppService<E>, E extends BaseEntity>
+		extends AppController<S, E> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +56,7 @@ public abstract class AALController<S extends AppService<E, ID>, E extends BaseE
 
 		try {
 
-			Future<Boolean> call = ((AALService<E, ?>) getService())
+			Future<Boolean> call = ((AALService<E>) getService())
 					.atualizaPino(entidade);
 
 			boolean arduinoRun = call.get();
@@ -88,7 +87,7 @@ public abstract class AALController<S extends AppService<E, ID>, E extends BaseE
 
 		List<E> pinos = getService().findAll();
 		try {
-			Future<Boolean> call = ((AALService<E, ?>) getService())
+			Future<Boolean> call = ((AALService<E>) getService())
 					.alteraEventos(pinos);
 
 			boolean arduinoRun = call.get();
@@ -114,7 +113,7 @@ public abstract class AALController<S extends AppService<E, ID>, E extends BaseE
 
 		List<E> pinos = getService().findAll();
 		try {
-			Future<Boolean> call = ((AALService<E, ?>) getService())
+			Future<Boolean> call = ((AALService<E>) getService())
 					.sincronizaEventos(pinos);
 
 			boolean arduinoRun = call.get();

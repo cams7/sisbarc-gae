@@ -14,6 +14,6 @@ import br.com.cams7.webapp.AppRepository;
  */
 @Repository
 public interface PotenciometroRepository extends
-		AppRepository<PotenciometroEntity, String> {
+		AppRepository<PotenciometroEntity> {
 
 }

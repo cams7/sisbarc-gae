@@ -1,6 +1,5 @@
 package br.com.cams7.sisbarc.aal.service;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -12,8 +11,7 @@ import br.com.cams7.webapp.AppService;
  * @author cams7
  *
  */
-public interface AALService<E extends BaseEntity<ID>, ID extends Serializable>
-		extends AppService<E, ID> {
+public interface AALService<E extends BaseEntity> extends AppService<E> {
 
 	public Future<Boolean> atualizaPino(E entidade) throws ArduinoException;
 

@@ -10,6 +10,6 @@ import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
  * @author cams7
  *
  */
-public interface MercadoriaService extends GaeService<MercadoriaEntity, Long> {
+public interface MercadoriaService extends GaeService<MercadoriaEntity> {
 
 }

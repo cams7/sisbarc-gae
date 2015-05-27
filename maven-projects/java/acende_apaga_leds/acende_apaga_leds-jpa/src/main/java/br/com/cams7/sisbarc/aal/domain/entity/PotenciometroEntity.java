@@ -24,7 +24,7 @@ public class PotenciometroEntity extends Pino {
 		super();
 	}
 
-	public PotenciometroEntity(String id) {
+	public PotenciometroEntity(Long id) {
 		super(id);
 	}
 

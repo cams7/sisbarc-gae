@@ -15,8 +15,8 @@ import br.com.cams7.sisbarc.aal.service.PotenciometroService;
  */
 @Service
 public class PotenciometroServiceImpl extends
-		AALServiceImpl<PotenciometroRepository, PotenciometroEntity, String>
-		implements PotenciometroService {
+		AALServiceImpl<PotenciometroRepository, PotenciometroEntity> implements
+		PotenciometroService {
 
 	/**
 	 * 

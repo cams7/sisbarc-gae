@@ -3,7 +3,6 @@
  */
 package br.com.cams7.gae;
 
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -18,8 +17,8 @@ import br.com.cams7.domain.BaseEntity;
  * @author cams7
  *
  */
-public abstract class GaeController<S extends GaeService<E, ID>, E extends BaseEntity<ID>, ID extends Serializable>
-		extends BaseController<S, E, ID> {
+public abstract class GaeController<S extends GaeService<E>, E extends BaseEntity>
+		extends BaseController<S, E> {
 
 	public GaeController() {
 		super();

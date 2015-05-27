@@ -18,12 +18,12 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 @XmlType(name = "abstractPino", propOrder = { "id", "pino", "evento",
 		"alteraEvento", "intervalo", "alteraIntervalo" })
 @XmlSeeAlso({ LEDEntity.class })
-public abstract class Pino extends BaseEntity<String> {
+public abstract class Pino extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String id;
+	private Long id;
 
 	@NotNull
 	@Indexed(unique = true)
@@ -45,7 +45,7 @@ public abstract class Pino extends BaseEntity<String> {
 		super();
 	}
 
-	public Pino(String id) {
+	public Pino(Long id) {
 		super(id);
 	}
 
@@ -62,11 +62,11 @@ public abstract class Pino extends BaseEntity<String> {
 				+ getAlteraIntervalo() + "]";
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -10,7 +10,7 @@ import br.com.cams7.webapp.AppServiceImpl;
 
 @Service
 public class UsuarioServiceImpl extends
-		AppServiceImpl<UsuarioRepository, UsuarioEntity, String> implements
+		AppServiceImpl<UsuarioRepository, UsuarioEntity> implements
 		UsuarioService {
 
 	public UsuarioServiceImpl() {

@@ -3,14 +3,30 @@
  */
 package br.com.cams7.gae;
 
-import br.com.cams7.app.BaseRepository;
-import br.com.cams7.domain.BaseEntity;
+import java.util.List;
+
+import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.repository.BaseRepository;
 
 /**
  * @author cams7
  *
  */
 public interface GaeRepository<E extends BaseEntity> extends BaseRepository<E> {
+	
+	/**
+	 * @param id
+	 *            filtro da pesquisa.
+	 * @return Entidade com filtro no id
+	 * @throws <code>RuntimeException</code> se algum problema ocorrer.
+	 */
+	public E findOne(Long id);
+
+	/**
+	 * @return Lista com todas as entidades cadastradas na base de dados.
+	 * @throws <code>RuntimeException</code> se algum problema ocorrer.
+	 */
+	public List<E> findAll();
 
 	/**
 	 * Exclui o registro da Entidade na base de dados

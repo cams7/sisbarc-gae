@@ -10,8 +10,8 @@ import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import br.com.cams7.app.BaseController;
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.controller.BaseController;
+import br.com.cams7.app.domain.BaseEntity;
 
 /**
  * @author cams7

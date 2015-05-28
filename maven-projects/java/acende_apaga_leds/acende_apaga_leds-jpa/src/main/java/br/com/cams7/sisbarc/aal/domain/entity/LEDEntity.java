@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlType;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.googlecode.objectify.annotation.Entity;
+
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 
@@ -22,6 +24,7 @@ import br.com.cams7.sisbarc.aal.domain.Pino;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ledEntity", propOrder = { "cor", "ativo", "ativadoPorBotao",
 		"estado" })
+@Entity
 @Document(collection = "led")
 public class LEDEntity extends Pino {
 

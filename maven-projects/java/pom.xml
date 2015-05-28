@@ -17,13 +17,14 @@
 	<description>Modulo com todas as aplicacoes Java</description>
 	
 	<properties>
-		<spring.version>4.1.6.RELEASE</spring.version>
-		<!-- spring.security.version>4.0.1.RELEASE</spring.security.version -->
+		<spring.version>4.1.6.RELEASE</spring.version>		
 		<spring.security.version>3.2.7.RELEASE</spring.security.version>
 		
 		<org.slf4j.version>1.7.12</org.slf4j.version>
 		<apache.tiles.version>2.2.2</apache.tiles.version>		
-		<jsf.version>2.2.11</jsf.version>		
+		<jsf.version>2.2.11</jsf.version>	
+		<!-- hibernate.validator.version>5.1.3.Final</hibernate.validator.version-->
+		<hibernate.validator.version>4.3.2.Final</hibernate.validator.version>
 	</properties>
 
 	<modules>
@@ -192,7 +193,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>5.1.3.Final</version>
+				<version>${hibernate.validator.version}</version>					
 			</dependency>
 			
 			<dependency>

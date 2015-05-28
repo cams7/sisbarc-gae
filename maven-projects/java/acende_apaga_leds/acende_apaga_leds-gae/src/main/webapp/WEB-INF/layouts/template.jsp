@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=8" />
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrap_url" />
-<spring:url value="/resources/css/springmvc_gae.css" var="css_url" />
+<spring:url value="/resources/css/sisbarc.css" var="css_url" />
 <spring:url value="/resources/js/jquery-1.7.2.min.js" var="jquery_url" />
 <spring:url value="/resources/js/jquery.validate.min.js"
 	var="jquery_validate_url" />

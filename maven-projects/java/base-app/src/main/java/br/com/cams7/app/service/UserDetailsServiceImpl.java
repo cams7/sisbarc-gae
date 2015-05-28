@@ -1,27 +1,22 @@
-package br.com.cams7.sisbarc.aal.service.impl;
+package br.com.cams7.app.service;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
-import br.com.cams7.sisbarc.aal.domain.entity.UsuarioEntity;
-import br.com.cams7.sisbarc.aal.domain.entity.UsuarioEntity.Autorizacao;
-import br.com.cams7.sisbarc.aal.service.UsuarioService;
+import br.com.cams7.app.domain.entity.UsuarioEntity;
+import br.com.cams7.app.domain.entity.UsuarioEntity.Autorizacao;
+import br.com.cams7.app.repository.BaseUsuarioRepository;
 
-@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	// get user from the database, via Hibernate
-	@Autowired
-	private UsuarioService service;
+	private BaseUsuarioRepository repository;
 
 	@Override
 	public UserDetails loadUserByUsername(final String username)
@@ -30,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (username == null || "".equals(username))
 			throw new UsernameNotFoundException("username is empty or null");
 
-		UsuarioEntity usuario = service.findByUsername(username);
+		UsuarioEntity usuario = repository.findByUsername(username);
 		Set<GrantedAuthority> authorities = buildUserAuthority(usuario
 				.getAutorizacoes());
 
@@ -56,4 +51,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		return authorities;
 	}
+
+	public void setRepository(BaseUsuarioRepository repository) {
+		this.repository = repository;
+	}
+
 }

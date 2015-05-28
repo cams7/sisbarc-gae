@@ -1,4 +1,4 @@
-package br.com.cams7.app;
+package br.com.cams7.app.controller;
 
 import java.util.logging.Level;
 
@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.service.BaseService;
 import br.com.cams7.util.AppException;
 
 public abstract class BaseRestController<S extends BaseService<E>, E extends BaseEntity>

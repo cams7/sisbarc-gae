@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.webapp.sequence.SequenceRepository;
 
 /**

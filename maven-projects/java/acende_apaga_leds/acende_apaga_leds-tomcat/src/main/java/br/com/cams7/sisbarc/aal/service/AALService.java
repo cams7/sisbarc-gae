@@ -3,8 +3,8 @@ package br.com.cams7.sisbarc.aal.service;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.arduino.ArduinoException;
-import br.com.cams7.domain.BaseEntity;
 import br.com.cams7.webapp.AppService;
 
 /**

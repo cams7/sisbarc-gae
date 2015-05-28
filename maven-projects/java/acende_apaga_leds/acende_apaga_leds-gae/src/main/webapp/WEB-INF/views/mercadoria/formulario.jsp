@@ -26,19 +26,18 @@
 	var="label_mercadoria_preco" htmlEscape="false" />
 
 <form:form action="${param.action}" method="${param.method}"
-	modelAttribute="mercadoria" class="form-horizontal" id="frmMercadoria">
-	<input type="hidden" name="id" value="${mercadoria.id}" />
+	commandName="mercadoria" class="form-horizontal" id="frmMercadoria">
+	<form:hidden path="id" />
 	<fieldset>
 		<legend>
-			<h3>${label_mercadoria}
-				<small> ${param.sublabel}</small>
-			</h3>
+			${label_mercadoria} <small>${param.sublabel}</small>
 		</legend>
+
 		<div class="control-group">
 			<label class="control-label">${label_mercadoria_nome}</label>
 			<div class="controls">
 				<form:input path="nome" class="input-large" />
-				<form:errors path="nome" cssClass="alert alert-error" />
+				<form:errors path="nome" cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 
@@ -46,7 +45,8 @@
 			<label class="control-label">${label_mercadoria_descricao}</label>
 			<div class="controls">
 				<form:input path="descricao" class="input-large" />
-				<form:errors path="descricao" cssClass="alert alert-error" />
+				<form:errors path="descricao"
+					cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 
@@ -54,7 +54,8 @@
 			<label class="control-label">${label_mercadoria_quantidade}</label>
 			<div class="controls">
 				<form:input path="quantidade" class="input-small" id="quantidade" />
-				<form:errors path="quantidade" cssClass="alert alert-error" />
+				<form:errors path="quantidade"
+					cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 
@@ -62,51 +63,26 @@
 			<label class="control-label">${label_mercadoria_preco}</label>
 			<div class="controls">
 				<form:input path="preco" class="input-small" />
-				<form:errors path="preco" cssClass="alert alert-error" />
+				<form:errors path="preco" cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 	</fieldset>
 </form:form>
 
-
 <div class="control-group form-horizontal">
 	<div class="controls">
-		<button id="salvar" class="btn btn-success">${button_salvar}</button>
+		<button id="btnSalvar" class="btn btn-success">${button_salvar}</button>
 		<a href="/"><button class="btn">${button_cancelar}</button></a>
 		<c:if test="${not empty param.enableRemove}">
-			<button id="excluir" class="btn btn-danger">${button_excluir}</button>
+			<button id="btnExcluir" class="btn btn-danger">${button_excluir}</button>
 		</c:if>
 	</div>
 </div>
 
 <script>
-	$(document).ready(
-			function() {
-				$("#frmMercadoria").validate({
-					rules : {
-						nome : {
-							required : true,
-							minlength : 5
-						},
-						quantidade : {
-							required : true,
-							number : true
-						},
-						preco : {
-							required : true,
-							moeda : true
-						}
-					}
-				});
-
-				$("#salvar").click(function() {
-					$("#frmMercadoria").submit();
-				});
-
-				$.validator.addMethod("moeda", function(value, element) {
-					return this.optional(element)
-							|| /^-?(?:\d+|\d{1,3}(?:.\d{3})+)?(?:\,\d+)?$/
-									.test(value);
-				}, 'Valor invalido para moeda');
-			});
+	$(document).ready(function() {
+		$("#btnSalvar").click(function() {
+			$("#frmMercadoria").submit();
+		});
+	});
 </script>

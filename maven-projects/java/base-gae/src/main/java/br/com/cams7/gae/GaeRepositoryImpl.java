@@ -6,7 +6,7 @@ package br.com.cams7.gae;
 import java.util.List;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.domain.BaseEntity;
 
 /**
  * @author cams7

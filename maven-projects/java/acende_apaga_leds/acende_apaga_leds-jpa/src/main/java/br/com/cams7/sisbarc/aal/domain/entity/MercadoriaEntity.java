@@ -4,7 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.domain.BaseEntity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -34,7 +34,6 @@ public class MercadoriaEntity extends BaseEntity {
 	@Id
 	private Long id;
 
-	@NotNull
 	@Size(min = 5, max = 30)
 	private String nome;
 

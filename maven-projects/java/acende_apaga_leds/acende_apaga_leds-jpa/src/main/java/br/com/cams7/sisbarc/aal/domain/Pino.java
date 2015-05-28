@@ -7,11 +7,10 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
+import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.arduino.ArduinoPinType;
-import br.com.cams7.domain.BaseEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -22,7 +21,8 @@ public abstract class Pino extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@com.googlecode.objectify.annotation.Id
+	@org.springframework.data.annotation.Id
 	private Long id;
 
 	@NotNull

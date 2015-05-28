@@ -15,7 +15,6 @@
 	<!-- context:annotation-config / -->
 
 	<mongo:mongo id="mongoConnection" host="localhost" port="27017" />
-	<!-- mongo:db-factory dbname="sisbarc" / -->
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongoConnection" />
@@ -23,10 +22,11 @@
 	</bean>
 
 	<mongo:repositories base-package="br.com.cams7.sisbarc.aal.repository" />
-	
+
+	<context:component-scan base-package="br.com.cams7.app.domain.entity" />
 	<context:component-scan base-package="br.com.cams7.webapp.sequence" />
 
-	<context:component-scan base-package="br.com.cams7.sisbarc.aal.domain" />
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.domain.entity" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller.bean" />
 
@@ -44,8 +44,7 @@
 		</wss:service>
 	</wss:binding>
 
-	<bean id="arduinoScheduler" class="br.com.cams7.sisbarc.aal.task.AppArduinoScheduler" />
-
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.task" />
 	<!-- Run every 5 seconds -->
 	<task:scheduled-tasks>
 		<task:scheduled ref="arduinoScheduler" method="run"

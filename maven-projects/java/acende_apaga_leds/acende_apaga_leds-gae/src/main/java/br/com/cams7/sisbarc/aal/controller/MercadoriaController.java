@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,11 +48,11 @@ public class MercadoriaController extends
 	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
 
 	private final String ROOT_PAGE = "redirect:/";
-	private final String LIST_PAGE = "lista";
+	private final String LIST_PAGE = "listarMercadorias";
 
 	private final String FORM_PAGE = "form";
-	private final String INCLUDE_PAGE = "incluir";
-	private final String EDIT_PAGE = "editar";
+	private final String INCLUDE_PAGE = "incluirMercadoria";
+	private final String EDIT_PAGE = "editarMercadoria";
 
 	// private final String DELETE_PAGE = "";
 
@@ -102,16 +103,17 @@ public class MercadoriaController extends
 	 * 
 	 * @param mercadoria
 	 *            instância com os dados preenchidos na tela
-	 * @param bindingResult
+	 * @param result
 	 *            componente usado para verificar problemas com validação.
 	 * @param uiModel
 	 * @return a url para a listagem, se algum erro de validação for encontrado
 	 *         volta para a pagina de inclusão.
 	 */
 	@RequestMapping(value = INCLUDE_PAGE, method = RequestMethod.POST)
-	public String criar(@Valid MercadoriaEntity mercadoria,
-			BindingResult bindingResult, Model uiModel) {
-		if (bindingResult.hasErrors()) {
+	public String criar(
+			@Valid @ModelAttribute(ATTRIBUTE_MERCADORIA) MercadoriaEntity mercadoria,
+			BindingResult result, Model uiModel) {
+		if (result.hasErrors()) {
 			uiModel.addAttribute(ATTRIBUTE_MERCADORIA, mercadoria);
 			uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, INCLUDE_PAGE);
 			return INCLUDE_PAGE;
@@ -154,9 +156,9 @@ public class MercadoriaController extends
 	 * @return a url para a listagem, se algum erro de validação for encontrado
 	 *         volta para a pagina de edição.
 	 */
-	// @RequestMapping(method = RequestMethod.PUT)
-	@RequestMapping(value = EDIT_PAGE, method = RequestMethod.POST)
-	public String editar(@Valid MercadoriaEntity mercadoria,
+	@RequestMapping(value = EDIT_PAGE, method = RequestMethod.PUT)
+	public String editar(
+			@Valid @ModelAttribute(ATTRIBUTE_MERCADORIA) MercadoriaEntity mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute(ATTRIBUTE_MERCADORIA, mercadoria);
@@ -176,7 +178,7 @@ public class MercadoriaController extends
 	 * @param uiModel
 	 * @return url da página de listagem.
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/" + ATTRIBUTE_MERCADORIA + "/{id}", method = RequestMethod.DELETE)
 	public String remover(@PathVariable("id") Long id, Model uiModel) {
 		MercadoriaEntity mercadoria = getService().findOne(id);
 

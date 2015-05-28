@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 
 import org.springframework.stereotype.Component;
 
-import br.com.cams7.sisbarc.aal.domain.entity.UsuarioEntity.Autorizacao;
+import br.com.cams7.app.domain.entity.UsuarioEntity.Autorizacao;
 
 /**
  * @author cams7

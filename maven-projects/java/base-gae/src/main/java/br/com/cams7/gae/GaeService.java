@@ -3,8 +3,8 @@
  */
 package br.com.cams7.gae;
 
-import br.com.cams7.app.BaseService;
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.service.BaseService;
 
 /**
  * @author cesar

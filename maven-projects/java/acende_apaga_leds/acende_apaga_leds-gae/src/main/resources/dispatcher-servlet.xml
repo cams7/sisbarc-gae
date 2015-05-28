@@ -14,7 +14,7 @@
 	<mvc:default-servlet-handler />
 
 	<!-- Ativa o uso de anotacoes complementares ao contexto do Spring. -->
-	<context:annotation-config />
+	<!-- context:annotation-config /-->
 
 	<!-- Bean para ativar o tiles com Spring MVC. -->
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"
@@ -34,6 +34,7 @@
 		</property>
 	</bean>
 
+
 	<!-- Bean para ativar a leitura do properties de arcordo com o locale -->
 	<bean
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
@@ -45,6 +46,7 @@
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="pt_BR" />
 	</bean>
+
 
 	<!-- Bean para mapear os erros para pagina de excecao do aplicativo -->
 	<bean

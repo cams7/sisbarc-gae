@@ -2,7 +2,7 @@ package br.com.cams7.gae;
 
 import java.util.List;
 
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.domain.BaseEntity;
 
 /**
  * Define uma estrutura para armazenar e fornecer dados para um

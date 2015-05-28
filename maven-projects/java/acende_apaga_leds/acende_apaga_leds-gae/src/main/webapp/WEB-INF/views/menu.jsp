@@ -14,10 +14,9 @@
 		<li class="${empty active || active == 'lista' ? 'active' : ''}">
 			<a href="/">${menu_lista}</a>
 		</li>
-		<li class="${active == 'incluir' ? 'active' : ''}"><a
+		<li class="${active == 'incluirMercadoria' ? 'active' : ''}"><a
 			href="/?form">${menu_incluir}</a></li>
-		<li class="divider"></li>
-		<li class="${active == 'sobre' ? 'active' : ''}"><a href="/sobre">${menu_sobre}</a>
-		</li>
+		<li class="divider" />
+		<li class="${active == 'sobre' ? 'active' : ''}"><a href="/sobre">${menu_sobre}</a></li>
 	</ul>
 </div>

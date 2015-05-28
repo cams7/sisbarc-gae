@@ -1,19 +1,22 @@
-package br.com.cams7.sisbarc.aal.domain.entity;
+package br.com.cams7.app.domain.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import br.com.cams7.domain.BaseEntity;
+import com.googlecode.objectify.annotation.Entity;
 
+import br.com.cams7.app.domain.BaseEntity;
+
+@Entity
 @Document(collection = "usuario")
 public class UsuarioEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@com.googlecode.objectify.annotation.Id
+	@org.springframework.data.annotation.Id
 	private Long id;
 
 	@NotBlank

@@ -24,3 +24,7 @@
 	font-size: 16px;
 	color: #D16727;
 }
+
+.input-alert {
+	display: inline-block;
+}

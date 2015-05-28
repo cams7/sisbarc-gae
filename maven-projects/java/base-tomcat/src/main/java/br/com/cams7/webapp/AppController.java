@@ -24,8 +24,8 @@ import org.primefaces.model.SortOrder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
-import br.com.cams7.app.BaseController;
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.controller.BaseController;
+import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
 

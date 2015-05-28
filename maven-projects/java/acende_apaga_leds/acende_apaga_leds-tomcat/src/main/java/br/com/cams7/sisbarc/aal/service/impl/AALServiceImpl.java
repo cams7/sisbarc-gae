@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
+import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.arduino.ArduinoException;
-import br.com.cams7.domain.BaseEntity;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;

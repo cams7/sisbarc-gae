@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.googlecode.objectify.annotation.Entity;
+
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 
@@ -15,6 +17,7 @@ import br.com.cams7.sisbarc.aal.domain.Pino;
  *
  */
 @XmlRootElement
+@Entity
 @Document(collection = "potenciometro")
 public class PotenciometroEntity extends Pino {
 

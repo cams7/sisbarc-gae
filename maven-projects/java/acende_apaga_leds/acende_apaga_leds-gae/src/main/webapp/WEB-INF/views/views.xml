@@ -6,27 +6,42 @@
 		cada uma utiliza. Repare que em nossa aplicacao, o unico atributo sobreescrito 
 		pelas paginas eh o body. -->
 
-	<definition extends="default" name="lista">
+	<definition extends="default" name="listarMercadorias">
 		<put-attribute name="body"
-			value="/WEB-INF/views/listaMercadorias.jsp" />
+			value="/WEB-INF/views/mercadoria/listar.jsp" />
 	</definition>
 
-	<definition extends="default" name="incluir">
+	<definition extends="default" name="incluirMercadoria">
 		<put-attribute name="body"
-			value="/WEB-INF/views/incluirMercadoria.jsp" />
+			value="/WEB-INF/views/mercadoria/incluir.jsp" />
 	</definition>
 
-	<definition extends="default" name="editar">
+	<definition extends="default" name="editarMercadoria">
 		<put-attribute name="body"
-			value="/WEB-INF/views/editarMercadoria.jsp" />
-	</definition>
-
-	<definition extends="default" name="errorPage">
-		<put-attribute name="body" value="/WEB-INF/views/errorPage.jsp" />
+			value="/WEB-INF/views/mercadoria/editar.jsp" />
 	</definition>
 
 	<definition extends="default" name="sobre">
 		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
 	</definition>
 
+	<definition extends="default" name="errorPage">
+		<put-attribute name="body" value="/WEB-INF/views/errorPage.jsp" />
+	</definition>
+
+	<definition extends="default" name="403Page">
+		<put-attribute name="body" value="/WEB-INF/views/403Page.jsp" />
+	</definition>
+
+	<definition extends="default" name="login">
+		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+	</definition>
+
+	<definition extends="default" name="hello">
+		<put-attribute name="body" value="/WEB-INF/views/hello.jsp" />
+	</definition>
+
+	<definition extends="default" name="admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin.jsp" />
+	</definition>
 </tiles-definitions>

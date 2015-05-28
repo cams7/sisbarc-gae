@@ -13,7 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
 

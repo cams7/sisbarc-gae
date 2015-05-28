@@ -1,8 +1,10 @@
-package br.com.cams7.app;
+package br.com.cams7.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.cams7.domain.BaseEntity;
+import br.com.cams7.app.AbstractBase;
+import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.service.BaseService;
 
 public abstract class BaseController<S extends BaseService<E>, E extends BaseEntity>
 		extends AbstractBase<E> {

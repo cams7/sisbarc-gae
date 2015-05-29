@@ -14,7 +14,7 @@
 	<mvc:default-servlet-handler />
 
 	<!-- Ativa o uso de anotacoes complementares ao contexto do Spring. -->
-	<!-- context:annotation-config /-->
+	<context:annotation-config />
 
 	<!-- Bean para ativar o tiles com Spring MVC. -->
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"

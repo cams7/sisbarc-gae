@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.cams7.gae.GaeController;
+import br.com.cams7.gae.AppController;
 import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 
@@ -33,7 +33,7 @@ import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 @RequestMapping(value = "/" + MercadoriaController.ATTRIBUTE_ENTITY + "/")
 @Controller
 public class MercadoriaController extends
-		GaeController<MercadoriaService, MercadoriaEntity> {
+		AppController<MercadoriaService, MercadoriaEntity> {
 
 	public static final String ATTRIBUTE_ENTITY = "mercadoria";
 

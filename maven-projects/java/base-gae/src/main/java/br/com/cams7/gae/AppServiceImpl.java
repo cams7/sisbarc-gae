@@ -21,8 +21,8 @@ import br.com.cams7.util.AppUtil;
  * @author cesar
  *
  */
-public abstract class GaeServiceImpl<R extends GaeRepository<E>, D extends DataSource<E>, E extends BaseEntity>
-		extends AbstractBase<E> implements GaeService<E> {
+public abstract class AppServiceImpl<R extends AppRepository<E>, D extends AppDS<E>, E extends BaseEntity>
+		extends AbstractBase<E> implements AppService<E> {
 
 	private final byte DS_ARGUMENT_NUMBER = 1;
 	private final byte ENTITY_ARGUMENT_NUMBER = 2;
@@ -33,7 +33,7 @@ public abstract class GaeServiceImpl<R extends GaeRepository<E>, D extends DataS
 	private R repository;
 
 	@SuppressWarnings("unchecked")
-	public GaeServiceImpl() {
+	public AppServiceImpl() {
 		super();
 
 		dsType = (Class<D>) AppUtil.getType(this, DS_ARGUMENT_NUMBER);

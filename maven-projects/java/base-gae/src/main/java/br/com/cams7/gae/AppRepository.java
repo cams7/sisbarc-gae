@@ -12,7 +12,7 @@ import br.com.cams7.app.repository.BaseRepository;
  * @author cams7
  *
  */
-public interface GaeRepository<E extends BaseEntity> extends BaseRepository<E> {
+public interface AppRepository<E extends BaseEntity> extends BaseRepository<E> {
 	
 	/**
 	 * @param id

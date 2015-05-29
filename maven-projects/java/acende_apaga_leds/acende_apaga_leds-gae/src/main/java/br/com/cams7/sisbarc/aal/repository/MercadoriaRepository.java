@@ -1,6 +1,6 @@
 package br.com.cams7.sisbarc.aal.repository;
 
-import br.com.cams7.gae.GaeRepository;
+import br.com.cams7.gae.AppRepository;
 import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 
 /**
@@ -13,6 +13,6 @@ import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
  * 
  * @author YaW Tecnologia
  */
-public interface MercadoriaRepository extends GaeRepository<MercadoriaEntity> {
+public interface MercadoriaRepository extends AppRepository<MercadoriaEntity> {
 
 }

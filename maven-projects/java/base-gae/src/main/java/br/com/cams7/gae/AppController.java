@@ -26,7 +26,7 @@ import br.com.cams7.util.AppUtil;
  * @author cams7
  *
  */
-public abstract class GaeController<S extends GaeService<E>, E extends BaseEntity>
+public abstract class AppController<S extends AppService<E>, E extends BaseEntity>
 		extends BaseController<S, E> {
 
 	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
@@ -36,7 +36,7 @@ public abstract class GaeController<S extends GaeService<E>, E extends BaseEntit
 	private final String PAGE_ROOT = "redirect:/" + getAttributeEntity() + "/";
 	private final String PAGE_ERROR = "error";
 
-	public GaeController() {
+	public AppController() {
 		super();
 	}
 
@@ -185,7 +185,7 @@ public abstract class GaeController<S extends GaeService<E>, E extends BaseEntit
 	 */
 	@RequestMapping(value = "synch", method = RequestMethod.GET)
 	public String atualizar() {
-		((GaeService<?>) getService()).synch();
+		((AppService<?>) getService()).synch();
 		return PAGE_ROOT;
 	}
 

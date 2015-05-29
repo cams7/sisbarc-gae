@@ -10,8 +10,8 @@ import br.com.cams7.app.service.BaseService;
  * @author cesar
  *
  */
-public interface GaeService<E extends BaseEntity> extends BaseService<E>,
-		GaeRepository<E> {
+public interface AppService<E extends BaseEntity> extends BaseService<E>,
+		AppRepository<E> {
 
 	void synch();
 

@@ -12,10 +12,10 @@ import br.com.cams7.app.domain.BaseEntity;
  * @author cams7
  *
  */
-public abstract class GaeRepositoryImpl<E extends BaseEntity> extends
-		AbstractBase<E> implements GaeRepository<E> {
+public abstract class AppRepositoryImpl<E extends BaseEntity> extends
+		AbstractBase<E> implements AppRepository<E> {
 
-	public GaeRepositoryImpl() {
+	public AppRepositoryImpl() {
 		super();
 	}
 

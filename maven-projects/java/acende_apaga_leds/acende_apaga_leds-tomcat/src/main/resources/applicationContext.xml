@@ -45,11 +45,9 @@
 	</wss:binding>
 
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.task" />
-	<!-- Run every 5 seconds -->
+	<!-- Run every 1/2 second -->
 	<task:scheduled-tasks>
 		<task:scheduled ref="arduinoScheduler" method="run"
 			fixed-delay="500" />
-		<!-- task:scheduled ref="runScheduler" method="run" cron="*/5 * * * * *" 
-			/ -->
 	</task:scheduled-tasks>
 </beans>

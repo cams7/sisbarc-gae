@@ -29,16 +29,16 @@ public abstract class Pino extends BaseEntity {
 	@Indexed(unique = true)
 	private PinoKey pino;
 
-	@NotNull
+	@NotNull(message = "{NotNull.pino.evento}")
 	private Evento evento;
 
-	@NotNull
+	@NotNull(message = "{NotNull.pino.alteraEvento}")
 	private Boolean alteraEvento;
 
-	@NotNull
+	@NotNull(message = "{NotNull.pino.intervalo}")
 	private Intervalo intervalo;
 
-	@NotNull
+	@NotNull(message = "{NotNull.pino.alteraIntervalo}")
 	private Boolean alteraIntervalo;
 
 	public Pino() {

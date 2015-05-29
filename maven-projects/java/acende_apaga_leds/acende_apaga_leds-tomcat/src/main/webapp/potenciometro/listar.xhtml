@@ -14,30 +14,34 @@
 		<f:event type="preRenderView" listener="#{potenciometroMB.reset}" />
 	</f:metadata>
 
+	<ui:define name="sidebar">
+		<ui:include src="menu.xhtml" />
+	</ui:define>
+
 	<ui:define name="content">
 		<div style="border-bottom: 1px solid #E5E5E5;">
-			<h3>
+			<h4>
 				<h:outputText value="#{msg['label.potenciometros']}" />
 				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
-			</h3>
+			</h4>
 		</div>
 
-		<h:form id="formPotenciometro">
+		<h:form id="potenciometroForm" styleClass="form-horizontal">
 			<p:growl id="mensagens" widgetVar="mensagens" showDetail="true"
 				showSummary="true" life="5000" />
 
-			<p:dataTable id="potenciometros" var="potenciometro"
+			<p:dataTable id="potenciometroTable" var="potenciometro"
 				value="#{potenciometroMB.lazyModel}" paginator="true"
 				rows="#{potenciometroMB.rows}" first="#{potenciometroMB.first}"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="3,5,10,15" selectionMode="single"
 				selection="#{potenciometroMB.selectedEntity}" lazy="true"
 				emptyMessage="#{msg['label.potenciometros.naoCadastrados']}"
-				widgetVar="potenciometrosTable" resizableColumns="true">
+				widgetVar="potenciometroTable" resizableColumns="true">
 
 				<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 					<p:ajax event="rowSelect" listener="#{potenciometroMB.onRowSelect}"
-						update=":formPotenciometro:potenciometroDetail"
+						update=":potenciometroForm:potenciometroDetail"
 						onsuccess="PF('potenciometroDialog').show();" />
 				</sec:authorize>
 
@@ -63,25 +67,28 @@
 
 				<f:facet name="footer">
 					<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-						<p:panelGrid id="totalRows" columns="3" columnClasses="value" style="width:100%">
-							<h:outputFormat value="#{msg['label.potenciometros.totalCadastrados']}">
+						<p:panelGrid id="totalRows" columns="3" columnClasses="value"
+							style="width:100%">
+							<h:outputFormat
+								value="#{msg['label.potenciometros.totalCadastrados']}">
 								<f:param value="#{potenciometroMB.totalRows}" />
 							</h:outputFormat>
 
 							<p:commandButton value="#{msg['button.arduino.synchronize']}"
 								styleClass="btn btn-success"
 								actionListener="#{potenciometroMB.sincronizaPinos}"
-								oncomplete="PF('potenciometrosTable').filter()"
-								update=":formPotenciometro:mensagens" />
+								oncomplete="PF('potenciometroTable').filter()"
+								update=":potenciometroForm:mensagens" />
 
 							<p:commandButton value="#{msg['button.arduino.update']}"
 								styleClass="btn btn-success"
 								actionListener="#{potenciometroMB.atualizaPinos}"
-								update=":formPotenciometro:mensagens" />
+								update=":potenciometroForm:mensagens" />
 						</p:panelGrid>
 					</sec:authorize>
 					<sec:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
-						<h:outputFormat id="totalRows" value="#{msg['label.potenciometros.totalCadastrados']}">
+						<h:outputFormat id="totalRows"
+							value="#{msg['label.potenciometros.totalCadastrados']}">
 							<f:param value="#{potenciometroMB.totalRows}" />
 						</h:outputFormat>
 					</sec:authorize>
@@ -89,7 +96,7 @@
 			</p:dataTable>
 
 			<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-				<p:dialog header="#{msg['label.editar']}"
+				<p:dialog header="#{msg['label.potenciometro.editar']}"
 					widgetVar="potenciometroDialog" modal="true" resizable="false">
 
 					<p:ajax event="close" listener="#{potenciometroMB.handleClose}" />

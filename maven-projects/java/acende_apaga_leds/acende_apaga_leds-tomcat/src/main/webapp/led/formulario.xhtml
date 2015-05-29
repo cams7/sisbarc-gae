@@ -8,166 +8,262 @@
 
 
 	<p:outputPanel id="ledDetail" style="text-align:center;">
-		<p:panelGrid id="ledGrid" columns="3" columnClasses="value"
-			style="width:100%" rendered="#{not empty led}">
-			<f:facet name="header">
-			</f:facet>
-
+		<h:panelGroup id="ledPanel" rendered="#{not empty led}">
 			<c:if test="#{not createEntity}">
-				<h:outputLabel for="ledId" value="#{msg['label.led.id']}" />
-				<h:outputText id="ledId" value="#{led.id}"
-					label="#{msg['label.led.id']}" />
-				<h:outputText />
+				<div class="control-group">
+					<h:outputLabel for="ledId" value="#{msg['label.led.id']}"
+						styleClass="control-label" />
+					<h:outputText id="ledId" value="#{led.id}"
+						label="#{msg['label.led.id']}" styleClass="controls"
+						style="float: left;margin-left: 20px;" />
+				</div>
 			</c:if>
 
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<h:outputLabel for="ledTipo" value="#{msg['label.led.tipo']}" />
+				<!-- Pino -->
+				<div class="control-group">
+					<h:outputLabel for="ledTipo" value="#{msg['label.led.tipo']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneMenu id="ledTipo" value="#{led.pino.tipo}"
+							label="#{msg['label.led.tipo']}" styleClass="input-large">
+							<f:selectItem itemLabel="#{msg['defaultValue.led.tipo']}" />
+							<f:selectItems value="#{ledMB.tipos}" />
+						</p:selectOneMenu>
+						<p:message for="ledTipo" styleClass="alert alert-error" />
+					</div>
+				</div>
+				<div class="control-group">
+					<h:outputLabel for="ledCodigo" value="#{msg['label.led.pino']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:inputText id="ledCodigo" value="#{led.pino.codigo}"
+							label="#{msg['label.led.pino']}" styleClass="input-small" />
+						<p:message for="ledCodigo" styleClass="alert alert-error" />
+					</div>
+				</div>
 
-				<p:selectOneMenu id="ledTipo" value="#{led.pino.tipo}"
-					label="#{msg['label.led.tipo']}" styleClass="input-large">
-					<f:selectItem itemLabel="#{msg['defaultValue.led.tipo']}" />
-					<f:selectItems value="#{ledMB.tipos}" />
-				</p:selectOneMenu>
-				<p:message for="ledTipo" />
+				<!-- Evento -->
+				<div class="control-group">
+					<h:outputLabel for="ledEvento" value="#{msg['label.led.evento']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneMenu id="ledEvento" value="#{led.evento}"
+							label="#{msg['label.led.evento']}" styleClass="input-large">
+							<f:selectItem itemLabel="#{msg['defaultValue.led.evento']}" />
+							<f:selectItems value="#{ledMB.eventos}" />
+						</p:selectOneMenu>
+						<p:message for="ledEvento" styleClass="alert alert-error" />
+					</div>
+				</div>
+				<div class="control-group">
+					<h:outputLabel for="ledAlteraEvento"
+						value="#{msg['label.led.alteraEvento']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneRadio id="ledAlteraEvento" value="#{led.alteraEvento}"
+							label="#{msg['label.led.alteraEvento']}" styleClass="input-small">
+							<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
+							<f:selectItem itemValue="#{false}"
+								itemLabel="#{msg['label.nao']}" />
+						</p:selectOneRadio>
+						<p:message for="ledAlteraEvento" styleClass="alert alert-error" />
+					</div>
+				</div>
 
-				<h:outputLabel for="ledCodigo" value="#{msg['label.led.pino']}" />
-				<p:inputText id="ledCodigo" value="#{led.pino.codigo}"
-					label="#{msg['label.led.pino']}" styleClass="input-small" />
-				<p:message for="ledCodigo" />
+				<!-- Intervalo -->
+				<div class="control-group">
+					<h:outputLabel for="ledIntervalo"
+						value="#{msg['label.led.intervalo']}" styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneMenu id="ledIntervalo" value="#{led.intervalo}"
+							label="#{msg['label.led.intervalo']}" styleClass="input-large">
+							<f:selectItem itemLabel="#{msg['defaultValue.led.intervalo']}" />
+							<f:selectItems value="#{ledMB.intervalos}" />
+						</p:selectOneMenu>
+						<p:message for="ledIntervalo" styleClass="alert alert-error" />
+					</div>
+				</div>
+				<div class="control-group">
+					<h:outputLabel for="ledAlteraIntervalo"
+						value="#{msg['label.led.alteraIntervalo']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneRadio id="ledAlteraIntervalo"
+							value="#{led.alteraIntervalo}"
+							label="#{msg['label.led.alteraIntervalo']}"
+							styleClass="input-small">
+							<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
+							<f:selectItem itemValue="#{false}"
+								itemLabel="#{msg['label.nao']}" />
+						</p:selectOneRadio>
+						<p:message for="ledAlteraIntervalo" styleClass="alert alert-error" />
+					</div>
+				</div>
+
+				<!-- Cor -->
+				<div class="control-group">
+					<h:outputLabel for="ledCor" value="#{msg['label.led.cor']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneMenu id="ledCor" value="#{led.cor}"
+							label="#{msg['label.led.cor']}" styleClass="input-large">
+							<f:selectItem itemLabel="#{msg['defaultValue.led.cor']}" />
+							<f:selectItems value="#{ledMB.cores}" />
+						</p:selectOneMenu>
+						<p:message for="ledCor" styleClass="alert alert-error" />
+					</div>
+				</div>
+
+				<!-- Ativo -->
+				<div class="control-group">
+					<h:outputLabel for="ledAtivo" value="#{msg['label.led.ativo']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneRadio id="ledAtivo" value="#{led.ativo}"
+							label="#{msg['label.led.ativo']}" styleClass="input-small">
+							<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
+							<f:selectItem itemValue="#{false}"
+								itemLabel="#{msg['label.nao']}" />
+						</p:selectOneRadio>
+						<p:message for="ledAtivo" styleClass="alert alert-error" />
+					</div>
+				</div>
+
+				<!-- Ativado por botao -->
+				<div class="control-group">
+					<h:outputLabel for="ledAtivadoPorBotao"
+						value="#{msg['label.led.ativadoPorBotao']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneRadio id="ledAtivadoPorBotao"
+							value="#{led.ativadoPorBotao}"
+							label="#{msg['label.led.ativadoPorBotao']}"
+							styleClass="input-small">
+							<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
+							<f:selectItem itemValue="#{false}"
+								itemLabel="#{msg['label.nao']}" />
+						</p:selectOneRadio>
+						<p:message for="ledAtivadoPorBotao" styleClass="alert alert-error" />
+					</div>
+				</div>
 			</sec:authorize>
 			<sec:authorize ifNotGranted="ROLE_ADMIN">
-				<h:outputLabel for="ledPino" value="#{msg['label.led.pino']}" />
-				<h:outputText id="ledPino"
-					value="#{led.pino.tipo} #{led.pino.codigo}"
-					label="#{msg['label.led.pino']}" />
-				<h:outputText />
+				<!-- Pino -->
+				<div class="control-group">
+					<h:outputLabel for="ledPino" value="#{msg['label.led.pino']}"
+						styleClass="control-label" />
+					<h:outputText id="ledPino"
+						value="#{led.pino.tipo} #{led.pino.codigo}"
+						label="#{msg['label.led.pino']}" styleClass="controls"
+						style="float: left;margin-left: 20px;" />
+				</div>
+
+				<!-- Evento -->
+				<div class="control-group">
+					<h:outputLabel for="ledEvento" value="#{msg['label.led.evento']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneMenu id="ledEvento" value="#{led.evento}"
+							label="#{msg['label.led.evento']}" styleClass="input-large"
+							disabled="#{led.alteraEvento != null and not led.alteraEvento}">
+							<f:selectItem itemLabel="#{msg['defaultValue.led.evento']}" />
+							<f:selectItems value="#{ledMB.eventos}" />
+						</p:selectOneMenu>
+						<p:message for="ledEvento" styleClass="alert alert-error" />
+					</div>
+				</div>
+
+				<!-- Intervalo -->
+				<div class="control-group">
+					<h:outputLabel for="ledIntervalo"
+						value="#{msg['label.led.intervalo']}" styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneMenu id="ledIntervalo" value="#{led.intervalo}"
+							label="#{msg['label.led.intervalo']}" styleClass="input-large"
+							disabled="#{led.alteraIntervalo != null and not led.alteraIntervalo}">
+							<f:selectItem itemLabel="#{msg['defaultValue.led.intervalo']}" />
+							<f:selectItems value="#{ledMB.intervalos}" />
+						</p:selectOneMenu>
+						<p:message for="ledIntervalo" styleClass="alert alert-error" />
+					</div>
+				</div>
+
+				<!-- Cor -->
+				<div class="control-group">
+					<h:outputLabel for="ledCor" value="#{msg['label.led.cor']}"
+						styleClass="control-label" />
+					<h:outputText id="ledCor" value="#{led.cor}"
+						label="#{msg['label.led.cor']}" styleClass="controls"
+						style="float: left;margin-left: 20px;" />
+				</div>
+
+				<!-- Ativo -->
+				<div class="control-group">
+					<h:outputLabel for="ledAtivo" value="#{msg['label.led.ativo']}"
+						styleClass="control-label" />
+					<div class="controls" style="float: left; margin-left: 20px;">
+						<p:selectOneRadio id="ledAtivo" value="#{led.ativo}"
+							label="#{msg['label.led.ativo']}" styleClass="input-small"
+							disabled="#{led.ativadoPorBotao != null and not led.ativadoPorBotao}">
+							<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
+							<f:selectItem itemValue="#{false}"
+								itemLabel="#{msg['label.nao']}" />
+						</p:selectOneRadio>
+						<p:message for="ledAtivo" styleClass="alert alert-error" />
+					</div>
+				</div>
+
+				<!-- Ativado por botao -->
+				<div class="control-group">
+					<h:outputLabel for="ledAtivadoPorBotao"
+						value="#{msg['label.led.ativadoPorBotao']}"
+						styleClass="control-label" />
+					<h:outputText id="ledAtivadoPorBotao"
+						value="#{led.ativadoPorBotao ? msg['label.sim']: msg['label.nao']}"
+						label="#{msg['label.led.ativadoPorBotao']}" styleClass="controls"
+						style="float: left;margin-left: 20px;" />
+				</div>
 			</sec:authorize>
 
-			<h:outputLabel for="ledEvento" value="#{msg['label.led.evento']}" />
-			<p:selectOneMenu id="ledEvento" value="#{led.evento}"
-				label="#{msg['label.led.evento']}" styleClass="input-large"
-				disabled="#{led.alteraEvento != null and not led.alteraEvento}">
-				<f:selectItem itemLabel="#{msg['defaultValue.led.evento']}" />
-				<f:selectItems value="#{ledMB.eventos}" />
-			</p:selectOneMenu>
-			<p:message for="ledEvento" />
-
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<h:outputLabel for="ledAlteraEvento"
-					value="#{msg['label.led.alteraEvento']}" />
-				<p:selectOneRadio id="ledAlteraEvento" value="#{led.alteraEvento}"
-					label="#{msg['label.led.alteraEvento']}" styleClass="input-small">
-					<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
-					<f:selectItem itemValue="#{false}" itemLabel="#{msg['label.nao']}" />
-				</p:selectOneRadio>
-				<p:message for="ledAlteraEvento" />
-			</sec:authorize>
-
-			<h:outputLabel for="ledIntervalo"
-				value="#{msg['label.led.intervalo']}" />
-			<p:selectOneMenu id="ledIntervalo" value="#{led.intervalo}"
-				label="#{msg['label.led.intervalo']}" styleClass="input-large"
-				disabled="#{led.alteraIntervalo != null and not led.alteraIntervalo}">
-				<f:selectItem itemLabel="#{msg['defaultValue.led.intervalo']}" />
-				<f:selectItems value="#{ledMB.intervalos}" />
-			</p:selectOneMenu>
-			<p:message for="ledIntervalo" />
-
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<h:outputLabel for="ledAlteraIntervalo"
-					value="#{msg['label.led.alteraIntervalo']}" />
-				<p:selectOneRadio id="ledAlteraIntervalo"
-					value="#{led.alteraIntervalo}"
-					label="#{msg['label.led.alteraIntervalo']}"
-					styleClass="input-small">
-					<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
-					<f:selectItem itemValue="#{false}" itemLabel="#{msg['label.nao']}" />
-				</p:selectOneRadio>
-				<p:message for="ledAlteraIntervalo" />
-			</sec:authorize>
-
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<h:outputLabel for="ledCor" value="#{msg['label.led.cor']}" />
-				<p:selectOneMenu id="ledCor" value="#{led.cor}"
-					label="#{msg['label.led.cor']}" styleClass="input-large">
-					<f:selectItem itemLabel="#{msg['defaultValue.led.cor']}" />
-					<f:selectItems value="#{ledMB.cores}" />
-				</p:selectOneMenu>
-				<p:message for="ledCor" />
-			</sec:authorize>
-			<sec:authorize ifNotGranted="ROLE_ADMIN">
-				<h:outputLabel for="ledCor" value="#{msg['label.led.cor']}" />
-				<h:outputText id="ledCor" value="#{led.cor}"
-					label="#{msg['label.led.cor']}" />
-				<h:outputText />
-			</sec:authorize>
-
-			<h:outputLabel for="ledAtivo" value="#{msg['label.led.ativo']}" />
-			<p:selectOneRadio id="ledAtivo" value="#{led.ativo}"
-				label="#{msg['label.led.ativo']}" styleClass="input-small"
-				disabled="#{led.ativadoPorBotao != null and not led.ativadoPorBotao}">
-				<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
-				<f:selectItem itemValue="#{false}" itemLabel="#{msg['label.nao']}" />
-			</p:selectOneRadio>
-			<p:message for="ledAtivo" />
-
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<h:outputLabel for="ledAtivadoPorBotao"
-					value="#{msg['label.led.ativadoPorBotao']}" />
-				<p:selectOneRadio id="ledAtivadoPorBotao"
-					value="#{led.ativadoPorBotao}"
-					label="#{msg['label.led.ativadoPorBotao']}"
-					styleClass="input-small">
-					<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
-					<f:selectItem itemValue="#{false}" itemLabel="#{msg['label.nao']}" />
-				</p:selectOneRadio>
-				<p:message for="ledAtivadoPorBotao" />
-			</sec:authorize>
-			<sec:authorize ifNotGranted="ROLE_ADMIN">
-				<h:outputLabel for="ledAtivadoPorBotao"
-					value="#{msg['label.led.ativadoPorBotao']}" />
-				<h:outputText id="ledAtivadoPorBotao"
-					value="#{led.ativadoPorBotao ? msg['label.sim']: msg['label.nao']}"
-					label="#{msg['label.led.ativadoPorBotao']}"/>
-				<h:outputText />
-			</sec:authorize>
-
-			<f:facet name="footer">
-				<c:choose>
-					<c:when test="#{not createEntity}">
-						<p:commandButton value="#{msg['button.atualizar']}"
-							actionListener="#{ledMB.atualizaPino}"
-							styleClass="btn btn-success"
-							oncomplete="handleUpdateRequest(xhr, status, args);"
-							process="@form" />
-						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<p:commandButton value="#{msg['button.excluir']}"
-								actionListener="#{ledMB.removeEntity}"
-								styleClass="btn btn-danger"
+			<div class="control-group">
+				<div class="controls">
+					<c:choose>
+						<c:when test="#{not createEntity}">
+							<p:commandButton value="#{msg['button.atualizar']}"
+								actionListener="#{ledMB.atualizaPino}"
+								styleClass="btn btn-success"
 								oncomplete="handleUpdateRequest(xhr, status, args);"
-								update="leds:totalRows" immediate="true"
-								rendered="#{not createEntity}" />
-						</sec:authorize>
-						<p:button value="#{msg['button.cancelar']}"
-							onclick="PF('ledDialog').hide();" styleClass="btn" />
-					</c:when>
-					<c:otherwise>
-						<p:commandButton value="#{msg['button.salvar']}"
-							action="#{ledMB.createEntity}" styleClass="btn btn-success"
-							update="ledGrid" process="@form" />
-					</c:otherwise>
-				</c:choose>
-			</f:facet>
-		</p:panelGrid>
+								process="@form" />
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<p:commandButton value="#{msg['button.excluir']}"
+									actionListener="#{ledMB.removeEntity}"
+									styleClass="btn btn-danger"
+									oncomplete="handleUpdateRequest(xhr, status, args);"
+									update="ledTable:totalRows" immediate="true"
+									rendered="#{not createEntity}" />
+							</sec:authorize>
+							<p:button value="#{msg['button.cancelar']}"
+								onclick="PF('ledDialog').hide();" styleClass="btn" />
+						</c:when>
+						<c:otherwise>
+							<p:commandButton value="#{msg['button.salvar']}"
+								action="#{ledMB.createEntity}" styleClass="btn btn-success"
+								update="ledPanel" process="@form" />
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+		</h:panelGroup>
 	</p:outputPanel>
 	<c:if test="#{not createEntity}">
-		<p:remoteCommand name="atualizaFomulario" update="ledGrid" />
+		<p:remoteCommand name="atualizaFomulario" update="ledPanel" />
 
 		<h:outputScript library="js" name="list.page.js" />
 
 		<script type="text/javascript">
 			function handleUpdateRequest(xhr, status, args) {
-				updateListPage("mensagens", "ledsTable", "ledDialog", args);
+				updateListPage("mensagens", "ledTable", "ledDialog", args);
 			}
 		</script>
 	</c:if>

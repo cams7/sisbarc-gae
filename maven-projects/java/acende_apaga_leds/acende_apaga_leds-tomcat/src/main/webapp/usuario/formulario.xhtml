@@ -6,91 +6,118 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<p:outputPanel id="usuarioDetail" style="text-align:center;">
-		<p:panelGrid id="usuarioGrid" columns="3" columnClasses="value"
-			style="width:100%" rendered="#{not empty usuario}">
-			<f:facet name="header">
-			</f:facet>
+		<h:panelGroup id="usuarioPanel" rendered="#{not empty usuario}">
 
 			<!-- register a PostValidateEvent -->
 			<f:event listener="#{usuarioMB.validatePassword}" type="postValidate" />
 
 			<c:if test="#{not createEntity}">
-				<h:outputLabel for="usuarioId" value="#{msg['label.usuario.id']}" />
-				<h:outputText id="usuarioId" value="#{usuario.id}"
-					label="#{msg['label.usuario.id']}" />
-				<h:outputText />
+				<div class="control-group">
+					<h:outputLabel for="usuarioId" value="#{msg['label.usuario.id']}"
+						styleClass="control-label" />
+					<h:outputText id="usuarioId" value="#{usuario.id}"
+						label="#{msg['label.usuario.id']}" styleClass="controls"
+						style="float: left;margin-left: 20px;" />
+				</div>
 			</c:if>
 
-			<h:outputLabel for="usuarioNome" value="#{msg['label.usuario.nome']}" />
-			<p:inputText id="usuarioNome" value="#{usuario.nome}"
-				label="#{msg['label.usuario.nome']}" styleClass="input-large" />
-			<p:message for="usuarioNome" />
+			<div class="control-group">
+				<h:outputLabel for="usuarioNome"
+					value="#{msg['label.usuario.nome']}" styleClass="control-label" />
+				<div class="controls" style="float: left; margin-left: 20px;">
+					<p:inputText id="usuarioNome" value="#{usuario.nome}"
+						label="#{msg['label.usuario.nome']}" styleClass="input-large" />
+					<p:message for="usuarioNome" styleClass="alert alert-error" />
+				</div>
+			</div>
 
-			<h:outputLabel for="usuarioSenha"
-				value="#{msg['label.usuario.senha']}" />
-			<p:password id="usuarioSenha" value="#{usuario.senha}"
-				label="#{msg['label.usuario.senha']}" styleClass="input-large" />
-			<p:message for="usuarioSenha" />
+			<div class="control-group">
+				<h:outputLabel for="usuarioSenha"
+					value="#{msg['label.usuario.senha']}" styleClass="control-label" />
+				<div class="controls" style="float: left; margin-left: 20px;">
+					<p:password id="usuarioSenha" value="#{usuario.senha}"
+						label="#{msg['label.usuario.senha']}" styleClass="input-large" />
+					<p:message for="usuarioSenha" styleClass="alert alert-error" />
+				</div>
+			</div>
 
-			<h:outputLabel for="confirmacaoSenha"
-				value="#{msg['label.usuario.confirmacaoSenha']}" />
-			<p:password id="confirmacaoSenha" required="true"
-				requiredMessage="#{msg['label.usuario.confirmacaoSenha.requiredMessage']}" />
-			<p:message for="confirmacaoSenha" />
+			<div class="control-group">
+				<h:outputLabel for="confirmacaoSenha"
+					value="#{msg['label.usuario.confirmacaoSenha']}"
+					styleClass="control-label" />
+				<div class="controls" style="float: left; margin-left: 20px;">
+					<p:password id="confirmacaoSenha" required="true"
+						requiredMessage="#{msg['label.usuario.confirmacaoSenha.requiredMessage']}"
+						label="#{msg['label.usuario.confirmacaoSenha']}"
+						styleClass="input-large" />
+					<p:message for="confirmacaoSenha" styleClass="alert alert-error" />
+				</div>
+			</div>
 
-			<h:outputLabel for="usuarioAutorizacoes"
-				value="#{msg['label.usuario.autorizacoes']}" />
-			<p:selectManyCheckbox id="usuarioAutorizacoes"
-				value="#{usuario.autorizacoes}"
-				label="#{msg['label.usuario.autorizacoes']}"
-				styleClass="input-large">
-				<f:selectItems value="#{usuarioMB.autorizacoes}" />
-			</p:selectManyCheckbox>
-			<p:message for="usuarioAutorizacoes" />
+			<div class="control-group">
+				<h:outputLabel for="usuarioAutorizacoes"
+					value="#{msg['label.usuario.autorizacoes']}"
+					styleClass="control-label" />
+				<div class="controls" style="float: left; margin-left: 20px;">
+					<p:selectManyCheckbox id="usuarioAutorizacoes"
+						value="#{usuario.autorizacoes}"
+						label="#{msg['label.usuario.autorizacoes']}"
+						styleClass="input-large">
+						<f:selectItems value="#{usuarioMB.autorizacoes}" />
+					</p:selectManyCheckbox>
+					<p:message for="usuarioAutorizacoes" styleClass="alert alert-error" />
+				</div>
+			</div>
 
-			<h:outputLabel for="usuarioAtivo"
-				value="#{msg['label.usuario.ativo']}" />
-			<p:selectOneRadio id="usuarioAtivo" value="#{usuario.ativo}"
-				label="#{msg['label.usuario.ativo']}" styleClass="input-small">
-				<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
-				<f:selectItem itemValue="#{false}" itemLabel="#{msg['label.nao']}" />
-			</p:selectOneRadio>
-			<p:message for="usuarioAtivo" />
+			<div class="control-group">
+				<h:outputLabel for="usuarioAtivo"
+					value="#{msg['label.usuario.ativo']}" styleClass="control-label" />
+				<div class="controls" style="float: left; margin-left: 20px;">
+					<p:selectOneRadio id="usuarioAtivo" value="#{usuario.ativo}"
+						label="#{msg['label.usuario.ativo']}" styleClass="input-small">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msg['label.nao']}" />
+					</p:selectOneRadio>
+					<p:message for="usuarioAtivo" styleClass="alert alert-error" />
+				</div>
+			</div>
 
-			<f:facet name="footer">
-				<c:choose>
-					<c:when test="#{not createEntity}">
-						<p:commandButton value="#{msg['button.atualizar']}"
-							actionListener="#{usuarioMB.updateEntity}"
-							styleClass="btn btn-success"
-							oncomplete="handleUpdateRequest(xhr, status, args);"
-							process="@form" />
-						<p:commandButton value="#{msg['button.excluir']}"
-							actionListener="#{usuarioMB.removeEntity}"
-							styleClass="btn btn-danger"
-							oncomplete="handleUpdateRequest(xhr, status, args);"
-							update="usuarios:totalRows" immediate="true"
-							rendered="#{not createEntity}" />
-						<p:button value="#{msg['button.cancelar']}"
-							onclick="PF('usuarioDialog').hide();" styleClass="btn" />
-					</c:when>
-					<c:otherwise>
-						<p:commandButton value="#{msg['button.salvar']}"
-							action="#{usuarioMB.createEntity}" styleClass="btn btn-success"
-							update="usuarioGrid" process="@form" />
-					</c:otherwise>
-				</c:choose>
-			</f:facet>
-		</p:panelGrid>
+			<div class="control-group">
+				<div class="controls">
+					<c:choose>
+						<c:when test="#{not createEntity}">
+							<p:commandButton value="#{msg['button.atualizar']}"
+								actionListener="#{usuarioMB.updateEntity}"
+								styleClass="btn btn-success"
+								oncomplete="handleUpdateRequest(xhr, status, args);"
+								process="@form" />
+							<p:commandButton value="#{msg['button.excluir']}"
+								actionListener="#{usuarioMB.removeEntity}"
+								styleClass="btn btn-danger"
+								oncomplete="handleUpdateRequest(xhr, status, args);"
+								update="usuarioTable:totalRows" immediate="true"
+								rendered="#{not createEntity}" />
+							<p:button value="#{msg['button.cancelar']}"
+								onclick="PF('usuarioDialog').hide();" styleClass="btn" />
+						</c:when>
+						<c:otherwise>
+							<p:commandButton value="#{msg['button.salvar']}"
+								action="#{usuarioMB.createEntity}" styleClass="btn btn-success"
+								update="usuarioPanel" process="@form" />
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+		</h:panelGroup>
 	</p:outputPanel>
 	<c:if test="#{not createEntity}">
-		<p:remoteCommand name="atualizaFomulario" update="usuarioGrid" />
+		<p:remoteCommand name="atualizaFomulario" update="usuarioPanel" />
 
 		<h:outputScript library="js" name="list.page.js" />
 
 		<script type="text/javascript">
 			function handleUpdateRequest(xhr, status, args) {
-				updateListPage("mensagens", "usuariosTable", "usuarioDialog",
+				updateListPage("mensagens", "usuarioTable", "usuarioDialog",
 						args);
 			}
 		</script>

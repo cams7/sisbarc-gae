@@ -5,23 +5,27 @@
 	xmlns:p="http://primefaces.org/ui" template="/layout/template.xhtml">
 
 	<ui:define name="pageTitle">
-		<h:outputText value="#{msg['page.title.incluir.usuario']}" />
+		<h:outputText value="#{msg['page.title.incluir.led']}" />
 	</ui:define>
 
 	<f:metadata>
-		<f:event type="preRenderView" listener="#{usuarioMB.includeNewEntity}" />
+		<f:event type="preRenderView" listener="#{ledMB.includeNewEntity}" />
 	</f:metadata>
+
+	<ui:define name="sidebar">
+		<ui:include src="menu.xhtml" />
+	</ui:define>
 
 	<ui:define name="content">
 		<h:form styleClass="form-horizontal">
 			<p:growl id="mensagens" showDetail="true" life="5000" />
 			<fieldset>
 				<legend>
-					<h:outputText value="#{msg['label.usuario']}" />
+					<h:outputText value="#{msg['label.led']}" />
 					<small> <h:outputText value="#{msg['label.incluir']}" /></small>
 				</legend>
 				<ui:include src="formulario.xhtml">
-					<ui:param name="usuario" value="#{usuarioMB.selectedEntity}" />
+					<ui:param name="led" value="#{ledMB.selectedEntity}" />
 					<ui:param name="createEntity" value="#{true}" />
 				</ui:include>
 			</fieldset>

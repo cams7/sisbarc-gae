@@ -22,10 +22,10 @@ public class PinoKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
+	@NotNull(message = "{NotNull.pinoKey.tipo}")
 	private ArduinoPinType tipo;
 
-	@NotNull
+	@NotNull(message = "{NotNull.pinoKey.codigo}")
 	private Byte codigo;
 
 	/**

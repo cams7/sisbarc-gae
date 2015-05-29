@@ -11,7 +11,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-	
+	<h:outputStylesheet library="css" name="sisbarc.css" />
+
 	<h:outputScript library="js" name="bootstrap.min.js" />
 
 	<title><h:outputText value="#{msg['page.title.app']}" /> - <ui:insert
@@ -20,15 +21,27 @@
 
 <h:body>
 	<f:view contentType="text/html">
+		<div class="header">
+			<div class="container">
+				<ui:insert name="header">
+					<ui:include src="/layout/header.xhtml" />
+				</ui:insert>
+			</div>
+		</div>
 		<div class="container">
-			<ui:insert name="header">
-				<ui:include src="/layout/header.xhtml" />
-			</ui:insert>
-
 			<div class="row-fluid show-grid">
-				<ui:insert name="content" />
+				<div class="sidebar">
+					<div class="well span2">
+						<ui:insert name="sidebar" />
+					</div>
+				</div>
+				<div class="span8">
+					<ui:insert name="content" />
 
-				<ui:include src="/layout/footer.xhtml" />
+					<ui:insert name="footer">
+						<ui:include src="/layout/footer.xhtml" />
+					</ui:insert>
+				</div>
 			</div>
 		</div>
 

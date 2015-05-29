@@ -26,16 +26,16 @@
 
 	<http auto-config="true" use-expressions="true">
 
-		<intercept-url pattern="/usuario/lista.jsf"
+		<intercept-url pattern="/usuario/listar.jsf"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
-		<intercept-url pattern="/usuario/novo.jsf" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/usuario/incluir.jsf" access="hasRole('ROLE_ADMIN')" />
 
-		<intercept-url pattern="/led/lista.jsf" access="isAuthenticated()" />
-		<intercept-url pattern="/led/novo.jsf" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/led/listar.jsf" access="isAuthenticated()" />
+		<intercept-url pattern="/led/incluir.jsf" access="hasRole('ROLE_ADMIN')" />
 
-		<intercept-url pattern="/potenciometro/lista.jsf"
+		<intercept-url pattern="/potenciometro/listar.jsf"
 			access="isAuthenticated()" />
-		<intercept-url pattern="/potenciometro/novo.jsf" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/potenciometro/incluir.jsf" access="hasRole('ROLE_ADMIN')" />
 
 		<intercept-url pattern="/sobre.jsf" access="permitAll" />
 

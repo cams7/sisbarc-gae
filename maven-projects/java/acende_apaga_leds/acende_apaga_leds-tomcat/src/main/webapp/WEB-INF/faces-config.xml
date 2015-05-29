@@ -24,17 +24,17 @@
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>listaUsuarios</from-outcome>
-			<to-view-id>/usuario/lista.xhtml</to-view-id>
+			<to-view-id>/usuario/listar.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listaLEDs</from-outcome>
-			<to-view-id>/led/lista.xhtml</to-view-id>
+			<to-view-id>/led/listar.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listaPotenciometros</from-outcome>
-			<to-view-id>/potenciometro/lista.xhtml</to-view-id>
+			<to-view-id>/potenciometro/listar.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

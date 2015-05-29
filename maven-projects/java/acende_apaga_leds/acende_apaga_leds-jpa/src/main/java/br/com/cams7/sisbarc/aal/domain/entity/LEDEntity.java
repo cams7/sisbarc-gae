@@ -30,13 +30,13 @@ public class LEDEntity extends Pino {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
+	@NotNull(message = "{NotNull.led.cor}")
 	private CorLED cor;
 
-	@NotNull
+	@NotNull(message = "{NotNull.led.ativo}")
 	private Boolean ativo;
 
-	@NotNull
+	@NotNull(message = "{NotNull.led.ativadoPorBotao}")
 	private Boolean ativadoPorBotao;
 
 	@Transient

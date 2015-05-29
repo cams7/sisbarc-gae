@@ -14,29 +14,33 @@
 		<f:event type="preRenderView" listener="#{usuarioMB.reset}" />
 	</f:metadata>
 
+	<ui:define name="sidebar">
+		<ui:include src="menu.xhtml" />
+	</ui:define>
+
 	<ui:define name="content">
 		<div style="border-bottom: 1px solid #E5E5E5;">
-			<h3>
+			<h4>
 				<h:outputText value="#{msg['label.usuarios']}" />
 				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
-			</h3>
+			</h4>
 		</div>
 
-		<h:form id="formUsuario">
-			<p:growl showDetail="true" life="5000" widgetVar="mensagens"/>
+		<h:form id="usuarioForm" styleClass="form-horizontal">
+			<p:growl showDetail="true" life="5000" widgetVar="mensagens" />
 
-			<p:dataTable id="usuarios" var="usuario"
+			<p:dataTable id="usuarioTable" var="usuario"
 				value="#{usuarioMB.lazyModel}" paginator="true"
 				rows="#{usuarioMB.rows}" first="#{usuarioMB.first}"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="3,5,10,15" selectionMode="single"
 				selection="#{usuarioMB.selectedEntity}" lazy="true"
 				emptyMessage="#{msg['label.usuarios.naoCadastrados']}"
-				widgetVar="usuariosTable" resizableColumns="true">
+				widgetVar="usuarioTable" resizableColumns="true">
 
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<p:ajax event="rowSelect" listener="#{usuarioMB.onRowSelect}"
-						update=":formUsuario:usuarioDetail"
+						update=":usuarioForm:usuarioDetail"
 						onsuccess="PF('usuarioDialog').show();" />
 				</sec:authorize>
 
@@ -63,8 +67,8 @@
 			</p:dataTable>
 
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<p:dialog header="#{msg['label.editar']}" widgetVar="usuarioDialog"
-					modal="true" resizable="false">
+				<p:dialog header="#{msg['label.usuario.editar']}"
+					widgetVar="usuarioDialog" modal="true" resizable="false">
 
 					<p:ajax event="close" listener="#{usuarioMB.handleClose}" />
 

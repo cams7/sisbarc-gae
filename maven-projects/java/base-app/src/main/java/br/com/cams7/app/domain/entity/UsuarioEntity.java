@@ -19,12 +19,12 @@ public class UsuarioEntity extends BaseEntity {
 	@org.springframework.data.annotation.Id
 	private Long id;
 
-	@NotBlank
+	@NotBlank(message = "{NotBlank.usuario.nome}")
 	@Indexed(unique = true)
 	@Field("login")
 	private String nome;
 
-	@NotBlank
+	@NotBlank(message = "{NotBlank.usuario.senha}")
 	private String senha;
 
 	private boolean ativo;

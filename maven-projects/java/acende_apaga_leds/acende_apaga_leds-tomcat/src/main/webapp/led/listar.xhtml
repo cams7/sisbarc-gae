@@ -14,29 +14,33 @@
 		<f:event type="preRenderView" listener="#{ledMB.reset}" />
 	</f:metadata>
 
+	<ui:define name="sidebar">
+		<ui:include src="menu.xhtml" />
+	</ui:define>
+
 	<ui:define name="content">
 		<div style="border-bottom: 1px solid #E5E5E5;">
-			<h3>
+			<h4>
 				<h:outputText value="#{msg['label.leds']}" />
 				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
-			</h3>
+			</h4>
 		</div>
 
-		<h:form id="formLED">
+		<h:form id="ledForm" styleClass="form-horizontal">
 			<p:growl id="mensagens" widgetVar="mensagens" showDetail="true"
 				showSummary="true" life="5000" />
 
-			<p:dataTable id="leds" var="led" value="#{ledMB.lazyModel}"
+			<p:dataTable id="ledTable" var="led" value="#{ledMB.lazyModel}"
 				paginator="true" rows="#{ledMB.rows}" first="#{ledMB.first}"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="3,5,10,15" selectionMode="single"
 				selection="#{ledMB.selectedEntity}" lazy="true"
 				emptyMessage="#{msg['label.leds.naoCadastrados']}"
-				widgetVar="ledsTable" resizableColumns="true">
+				widgetVar="ledTable" resizableColumns="true">
 
 				<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 					<p:ajax event="rowSelect" listener="#{ledMB.onRowSelect}"
-						update=":formLED:ledDetail" onsuccess="PF('ledDialog').show();" />
+						update=":ledForm:ledDetail" onsuccess="PF('ledDialog').show();" />
 				</sec:authorize>
 
 				<p:column headerText="#{msg['label.led.tipo']}"
@@ -77,7 +81,8 @@
 
 				<f:facet name="footer">
 					<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-						<p:panelGrid id="totalRows" columns="3" columnClasses="value" style="width:100%">
+						<p:panelGrid id="totalRows" columns="3" columnClasses="value"
+							style="width:100%">
 							<h:outputFormat value="#{msg['label.leds.totalCadastrados']}">
 								<f:param value="#{ledMB.totalRows}" />
 							</h:outputFormat>
@@ -85,17 +90,17 @@
 							<p:commandButton value="#{msg['button.arduino.synchronize']}"
 								styleClass="btn btn-success"
 								actionListener="#{ledMB.sincronizaPinos}"
-								oncomplete="PF('ledsTable').filter()"
-								update=":formLED:mensagens" />
+								oncomplete="PF('ledTable').filter()" update=":ledForm:mensagens" />
 
 							<p:commandButton value="#{msg['button.arduino.update']}"
 								styleClass="btn btn-success"
 								actionListener="#{ledMB.atualizaPinos}"
-								update=":formLED:mensagens" />
+								update=":ledForm:mensagens" />
 						</p:panelGrid>
 					</sec:authorize>
 					<sec:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
-						<h:outputFormat id="totalRows" value="#{msg['label.leds.totalCadastrados']}">
+						<h:outputFormat id="totalRows"
+							value="#{msg['label.leds.totalCadastrados']}">
 							<f:param value="#{ledMB.totalRows}" />
 						</h:outputFormat>
 					</sec:authorize>
@@ -103,7 +108,7 @@
 			</p:dataTable>
 
 			<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-				<p:dialog header="#{msg['label.editar']}" widgetVar="ledDialog"
+				<p:dialog header="#{msg['label.led.editar']}" widgetVar="ledDialog"
 					modal="true" resizable="false">
 
 					<p:ajax event="close" listener="#{ledMB.handleClose}" />

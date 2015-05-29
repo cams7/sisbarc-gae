@@ -5,19 +5,30 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 
-	<div style="margin-top: 20px; padding-bottom: 20px;">
+	<div class="logo">
+		<h:graphicImage library="img" name="logo_arduino.png"
+			title="#{msg['label.logo.sisbarc']}"
+			alt="#{msg['label.logo.sisbarc']}" />
+	</div>
+	<div class="menu_aal">
 		<p:menubar>
 			<p:submenu label="#{msg['menu.inicio']}" icon="ui-icon-document">
 				<p:menuitem value="#{msg['menu.home']}" outcome="/home"
 					icon="ui-icon-home" />
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<p:submenu label="#{msg['menu.incluir']}" icon="ui-icon-disk">
-						<p:menuitem value="#{msg['menu.usuario']}" outcome="/usuario/novo"
-							icon="ui-icon-person" />						
-						<p:menuitem value="#{msg['menu.led']}"
-							outcome="/led/novo" icon="ui-icon-contact" />
+						<p:menuitem value="#{msg['menu.usuario']}" outcome="/usuario/incluir"
+							icon="ui-icon-person">
+							<f:param name="active" value="incluir_usuario" />
+						</p:menuitem>
+						<p:menuitem value="#{msg['menu.led']}" outcome="/led/incluir"
+							icon="ui-icon-contact">
+							<f:param name="active" value="incluir_led" />
+						</p:menuitem>
 						<p:menuitem value="#{msg['menu.potenciometro']}"
-							outcome="/potenciometro/novo" icon="ui-icon-contact" />
+							outcome="/potenciometro/incluir" icon="ui-icon-contact">
+							<f:param name="active" value="incluir_potenciometro" />
+						</p:menuitem>
 					</p:submenu>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
@@ -37,20 +48,28 @@
 				<p:submenu label="#{msg['menu.lista']}" icon="ui-icon-search">
 					<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 						<p:menuitem value="#{msg['menu.usuarios']}"
-							outcome="/usuario/lista" icon="ui-icon-person" />
+							outcome="/usuario/listar" icon="ui-icon-person">
+							<f:param name="active" value="listar_usuarios" />
+						</p:menuitem>
 					</sec:authorize>
 
-					<p:menuitem value="#{msg['menu.leds']}"
-						outcome="/led/lista" icon="ui-icon-contact" />
-						
+					<p:menuitem value="#{msg['menu.leds']}" outcome="/led/listar"
+						icon="ui-icon-contact">
+						<f:param name="active" value="listar_leds" />
+					</p:menuitem>
+
 					<p:menuitem value="#{msg['menu.potenciometros']}"
-						outcome="/potenciometro/lista" icon="ui-icon-contact" />
+						outcome="/potenciometro/listar" icon="ui-icon-contact">
+						<f:param name="active" value="listar_potenciometros" />
+					</p:menuitem>
 				</p:submenu>
 			</sec:authorize>
 
 			<p:submenu label="#{msg['menu.ajuda']}" icon="ui-icon-help">
 				<p:menuitem value="#{msg['menu.sobre']}" outcome="/sobre"
-					icon="ui-icon-gear" />
+					icon="ui-icon-gear">
+					<f:param name="active" value="sobre" />
+				</p:menuitem>
 			</p:submenu>
 
 			<sec:authorize access="isAuthenticated()">

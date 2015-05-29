@@ -8,9 +8,8 @@
 		Os atributos sao trechos definidos no template para substituicao, em nosso 
 		caso o proprio template define o valor. -->
 	<definition name="default" template="/WEB-INF/layouts/template.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+		<put-attribute name="header" value="/WEB-INF/layouts/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
 	</definition>
 
 </tiles-definitions>

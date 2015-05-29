@@ -1,65 +1,82 @@
 package br.com.cams7.sisbarc.aal.controller;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+@RequestMapping(value = "/")
 @Controller
 public class MainController {
 
-	@RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
-	public ModelAndView defaultPage() {
+	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
 
-		ModelAndView model = new ModelAndView();
-		model.addObject("title",
+	private final String PAGE_WELCOME = "welcome";
+	private final String PAGE_ABOUT = "sobre";
+
+	private final String PAGE_ADMIN = "admin";
+	private final String PAGE_LOGIN = "login";
+	private final String PAGE_403 = "403";
+
+	@Autowired
+	@Qualifier("sobreApp")
+	private ArrayList<?> sobre;
+
+	@RequestMapping(value = PAGE_WELCOME, method = RequestMethod.GET)
+	public String defaultPage(Model uiModel) {
+		uiModel.addAttribute("title",
 				"Spring Security Login Form - Database Authentication");
-		model.addObject("message", "This is default page!");
-		model.setViewName("hello");
-		return model;
+		uiModel.addAttribute("message", "This is default page!");
+
+		return PAGE_WELCOME;
 	}
 
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.addObject("title",
-				"Spring Security Login Form - Database Authentication");
-		model.addObject("message", "This page is for ROLE_ADMIN only!");
-		model.setViewName("admin");
-
-		return model;
+	@RequestMapping(value = PAGE_ABOUT, method = RequestMethod.GET)
+	public String sobre(Model uiModel) {
+		uiModel.addAttribute(PAGE_ABOUT, sobre);
+		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, PAGE_ABOUT);
+		return PAGE_ABOUT;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = PAGE_ADMIN, method = RequestMethod.GET)
+	public String adminPage(Model uiModel) {
+		uiModel.addAttribute("title",
+				"Spring Security Login Form - Database Authentication");
+		uiModel.addAttribute("message", "This page is for ROLE_ADMIN only!");
+
+		return PAGE_ADMIN;
+	}
+
+	@RequestMapping(value = PAGE_LOGIN, method = RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
 
 		ModelAndView model = new ModelAndView();
-		if (error != null) {
+		if (error != null)
 			model.addObject("error", "Invalid username and password!");
-		}
 
-		if (logout != null) {
+		if (logout != null)
 			model.addObject("msg", "You've been logged out successfully.");
-		}
-		model.setViewName("login");
+
+		model.setViewName(PAGE_LOGIN);
 
 		return model;
 	}
 
 	// for 403 access denied page
-	@RequestMapping(value = "/403Page", method = RequestMethod.GET)
-	public ModelAndView accesssDenied() {
-
-		ModelAndView model = new ModelAndView();
-
+	@RequestMapping(value = PAGE_403, method = RequestMethod.GET)
+	public String accesssDenied(Model uiModel) {
 		// check if user is login
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
@@ -67,11 +84,10 @@ public class MainController {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			System.out.println(userDetail);
 
-			model.addObject("username", userDetail.getUsername());
+			uiModel.addAttribute("username", userDetail.getUsername());
 
 		}
 
-		model.setViewName("403Page");
-		return model;
+		return PAGE_403;
 	}
 }

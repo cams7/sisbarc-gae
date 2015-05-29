@@ -40,7 +40,7 @@
 		<c:forEach items="${mercadorias}" var="m">
 			<tr>
 				<td>${m.id}</td>
-				<td><spring:url value="/${m.id}" var="edit_url"
+				<td><spring:url value="/mercadoria/${m.id}" var="edit_url"
 						htmlEscape="true">
 						<spring:param name="form"></spring:param>
 					</spring:url> <a href="${edit_url}" title="${label_editar} ${m.nome}">${m.nome}</a>

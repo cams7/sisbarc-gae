@@ -42,7 +42,7 @@
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
 
 		<!-- access denied page -->
-		<access-denied-handler error-page="/403Page" />
+		<access-denied-handler error-page="/403" />
 
 		<form-login login-page="/login" login-processing-url="/j_spring_security_check"
 			default-target-url="/welcome" authentication-failure-url="/login?error"

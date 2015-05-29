@@ -72,7 +72,7 @@
 <div class="control-group form-horizontal">
 	<div class="controls">
 		<button id="btnSalvar" class="btn btn-success">${button_salvar}</button>
-		<a href="/"><button class="btn">${button_cancelar}</button></a>
+		<a href="/mercadoria/"><button class="btn">${button_cancelar}</button></a>
 		<c:if test="${not empty param.enableRemove}">
 			<button id="btnExcluir" class="btn btn-danger">${button_excluir}</button>
 		</c:if>

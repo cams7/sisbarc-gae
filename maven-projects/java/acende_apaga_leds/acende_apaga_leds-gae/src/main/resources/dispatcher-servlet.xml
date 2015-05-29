@@ -51,7 +51,7 @@
 	<!-- Bean para mapear os erros para pagina de excecao do aplicativo -->
 	<bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"
-		p:defaultErrorView="errorPage" />
+		p:defaultErrorView="error" />
 
 	<!-- Configure to plugin JSON as request and response in method handler -->
 	<bean

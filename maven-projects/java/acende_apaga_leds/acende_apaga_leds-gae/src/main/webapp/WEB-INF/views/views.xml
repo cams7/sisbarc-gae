@@ -9,36 +9,39 @@
 	<definition extends="default" name="listarMercadorias">
 		<put-attribute name="body"
 			value="/WEB-INF/views/mercadoria/listar.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="incluirMercadoria">
 		<put-attribute name="body"
 			value="/WEB-INF/views/mercadoria/incluir.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="editarMercadoria">
 		<put-attribute name="body"
 			value="/WEB-INF/views/mercadoria/editar.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="sobre">
 		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
 	</definition>
 
-	<definition extends="default" name="errorPage">
-		<put-attribute name="body" value="/WEB-INF/views/errorPage.jsp" />
+	<definition extends="default" name="error">
+		<put-attribute name="body" value="/WEB-INF/views/error.jsp" />
 	</definition>
 
-	<definition extends="default" name="403Page">
-		<put-attribute name="body" value="/WEB-INF/views/403Page.jsp" />
+	<definition extends="default" name="403">
+		<put-attribute name="body" value="/WEB-INF/views/403.jsp" />
 	</definition>
 
 	<definition extends="default" name="login">
 		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
 	</definition>
 
-	<definition extends="default" name="hello">
-		<put-attribute name="body" value="/WEB-INF/views/hello.jsp" />
+	<definition extends="default" name="welcome">
+		<put-attribute name="body" value="/WEB-INF/views/welcome.jsp" />
 	</definition>
 
 	<definition extends="default" name="admin">

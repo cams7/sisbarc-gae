@@ -3,10 +3,10 @@ package br.com.cams7.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.app.service.BaseService;
 
-public abstract class BaseController<S extends BaseService<E>, E extends BaseEntity>
+public abstract class AbstractController<S extends BaseService<E>, E extends AbstractEntity>
 		extends AbstractBase<E> {
 
 	private final byte ENTITY_ARGUMENT_NUMBER = 1;
@@ -18,7 +18,7 @@ public abstract class BaseController<S extends BaseService<E>, E extends BaseEnt
 	@Autowired
 	private S service;
 
-	public BaseController() {
+	public AbstractController() {
 		super();
 	}
 

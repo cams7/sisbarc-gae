@@ -67,7 +67,7 @@
 			</p:dataTable>
 
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<p:dialog header="#{msg['label.usuario.editar']}"
+				<p:dialog header="#{msg['page.title.editar.usuario']}"
 					widgetVar="usuarioDialog" modal="true" resizable="false">
 
 					<p:ajax event="close" listener="#{usuarioMB.handleClose}" />

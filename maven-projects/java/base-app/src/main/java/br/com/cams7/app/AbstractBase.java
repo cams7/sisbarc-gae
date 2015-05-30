@@ -7,14 +7,14 @@ package br.com.cams7.app;
 
 import java.util.logging.Logger;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.util.AppUtil;
 
 /**
  * @author cesar
  *
  */
-public abstract class AbstractBase<E extends BaseEntity> {
+public abstract class AbstractBase<E extends AbstractEntity> {
 
 	private final byte ENTITY_ARGUMENT_NUMBER = 0;
 

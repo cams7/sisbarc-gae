@@ -7,11 +7,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.googlecode.objectify.annotation.Entity;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 
 @Entity
 @Document(collection = "usuario")
-public class UsuarioEntity extends BaseEntity {
+public class UsuarioEntity extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 

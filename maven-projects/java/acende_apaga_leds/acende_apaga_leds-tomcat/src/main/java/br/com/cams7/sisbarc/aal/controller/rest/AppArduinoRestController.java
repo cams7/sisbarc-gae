@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.cams7.app.controller.BaseRestController;
+import br.com.cams7.app.controller.AbstractRestController;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
@@ -29,7 +29,7 @@ import br.com.cams7.util.AppException;
 @RestController
 @RequestMapping("/led")
 public class AppArduinoRestController extends
-		BaseRestController<LEDService, LEDEntity> {
+		AbstractRestController<LEDService, LEDEntity> {
 
 	/**
 	 * 

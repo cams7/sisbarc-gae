@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 
@@ -17,7 +17,7 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 @XmlType(name = "abstractPino", propOrder = { "id", "pino", "evento",
 		"alteraEvento", "intervalo", "alteraIntervalo" })
 @XmlSeeAlso({ LEDEntity.class })
-public abstract class Pino extends BaseEntity {
+public abstract class Pino extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 

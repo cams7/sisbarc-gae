@@ -8,14 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.app.service.BaseService;
 import br.com.cams7.util.AppException;
 
-public abstract class BaseRestController<S extends BaseService<E>, E extends BaseEntity>
-		extends BaseController<S, E> {
+public abstract class AbstractRestController<S extends BaseService<E>, E extends AbstractEntity>
+		extends AbstractController<S, E> {
 
-	public BaseRestController() {
+	public AbstractRestController() {
 		super();
 	}
 

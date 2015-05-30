@@ -96,7 +96,7 @@
 			</p:dataTable>
 
 			<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-				<p:dialog header="#{msg['label.potenciometro.editar']}"
+				<p:dialog header="#{msg['page.title.editar.potenciometro']}"
 					widgetVar="potenciometroDialog" modal="true" resizable="false">
 
 					<p:ajax event="close" listener="#{potenciometroMB.handleClose}" />

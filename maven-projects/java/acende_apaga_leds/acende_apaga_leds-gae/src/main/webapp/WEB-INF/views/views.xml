@@ -6,7 +6,7 @@
 		cada uma utiliza. Repare que em nossa aplicacao, o unico atributo sobreescrito 
 		pelas paginas eh o body. -->
 
-	<definition extends="default"  name="listarMercadorias">
+	<definition extends="default" name="listarMercadorias">
 		<put-attribute name="body"
 			value="/WEB-INF/views/mercadoria/listar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
@@ -22,6 +22,22 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/mercadoria/editar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
+	</definition>
+
+
+	<definition extends="default" name="listarUsuarios">
+		<put-attribute name="body" value="/WEB-INF/views/usuario/listar.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
+	</definition>
+
+	<definition extends="default" name="incluirUsuario">
+		<put-attribute name="body" value="/WEB-INF/views/usuario/incluir.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
+	</definition>
+
+	<definition extends="default" name="editarUsuario">
+		<put-attribute name="body" value="/WEB-INF/views/usuario/editar.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="sobre">

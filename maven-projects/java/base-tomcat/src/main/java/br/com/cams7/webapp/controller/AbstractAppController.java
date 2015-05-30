@@ -24,8 +24,8 @@ import org.primefaces.model.SortOrder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
-import br.com.cams7.app.controller.BaseController;
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.controller.AbstractController;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
 import br.com.cams7.webapp.service.AppService;
@@ -34,8 +34,8 @@ import br.com.cams7.webapp.service.AppService;
  * @author cams7
  *
  */
-public abstract class AppController<S extends AppService<E>, E extends BaseEntity>
-		extends BaseController<S, E> implements Serializable {
+public abstract class AbstractAppController<S extends AppService<E>, E extends AbstractEntity>
+		extends AbstractController<S, E> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,7 +67,7 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 
 	private Map<String, Object> lastFilters;
 
-	public AppController() {
+	public AbstractAppController() {
 		super();
 	}
 

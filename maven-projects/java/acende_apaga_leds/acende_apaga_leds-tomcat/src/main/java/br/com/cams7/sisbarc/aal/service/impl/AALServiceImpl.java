@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
@@ -19,14 +19,14 @@ import br.com.cams7.sisbarc.aal.service.AALService;
 import br.com.cams7.sisbarc.aal.task.AppArduinoScheduler;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 import br.com.cams7.webapp.repository.AppRepository;
-import br.com.cams7.webapp.service.AppServiceImpl;
+import br.com.cams7.webapp.service.AbstractAppService;
 
 /**
  * @author cams7
  *
  */
-public abstract class AALServiceImpl<R extends AppRepository<E>, E extends BaseEntity>
-		extends AppServiceImpl<R, E> implements AALService<E> {
+public abstract class AALServiceImpl<R extends AppRepository<E>, E extends AbstractEntity>
+		extends AbstractAppService<R, E> implements AALService<E> {
 
 	@Autowired
 	@Qualifier(AppArduinoScheduler.COMPONENT_NAME)

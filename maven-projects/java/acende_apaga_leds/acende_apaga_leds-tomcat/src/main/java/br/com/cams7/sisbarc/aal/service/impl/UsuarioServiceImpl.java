@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 import br.com.cams7.app.domain.entity.UsuarioEntity;
 import br.com.cams7.sisbarc.aal.repository.UsuarioRepository;
 import br.com.cams7.sisbarc.aal.service.UsuarioService;
-import br.com.cams7.webapp.service.AppServiceImpl;
+import br.com.cams7.webapp.service.AbstractAppService;
 
 @Service
 public class UsuarioServiceImpl extends
-		AppServiceImpl<UsuarioRepository, UsuarioEntity> implements
+		AbstractAppService<UsuarioRepository, UsuarioEntity> implements
 		UsuarioService {
 
 	public UsuarioServiceImpl() {

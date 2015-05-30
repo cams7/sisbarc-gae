@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import br.com.cams7.app.domain.entity.UsuarioEntity;
 import br.com.cams7.app.domain.entity.UsuarioEntity.Autorizacao;
 import br.com.cams7.sisbarc.aal.service.UsuarioService;
-import br.com.cams7.webapp.controller.AppController;
+import br.com.cams7.webapp.controller.AbstractAppController;
 
 /**
  * @author cams7
@@ -26,7 +26,7 @@ import br.com.cams7.webapp.controller.AppController;
 @ManagedBean(name = UsuarioController.CONTROLLER_NAME)
 @ViewScoped
 public class UsuarioController extends
-		AppController<UsuarioService, UsuarioEntity> {
+		AbstractAppController<UsuarioService, UsuarioEntity> {
 
 	private static final long serialVersionUID = 1L;
 

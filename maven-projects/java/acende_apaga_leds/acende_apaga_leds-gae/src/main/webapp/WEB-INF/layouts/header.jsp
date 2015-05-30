@@ -1,7 +1,7 @@
 <%-- Fragmento com trecho utilizado no cabecalho das paginas. --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div>
-	<spring:url var="banner" value="/resources/img/logo_yaw.png" />
+	<spring:url var="banner" value="/resources/img/logo_arduino.png" />
 	<div class="logo">
 		<img src="${banner}" />
 	</div>

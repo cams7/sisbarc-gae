@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.app.repository.BaseRepository;
 
 /**
@@ -76,7 +76,7 @@ public final class AppUtil {
 		return type;
 	}
 
-	public static <E extends BaseEntity> E getNewEntity(Class<E> entityType)
+	public static <E extends AbstractEntity> E getNewEntity(Class<E> entityType)
 			throws AppException {
 		try {
 			E entity = entityType.newInstance();
@@ -86,7 +86,7 @@ public final class AppUtil {
 		}
 	}
 
-	public static <E extends BaseEntity> E getNewEntity(Class<E> entityType,
+	public static <E extends AbstractEntity> E getNewEntity(Class<E> entityType,
 			Long id) throws AppException {
 
 		E entity = getNewEntity(entityType);

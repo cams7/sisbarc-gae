@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.webapp.repository.AppRepository;
 import br.com.cams7.webapp.sequence.SequenceRepository;
 
@@ -21,7 +21,7 @@ import br.com.cams7.webapp.sequence.SequenceRepository;
  * @author cesar
  *
  */
-public abstract class AppServiceImpl<R extends AppRepository<E>, E extends BaseEntity>
+public abstract class AbstractAppService<R extends AppRepository<E>, E extends AbstractEntity>
 		extends AbstractBase<E> implements AppService<E> {
 
 	private final byte ENTITY_ARGUMENT_NUMBER = 1;
@@ -32,7 +32,7 @@ public abstract class AppServiceImpl<R extends AppRepository<E>, E extends BaseE
 	@Autowired
 	private SequenceRepository sequence;
 
-	public AppServiceImpl() {
+	public AbstractAppService() {
 		super();
 	}
 

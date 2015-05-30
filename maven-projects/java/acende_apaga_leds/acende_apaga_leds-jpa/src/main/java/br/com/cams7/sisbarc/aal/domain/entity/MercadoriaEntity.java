@@ -4,7 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -27,7 +27,7 @@ import com.googlecode.objectify.annotation.Id;
  * @author YaW Tecnologia
  */
 @Entity
-public class MercadoriaEntity extends BaseEntity {
+public class MercadoriaEntity extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 

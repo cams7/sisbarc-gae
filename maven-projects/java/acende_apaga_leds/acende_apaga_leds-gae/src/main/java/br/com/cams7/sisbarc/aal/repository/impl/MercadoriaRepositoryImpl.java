@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.cams7.gae.repository.AppRepositoryImpl;
+import br.com.cams7.gae.repository.AbstractAppRepository;
 import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.repository.MercadoriaRepository;
 
@@ -34,7 +34,7 @@ import com.googlecode.objectify.Key;
  */
 @Repository
 public class MercadoriaRepositoryImpl extends
-		AppRepositoryImpl<MercadoriaEntity> implements MercadoriaRepository {
+		AbstractAppRepository<MercadoriaEntity> implements MercadoriaRepository {
 
 	public MercadoriaRepositoryImpl() {
 		super();

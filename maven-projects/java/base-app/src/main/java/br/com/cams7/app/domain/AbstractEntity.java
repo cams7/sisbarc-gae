@@ -17,17 +17,17 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType
-public abstract class BaseEntity implements Serializable {
+public abstract class AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public BaseEntity() {
+	public AbstractEntity() {
 		super();
 	}
 
 	/**
 	 * @param id
 	 */
-	public BaseEntity(Long id) {
+	public AbstractEntity(Long id) {
 		this();
 
 		setId(id);
@@ -64,7 +64,7 @@ public abstract class BaseEntity implements Serializable {
 			return false;
 		}
 
-		BaseEntity e = (BaseEntity) entity;
+		AbstractEntity e = (AbstractEntity) entity;
 
 		return null == this.getId() ? false : this.getId().equals(e.getId());
 	}

@@ -3,6 +3,7 @@
  */
 package br.com.cams7.gae.ds;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,7 +16,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
+import br.com.cams7.gae.repository.AppRepository;
 
 /**
  * Define um <code>DataSource</code> para entidade (<code>Model</code>)
@@ -36,14 +38,14 @@ import br.com.cams7.app.domain.BaseEntity;
  * @author cams7
  *
  */
-public abstract class AppDSImpl<E extends BaseEntity> extends AbstractBase<E>
-		implements AppDS<E> {
+public abstract class AbstractDS<E extends AbstractEntity> extends AbstractBase<E>
+		implements AppRepository<E>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Map<Long, E> data;
 
-	public AppDSImpl() {
+	public AbstractDS() {
 		super();
 		data = new LinkedHashMap<Long, E>();
 	}
@@ -83,7 +85,6 @@ public abstract class AppDSImpl<E extends BaseEntity> extends AbstractBase<E>
 		return entity;
 	}
 
-	@Override
 	public void synch(List<E> entities) {
 		getLog().log(Level.INFO, "Sincronizando datasource...");
 		data.clear();
@@ -98,7 +99,6 @@ public abstract class AppDSImpl<E extends BaseEntity> extends AbstractBase<E>
 		updateSession();
 	}
 
-	@Override
 	public boolean isEmpty() {
 		return data.isEmpty();
 	}

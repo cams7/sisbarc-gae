@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.app.service.BaseService;
 import br.com.cams7.webapp.repository.AppRepository;
 
@@ -16,7 +16,7 @@ import br.com.cams7.webapp.repository.AppRepository;
  * @author cesar
  *
  */
-public interface AppService<E extends BaseEntity> extends BaseService<E>,
+public interface AppService<E extends AbstractEntity> extends BaseService<E>,
 		AppRepository<E> {
 
 	public Page<E> search(short first, byte pageSize, String sortField,

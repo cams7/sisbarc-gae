@@ -11,7 +11,7 @@ import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
 
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.Pino;
@@ -19,15 +19,15 @@ import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.service.AALService;
-import br.com.cams7.webapp.controller.AppController;
+import br.com.cams7.webapp.controller.AbstractAppController;
 import br.com.cams7.webapp.service.AppService;
 
 /**
  * @author cams7
  *
  */
-public abstract class AALController<S extends AppService<E>, E extends BaseEntity>
-		extends AppController<S, E> {
+public abstract class AALController<S extends AppService<E>, E extends AbstractEntity>
+		extends AbstractAppController<S, E> {
 
 	private static final long serialVersionUID = 1L;
 

@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import br.com.cams7.app.domain.entity.UsuarioEntity;
-import br.com.cams7.gae.repository.AppRepositoryImpl;
+import br.com.cams7.gae.repository.AbstractAppRepository;
 import br.com.cams7.sisbarc.aal.repository.UsuarioRepository;
 
 import com.googlecode.objectify.Key;
@@ -20,7 +20,7 @@ import com.googlecode.objectify.Key;
  *
  */
 @Repository("usuarioRepository")
-public class UsuarioRepositoryImpl extends AppRepositoryImpl<UsuarioEntity>
+public class UsuarioRepositoryImpl extends AbstractAppRepository<UsuarioEntity>
 		implements UsuarioRepository {
 
 	/**

@@ -13,8 +13,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.app.domain.BaseEntity;
-import br.com.cams7.gae.ds.AppDS;
+import br.com.cams7.app.domain.AbstractEntity;
+import br.com.cams7.gae.ds.AbstractDS;
 import br.com.cams7.gae.repository.AppRepository;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
@@ -23,7 +23,7 @@ import br.com.cams7.util.AppUtil;
  * @author cesar
  *
  */
-public abstract class AppServiceImpl<R extends AppRepository<E>, D extends AppDS<E>, E extends BaseEntity>
+public abstract class AbstractAppService<R extends AppRepository<E>, D extends AbstractDS<E>, E extends AbstractEntity>
 		extends AbstractBase<E> implements AppService<E> {
 
 	private final byte DS_ARGUMENT_NUMBER = 1;
@@ -35,7 +35,7 @@ public abstract class AppServiceImpl<R extends AppRepository<E>, D extends AppDS
 	private R repository;
 
 	@SuppressWarnings("unchecked")
-	public AppServiceImpl() {
+	public AbstractAppService() {
 		super();
 
 		dsType = (Class<D>) AppUtil.getType(this, DS_ARGUMENT_NUMBER);

@@ -6,16 +6,16 @@ package br.com.cams7.gae.repository;
 import java.util.List;
 
 import br.com.cams7.app.AbstractBase;
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.domain.AbstractEntity;
 
 /**
  * @author cams7
  *
  */
-public abstract class AppRepositoryImpl<E extends BaseEntity> extends
+public abstract class AbstractAppRepository<E extends AbstractEntity> extends
 		AbstractBase<E> implements AppRepository<E> {
 
-	public AppRepositoryImpl() {
+	public AbstractAppRepository() {
 		super();
 	}
 

@@ -14,8 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import br.com.cams7.app.controller.BaseController;
-import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.app.controller.AbstractController;
+import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.gae.service.AppService;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
@@ -24,8 +24,8 @@ import br.com.cams7.util.AppUtil;
  * @author cams7
  *
  */
-public abstract class AppController<S extends AppService<E>, E extends BaseEntity>
-		extends BaseController<S, E> {
+public abstract class AbstractAppController<S extends AppService<E>, E extends AbstractEntity>
+		extends AbstractController<S, E> {
 
 	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
 
@@ -35,7 +35,7 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 	private final String PAGE_ROOT = "redirect:" + getPageMain();
 	private final String PAGE_ERROR = "error";
 
-	public AppController() {
+	public AbstractAppController() {
 		super();
 	}
 

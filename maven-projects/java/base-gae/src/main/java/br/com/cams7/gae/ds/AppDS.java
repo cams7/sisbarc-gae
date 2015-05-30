@@ -1,9 +1,10 @@
-package br.com.cams7.gae;
+package br.com.cams7.gae.ds;
 
 import java.io.Serializable;
 import java.util.List;
 
 import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.gae.repository.AppRepository;
 
 /**
  * Define uma estrutura para armazenar e fornecer dados para um

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
-import br.com.cams7.webapp.AppRepository;
+import br.com.cams7.webapp.repository.AppRepository;
 
 /**
  * @author cams7

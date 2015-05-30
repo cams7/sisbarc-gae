@@ -1,10 +1,11 @@
 /**
  * 
  */
-package br.com.cams7.gae;
+package br.com.cams7.gae.service;
 
 import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.app.service.BaseService;
+import br.com.cams7.gae.repository.AppRepository;
 
 /**
  * @author cesar

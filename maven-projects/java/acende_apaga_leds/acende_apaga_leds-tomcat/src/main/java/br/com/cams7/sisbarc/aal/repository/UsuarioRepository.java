@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.cams7.app.domain.entity.UsuarioEntity;
 import br.com.cams7.app.repository.BaseUsuarioRepository;
-import br.com.cams7.webapp.AppRepository;
+import br.com.cams7.webapp.repository.AppRepository;
 
 @Repository
 public interface UsuarioRepository extends AppRepository<UsuarioEntity>,

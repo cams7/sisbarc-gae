@@ -40,9 +40,10 @@
 		<c:forEach items="${mercadorias}" var="m">
 			<tr>
 				<td>${m.id}</td>
-				<td><spring:url value="/mercadoria/${m.id}" var="edit_url"
-						htmlEscape="true">
-						<spring:param name="form"></spring:param>
+				<td><spring:url
+						value="${pageContext.request.contextPath}/mercadoria/${m.id}"
+						var="edit_url" htmlEscape="true">
+						<spring:param name="form" />
 					</spring:url> <a href="${edit_url}" title="${label_editar} ${m.nome}">${m.nome}</a>
 				</td>
 				<td>${m.descricao}</td>
@@ -51,7 +52,9 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<form:form id="atualizaMercadoria" action="synch" method="GET">
+	<form:form id="atualizaMercadoria"
+		action="${pageContext.request.contextPath}/mercadoria/synch"
+		method="GET">
 		<div class="control-group">
 			<div class="controls">
 				<button id="salvar" class="btn btn-success">${button_atualizar}</button>

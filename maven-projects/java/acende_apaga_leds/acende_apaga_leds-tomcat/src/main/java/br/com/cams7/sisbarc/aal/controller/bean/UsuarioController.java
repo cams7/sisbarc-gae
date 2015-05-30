@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import br.com.cams7.app.domain.entity.UsuarioEntity;
 import br.com.cams7.app.domain.entity.UsuarioEntity.Autorizacao;
 import br.com.cams7.sisbarc.aal.service.UsuarioService;
-import br.com.cams7.webapp.AppController;
+import br.com.cams7.webapp.controller.AppController;
 
 /**
  * @author cams7

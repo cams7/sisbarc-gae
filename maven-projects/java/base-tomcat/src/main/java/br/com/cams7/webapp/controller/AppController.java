@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.webapp;
+package br.com.cams7.webapp.controller;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
@@ -28,6 +28,7 @@ import br.com.cams7.app.controller.BaseController;
 import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
+import br.com.cams7.webapp.service.AppService;
 
 /**
  * @author cams7

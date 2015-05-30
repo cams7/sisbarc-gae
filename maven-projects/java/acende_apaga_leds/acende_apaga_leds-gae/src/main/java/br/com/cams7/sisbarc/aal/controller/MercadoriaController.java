@@ -6,10 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.cams7.gae.AppController;
+import br.com.cams7.gae.controller.AppController;
 import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.service.MercadoriaService;
 
@@ -30,14 +31,15 @@ import br.com.cams7.sisbarc.aal.service.MercadoriaService;
  * 
  * @author YaW Tecnologia
  */
-@RequestMapping(value = "/" + MercadoriaController.ATTRIBUTE_ENTITY + "/")
 @Controller
 public class MercadoriaController extends
 		AppController<MercadoriaService, MercadoriaEntity> {
 
-	public static final String ATTRIBUTE_ENTITY = "mercadoria";
+	private static final String ATTRIBUTE_ENTITY = "mercadoria";
 
 	private final String ATTRIBUTE_ENTITIES = "mercadorias";
+
+	public static final String PAGE_MAIN = "/" + ATTRIBUTE_ENTITY;
 
 	private final String PAGE_LIST = "listarMercadorias";
 	private final String PAGE_INCLUDE = "incluirMercadoria";
@@ -48,7 +50,19 @@ public class MercadoriaController extends
 	}
 
 	@Override
-	@RequestMapping(value = PAGE_INCLUDE, method = RequestMethod.POST)
+	@RequestMapping(value = PAGE_MAIN, method = RequestMethod.GET)
+	public String listar(Model uiModel) {
+		return super.listar(uiModel);
+	}
+
+	@Override
+	@RequestMapping(value = PAGE_MAIN, params = PARAM_FORM, method = RequestMethod.GET)
+	public String criarForm(Model uiModel) {
+		return super.criarForm(uiModel);
+	}
+
+	@Override
+	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
 	public String criar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) MercadoriaEntity mercadoria,
 			BindingResult result, Model uiModel) {
@@ -56,11 +70,29 @@ public class MercadoriaController extends
 	}
 
 	@Override
-	@RequestMapping(value = PAGE_EDIT, method = RequestMethod.PUT)
+	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", params = PARAM_FORM, method = RequestMethod.GET)
+	public String editarForm(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
+		return super.editarForm(id, uiModel);
+	}
+
+	@Override
+	@RequestMapping(value = "/" + PAGE_EDIT, method = RequestMethod.PUT)
 	public String editar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) MercadoriaEntity mercadoria,
 			BindingResult bindingResult, Model uiModel) {
 		return super.editar(mercadoria, bindingResult, uiModel);
+	}
+
+	@Override
+	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", method = RequestMethod.DELETE)
+	public String remover(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
+		return super.remover(id, uiModel);
+	}
+
+	@Override
+	@RequestMapping(value = PAGE_MAIN + "/synch", method = RequestMethod.GET)
+	public String atualizar() {
+		return super.atualizar();
 	}
 
 	@Override
@@ -71,6 +103,11 @@ public class MercadoriaController extends
 	@Override
 	protected String getAttributeEntities() {
 		return ATTRIBUTE_ENTITIES;
+	}
+
+	@Override
+	protected String getPageMain() {
+		return PAGE_MAIN;
 	}
 
 	@Override

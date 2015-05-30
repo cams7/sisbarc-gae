@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.webapp;
+package br.com.cams7.webapp.service;
 
 import java.util.Map;
 
@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 
 import br.com.cams7.app.domain.BaseEntity;
 import br.com.cams7.app.service.BaseService;
+import br.com.cams7.webapp.repository.AppRepository;
 
 /**
  * @author cesar

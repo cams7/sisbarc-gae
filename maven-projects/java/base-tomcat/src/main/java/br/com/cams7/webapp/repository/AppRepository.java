@@ -1,4 +1,4 @@
-package br.com.cams7.webapp;
+package br.com.cams7.webapp.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

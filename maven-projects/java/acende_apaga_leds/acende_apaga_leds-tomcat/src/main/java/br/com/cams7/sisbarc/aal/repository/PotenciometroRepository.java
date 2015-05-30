@@ -6,7 +6,7 @@ package br.com.cams7.sisbarc.aal.repository;
 import org.springframework.stereotype.Repository;
 
 import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
-import br.com.cams7.webapp.AppRepository;
+import br.com.cams7.webapp.repository.AppRepository;
 
 /**
  * @author cams7

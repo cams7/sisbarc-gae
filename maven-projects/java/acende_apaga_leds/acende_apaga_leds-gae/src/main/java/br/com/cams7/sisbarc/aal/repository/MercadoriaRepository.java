@@ -1,6 +1,6 @@
 package br.com.cams7.sisbarc.aal.repository;
 
-import br.com.cams7.gae.AppRepository;
+import br.com.cams7.gae.repository.AppRepository;
 import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 
 /**

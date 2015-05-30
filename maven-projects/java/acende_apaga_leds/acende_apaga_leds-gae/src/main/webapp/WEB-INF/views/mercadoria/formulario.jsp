@@ -25,7 +25,7 @@
 <spring:message code="label.mercadoria.preco"
 	var="label_mercadoria_preco" htmlEscape="false" />
 
-<form:form action="${param.action}" method="${param.method}"
+<form:form action="${pageContext.request.contextPath}/${param.action}" method="${param.method}"
 	commandName="mercadoria" class="form-horizontal" id="frmMercadoria">
 	<form:hidden path="id" />
 	<fieldset>
@@ -72,7 +72,8 @@
 <div class="control-group form-horizontal">
 	<div class="controls">
 		<button id="btnSalvar" class="btn btn-success">${button_salvar}</button>
-		<a href="/mercadoria/"><button class="btn">${button_cancelar}</button></a>
+		<a href="${pageContext.request.contextPath}/mercadoria"><button
+				class="btn">${button_cancelar}</button></a>
 		<c:if test="${not empty param.enableRemove}">
 			<button id="btnExcluir" class="btn btn-danger">${button_excluir}</button>
 		</c:if>

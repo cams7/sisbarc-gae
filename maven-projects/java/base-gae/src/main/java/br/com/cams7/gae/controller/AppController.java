@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.gae;
+package br.com.cams7.gae.controller;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -13,12 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.cams7.app.controller.BaseController;
 import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.gae.service.AppService;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
 
@@ -31,9 +29,10 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 
 	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
 
-	private final String PARAM_FORM = "form";
+	protected final String PARAM_FORM = "form";
+	protected final String VARIABLE_ID = "id";
 
-	private final String PAGE_ROOT = "redirect:/" + getAttributeEntity() + "/";
+	private final String PAGE_ROOT = "redirect:" + getPageMain();
 	private final String PAGE_ERROR = "error";
 
 	public AppController() {
@@ -59,7 +58,6 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 	 *            recebe a lista de entidades.
 	 * @return url para a pagina de listagem.
 	 */
-	@RequestMapping(method = RequestMethod.GET)
 	public String listar(Model uiModel) {
 		List<E> entities = getService().findAll();
 		uiModel.addAttribute(getAttributeEntities(), entities);
@@ -73,7 +71,6 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 	 * @param uiModel
 	 * @return url da página de inclusão.
 	 */
-	@RequestMapping(params = PARAM_FORM, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
 		try {
 			E entity = AppUtil.getNewEntity(getEntityType());
@@ -122,8 +119,7 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 	 *            armazena a entidade que deverá ser alterado.
 	 * @return url da página de edição.
 	 */
-	@RequestMapping(value = "/{id}", params = PARAM_FORM, method = RequestMethod.GET)
-	public String editarForm(@PathVariable("id") Long id, Model uiModel) {
+	public String editarForm(Long id, Model uiModel) {
 		E entity = getService().findOne(id);
 
 		if (entity != null) {
@@ -167,8 +163,7 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 	 * @param uiModel
 	 * @return url da página de listagem.
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public String remover(@PathVariable("id") Long id, Model uiModel) {
+	public String remover(Long id, Model uiModel) {
 		E entity = getService().findOne(id);
 
 		if (entity != null)
@@ -183,7 +178,7 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 	 * 
 	 * @return url da página de listagem.
 	 */
-	@RequestMapping(value = "synch", method = RequestMethod.GET)
+
 	public String atualizar() {
 		((AppService<?>) getService()).synch();
 		return PAGE_ROOT;
@@ -192,6 +187,8 @@ public abstract class AppController<S extends AppService<E>, E extends BaseEntit
 	protected abstract String getAttributeEntity();
 
 	protected abstract String getAttributeEntities();
+
+	protected abstract String getPageMain();
 
 	protected abstract String getPageList();
 

@@ -6,7 +6,7 @@
 		cada uma utiliza. Repare que em nossa aplicacao, o unico atributo sobreescrito 
 		pelas paginas eh o body. -->
 
-	<definition extends="default" name="listarMercadorias">
+	<definition extends="default"  name="listarMercadorias">
 		<put-attribute name="body"
 			value="/WEB-INF/views/mercadoria/listar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />

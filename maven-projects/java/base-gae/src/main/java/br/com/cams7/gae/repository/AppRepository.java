@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.gae;
+package br.com.cams7.gae.repository;
 
 import java.util.List;
 

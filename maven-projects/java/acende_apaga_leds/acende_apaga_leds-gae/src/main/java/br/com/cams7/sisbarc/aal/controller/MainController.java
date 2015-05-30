@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-@RequestMapping(value = "/")
 @Controller
 public class MainController {
 
@@ -32,7 +31,7 @@ public class MainController {
 	@Qualifier("sobreApp")
 	private ArrayList<?> sobre;
 
-	@RequestMapping(value = PAGE_WELCOME, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_WELCOME, method = RequestMethod.GET)
 	public String defaultPage(Model uiModel) {
 		uiModel.addAttribute("title",
 				"Spring Security Login Form - Database Authentication");
@@ -41,14 +40,14 @@ public class MainController {
 		return PAGE_WELCOME;
 	}
 
-	@RequestMapping(value = PAGE_ABOUT, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_ABOUT, method = RequestMethod.GET)
 	public String sobre(Model uiModel) {
 		uiModel.addAttribute(PAGE_ABOUT, sobre);
 		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, PAGE_ABOUT);
 		return PAGE_ABOUT;
 	}
 
-	@RequestMapping(value = PAGE_ADMIN, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_ADMIN, method = RequestMethod.GET)
 	public String adminPage(Model uiModel) {
 		uiModel.addAttribute("title",
 				"Spring Security Login Form - Database Authentication");
@@ -57,7 +56,7 @@ public class MainController {
 		return PAGE_ADMIN;
 	}
 
-	@RequestMapping(value = PAGE_LOGIN, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_LOGIN, method = RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
@@ -75,7 +74,7 @@ public class MainController {
 	}
 
 	// for 403 access denied page
-	@RequestMapping(value = PAGE_403, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_403, method = RequestMethod.GET)
 	public String accesssDenied(Model uiModel) {
 		// check if user is login
 		Authentication auth = SecurityContextHolder.getContext()

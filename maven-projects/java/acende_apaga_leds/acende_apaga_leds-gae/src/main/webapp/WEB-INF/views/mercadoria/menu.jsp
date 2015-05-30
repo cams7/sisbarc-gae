@@ -12,11 +12,12 @@
 		<li><em>${label_mercadorias}</em></li>
 
 		<li class="${empty active || active == 'lista' ? 'active' : ''}">
-			<a href="/mercadoria/">${menu_lista}</a>
+			<a href="${pageContext.request.contextPath}/mercadoria">${menu_lista}</a>
 		</li>
 		<li class="${active == 'incluirMercadoria' ? 'active' : ''}"><a
-			href="/mercadoria/?form">${menu_incluir}</a></li>
+			href="${pageContext.request.contextPath}/mercadoria?form">${menu_incluir}</a></li>
 		<li class="divider" />
-		<li class="${active == 'sobre' ? 'active' : ''}"><a href="/sobre">${menu_sobre}</a></li>
+		<li class="${active == 'sobre' ? 'active' : ''}"><a
+			href="${pageContext.request.contextPath}/sobre">${menu_sobre}</a></li>
 	</ul>
 </div>

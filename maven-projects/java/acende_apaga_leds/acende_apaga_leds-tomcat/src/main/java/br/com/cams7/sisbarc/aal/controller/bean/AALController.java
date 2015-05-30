@@ -19,8 +19,8 @@ import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.service.AALService;
-import br.com.cams7.webapp.AppController;
-import br.com.cams7.webapp.AppService;
+import br.com.cams7.webapp.controller.AppController;
+import br.com.cams7.webapp.service.AppService;
 
 /**
  * @author cams7

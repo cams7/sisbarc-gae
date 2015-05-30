@@ -18,8 +18,8 @@ import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.service.AALService;
 import br.com.cams7.sisbarc.aal.task.AppArduinoScheduler;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
-import br.com.cams7.webapp.AppRepository;
-import br.com.cams7.webapp.AppServiceImpl;
+import br.com.cams7.webapp.repository.AppRepository;
+import br.com.cams7.webapp.service.AppServiceImpl;
 
 /**
  * @author cams7

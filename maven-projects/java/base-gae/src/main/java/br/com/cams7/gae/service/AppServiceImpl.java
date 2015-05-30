@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.gae;
+package br.com.cams7.gae.service;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -14,6 +14,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.cams7.app.AbstractBase;
 import br.com.cams7.app.domain.BaseEntity;
+import br.com.cams7.gae.ds.AppDS;
+import br.com.cams7.gae.repository.AppRepository;
 import br.com.cams7.util.AppException;
 import br.com.cams7.util.AppUtil;
 

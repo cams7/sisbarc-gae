@@ -1,16 +1,10 @@
 package br.com.cams7.sisbarc.aal.repository.impl;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import br.com.cams7.gae.repository.AbstractAppRepository;
 import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.repository.MercadoriaRepository;
-
-import com.googlecode.objectify.Key;
 
 /**
  * Implementa o contrato de persistência da entidade <code>Mercadoria</code>.
@@ -38,36 +32,6 @@ public class MercadoriaRepositoryImpl extends
 
 	public MercadoriaRepositoryImpl() {
 		super();
-	}
-
-	@Override
-	public MercadoriaEntity insert(MercadoriaEntity mercadoria) {
-		return save(mercadoria);
-	}
-
-	@Override
-	public MercadoriaEntity save(MercadoriaEntity mercadoria) {
-		ofy().save().entity(mercadoria).now();
-
-		return mercadoria;
-	}
-
-	@Override
-	public void delete(MercadoriaEntity mercadoria) {
-		ofy().delete().entity(mercadoria).now();
-	}
-
-	@Override
-	public MercadoriaEntity findOne(Long id) {
-		Key<MercadoriaEntity> k = Key.create(MercadoriaEntity.class, id);
-		return ofy().load().key(k).now();
-	}
-
-	@Override
-	public List<MercadoriaEntity> findAll() {
-		List<MercadoriaEntity> entities = ofy().load()
-				.type(MercadoriaEntity.class).list();
-		return entities;
 	}
 
 }

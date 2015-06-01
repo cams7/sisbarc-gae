@@ -21,13 +21,18 @@
 		<constructor-arg name="databaseName" value="sisbarc" />
 	</bean>
 
+	<mongo:repositories base-package="br.com.cams7.webapp.repository" />
 	<mongo:repositories base-package="br.com.cams7.sisbarc.aal.repository" />
 
 	<context:component-scan base-package="br.com.cams7.app.domain.entity" />
-	<context:component-scan base-package="br.com.cams7.webapp.sequence" />
-
+	<context:component-scan base-package="br.com.cams7.webapp.domain.entity" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.domain.entity" />
+
+	<context:component-scan base-package="br.com.cams7.webapp.repository.impl" />
+
+	<context:component-scan base-package="br.com.cams7.webapp.service.impl" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
+
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller.bean" />
 
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.faces.convert" />

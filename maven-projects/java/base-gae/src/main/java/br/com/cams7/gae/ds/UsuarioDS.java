@@ -1,10 +1,9 @@
 /**
  * 
  */
-package br.com.cams7.sisbarc.aal.ds;
+package br.com.cams7.gae.ds;
 
 import br.com.cams7.app.domain.entity.UsuarioEntity;
-import br.com.cams7.gae.ds.AbstractDS;
 
 /**
  * @author cams7

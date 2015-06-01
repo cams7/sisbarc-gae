@@ -1,10 +1,9 @@
 /**
  * 
  */
-package br.com.cams7.sisbarc.aal.service;
+package br.com.cams7.gae.service;
 
 import br.com.cams7.app.domain.entity.UsuarioEntity;
-import br.com.cams7.gae.service.AppService;
 
 /**
  * @author cams7

@@ -3,10 +3,14 @@
  */
 package br.com.cams7.gae.repository;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.List;
 
 import br.com.cams7.app.AbstractBase;
 import br.com.cams7.app.domain.AbstractEntity;
+
+import com.googlecode.objectify.Key;
 
 /**
  * @author cams7
@@ -21,33 +25,30 @@ public abstract class AbstractAppRepository<E extends AbstractEntity> extends
 
 	@Override
 	public E insert(E entity) {
-		// ofy().save().entity(entity).now();
-		return null;
+		return save(entity);
 	}
 
 	@Override
 	public E save(E entity) {
-		// TODO Auto-generated method stub
-		return null;
+		ofy().save().entity(entity).now();
+		return entity;
 	}
 
 	@Override
 	public void delete(E entity) {
+		ofy().delete().entity(entity).now();
 	}
 
 	@Override
 	public E findOne(Long id) {
-		// TODO: Corrigir erro
-		// Key<E> k = Key.create(getEntityType(), id);
-		// return ofy().load().key(k).now();
-		return null;
+		Key<E> k = Key.create(getEntityType(), id);
+		return ofy().load().key(k).now();
 	}
 
 	@Override
 	public List<E> findAll() {
-		// List<E> entities = ofy().load().type(getEntityType()).list();
-		// return entities;
-		return null;
+		List<E> entities = ofy().load().type(getEntityType()).list();
+		return entities;
 	}
 
 }

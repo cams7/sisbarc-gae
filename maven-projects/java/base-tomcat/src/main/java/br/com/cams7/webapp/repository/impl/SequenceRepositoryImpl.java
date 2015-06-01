@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.webapp.sequence;
+package br.com.cams7.webapp.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
@@ -10,6 +10,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
+
+import br.com.cams7.webapp.domain.entity.SequenceId;
+import br.com.cams7.webapp.repository.SequenceRepository;
 
 /**
  * @author cams7

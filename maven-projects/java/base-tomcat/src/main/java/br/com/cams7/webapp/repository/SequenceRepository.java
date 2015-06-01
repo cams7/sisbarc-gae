@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.webapp.sequence;
+package br.com.cams7.webapp.repository;
 
 /**
  * @author cams7

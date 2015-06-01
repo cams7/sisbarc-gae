@@ -3,6 +3,9 @@
  */
 package br.com.cams7.sisbarc.aal.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -14,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.cams7.app.domain.entity.UsuarioEntity;
+import br.com.cams7.app.domain.entity.UsuarioEntity.Autorizacao;
 import br.com.cams7.gae.controller.AbstractAppController;
-import br.com.cams7.sisbarc.aal.service.UsuarioService;
+import br.com.cams7.gae.service.UsuarioService;
 
 /**
  * @author cams7
@@ -42,13 +46,21 @@ public class UsuarioController extends
 	@Override
 	@RequestMapping(value = PAGE_MAIN, method = RequestMethod.GET)
 	public String listar(Model uiModel) {
-		return super.listar(uiModel);
+		String page = super.listar(uiModel);
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN, params = PARAM_FORM, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
-		return super.criarForm(uiModel);
+		String page = super.criarForm(uiModel);
+		if (uiModel.containsAttribute(ATTRIBUTE_ENTITY)) {
+			UsuarioEntity usuario = new UsuarioEntity();
+			usuario.setSenha("$2a$10$j9Rae1utAPKuTZaK.UYHqeyiqlmXmXuJSmX1AhJrgqM7mj4S31v8O");
+
+			uiModel.addAttribute(ATTRIBUTE_ENTITY, usuario);
+		}
+		return page;
 	}
 
 	@Override
@@ -56,13 +68,15 @@ public class UsuarioController extends
 	public String criar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UsuarioEntity usuario,
 			BindingResult result, Model uiModel) {
-		return super.criar(usuario, result, uiModel);
+		String page = super.criar(usuario, result, uiModel);
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", params = PARAM_FORM, method = RequestMethod.GET)
 	public String editarForm(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
-		return super.editarForm(id, uiModel);
+		String page = super.editarForm(id, uiModel);
+		return page;
 	}
 
 	@Override
@@ -70,19 +84,33 @@ public class UsuarioController extends
 	public String editar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UsuarioEntity usuario,
 			BindingResult bindingResult, Model uiModel) {
-		return super.editar(usuario, bindingResult, uiModel);
+		String page = super.editar(usuario, bindingResult, uiModel);
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", method = RequestMethod.DELETE)
 	public String remover(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
-		return super.remover(id, uiModel);
+		String page = super.remover(id, uiModel);
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/synch", method = RequestMethod.GET)
 	public String atualizar() {
-		return super.atualizar();
+		String page = super.atualizar();
+		return page;
+	}
+
+	@ModelAttribute("autorizacoes")
+	public List<Autorizacao> populateAutorizacoes() {
+		// Data referencing for web framework checkboxes
+		List<Autorizacao> autorizacoes = new ArrayList<Autorizacao>();
+
+		for (Autorizacao autorizacao : Autorizacao.values())
+			autorizacoes.add(autorizacao);
+
+		return autorizacoes;
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/security	http://www.springframework.org/schema/security/spring-security.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 		http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security		http://www.springframework.org/schema/security/spring-security.xsd">
 
 
 	<!-- http://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html -->
@@ -35,7 +35,8 @@
 
 		<intercept-url pattern="/potenciometro/listar.jsf"
 			access="isAuthenticated()" />
-		<intercept-url pattern="/potenciometro/incluir.jsf" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/potenciometro/incluir.jsf"
+			access="hasRole('ROLE_ADMIN')" />
 
 		<intercept-url pattern="/sobre.jsf" access="permitAll" />
 
@@ -47,13 +48,8 @@
 		<access-denied-handler error-page="/403.jsf" />
 	</http>
 
-	<beans:bean id="userDetailsService"
-		class="br.com.cams7.app.service.UserDetailsServiceImpl">
-		<beans:property name="repository" ref="usuarioRepository" />
-	</beans:bean>
-
 	<authentication-manager>
-		<authentication-provider user-service-ref="userDetailsService">
+		<authentication-provider user-service-ref="usuarioService">
 			<password-encoder hash="bcrypt" />
 		</authentication-provider>
 	</authentication-manager>

@@ -15,7 +15,7 @@ import org.springframework.data.domain.Sort;
 import br.com.cams7.app.AbstractBase;
 import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.webapp.repository.AppRepository;
-import br.com.cams7.webapp.sequence.SequenceRepository;
+import br.com.cams7.webapp.repository.SequenceRepository;
 
 /**
  * @author cesar

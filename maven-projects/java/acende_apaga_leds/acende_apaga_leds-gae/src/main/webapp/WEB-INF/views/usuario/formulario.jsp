@@ -20,10 +20,8 @@
 	htmlEscape="false" />
 <spring:message code="label.usuario.nome" var="label_usuario_nome"
 	htmlEscape="false" />
-<spring:message code="label.usuario.senha" var="label_usuario_senha"
-	htmlEscape="false" />
-<spring:message code="label.usuario.confirmacaoSenha"
-	var="label_usuario_confirmacaoSenha" htmlEscape="false" />
+<spring:message code="label.usuario.autorizacoes"
+	var="label_usuario_Autorizacoes" htmlEscape="false" />
 <spring:message code="label.usuario.ativo" var="label_usuario_ativo"
 	htmlEscape="false" />
 
@@ -31,6 +29,7 @@
 	method="${param.method}" commandName="usuario" class="form-horizontal"
 	id="frmUsuario">
 	<form:hidden path="id" />
+	<form:hidden path="senha" />
 	<fieldset>
 		<legend>
 			${label_usuario} <small>${param.sublabel}</small>
@@ -45,21 +44,19 @@
 		</div>
 
 		<div class="control-group">
-			<label class="control-label">${label_usuario_senha}</label>
+			<label class="control-label">${label_usuario_Autorizacoes}</label>
 			<div class="controls">
-				<form:password path="senha" class="input-large" />
-				<form:errors path="senha" cssClass="alert alert-error input-alert" />
+				<form:checkboxes items="${autorizacoes}" path="autorizacoes" />
 			</div>
 		</div>
 
 		<div class="control-group">
 			<label class="control-label">${label_usuario_ativo}</label>
 			<div class="controls">
-				<span> <form:radiobutton path="ativo" value="true" />
-					${label_sim} <form:radiobutton path="ativo" value="false" />
-					${label_nao}
-				</span>
-				<form:errors path="ativo" cssClass="alert alert-error input-alert" />
+				<form:radiobutton path="ativo" value="true" />
+				${label_sim}
+				<form:radiobutton path="ativo" value="false" />
+				${label_nao}
 			</div>
 		</div>
 	</fieldset>

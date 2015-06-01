@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.webapp.sequence;
+package br.com.cams7.webapp.domain.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

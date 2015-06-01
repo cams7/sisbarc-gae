@@ -79,9 +79,6 @@
 		</constructor-arg>
 	</bean>
 
-	<!-- Considera a estrutura de pacote para percorrer classes com as anotacoes 
-		de injecao de dependencia do Spring como: @Component, @Repository e @Service. -->
-
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository.impl" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />

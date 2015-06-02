@@ -14,6 +14,8 @@
 
 	<spring:message code="label.usuario.nome" var="label_usuario_nome"
 		htmlEscape="false" />
+	<spring:message code="label.usuario.email" var="label_usuario_email"
+		htmlEscape="false" />
 	<spring:message code="label.usuario.ativo" var="label_usuario_ativo"
 		htmlEscape="false" />
 	<spring:message code="label.editar" var="label_editar"
@@ -32,6 +34,7 @@
 			<tr>
 				<th>#</th>
 				<th>${label_usuario_nome}</th>
+				<th>${label_usuario_email}</th>
 				<th>${label_usuario_ativo}</th>
 			</tr>
 		</thead>
@@ -44,6 +47,7 @@
 						<spring:param name="form" />
 					</spring:url> <a href="${edit_url}" title="${label_editar} ${u.nome}">${u.nome}</a>
 				</td>
+				<td>${u.email}</td>
 				<td><c:choose>
 						<c:when test="${u.ativo}">${label_sim}</c:when>
 						<c:otherwise>${label_nao}</c:otherwise>

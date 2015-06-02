@@ -1,5 +1,6 @@
 package br.com.cams7.app.domain.entity;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,6 +24,10 @@ public class UsuarioEntity extends AbstractEntity {
 	@Indexed(unique = true)
 	@Field("login")
 	private String nome;
+
+	@NotBlank(message = "{NotBlank.usuario.email}")
+	@Email
+	private String email;
 
 	private String senha;
 
@@ -55,6 +60,14 @@ public class UsuarioEntity extends AbstractEntity {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {

@@ -18,7 +18,7 @@
 	<properties>
 		<appengine.app.version>1</appengine.app.version>
 
-		<!-- spring.security.version>4.0.1.RELEASE</spring.security.version -->
+		<spring.security.version>4.0.1.RELEASE</spring.security.version>
 	</properties>
 
 	<prerequisites>
@@ -96,10 +96,22 @@
 			<artifactId>tiles-jsp</artifactId>
 		</dependency>
 
-		<!-- dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
-			</dependency> <dependency> <groupId>org.slf4j</groupId> <artifactId>jcl-over-slf4j</artifactId> 
-			</dependency> <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
-			</dependency -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>

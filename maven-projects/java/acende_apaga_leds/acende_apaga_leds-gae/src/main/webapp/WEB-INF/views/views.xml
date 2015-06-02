@@ -24,7 +24,6 @@
 		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
 	</definition>
 
-
 	<definition extends="default" name="listarUsuarios">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/listar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />

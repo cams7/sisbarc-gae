@@ -20,6 +20,8 @@
 	htmlEscape="false" />
 <spring:message code="label.usuario.nome" var="label_usuario_nome"
 	htmlEscape="false" />
+<spring:message code="label.usuario.email" var="label_usuario_email"
+	htmlEscape="false" />
 <spring:message code="label.usuario.autorizacoes"
 	var="label_usuario_Autorizacoes" htmlEscape="false" />
 <spring:message code="label.usuario.ativo" var="label_usuario_ativo"
@@ -39,6 +41,14 @@
 			<div class="controls">
 				<form:input path="nome" class="input-large" />
 				<form:errors path="nome" cssClass="alert alert-error input-alert" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">${label_usuario_email}</label>
+			<div class="controls">
+				<form:input path="email" class="input-large" />
+				<form:errors path="email" cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 

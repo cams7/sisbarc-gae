@@ -49,6 +49,11 @@
 					<h:outputText value="#{usuario.nome}" />
 				</p:column>
 
+				<p:column headerText="#{msg['label.usuario.email']}"
+					sortBy="#{usuario.email}">
+					<h:outputText value="#{usuario.email}" />
+				</p:column>
+
 				<p:column headerText="#{msg['label.usuario.ativo']}"
 					sortBy="#{usuario.ativo}">
 					<h:outputText

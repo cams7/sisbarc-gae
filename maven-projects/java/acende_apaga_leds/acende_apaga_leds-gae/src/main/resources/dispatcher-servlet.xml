@@ -34,7 +34,6 @@
 		</property>
 	</bean>
 
-
 	<!-- Bean para ativar a leitura do properties de arcordo com o locale -->
 	<bean
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"

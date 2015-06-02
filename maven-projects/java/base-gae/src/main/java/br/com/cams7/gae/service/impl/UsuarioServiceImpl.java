@@ -45,12 +45,7 @@ public class UsuarioServiceImpl extends
 		if (username == null || "".equals(username))
 			throw new UsernameNotFoundException("username is empty or null");
 
-		// UsuarioEntity usuario = getRepository().findByUsername(username);
-		UsuarioEntity usuario = new UsuarioEntity();
-		usuario.setNome(username);
-		usuario.setSenha("$2a$10$j9Rae1utAPKuTZaK.UYHqeyiqlmXmXuJSmX1AhJrgqM7mj4S31v8O");
-		usuario.setAtivo(true);
-		usuario.setAutorizacoes(Autorizacao.values());
+		UsuarioEntity usuario = getRepository().findByUsername(username);
 
 		Set<GrantedAuthority> authorities = buildUserAuthority(usuario
 				.getAutorizacoes());

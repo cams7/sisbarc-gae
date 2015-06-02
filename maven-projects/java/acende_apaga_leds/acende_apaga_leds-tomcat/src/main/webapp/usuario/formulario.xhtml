@@ -32,6 +32,16 @@
 			</div>
 
 			<div class="control-group">
+				<h:outputLabel for="usuarioEmail"
+					value="#{msg['label.usuario.email']}" styleClass="control-label" />
+				<div class="controls" style="float: left; margin-left: 20px;">
+					<p:inputText id="usuarioEmail" value="#{usuario.email}"
+						label="#{msg['label.usuario.email']}" styleClass="input-large" />
+					<p:message for="usuarioEmail" styleClass="alert alert-error" />
+				</div>
+			</div>
+
+			<div class="control-group">
 				<h:outputLabel for="usuarioSenha"
 					value="#{msg['label.usuario.senha']}" styleClass="control-label" />
 				<div class="controls" style="float: left; margin-left: 20px;">

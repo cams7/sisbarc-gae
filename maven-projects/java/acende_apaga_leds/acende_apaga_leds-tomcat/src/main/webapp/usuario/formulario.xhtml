@@ -36,6 +36,8 @@
 					value="#{msg['label.usuario.senha']}" styleClass="control-label" />
 				<div class="controls" style="float: left; margin-left: 20px;">
 					<p:password id="usuarioSenha" value="#{usuario.senha}"
+						required="true"
+						requiredMessage="#{msg['label.usuario.senha.requiredMessage']}"
 						label="#{msg['label.usuario.senha']}" styleClass="input-large" />
 					<p:message for="usuarioSenha" styleClass="alert alert-error" />
 				</div>

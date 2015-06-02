@@ -84,20 +84,34 @@ public class UsuarioController extends
 				.findComponent("usuarioSenha");
 		String password = uiInputPassword.getLocalValue() == null ? ""
 				: uiInputPassword.getLocalValue().toString().trim();
-
-		// Let required="true" do its job.
-		if (password.isEmpty())
-			return;
+		String passwordId = uiInputPassword.getClientId();
 
 		// get confirm password
 		UIInput uiInputConfirmPassword = (UIInput) component
 				.findComponent("confirmacaoSenha");
 		String confirmPassword = uiInputConfirmPassword.getLocalValue() == null ? ""
 				: uiInputConfirmPassword.getLocalValue().toString().trim();
+		String confirmId = uiInputConfirmPassword.getClientId();
 
-		if (!password.equals(confirmPassword)) {
-			String passwordId = uiInputPassword.getClientId();
+		if (password.isEmpty() || confirmPassword.isEmpty()) {
+			if (password.isEmpty()) {
+				FacesMessage message = new FacesMessage(
+						getMessageFromI18N("label.usuario.senha.requiredMessage"));
+				message.setSeverity(FacesMessage.SEVERITY_ERROR);
 
+				context.addMessage(passwordId, message);
+			}
+
+			if (confirmPassword.isEmpty()) {
+				FacesMessage message = new FacesMessage(
+						getMessageFromI18N("label.usuario.confirmacaoSenha.requiredMessage"));
+				message.setSeverity(FacesMessage.SEVERITY_ERROR);
+
+				context.addMessage(confirmId, message);
+			}
+
+			context.renderResponse();
+		} else if (!password.equals(confirmPassword)) {
 			FacesMessage message = new FacesMessage(
 					getMessageFromI18N("label.usuario.senha.notEqualsConfirmacaoSenha"));
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);

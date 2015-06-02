@@ -24,7 +24,6 @@ public class UsuarioEntity extends AbstractEntity {
 	@Field("login")
 	private String nome;
 
-	@NotBlank(message = "{NotBlank.usuario.senha}")
 	private String senha;
 
 	private boolean ativo;

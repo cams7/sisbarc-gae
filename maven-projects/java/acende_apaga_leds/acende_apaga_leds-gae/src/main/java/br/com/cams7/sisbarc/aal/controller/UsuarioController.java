@@ -54,12 +54,6 @@ public class UsuarioController extends
 	@RequestMapping(value = PAGE_MAIN, params = PARAM_FORM, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
 		String page = super.criarForm(uiModel);
-		if (uiModel.containsAttribute(ATTRIBUTE_ENTITY)) {
-			UsuarioEntity usuario = new UsuarioEntity();
-			usuario.setSenha("$2a$10$j9Rae1utAPKuTZaK.UYHqeyiqlmXmXuJSmX1AhJrgqM7mj4S31v8O");
-
-			uiModel.addAttribute(ATTRIBUTE_ENTITY, usuario);
-		}
 		return page;
 	}
 

@@ -27,9 +27,8 @@
 
 <form:form action="${pageContext.request.contextPath}/${param.action}"
 	method="${param.method}" commandName="usuario" class="form-horizontal"
-	id="frmUsuario">
+	id="usuarioForm">
 	<form:hidden path="id" />
-	<form:hidden path="senha" />
 	<fieldset>
 		<legend>
 			${label_usuario} <small>${param.sublabel}</small>
@@ -76,7 +75,7 @@
 <script>
 	$(document).ready(function() {
 		$("#btnSalvar").click(function() {
-			$("#frmUsuario").submit();
+			$("#usuarioForm").submit();
 		});
 	});
 </script>

@@ -18,10 +18,7 @@
 
 <spring:message code="label.usuario" var="label_usuario"
 	htmlEscape="false" />
-<spring:message code="label.usuario.username"
-	var="label_usuario_username" htmlEscape="false" />
-<spring:message code="label.usuario.email" var="label_usuario_email"
-	htmlEscape="false" />
+
 <spring:message code="label.usuario.authorities"
 	var="label_usuario_authorities" htmlEscape="false" />
 <spring:message code="label.usuario.enabled" var="label_usuario_enabled"
@@ -31,28 +28,15 @@
 	method="${param.method}"
 	action="${pageContext.request.contextPath}/${param.action}"
 	cssClass="form-horizontal">
-	<form:hidden path="id" />
+
 	<fieldset>
 		<legend>
 			${label_usuario} <small>${param.sublabel}</small>
 		</legend>
 
-		<div class="control-group">
-			<label class="control-label">${label_usuario_username}</label>
-			<div class="controls">
-				<form:input path="username" cssClass="input-large" />
-				<form:errors path="username"
-					cssClass="alert alert-error input-alert" />
-			</div>
-		</div>
-
-		<div class="control-group">
-			<label class="control-label">${label_usuario_email}</label>
-			<div class="controls">
-				<form:input path="email" cssClass="input-large" />
-				<form:errors path="email" cssClass="alert alert-error input-alert" />
-			</div>
-		</div>
+		<c:import url="/WEB-INF/views/usuario/form.jsp">
+			<c:param name="emailReadonly" value="false" />
+		</c:import>
 
 		<div class="control-group">
 			<label class="control-label">${label_usuario_authorities}</label>

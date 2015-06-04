@@ -10,10 +10,7 @@
 	htmlEscape="false" />
 <spring:message code="label.incluir" var="label_incluir"
 	htmlEscape="false" />
-<spring:message code="label.usuario.username"
-	var="label_usuario_username" htmlEscape="false" />
-<spring:message code="label.usuario.email" var="label_usuario_email"
-	htmlEscape="false" />
+
 <spring:message code="button.salvar" var="button_salvar"
 	htmlEscape="false" />
 
@@ -26,7 +23,6 @@
 	action="${pageContext.request.contextPath}/cadastrarLogin"
 	cssClass="form-horizontal">
 
-	<form:hidden path="id" />
 	<form:hidden path="enabled" />
 	<form:hidden path="authorities" />
 
@@ -35,22 +31,9 @@
 			${label_usuario} <small>${label_incluir}</small>
 		</legend>
 
-		<div class="control-group">
-			<label class="control-label">${label_usuario_username}</label>
-			<div class="controls">
-				<form:input path="username" cssClass="input-large" />
-				<form:errors path="username"
-					cssClass="alert alert-error input-alert" />
-			</div>
-		</div>
-
-		<div class="control-group">
-			<label class="control-label">${label_usuario_email}</label>
-			<div class="controls">
-				<form:input path="email" cssClass="input-large" />
-				<form:errors path="email" cssClass="alert alert-error input-alert" />
-			</div>
-		</div>
+		<c:import url="/WEB-INF/views/usuario/form.jsp">
+			<c:param name="emailReadonly" value="true" />
+		</c:import>
 	</fieldset>
 
 	<div class="control-group controls">

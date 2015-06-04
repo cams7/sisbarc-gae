@@ -24,7 +24,7 @@
 					<h:outputText value="#{msg['label.usuario']}" />
 					<small> <h:outputText value="#{msg['label.incluir']}" /></small>
 				</legend>
-				<ui:include src="formulario.xhtml">
+				<ui:include src="form.xhtml">
 					<ui:param name="usuario" value="#{usuarioMB.selectedEntity}" />
 					<ui:param name="createEntity" value="#{true}" />
 				</ui:include>

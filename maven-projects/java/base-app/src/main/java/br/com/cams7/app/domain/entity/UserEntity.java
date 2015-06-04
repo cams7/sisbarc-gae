@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,10 @@ import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.condition.IfNotEmpty;
 import com.googlecode.objectify.condition.IfNotNull;
+
+import com.googlecode.objectify.condition.IfNotZero;
+
+;
 
 @Entity
 // (name = UserEntity.ENTITY_NAME)
@@ -45,6 +50,14 @@ public class UserEntity extends AbstractEntity {
 	private boolean enabled;
 
 	private Set<Role> authorities;
+
+	@Transient
+	@Index({ IfNotNull.class, IfNotEmpty.class })
+	private String ip;
+
+	@Transient
+	@Index({ IfNotNull.class, IfNotZero.class })
+	private Short port;
 
 	public UserEntity() {
 		super();
@@ -103,6 +116,26 @@ public class UserEntity extends AbstractEntity {
 
 	public void setAuthorities(Set<Role> authorities) {
 		this.authorities = authorities;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public Short getPort() {
+		return port;
+	}
+
+	public void setPort(Short port) {
+		this.port = port;
+	}
+
+	public String getAddress() {
+		return "http://" + getIp() + ":" + getPort();
 	}
 
 	public enum Role implements GrantedAuthority {

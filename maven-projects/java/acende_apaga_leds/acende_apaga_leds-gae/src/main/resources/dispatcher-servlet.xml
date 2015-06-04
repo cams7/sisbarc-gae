@@ -78,6 +78,8 @@
 		</constructor-arg>
 	</bean>
 
+	<bean class="br.com.cams7.gae.validator.UserValidator" />
+
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.repository.impl" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.service.impl" />
 

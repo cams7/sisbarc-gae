@@ -29,6 +29,7 @@ import br.com.cams7.app.domain.entity.UserEntity.Role;
 import br.com.cams7.gae.security.GoogleAccountsAuthenticationEntryPoint;
 import br.com.cams7.gae.security.UserAuthentication;
 import br.com.cams7.gae.service.UserService;
+import br.com.cams7.gae.validator.UserValidator;
 
 import com.google.appengine.api.users.UserServiceFactory;
 
@@ -50,8 +51,12 @@ public class LoginController {
 	@Autowired
 	private UserService service;
 
-	public LoginController() {
+	private UserValidator validator;
+
+	@Autowired
+	public LoginController(UserValidator validator) {
 		super();
+		this.validator = validator;
 	}
 
 	@RequestMapping(value = "/" + PAGE_LOGIN, method = RequestMethod.GET)
@@ -69,6 +74,9 @@ public class LoginController {
 	public String register(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
 			BindingResult result, Model uiModel, HttpServletRequest request) {
+
+		validator.validate(user, result);
+
 		if (result.hasErrors()) {
 			uiModel.addAttribute(ATTRIBUTE_ENTITY, user);
 			return PAGE_LOGIN;

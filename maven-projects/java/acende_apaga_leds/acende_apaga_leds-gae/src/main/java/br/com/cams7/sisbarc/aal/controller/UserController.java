@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.app.domain.entity.UserEntity.Role;
 import br.com.cams7.gae.controller.AbstractAppController;
 import br.com.cams7.gae.service.UserService;
+import br.com.cams7.gae.validator.UserValidator;
 
 /**
  * @author cams7
@@ -39,8 +41,12 @@ public class UserController extends
 	private final String PAGE_INCLUDE = "incluirUsuario";
 	private final String PAGE_EDIT = "editarUsuario";
 
-	public UserController() {
+	private UserValidator validator;
+
+	@Autowired
+	public UserController(UserValidator validator) {
 		super();
+		this.validator = validator;
 	}
 
 	@Override
@@ -60,9 +66,12 @@ public class UserController extends
 	@Override
 	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
 	public String criar(
-			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity usuario,
+			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
 			BindingResult result, Model uiModel) {
-		String page = super.criar(usuario, result, uiModel);
+
+		validator.validate(user, result);
+
+		String page = super.criar(user, result, uiModel);
 		return page;
 	}
 
@@ -76,9 +85,12 @@ public class UserController extends
 	@Override
 	@RequestMapping(value = "/" + PAGE_EDIT, method = RequestMethod.PUT)
 	public String editar(
-			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity usuario,
-			BindingResult bindingResult, Model uiModel) {
-		String page = super.editar(usuario, bindingResult, uiModel);
+			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
+			BindingResult result, Model uiModel) {
+
+		validator.validate(user, result);
+
+		String page = super.editar(user, result, uiModel);
 		return page;
 	}
 

@@ -76,7 +76,7 @@
 
 					<p:ajax event="close" listener="#{usuarioMB.handleClose}" />
 
-					<ui:include src="formulario.xhtml">
+					<ui:include src="form.xhtml">
 						<ui:param name="usuario" value="#{usuarioMB.selectedEntity}" />
 						<ui:param name="createEntity" value="#{false}" />
 					</ui:include>

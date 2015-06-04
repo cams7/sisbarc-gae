@@ -10,7 +10,7 @@
 
 	<c:choose>
 		<c:when test="${mercadoria != null}">
-			<c:import url="/WEB-INF/views/mercadoria/formulario.jsp">
+			<c:import url="/WEB-INF/views/mercadoria/form.jsp">
 				<c:param name="action" value="editarMercadoria" />
 				<c:param name="method" value="PUT" />
 				<c:param name="sublabel" value="${label_editar}" />

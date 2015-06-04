@@ -10,7 +10,7 @@
 
 	<c:choose>
 		<c:when test="${usuario != null}">
-			<c:import url="/WEB-INF/views/usuario/formulario.jsp">
+			<c:import url="/WEB-INF/views/usuario/fullform.jsp">
 				<c:param name="action" value="editarUsuario" />
 				<c:param name="method" value="PUT" />
 				<c:param name="sublabel" value="${label_editar}" />

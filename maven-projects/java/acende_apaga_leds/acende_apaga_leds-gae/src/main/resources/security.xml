@@ -26,57 +26,75 @@
 	<!-- isFullyAuthenticated() = Returns true if the user is not an anonymous 
 		or a remember-me user -->
 
-
-	<!-- http auto-config="true" use-expressions="true"> <intercept-url pattern="/usuario/lista.jsf" 
-		access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" /> <intercept-url pattern="/usuario/novo.jsf" 
-		access="hasRole('ROLE_ADMIN')" /> <intercept-url pattern="/led/lista.jsf" 
-		access="isAuthenticated()" /> <intercept-url pattern="/led/novo.jsf" access="hasRole('ROLE_ADMIN')" 
-		/> <intercept-url pattern="/potenciometro/lista.jsf" access="isAuthenticated()" 
-		/> <intercept-url pattern="/potenciometro/novo.jsf" access="hasRole('ROLE_ADMIN')" 
-		/> <intercept-url pattern="/sobre.jsf" access="permitAll" /> <form-login 
-		login-page="/login.jsf" login-processing-url="/j_spring_security_check" default-target-url="/home.jsf" 
-		authentication-failure-url="/login.jsf?error=true" username-parameter="j_username" 
-		password-parameter="j_password" /> <logout logout-success-url="/login.jsf?logout=true" 
-		logout-url="/j_spring_security_logout" /> <access-denied-handler error-page="/403.jsf" 
-		/> </http -->
-
 	<http pattern="/favicon.ico" security="none" />
 
+	<http pattern="/error" security="none" />
+
+	<http pattern="/_ah/login" security="none" />
+	<http pattern="/logout" security="none" />
+	<http pattern="/403" security="none" />
+	<http pattern="/disabled" security="none" />
+
 	<!-- enable use-expressions -->
-	<http use-expressions="true" auto-config="true">
-		<intercept-url pattern="/mercadoria" access="isAuthenticated()" />
-		<intercept-url pattern="/listarMercadorias" access="isAuthenticated()" />
+	<http use-expressions="true" entry-point-ref="gaeEntryPoint">
+		<intercept-url pattern="/cadastrarLogin" access="hasRole('ROLE_NEWUSER')" />
 
-		<intercept-url pattern="/mercadoria?form" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/incluirMercadoria" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/home" access="permitAll" />
+		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 
-		<intercept-url pattern="/mercadoria/*?form"
+		<intercept-url pattern="/sobre" access="permitAll" />
+
+		<intercept-url pattern="/mercadoria**"
+			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
+
+		<intercept-url pattern="/listarMercadorias"
+			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
+		<intercept-url pattern="/incluirMercadoria"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
 		<intercept-url pattern="/editarMercadoria"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
 
+		<intercept-url pattern="/usuario**" access="permitAll" />
 
-		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/listarUsuarios" access="permitAll" />
+		<intercept-url pattern="/incluirUsuario" access="permitAll" />
+		<intercept-url pattern="/editarUsuario" access="permitAll" />
 
-		<intercept-url pattern="/sobre" access="permitAll" />
-
-		<form-login login-page="/login" login-processing-url="/j_spring_security_check"
-			default-target-url="/welcome" authentication-failure-url="/login?error"
-			username-parameter="username" password-parameter="password" />
-		<logout logout-success-url="/login?logout" logout-url="/j_spring_security_logout" />
-		<!-- enable csrf protection -->
-		<!-- csrf / -->
+		<custom-filter position="PRE_AUTH_FILTER" ref="gaeFilter" />
 
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
 	</http>
 
+	<beans:bean id="gaeEntryPoint"
+		class="br.com.cams7.gae.security.GoogleAccountsAuthenticationEntryPoint" />
+
+	<beans:bean id="gaeFilter"
+		class="br.com.cams7.gae.security.AuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="failureHandler">
+			<beans:bean
+				class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+				<beans:property name="exceptionMappings">
+					<beans:map>
+						<beans:entry
+							key="org.springframework.security.authentication.DisabledException"
+							value="/disabled" />
+					</beans:map>
+				</beans:property>
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="gaeAuthenticationProvider" />
+	</authentication-manager>
+
 	<context:component-scan base-package="br.com.cams7.gae.repository.impl" />
 	<context:component-scan base-package="br.com.cams7.gae.service.impl" />
 
-	<authentication-manager alias="authenticationManager">
-		<!-- authentication-provider user-service-ref="usuarioService"> <password-encoder 
-			hash="bcrypt" /> </authentication-provider -->
-		<authentication-provider user-service-ref="usuarioService" />
-	</authentication-manager>
+	<beans:bean id="gaeAuthenticationProvider"
+		class="br.com.cams7.gae.security.GoogleAccountsAuthenticationProvider">
+		<beans:property name="service" ref="userService" />
+	</beans:bean>
 </beans:beans>

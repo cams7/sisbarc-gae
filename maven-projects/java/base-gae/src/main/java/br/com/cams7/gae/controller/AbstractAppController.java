@@ -27,12 +27,12 @@ import br.com.cams7.util.AppUtil;
 public abstract class AbstractAppController<S extends AppService<E>, E extends AbstractEntity>
 		extends AbstractController<S, E> {
 
-	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
+	protected final String ATTRIBUTE_PAGE_ACTIVE = "active";
 
 	protected final String PARAM_FORM = "form";
 	protected final String VARIABLE_ID = "id";
 
-	private final String PAGE_ROOT = "redirect:" + getPageMain();
+	protected final String PAGE_ROOT = "redirect:" + getPageMain();
 	private final String PAGE_ERROR = "error";
 
 	public AbstractAppController() {

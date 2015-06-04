@@ -13,84 +13,84 @@
 
 			<c:if test="#{not createEntity}">
 				<div class="control-group">
-					<h:outputLabel for="usuarioId" value="#{msg['label.usuario.id']}"
+					<h:outputLabel for="userId" value="#{msg['label.usuario.id']}"
 						styleClass="control-label" />
-					<h:outputText id="usuarioId" value="#{usuario.id}"
+					<h:outputText id="userId" value="#{usuario.id}"
 						label="#{msg['label.usuario.id']}" styleClass="controls"
 						style="float: left;margin-left: 20px;" />
 				</div>
 			</c:if>
 
 			<div class="control-group">
-				<h:outputLabel for="usuarioNome"
-					value="#{msg['label.usuario.nome']}" styleClass="control-label" />
+				<h:outputLabel for="userName"
+					value="#{msg['label.usuario.username']}" styleClass="control-label" />
 				<div class="controls" style="float: left; margin-left: 20px;">
-					<p:inputText id="usuarioNome" value="#{usuario.nome}"
-						label="#{msg['label.usuario.nome']}" styleClass="input-large" />
-					<p:message for="usuarioNome" styleClass="alert alert-error" />
+					<p:inputText id="userName" value="#{usuario.username}"
+						label="#{msg['label.usuario.username']}" styleClass="input-large" />
+					<p:message for="userName" styleClass="alert alert-error" />
 				</div>
 			</div>
 
 			<div class="control-group">
-				<h:outputLabel for="usuarioEmail"
-					value="#{msg['label.usuario.email']}" styleClass="control-label" />
+				<h:outputLabel for="userEmail" value="#{msg['label.usuario.email']}"
+					styleClass="control-label" />
 				<div class="controls" style="float: left; margin-left: 20px;">
-					<p:inputText id="usuarioEmail" value="#{usuario.email}"
+					<p:inputText id="userEmail" value="#{usuario.email}"
 						label="#{msg['label.usuario.email']}" styleClass="input-large" />
-					<p:message for="usuarioEmail" styleClass="alert alert-error" />
+					<p:message for="userEmail" styleClass="alert alert-error" />
 				</div>
 			</div>
 
 			<div class="control-group">
-				<h:outputLabel for="usuarioSenha"
-					value="#{msg['label.usuario.senha']}" styleClass="control-label" />
+				<h:outputLabel for="userPassword"
+					value="#{msg['label.usuario.password']}" styleClass="control-label" />
 				<div class="controls" style="float: left; margin-left: 20px;">
-					<p:password id="usuarioSenha" value="#{usuario.senha}"
+					<p:password id="userPassword" value="#{usuario.password}"
 						required="true"
-						requiredMessage="#{msg['label.usuario.senha.requiredMessage']}"
-						label="#{msg['label.usuario.senha']}" styleClass="input-large" />
-					<p:message for="usuarioSenha" styleClass="alert alert-error" />
+						requiredMessage="#{msg['label.usuario.password.requiredMessage']}"
+						label="#{msg['label.usuario.password']}" styleClass="input-large" />
+					<p:message for="userPassword" styleClass="alert alert-error" />
 				</div>
 			</div>
 
 			<div class="control-group">
-				<h:outputLabel for="confirmacaoSenha"
-					value="#{msg['label.usuario.confirmacaoSenha']}"
+				<h:outputLabel for="confirmPassword"
+					value="#{msg['label.usuario.confirmPassword']}"
 					styleClass="control-label" />
 				<div class="controls" style="float: left; margin-left: 20px;">
-					<p:password id="confirmacaoSenha" required="true"
-						requiredMessage="#{msg['label.usuario.confirmacaoSenha.requiredMessage']}"
-						label="#{msg['label.usuario.confirmacaoSenha']}"
+					<p:password id="confirmPassword" required="true"
+						requiredMessage="#{msg['label.usuario.confirmPassword.requiredMessage']}"
+						label="#{msg['label.usuario.confirmPassword']}"
 						styleClass="input-large" />
-					<p:message for="confirmacaoSenha" styleClass="alert alert-error" />
+					<p:message for="confirmPassword" styleClass="alert alert-error" />
 				</div>
 			</div>
 
 			<div class="control-group">
-				<h:outputLabel for="usuarioAutorizacoes"
-					value="#{msg['label.usuario.autorizacoes']}"
+				<h:outputLabel for="userAuthorities"
+					value="#{msg['label.usuario.authorities']}"
 					styleClass="control-label" />
 				<div class="controls" style="float: left; margin-left: 20px;">
-					<p:selectManyCheckbox id="usuarioAutorizacoes"
-						value="#{usuario.autorizacoes}"
-						label="#{msg['label.usuario.autorizacoes']}"
+					<p:selectManyCheckbox id="userAuthorities"
+						value="#{usuario.authorities}"
+						label="#{msg['label.usuario.authorities']}"
 						styleClass="input-large">
-						<f:selectItems value="#{usuarioMB.autorizacoes}" />
+						<f:selectItems value="#{usuarioMB.roles}" />
 					</p:selectManyCheckbox>
-					<p:message for="usuarioAutorizacoes" styleClass="alert alert-error" />
+					<p:message for="userAuthorities" styleClass="alert alert-error" />
 				</div>
 			</div>
 
 			<div class="control-group">
-				<h:outputLabel for="usuarioAtivo"
-					value="#{msg['label.usuario.ativo']}" styleClass="control-label" />
+				<h:outputLabel for="userEnabled"
+					value="#{msg['label.usuario.enabled']}" styleClass="control-label" />
 				<div class="controls" style="float: left; margin-left: 20px;">
-					<p:selectOneRadio id="usuarioAtivo" value="#{usuario.ativo}"
-						label="#{msg['label.usuario.ativo']}" styleClass="input-small">
+					<p:selectOneRadio id="userEnabled" value="#{usuario.enabled}"
+						label="#{msg['label.usuario.enabled']}" styleClass="input-small">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msg['label.sim']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msg['label.nao']}" />
 					</p:selectOneRadio>
-					<p:message for="usuarioAtivo" styleClass="alert alert-error" />
+					<p:message for="userEnabled" styleClass="alert alert-error" />
 				</div>
 			</div>
 

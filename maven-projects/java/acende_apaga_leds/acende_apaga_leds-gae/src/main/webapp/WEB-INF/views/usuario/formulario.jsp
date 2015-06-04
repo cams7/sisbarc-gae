@@ -18,18 +18,19 @@
 
 <spring:message code="label.usuario" var="label_usuario"
 	htmlEscape="false" />
-<spring:message code="label.usuario.nome" var="label_usuario_nome"
-	htmlEscape="false" />
+<spring:message code="label.usuario.username"
+	var="label_usuario_username" htmlEscape="false" />
 <spring:message code="label.usuario.email" var="label_usuario_email"
 	htmlEscape="false" />
-<spring:message code="label.usuario.autorizacoes"
-	var="label_usuario_Autorizacoes" htmlEscape="false" />
-<spring:message code="label.usuario.ativo" var="label_usuario_ativo"
+<spring:message code="label.usuario.authorities"
+	var="label_usuario_authorities" htmlEscape="false" />
+<spring:message code="label.usuario.enabled" var="label_usuario_enabled"
 	htmlEscape="false" />
 
-<form:form action="${pageContext.request.contextPath}/${param.action}"
-	method="${param.method}" commandName="usuario" class="form-horizontal"
-	id="usuarioForm">
+<form:form id="usuarioForm" modelAttribute="usuario"
+	method="${param.method}"
+	action="${pageContext.request.contextPath}/${param.action}"
+	cssClass="form-horizontal">
 	<form:hidden path="id" />
 	<fieldset>
 		<legend>
@@ -37,34 +38,35 @@
 		</legend>
 
 		<div class="control-group">
-			<label class="control-label">${label_usuario_nome}</label>
+			<label class="control-label">${label_usuario_username}</label>
 			<div class="controls">
-				<form:input path="nome" class="input-large" />
-				<form:errors path="nome" cssClass="alert alert-error input-alert" />
+				<form:input path="username" cssClass="input-large" />
+				<form:errors path="username"
+					cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 
 		<div class="control-group">
 			<label class="control-label">${label_usuario_email}</label>
 			<div class="controls">
-				<form:input path="email" class="input-large" />
+				<form:input path="email" cssClass="input-large" />
 				<form:errors path="email" cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label class="control-label">${label_usuario_Autorizacoes}</label>
+			<label class="control-label">${label_usuario_authorities}</label>
 			<div class="controls">
-				<form:checkboxes items="${autorizacoes}" path="autorizacoes" />
+				<form:checkboxes items="${roles}" path="authorities" />
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label class="control-label">${label_usuario_ativo}</label>
+			<label class="control-label">${label_usuario_enabled}</label>
 			<div class="controls">
-				<form:radiobutton path="ativo" value="true" />
+				<form:radiobutton path="enabled" value="true" />
 				${label_sim}
-				<form:radiobutton path="ativo" value="false" />
+				<form:radiobutton path="enabled" value="false" />
 				${label_nao}
 			</div>
 		</div>

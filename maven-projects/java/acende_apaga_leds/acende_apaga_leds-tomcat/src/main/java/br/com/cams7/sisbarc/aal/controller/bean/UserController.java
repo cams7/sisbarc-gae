@@ -3,6 +3,9 @@
  */
 package br.com.cams7.sisbarc.aal.controller.bean;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -13,20 +16,20 @@ import javax.faces.event.ComponentSystemEvent;
 
 import org.springframework.stereotype.Controller;
 
-import br.com.cams7.app.domain.entity.UsuarioEntity;
-import br.com.cams7.app.domain.entity.UsuarioEntity.Autorizacao;
+import br.com.cams7.app.domain.entity.UserEntity;
+import br.com.cams7.app.domain.entity.UserEntity.Role;
 import br.com.cams7.webapp.controller.AbstractAppController;
-import br.com.cams7.webapp.service.UsuarioService;
+import br.com.cams7.webapp.service.UserService;
 
 /**
  * @author cams7
  *
  */
-@Controller(UsuarioController.CONTROLLER_NAME)
-@ManagedBean(name = UsuarioController.CONTROLLER_NAME)
+@Controller(UserController.CONTROLLER_NAME)
+@ManagedBean(name = UserController.CONTROLLER_NAME)
 @ViewScoped
-public class UsuarioController extends
-		AbstractAppController<UsuarioService, UsuarioEntity> {
+public class UserController extends
+		AbstractAppController<UserService, UserEntity> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +40,7 @@ public class UsuarioController extends
 	/**
 	 * 
 	 */
-	public UsuarioController() {
+	public UserController() {
 		super();
 	}
 
@@ -48,7 +51,7 @@ public class UsuarioController extends
 		addINFOMessage(
 				getMessageFromI18N("msg.ok.summary.salvar.usuario"),
 				getMessageFromI18N("msg.ok.detail.salvar.usuario",
-						getSelectedEntity().getNome()));
+						getSelectedEntity().getUsername()));
 
 		return listPage;
 	}
@@ -60,7 +63,7 @@ public class UsuarioController extends
 		addINFOMessage(
 				getMessageFromI18N("msg.ok.summary.atualizar.usuario"),
 				getMessageFromI18N("msg.ok.detail.atualizar.usuario",
-						getSelectedEntity().getNome()));
+						getSelectedEntity().getUsername()));
 
 	}
 
@@ -71,7 +74,7 @@ public class UsuarioController extends
 		addINFOMessage(
 				getMessageFromI18N("msg.ok.summary.remover.usuario"),
 				getMessageFromI18N("msg.ok.detail.remover.usuario",
-						getSelectedEntity().getNome()));
+						getSelectedEntity().getUsername()));
 	}
 
 	public void validatePassword(ComponentSystemEvent event) {
@@ -81,14 +84,14 @@ public class UsuarioController extends
 
 		// get password
 		UIInput uiInputPassword = (UIInput) component
-				.findComponent("usuarioSenha");
+				.findComponent("userPassword");
 		String password = uiInputPassword.getLocalValue() == null ? ""
 				: uiInputPassword.getLocalValue().toString().trim();
 		String passwordId = uiInputPassword.getClientId();
 
 		// get confirm password
 		UIInput uiInputConfirmPassword = (UIInput) component
-				.findComponent("confirmacaoSenha");
+				.findComponent("confirmPassword");
 		String confirmPassword = uiInputConfirmPassword.getLocalValue() == null ? ""
 				: uiInputConfirmPassword.getLocalValue().toString().trim();
 		String confirmId = uiInputConfirmPassword.getClientId();
@@ -96,7 +99,7 @@ public class UsuarioController extends
 		if (password.isEmpty() || confirmPassword.isEmpty()) {
 			if (password.isEmpty()) {
 				FacesMessage message = new FacesMessage(
-						getMessageFromI18N("label.usuario.senha.requiredMessage"));
+						getMessageFromI18N("label.usuario.password.requiredMessage"));
 				message.setSeverity(FacesMessage.SEVERITY_ERROR);
 
 				context.addMessage(passwordId, message);
@@ -104,7 +107,7 @@ public class UsuarioController extends
 
 			if (confirmPassword.isEmpty()) {
 				FacesMessage message = new FacesMessage(
-						getMessageFromI18N("label.usuario.confirmacaoSenha.requiredMessage"));
+						getMessageFromI18N("label.usuario.confirmPassword.requiredMessage"));
 				message.setSeverity(FacesMessage.SEVERITY_ERROR);
 
 				context.addMessage(confirmId, message);
@@ -113,7 +116,7 @@ public class UsuarioController extends
 			context.renderResponse();
 		} else if (!password.equals(confirmPassword)) {
 			FacesMessage message = new FacesMessage(
-					getMessageFromI18N("label.usuario.senha.notEqualsConfirmacaoSenha"));
+					getMessageFromI18N("label.usuario.password.notEqualsConfirmPassword"));
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
 
 			context.addMessage(passwordId, message);
@@ -121,8 +124,16 @@ public class UsuarioController extends
 		}
 	}
 
-	public Autorizacao[] getAutorizacoes() {
-		return Autorizacao.values();
+	public Set<Role> getRoles() {
+		Set<Role> roles = new HashSet<Role>();
+
+		for (Role role : Role.values()) {
+			if (role.equals(Role.ROLE_NEWUSER))
+				continue;
+
+			roles.add(role);
+		}
+		return roles;
 	}
 
 	@Override

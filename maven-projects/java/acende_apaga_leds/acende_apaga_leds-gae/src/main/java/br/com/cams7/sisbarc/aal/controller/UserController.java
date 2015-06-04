@@ -3,8 +3,8 @@
  */
 package br.com.cams7.sisbarc.aal.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.cams7.app.domain.entity.UsuarioEntity;
-import br.com.cams7.app.domain.entity.UsuarioEntity.Autorizacao;
+import br.com.cams7.app.domain.entity.UserEntity;
+import br.com.cams7.app.domain.entity.UserEntity.Role;
 import br.com.cams7.gae.controller.AbstractAppController;
-import br.com.cams7.gae.service.UsuarioService;
+import br.com.cams7.gae.service.UserService;
 
 /**
  * @author cams7
  *
  */
 @Controller
-public class UsuarioController extends
-		AbstractAppController<UsuarioService, UsuarioEntity> {
+public class UserController extends
+		AbstractAppController<UserService, UserEntity> {
 
 	private static final String ATTRIBUTE_ENTITY = "usuario";
 
@@ -39,7 +39,7 @@ public class UsuarioController extends
 	private final String PAGE_INCLUDE = "incluirUsuario";
 	private final String PAGE_EDIT = "editarUsuario";
 
-	public UsuarioController() {
+	public UserController() {
 		super();
 	}
 
@@ -60,7 +60,7 @@ public class UsuarioController extends
 	@Override
 	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
 	public String criar(
-			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UsuarioEntity usuario,
+			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity usuario,
 			BindingResult result, Model uiModel) {
 		String page = super.criar(usuario, result, uiModel);
 		return page;
@@ -76,7 +76,7 @@ public class UsuarioController extends
 	@Override
 	@RequestMapping(value = "/" + PAGE_EDIT, method = RequestMethod.PUT)
 	public String editar(
-			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UsuarioEntity usuario,
+			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity usuario,
 			BindingResult bindingResult, Model uiModel) {
 		String page = super.editar(usuario, bindingResult, uiModel);
 		return page;
@@ -96,15 +96,19 @@ public class UsuarioController extends
 		return page;
 	}
 
-	@ModelAttribute("autorizacoes")
-	public List<Autorizacao> populateAutorizacoes() {
+	@ModelAttribute("roles")
+	public Set<Role> populateAutorizacoes() {
 		// Data referencing for web framework checkboxes
-		List<Autorizacao> autorizacoes = new ArrayList<Autorizacao>();
+		Set<Role> roles = new HashSet<Role>();
 
-		for (Autorizacao autorizacao : Autorizacao.values())
-			autorizacoes.add(autorizacao);
+		for (Role role : Role.values()) {
+			if (role.equals(Role.ROLE_NEWUSER))
+				continue;
 
-		return autorizacoes;
+			roles.add(role);
+		}
+
+		return roles;
 	}
 
 	@Override

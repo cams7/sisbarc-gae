@@ -1,12 +1,12 @@
-db.usuario.drop();
+db.user.drop();
 db.led.drop();
 db.potenciometro.drop();
 db.sequence.drop();
 
-db.usuario.insert({ "_id" : NumberLong(1), "login" : "admin",   "senha" : "$2a$10$j9Rae1utAPKuTZaK.UYHqeyiqlmXmXuJSmX1AhJrgqM7mj4S31v8O", "ativo" : true, "autorizacoes" : [ "ROLE_USER", "ROLE_ADMIN" ] });
-db.usuario.insert({ "_id" : NumberLong(2), "login" : "sisbarc", "senha" : "$2a$10$xWt/NK4Uzqv8HR4ghMSOM.8Bhawwjl9QT3ju9cJLTHBrrjb2e0z7O", "ativo" : true, "autorizacoes" : [ "ROLE_USER" ] });
-db.usuario.insert({ "_id" : NumberLong(3), "login" : "cesar",   "senha" : "$2a$10$rmXzCMIjGaKpeOM8BClySOONA3Jcq6MGew.N/WwGUj4p9BQ9O2ee.", "ativo" : true, "autorizacoes" : [ ] });
-db.sequence.insert({_id: "br.com.cams7.app.domain.entity.UsuarioEntity", sequence: 3});
+db.user.insert({ "_id" : NumberLong(1), "username" : "admin",   "password" : "$2a$10$j9Rae1utAPKuTZaK.UYHqeyiqlmXmXuJSmX1AhJrgqM7mj4S31v8O", "enabled" : true, "authorities" : [ "ROLE_USER", "ROLE_ADMIN" ] });
+db.user.insert({ "_id" : NumberLong(2), "username" : "sisbarc", "password" : "$2a$10$xWt/NK4Uzqv8HR4ghMSOM.8Bhawwjl9QT3ju9cJLTHBrrjb2e0z7O", "enabled" : true, "authorities" : [ "ROLE_USER" ] });
+db.user.insert({ "_id" : NumberLong(3), "username" : "cesar",   "password" : "$2a$10$rmXzCMIjGaKpeOM8BClySOONA3Jcq6MGew.N/WwGUj4p9BQ9O2ee.", "enabled" : true, "authorities" : [ ] });
+db.sequence.insert({_id: "br.com.cams7.app.domain.entity.UserEntity", sequence: 3});
 
 db.led.insert({ "_id" : NumberLong(1), "cor" : "VERMELHO", "ativo" : true, "ativadoPorBotao" : false, "pino" : { "tipo" : "DIGITAL", "codigo" : 13 }, "evento" : "PISCA_PISCA",  "alteraEvento" : false, "intervalo" : "INTERVALO_1SEGUNDO",        "alteraIntervalo" : true });
 db.led.insert({ "_id" : NumberLong(2), "cor" : "AMARELO",  "ativo" : true, "ativadoPorBotao" : true,  "pino" : { "tipo" : "DIGITAL", "codigo" : 11 }, "evento" : "ACENDE_APAGA", "alteraEvento" : true,  "intervalo" : "SEM_INTERVALO",             "alteraIntervalo" : true });

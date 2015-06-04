@@ -6,6 +6,35 @@
 		cada uma utiliza. Repare que em nossa aplicacao, o unico atributo sobreescrito 
 		pelas paginas eh o body. -->
 
+	<definition extends="default" name="error">
+		<put-attribute name="body" value="/WEB-INF/views/error.jsp" />
+	</definition>
+
+	<definition extends="default" name="cadastrarLogin">
+		<put-attribute name="body"
+			value="/WEB-INF/views/usuario/cadastrarLogin.jsp" />
+	</definition>
+
+	<definition extends="default" name="403">
+		<put-attribute name="body" value="/WEB-INF/views/403.jsp" />
+	</definition>
+
+	<definition extends="default" name="disabled">
+		<put-attribute name="body" value="/WEB-INF/views/disabled.jsp" />
+	</definition>
+
+	<definition extends="default" name="home">
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+	</definition>
+
+	<definition extends="default" name="admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin.jsp" />
+	</definition>
+
+	<definition extends="default" name="sobre">
+		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
+	</definition>
+
 	<definition extends="default" name="listarMercadorias">
 		<put-attribute name="body"
 			value="/WEB-INF/views/mercadoria/listar.jsp" />
@@ -37,29 +66,5 @@
 	<definition extends="default" name="editarUsuario">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/editar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
-	</definition>
-
-	<definition extends="default" name="sobre">
-		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
-	</definition>
-
-	<definition extends="default" name="error">
-		<put-attribute name="body" value="/WEB-INF/views/error.jsp" />
-	</definition>
-
-	<definition extends="default" name="403">
-		<put-attribute name="body" value="/WEB-INF/views/403.jsp" />
-	</definition>
-
-	<definition extends="default" name="login">
-		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
-	</definition>
-
-	<definition extends="default" name="welcome">
-		<put-attribute name="body" value="/WEB-INF/views/welcome.jsp" />
-	</definition>
-
-	<definition extends="default" name="admin">
-		<put-attribute name="body" value="/WEB-INF/views/admin.jsp" />
 	</definition>
 </tiles-definitions>

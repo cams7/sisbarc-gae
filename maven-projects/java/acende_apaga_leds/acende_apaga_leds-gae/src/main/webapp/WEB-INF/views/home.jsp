@@ -3,6 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <c:url value="/logout" var="logoutUrl" />
 
@@ -18,11 +20,11 @@
 		<div class="span10">
 			<c:if test="${pageContext.request.userPrincipal.name != null}">
 				<h2>
-					Welcome : ${pageContext.request.userPrincipal.name} | <a
-						href="${logoutUrl}">Logout</a>
+					User : ${pageContext.request.userPrincipal.name} | <a
+						href="${logoutUrl}"> Logout</a>
+
 				</h2>
 			</c:if>
 		</div>
 	</div>
-
 </div>

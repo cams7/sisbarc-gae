@@ -12,12 +12,13 @@
 	<spring:message code="label.sim" var="label_sim" htmlEscape="false" />
 	<spring:message code="label.nao" var="label_nao" htmlEscape="false" />
 
-	<spring:message code="label.usuario.nome" var="label_usuario_nome"
-		htmlEscape="false" />
+	<spring:message code="label.usuario.username"
+		var="label_usuario_username" htmlEscape="false" />
 	<spring:message code="label.usuario.email" var="label_usuario_email"
 		htmlEscape="false" />
-	<spring:message code="label.usuario.ativo" var="label_usuario_ativo"
-		htmlEscape="false" />
+	<spring:message code="label.usuario.enabled"
+		var="label_usuario_enabled" htmlEscape="false" />
+
 	<spring:message code="label.editar" var="label_editar"
 		htmlEscape="false" />
 	<spring:message code="button.atualizar" var="button_atualizar"
@@ -33,9 +34,9 @@
 		<thead>
 			<tr>
 				<th>#</th>
-				<th>${label_usuario_nome}</th>
+				<th>${label_usuario_username}</th>
 				<th>${label_usuario_email}</th>
-				<th>${label_usuario_ativo}</th>
+				<th>${label_usuario_enabled}</th>
 			</tr>
 		</thead>
 		<c:forEach items="${usuarios}" var="u">
@@ -45,11 +46,11 @@
 						value="${pageContext.request.contextPath}/usuario/${u.id}"
 						var="edit_url" htmlEscape="true">
 						<spring:param name="form" />
-					</spring:url> <a href="${edit_url}" title="${label_editar} ${u.nome}">${u.nome}</a>
+					</spring:url> <a href="${edit_url}" title="${label_editar} ${u.username}">${u.username}</a>
 				</td>
 				<td>${u.email}</td>
 				<td><c:choose>
-						<c:when test="${u.ativo}">${label_sim}</c:when>
+						<c:when test="${u.enabled}">${label_sim}</c:when>
 						<c:otherwise>${label_nao}</c:otherwise>
 					</c:choose></td>
 			</tr>

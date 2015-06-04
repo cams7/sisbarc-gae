@@ -25,8 +25,10 @@
 <spring:message code="label.mercadoria.preco"
 	var="label_mercadoria_preco" htmlEscape="false" />
 
-<form:form action="${pageContext.request.contextPath}/${param.action}" method="${param.method}"
-	commandName="mercadoria" class="form-horizontal" id="frmMercadoria">
+<form:form id="mercadoriaForm" modelAttribute="mercadoria"
+	method="${param.method}"
+	action="${pageContext.request.contextPath}/${param.action}"
+	cssClass="form-horizontal">
 	<form:hidden path="id" />
 	<fieldset>
 		<legend>
@@ -36,7 +38,7 @@
 		<div class="control-group">
 			<label class="control-label">${label_mercadoria_nome}</label>
 			<div class="controls">
-				<form:input path="nome" class="input-large" />
+				<form:input path="nome" cssClass="input-large" />
 				<form:errors path="nome" cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
@@ -44,7 +46,7 @@
 		<div class="control-group">
 			<label class="control-label">${label_mercadoria_descricao}</label>
 			<div class="controls">
-				<form:input path="descricao" class="input-large" />
+				<form:input path="descricao" cssClass="input-large" />
 				<form:errors path="descricao"
 					cssClass="alert alert-error input-alert" />
 			</div>
@@ -53,7 +55,7 @@
 		<div class="control-group">
 			<label class="control-label">${label_mercadoria_quantidade}</label>
 			<div class="controls">
-				<form:input path="quantidade" class="input-small" id="quantidade" />
+				<form:input path="quantidade" cssClass="input-small" id="quantidade" />
 				<form:errors path="quantidade"
 					cssClass="alert alert-error input-alert" />
 			</div>
@@ -62,7 +64,7 @@
 		<div class="control-group">
 			<label class="control-label">${label_mercadoria_preco}</label>
 			<div class="controls">
-				<form:input path="preco" class="input-small" />
+				<form:input path="preco" cssClass="input-small" />
 				<form:errors path="preco" cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
@@ -83,7 +85,7 @@
 <script>
 	$(document).ready(function() {
 		$("#btnSalvar").click(function() {
-			$("#frmMercadoria").submit();
+			$("#mercadoriaForm").submit();
 		});
 	});
 </script>

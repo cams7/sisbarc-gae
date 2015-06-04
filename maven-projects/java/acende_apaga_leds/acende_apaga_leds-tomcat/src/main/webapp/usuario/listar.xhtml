@@ -44,9 +44,9 @@
 						onsuccess="PF('usuarioDialog').show();" />
 				</sec:authorize>
 
-				<p:column headerText="#{msg['label.usuario.nome']}"
-					sortBy="#{usuario.nome}">
-					<h:outputText value="#{usuario.nome}" />
+				<p:column headerText="#{msg['label.usuario.username']}"
+					sortBy="#{usuario.username}">
+					<h:outputText value="#{usuario.username}" />
 				</p:column>
 
 				<p:column headerText="#{msg['label.usuario.email']}"
@@ -54,11 +54,10 @@
 					<h:outputText value="#{usuario.email}" />
 				</p:column>
 
-				<p:column headerText="#{msg['label.usuario.ativo']}"
-					sortBy="#{usuario.ativo}">
+				<p:column headerText="#{msg['label.usuario.enabled']}"
+					sortBy="#{usuario.enabled}">
 					<h:outputText
-						value="#{usuario.ativo ? msg['label.sim']: msg['label.nao']}"
-						rendered="#{usuario.ativo != null}" />
+						value="#{usuario.enabled ? msg['label.sim']: msg['label.nao']}" />
 				</p:column>
 
 				<f:facet name="footer">

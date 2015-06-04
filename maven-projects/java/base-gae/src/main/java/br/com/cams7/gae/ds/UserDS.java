@@ -3,17 +3,17 @@
  */
 package br.com.cams7.gae.ds;
 
-import br.com.cams7.app.domain.entity.UsuarioEntity;
+import br.com.cams7.app.domain.entity.UserEntity;
 
 /**
  * @author cams7
  *
  */
-public class UsuarioDS extends AbstractDS<UsuarioEntity> {
+public class UserDS extends AbstractDS<UserEntity> {
 
 	private static final long serialVersionUID = 1L;
 
-	public UsuarioDS() {
+	public UserDS() {
 		super();
 	}
 

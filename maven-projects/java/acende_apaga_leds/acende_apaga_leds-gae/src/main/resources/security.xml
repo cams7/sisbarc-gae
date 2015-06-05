@@ -27,6 +27,7 @@
 		or a remember-me user -->
 
 	<http pattern="/favicon.ico" security="none" />
+	<http pattern="/resources" security="none" />
 
 	<http pattern="/error" security="none" />
 
@@ -40,13 +41,10 @@
 		<intercept-url pattern="/cadastrarLogin" access="hasRole('ROLE_NEWUSER')" />
 
 		<intercept-url pattern="/home" access="permitAll" />
-		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
-
 		<intercept-url pattern="/sobre" access="permitAll" />
 
 		<intercept-url pattern="/mercadoria**"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
-
 		<intercept-url pattern="/listarMercadorias"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
 		<intercept-url pattern="/incluirMercadoria"
@@ -54,11 +52,10 @@
 		<intercept-url pattern="/editarMercadoria"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
 
-		<intercept-url pattern="/usuario**" access="permitAll" />
-
-		<intercept-url pattern="/listarUsuarios" access="permitAll" />
-		<intercept-url pattern="/incluirUsuario" access="permitAll" />
-		<intercept-url pattern="/editarUsuario" access="permitAll" />
+		<intercept-url pattern="/usuario**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/listarUsuarios" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/incluirUsuario" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/editarUsuario" access="hasRole('ROLE_ADMIN')" />
 
 		<custom-filter position="PRE_AUTH_FILTER" ref="gaeFilter" />
 

@@ -10,21 +10,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=8" />
 
-<spring:url value="/resources/css/bootstrap.min.css" var="bootstrap_url" />
-<spring:url value="/resources/css/sisbarc.css" var="css_url" />
+<spring:url value="/resources/css/bootstrap.min.css"
+	var="bootstrap_css_url" />
+<spring:url value="/resources/css/sisbarc.css" var="sisbarc_css_url" />
+
+<spring:url value="/resources/js/bootstrap.min.js"
+	var="bootstrap_js_url" />
 <spring:url value="/resources/js/jquery-1.7.2.min.js" var="jquery_url" />
 <spring:url value="/resources/js/jquery.validate.min.js"
 	var="jquery_validate_url" />
 
+<!-- required for FF3 and Opera -->
 <link rel="stylesheet" type="text/css" media="screen"
-	href="${bootstrap_url}">
+	href="${bootstrap_css_url}" />
 <!-- required for FF3 and Opera -->
-</link>
-<link rel="stylesheet" type="text/css" media="screen" href="${css_url}">
-<!-- required for FF3 and Opera -->
-</link>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${sisbarc_css_url}" />
+
 <script type="text/javascript" src="${jquery_url}"></script>
-<script type="text/javascript" src="${jquery_validate_url}"></script>
+<script type="text/javascript" src="${bootstrap_js_url}"></script>
+<!-- script type="text/javascript" src="${jquery_validate_url}"></script-->
 
 <spring:message code="page.title.app" var="page_title_app"
 	htmlEscape="false" />

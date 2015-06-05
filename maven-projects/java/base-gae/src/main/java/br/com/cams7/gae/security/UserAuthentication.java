@@ -38,7 +38,7 @@ public class UserAuthentication implements Authentication {
 	 */
 	@Override
 	public String getName() {
-		return principal.getEmail();
+		return principal.getUsername();
 	}
 
 	/*

@@ -1,28 +1,22 @@
-.header {
+div.header {
 	margin-top: 20px;
 	padding-bottom: 20px;
 }
 
-.logo {
+div.logo {
 	float: left;
 	width: 158px;
 	height: 71px;
 	padding-right: 20px;
 }
 
-.title {
-	font-size: 26px;
-	line-height: 38px;
-	padding-bottom: 40px;
+div.menu_aal {
+	display: inline-block;
 	margin: 0;
 	padding: 0;
 	padding-top: 20px;
-	color: #D16727;
-}
-
-.title small {
-	font-size: 16px;
-	color: #D16727;
+	width: 80%;
+	float: left;
 }
 
 .input-alert {

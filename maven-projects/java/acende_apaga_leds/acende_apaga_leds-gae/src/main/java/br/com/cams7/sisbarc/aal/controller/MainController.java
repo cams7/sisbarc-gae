@@ -15,8 +15,6 @@ public class MainController {
 	private final String ATTRIBUTE_PAGE_ACTIVE = "active";
 
 	private final String PAGE_HOME = "home";
-	private final String PAGE_ADMIN = "admin";
-
 	private final String PAGE_ABOUT = "sobre";
 
 	@Autowired
@@ -28,6 +26,7 @@ public class MainController {
 		uiModel.addAttribute("title",
 				"Spring Security Login Form - Database Authentication");
 		uiModel.addAttribute("message", "This is default page!");
+		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, PAGE_HOME);
 
 		return PAGE_HOME;
 	}
@@ -37,15 +36,6 @@ public class MainController {
 		uiModel.addAttribute(PAGE_ABOUT, sobre);
 		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, PAGE_ABOUT);
 		return PAGE_ABOUT;
-	}
-
-	@RequestMapping(value = "/" + PAGE_ADMIN, method = RequestMethod.GET)
-	public String adminPage(Model uiModel) {
-		uiModel.addAttribute("title",
-				"Spring Security Login Form - Database Authentication");
-		uiModel.addAttribute("message", "This page is for ROLE_ADMIN only!");
-
-		return PAGE_ADMIN;
 	}
 
 }

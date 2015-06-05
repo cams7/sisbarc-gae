@@ -60,6 +60,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 */
 	public String listar(Model uiModel) {
 		List<E> entities = getService().findAll();
+		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, getPageList());
 		uiModel.addAttribute(getAttributeEntities(), entities);
 
 		return getPageList();

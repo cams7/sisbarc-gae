@@ -27,10 +27,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
 
-	<definition extends="default" name="admin">
-		<put-attribute name="body" value="/WEB-INF/views/admin.jsp" />
-	</definition>
-
 	<definition extends="default" name="sobre">
 		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
 	</definition>

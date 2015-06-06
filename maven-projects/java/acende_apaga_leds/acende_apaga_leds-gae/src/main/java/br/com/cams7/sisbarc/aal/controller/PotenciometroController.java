@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package br.com.cams7.sisbarc.aal.controller;
 
 import javax.validation.Valid;
@@ -11,41 +14,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.cams7.gae.controller.AbstractAppController;
-import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
-import br.com.cams7.sisbarc.aal.service.MercadoriaService;
+import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
+import br.com.cams7.sisbarc.aal.service.PotenciometroService;
 
 /**
- * Principal componente do framework <code>Spring MVC</code>, esse é o
- * controller do cadastro de mercadorias.
+ * Principal componente do framework <code>Spring MVC</code>, esse e o
+ * controller do cadastro de potenciometros.
  * 
  * <p>
- * Tem como responsabilidade: definir o mapeamento de navegação, acionar
+ * Tem como responsabilidade: definir o mapeamento de navegacao, acionar
  * validadores e conversores de dados, fornecer e receber os dados da camada de
- * visão (<code>JSP</code>).
+ * visao (<code>JSP</code>).
  * </p>
  * 
  * <p>
- * Os métodos de navegação, retornam a url definida no Tiles. Veja também o
+ * Os metodos de navegacao, retornam a url definida no Tiles. Veja tambem o
  * arquivo <code>views.xml</code>.
  * </p>
  * 
- * @author YaW Tecnologia
+ * @author cams7
+ *
  */
 @Controller
-public class MercadoriaController extends
-		AbstractAppController<MercadoriaService, MercadoriaEntity> {
+public class PotenciometroController extends
+		AbstractAppController<PotenciometroService, PotenciometroEntity> {
 
-	private static final String ATTRIBUTE_ENTITY = "mercadoria";
+	private static final String ATTRIBUTE_ENTITY = "potenciometro";
 
-	private final String ATTRIBUTE_ENTITIES = "mercadorias";
+	private final String ATTRIBUTE_ENTITIES = "potenciometros";
 
 	public static final String PAGE_MAIN = "/" + ATTRIBUTE_ENTITY;
 
-	private final String PAGE_LIST = "listarMercadorias";
-	private final String PAGE_INCLUDE = "incluirMercadoria";
-	private final String PAGE_EDIT = "editarMercadoria";
+	private final String PAGE_LIST = "listarPotenciometros";
+	private final String PAGE_INCLUDE = "incluirPotenciometro";
+	private final String PAGE_EDIT = "editarPotenciometro";
 
-	public MercadoriaController() {
+	/**
+	 * 
+	 */
+	public PotenciometroController() {
 		super();
 	}
 
@@ -64,9 +71,9 @@ public class MercadoriaController extends
 	@Override
 	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
 	public String criar(
-			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) MercadoriaEntity mercadoria,
+			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) PotenciometroEntity potenciometro,
 			BindingResult result, Model uiModel) {
-		return super.criar(mercadoria, result, uiModel);
+		return super.criar(potenciometro, result, uiModel);
 	}
 
 	@Override
@@ -78,9 +85,9 @@ public class MercadoriaController extends
 	@Override
 	@RequestMapping(value = "/" + PAGE_EDIT, method = RequestMethod.PUT)
 	public String editar(
-			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) MercadoriaEntity mercadoria,
+			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) PotenciometroEntity potenciometro,
 			BindingResult bindingResult, Model uiModel) {
-		return super.editar(mercadoria, bindingResult, uiModel);
+		return super.editar(potenciometro, bindingResult, uiModel);
 	}
 
 	@Override
@@ -95,31 +102,63 @@ public class MercadoriaController extends
 		return super.atualizar();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.cams7.gae.controller.AbstractAppController#getAttributeEntity()
+	 */
 	@Override
 	protected String getAttributeEntity() {
 		return ATTRIBUTE_ENTITY;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.cams7.gae.controller.AbstractAppController#getAttributeEntities()
+	 */
 	@Override
 	protected String getAttributeEntities() {
 		return ATTRIBUTE_ENTITIES;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.cams7.gae.controller.AbstractAppController#getPageMain()
+	 */
 	@Override
 	protected String getPageMain() {
 		return PAGE_MAIN;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.cams7.gae.controller.AbstractAppController#getPageList()
+	 */
 	@Override
 	protected String getPageList() {
 		return PAGE_LIST;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.cams7.gae.controller.AbstractAppController#getPageInclude()
+	 */
 	@Override
 	protected String getPageInclude() {
 		return PAGE_INCLUDE;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.cams7.gae.controller.AbstractAppController#getPageEdit()
+	 */
 	@Override
 	protected String getPageEdit() {
 		return PAGE_EDIT;

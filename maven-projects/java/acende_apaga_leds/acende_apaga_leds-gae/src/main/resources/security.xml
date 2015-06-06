@@ -38,18 +38,29 @@
 
 	<!-- enable use-expressions -->
 	<http use-expressions="true" entry-point-ref="gaeEntryPoint">
+		<intercept-url pattern="/_ah/admin" access="hasRole('ROLE_ADMIN')" />
+	
 		<intercept-url pattern="/cadastrarLogin" access="hasRole('ROLE_NEWUSER')" />
 
 		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/sobre" access="permitAll" />
 
-		<intercept-url pattern="/mercadoria**"
+		<intercept-url pattern="/led**"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
-		<intercept-url pattern="/listarMercadorias"
+		<intercept-url pattern="/listarLEDs"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
-		<intercept-url pattern="/incluirMercadoria"
+		<intercept-url pattern="/incluirLED"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
-		<intercept-url pattern="/editarMercadoria"
+		<intercept-url pattern="/editarLED"
+			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
+
+		<intercept-url pattern="/potenciometro**"
+			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
+		<intercept-url pattern="/listarPotenciometros"
+			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
+		<intercept-url pattern="/incluirPotenciometro"
+			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
+		<intercept-url pattern="/editarPotenciometro"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
 
 		<intercept-url pattern="/usuario**" access="hasRole('ROLE_ADMIN')" />

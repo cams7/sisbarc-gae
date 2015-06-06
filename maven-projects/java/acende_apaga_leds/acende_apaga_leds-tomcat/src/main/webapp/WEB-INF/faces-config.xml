@@ -20,7 +20,6 @@
 		</resource-bundle>
 	</application>
 
-	<!-- Define a navegacao global para a pagina com a lista de mercadorias. -->
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>listaUsuarios</from-outcome>

@@ -42,12 +42,10 @@ public class UserValidator implements Validator {
 		final String IP_FIELD = "ip";
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, IP_FIELD,
-				"label.usuario.ip.requiredMessage", "Field IP is required.");
+				"label.usuario.ip.requiredMessage", "Field IP is required");
 
-		ValidationUtils
-				.rejectIfEmptyOrWhitespace(errors, "port",
-						"label.usuario.port.requiredMessage",
-						"Field port is required.");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "port",
+				"label.usuario.port.requiredMessage", "Field port is required");
 
 		UserEntity user = (UserEntity) target;
 

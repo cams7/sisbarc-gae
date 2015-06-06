@@ -85,4 +85,6 @@
 
 	<context:component-scan base-package="br.com.cams7.gae.controller" />
 	<context:component-scan base-package="br.com.cams7.sisbarc.aal.controller" />
+
+	<context:component-scan base-package="br.com.cams7.sisbarc.aal.validator" />
 </beans>

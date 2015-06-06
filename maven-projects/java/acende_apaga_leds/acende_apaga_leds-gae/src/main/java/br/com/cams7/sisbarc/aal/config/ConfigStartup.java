@@ -5,7 +5,6 @@ import javax.servlet.ServletContextListener;
 
 import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
-import br.com.cams7.sisbarc.aal.domain.entity.MercadoriaEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
 
 import com.googlecode.objectify.ObjectifyService;
@@ -24,7 +23,6 @@ public class ConfigStartup implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		ObjectifyService.register(MercadoriaEntity.class);
 		ObjectifyService.register(UserEntity.class);
 		ObjectifyService.register(LEDEntity.class);
 		ObjectifyService.register(PotenciometroEntity.class);

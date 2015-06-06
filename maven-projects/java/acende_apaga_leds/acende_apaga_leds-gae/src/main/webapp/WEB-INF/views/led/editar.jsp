@@ -1,24 +1,25 @@
-<%-- Pagina de edicao de mercadoria. --%>
+<%-- Pagina de edicao dos dados do LED. --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div>
-	<spring:message code="label.editar" var="label_editar"
-		htmlEscape="false" />
-	<spring:message code="msg.erro.mercadoria.inexistente"
-		var="mercadoria_inexistente" htmlEscape="false" />
 
+<spring:message code="label.editar" var="label_editar"
+	htmlEscape="false" />
+<spring:message code="msg.erro.led.inexistente" var="led_inexistente"
+	htmlEscape="false" />
+
+<div>
 	<c:choose>
-		<c:when test="${mercadoria != null}">
-			<c:import url="/WEB-INF/views/mercadoria/form.jsp">
-				<c:param name="action" value="editarMercadoria" />
+		<c:when test="${led != null}">
+			<c:import url="/WEB-INF/views/led/form.jsp">
+				<c:param name="action" value="editarLED" />
 				<c:param name="method" value="PUT" />
 				<c:param name="sublabel" value="${label_editar}" />
-				<c:param name="enableRemove" value="true" />
+				<c:param name="createEntity" value="false" />
 			</c:import>
 
 			<form:form id="formExcluir"
-				action="${pageContext.request.contextPath}/mercadoria/${mercadoria.id}"
+				action="${pageContext.request.contextPath}/led/${led.id}"
 				method="DELETE" />
 
 			<script>
@@ -30,7 +31,7 @@
 			</script>
 		</c:when>
 		<c:otherwise>
-			<h3>${mercadoria_inexistente}</h3>
+			<h3>${led_inexistente}</h3>
 		</c:otherwise>
 	</c:choose>
 </div>

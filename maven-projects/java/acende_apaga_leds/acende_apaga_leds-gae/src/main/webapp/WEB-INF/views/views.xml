@@ -31,24 +31,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
 	</definition>
 
-	<definition extends="default" name="listarMercadorias">
-		<put-attribute name="body"
-			value="/WEB-INF/views/mercadoria/listar.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
-	</definition>
-
-	<definition extends="default" name="incluirMercadoria">
-		<put-attribute name="body"
-			value="/WEB-INF/views/mercadoria/incluir.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
-	</definition>
-
-	<definition extends="default" name="editarMercadoria">
-		<put-attribute name="body"
-			value="/WEB-INF/views/mercadoria/editar.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/mercadoria/menu.jsp" />
-	</definition>
-
 	<definition extends="default" name="listarUsuarios">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/listar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
@@ -62,5 +44,20 @@
 	<definition extends="default" name="editarUsuario">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/editar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
+	</definition>
+
+	<definition extends="default" name="listarLEDs">
+		<put-attribute name="body" value="/WEB-INF/views/led/listar.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/led/menu.jsp" />
+	</definition>
+
+	<definition extends="default" name="incluirLED">
+		<put-attribute name="body" value="/WEB-INF/views/led/incluir.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/led/menu.jsp" />
+	</definition>
+
+	<definition extends="default" name="editarLED">
+		<put-attribute name="body" value="/WEB-INF/views/led/editar.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/led/menu.jsp" />
 	</definition>
 </tiles-definitions>

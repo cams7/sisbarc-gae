@@ -27,7 +27,6 @@
 	<img src="${banner}" />
 </div>
 
-
 <nav class="navbar navbar-default">
 	<ul class="nav navbar-nav">
 		<li role="presentation" class="dropdown"><a id="menuInicio"
@@ -51,9 +50,13 @@
 									role="menuitem"
 									href="${pageContext.request.contextPath}/usuario?form">${menu_usuario}</a></li>
 							</sec:authorize>
-							<li role="presentation"><a role="menuitem"
+							<li role="presentation"
+								class="${active == 'incluirLED' ? 'disabled' : ''}"><a
+								role="menuitem"
 								href="${pageContext.request.contextPath}/led?form">${menu_led}</a></li>
-							<li role="presentation"><a role="menuitem"
+							<li role="presentation"
+								class="${active == 'incluirPotenciometro' ? 'disabled' : ''}"><a
+								role="menuitem"
 								href="${pageContext.request.contextPath}/potenciometro?form">${menu_potenciometro}</a></li>
 						</ul></li>
 				</sec:authorize>
@@ -74,9 +77,12 @@
 							class="${active == 'listarUsuarios' ? 'disabled' : ''}"><a
 							role="menuitem" href="${pageContext.request.contextPath}/usuario">${menu_usuarios}</a></li>
 					</sec:authorize>
-					<li role="presentation"><a role="menuitem"
-						href="${pageContext.request.contextPath}/led">${menu_leds}</a></li>
-					<li role="presentation"><a role="menuitem"
+					<li role="presentation"
+						class="${active == 'listarLEDs' ? 'disabled' : ''}"><a
+						role="menuitem" href="${pageContext.request.contextPath}/led">${menu_leds}</a></li>
+					<li role="presentation"
+						class="${active == 'listarPotenciometros' ? 'disabled' : ''}"><a
+						role="menuitem"
 						href="${pageContext.request.contextPath}/potenciometro">${menu_potenciometros}</a></li>
 				</ul></li>
 		</sec:authorize>

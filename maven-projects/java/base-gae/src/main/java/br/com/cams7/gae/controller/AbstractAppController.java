@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 
 import br.com.cams7.app.controller.AbstractController;
 import br.com.cams7.app.domain.AbstractEntity;
@@ -32,8 +33,14 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	protected final String PARAM_FORM = "form";
 	protected final String VARIABLE_ID = "id";
 
-	protected final String PAGE_ROOT = "redirect:" + getPageMain();
 	private final String PAGE_ERROR = "error";
+
+	private final String ATTRIBUTE_SEVERITY = "message_severity";
+	private final String ATTRIBUTE_SUMMARY = "message_summary";
+	private final String ATTRIBUTE_DETAIL = "message_detail";
+
+	@Autowired
+	private MessageSource messageSource;
 
 	public AbstractAppController() {
 		super();
@@ -44,7 +51,6 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 * 
 	 * @param binder
 	 */
-	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(Double.class, new CustomNumberEditor(
 				Double.class, NumberFormat.getInstance(new Locale("pt", "BR")),
@@ -99,7 +105,8 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 * @return a url para a listagem, se algum erro de validação for encontrado
 	 *         volta para a pagina de inclusão.
 	 */
-	public String criar(E entity, BindingResult result, Model uiModel) {
+	public String criar(E entity, BindingResult result, Model uiModel,
+			Locale locale) {
 		if (result.hasErrors()) {
 			uiModel.addAttribute(getAttributeEntity(), entity);
 			uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, getPageInclude());
@@ -108,7 +115,8 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 
 		getService().insert(entity);
 
-		return PAGE_ROOT;
+		String page = listar(uiModel);
+		return page;
 	}
 
 	/**
@@ -138,22 +146,24 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 * 
 	 * @param entity
 	 *            objeto com os dados enviados pela tela.
-	 * @param bindingResult
+	 * @param result
 	 *            componente usado para verificar problemas com validação.
 	 * @param uiModel
 	 * @return a url para a listagem, se algum erro de validação for encontrado
 	 *         volta para a pagina de edição.
 	 */
 
-	public String editar(E entity, BindingResult bindingResult, Model uiModel) {
-		if (bindingResult.hasErrors()) {
+	public String editar(E entity, BindingResult result, Model uiModel,
+			Locale locale) {
+		if (result.hasErrors()) {
 			uiModel.addAttribute(getAttributeEntity(), entity);
 			return getPageEdit();
 		}
 
 		getService().save(entity);
 
-		return PAGE_ROOT;
+		String page = listar(uiModel);
+		return page;
 	}
 
 	/**
@@ -164,13 +174,14 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 * @param uiModel
 	 * @return url da página de listagem.
 	 */
-	public String remover(Long id, Model uiModel) {
+	public String remover(Long id, Model uiModel, Locale locale) {
 		E entity = getService().findOne(id);
 
 		if (entity != null)
 			getService().delete(entity);
 
-		return PAGE_ROOT;
+		String page = listar(uiModel);
+		return page;
 	}
 
 	/**
@@ -180,21 +191,50 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 * @return url da página de listagem.
 	 */
 
-	public String atualizar() {
+	public String atualizar(Model uiModel) {
 		((AppService<?>) getService()).synch();
-		return PAGE_ROOT;
+		String page = listar(uiModel);
+		return page;
+	}
+
+	private void addMessage(Model uiModel, Severity severity, String summary,
+			String detail) {
+		uiModel.addAttribute(ATTRIBUTE_SEVERITY, severity);
+		uiModel.addAttribute(ATTRIBUTE_SUMMARY, summary);
+		uiModel.addAttribute(ATTRIBUTE_DETAIL, detail);
+	}
+
+	protected void addINFOMessage(Model uiModel, String summary, String detail) {
+		addMessage(uiModel, Severity.INFO, summary, detail);
+		getLog().info(detail);
+	}
+
+	protected void addWARNMessage(Model uiModel, String summary, String detail) {
+		addMessage(uiModel, Severity.WARN, summary, detail);
+		getLog().log(Level.WARNING, detail);
+	}
+
+	protected void addERRORMessage(Model uiModel, String summary, String detail) {
+		addMessage(uiModel, Severity.ERROR, summary, detail);
+		getLog().log(Level.SEVERE, detail);
+	}
+
+	protected MessageSource getMessageSource() {
+		return messageSource;
 	}
 
 	protected abstract String getAttributeEntity();
 
 	protected abstract String getAttributeEntities();
 
-	protected abstract String getPageMain();
-
 	protected abstract String getPageList();
 
 	protected abstract String getPageInclude();
 
 	protected abstract String getPageEdit();
+
+	protected enum Severity {
+		INFO, WARN, ERROR
+	}
 
 }

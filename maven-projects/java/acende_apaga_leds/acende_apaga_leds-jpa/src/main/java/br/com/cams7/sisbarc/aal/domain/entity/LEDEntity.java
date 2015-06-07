@@ -7,23 +7,22 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
 
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.googlecode.objectify.annotation.Entity;
-
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.Pino;
+
+import com.googlecode.objectify.annotation.Entity;
 
 /**
  * @author cams7
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ledEntity", propOrder = { "cor", "ativo", "ativadoPorBotao",
-		"estado" })
+// @XmlType(name = "led", propOrder = { "cor", "ativo", "ativadoPorBotao",
+// "estado" })
 @Entity
 @Document(collection = "led")
 public class LEDEntity extends Pino {
@@ -93,7 +92,7 @@ public class LEDEntity extends Pino {
 		this.estado = estado;
 	}
 
-	@XmlType(name = "corLED")
+	// @XmlType(name = "corLED")
 	@XmlEnum
 	public enum CorLED {
 		AMARELO, // LED Amarela
@@ -104,12 +103,12 @@ public class LEDEntity extends Pino {
 			return name();
 		}
 
-		public static CorLED fromValue(String value) {
-			return valueOf(value);
-		}
+		// public static CorLED fromValue(String value) {
+		// return valueOf(value);
+		// }
 	}
 
-	@XmlType(name = "estadoLED")
+	// @XmlType(name = "estadoLED")
 	@XmlEnum
 	public enum EstadoLED {
 		ACESO, // Acende
@@ -119,9 +118,9 @@ public class LEDEntity extends Pino {
 			return name();
 		}
 
-		public static EstadoLED fromValue(String value) {
-			return valueOf(value);
-		}
+		// public static EstadoLED fromValue(String value) {
+		// return valueOf(value);
+		// }
 	}
 
 }

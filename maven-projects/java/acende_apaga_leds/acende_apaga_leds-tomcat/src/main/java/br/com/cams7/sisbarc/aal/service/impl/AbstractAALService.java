@@ -25,14 +25,14 @@ import br.com.cams7.webapp.service.AbstractAppService;
  * @author cams7
  *
  */
-public abstract class AALServiceImpl<R extends AppRepository<E>, E extends AbstractEntity>
+public abstract class AbstractAALService<R extends AppRepository<E>, E extends AbstractEntity>
 		extends AbstractAppService<R, E> implements AALService<E> {
 
 	@Autowired
 	@Qualifier(AppArduinoScheduler.COMPONENT_NAME)
 	private AppArduinoService scheduler;
 
-	public AALServiceImpl() {
+	public AbstractAALService() {
 		super();
 	}
 

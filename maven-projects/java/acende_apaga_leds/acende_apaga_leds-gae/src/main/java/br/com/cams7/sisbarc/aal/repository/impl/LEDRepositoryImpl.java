@@ -3,9 +3,12 @@
  */
 package br.com.cams7.sisbarc.aal.repository.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import br.com.cams7.gae.repository.AbstractAppRepository;
+import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.repository.LEDRepository;
 
@@ -36,6 +39,16 @@ public class LEDRepositoryImpl extends AbstractAppRepository<LEDEntity>
 
 	public LEDRepositoryImpl() {
 		super();
+	}
+
+	@Override
+	public List<LEDEntity> buscaLEDsAtivadoPorBotao() {
+		return null;
+	}
+
+	@Override
+	public LEDEntity estaAtivo(PinoKey id) {
+		return null;
 	}
 
 }

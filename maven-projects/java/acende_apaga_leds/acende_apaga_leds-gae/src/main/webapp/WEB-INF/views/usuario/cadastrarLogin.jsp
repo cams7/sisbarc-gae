@@ -14,11 +14,6 @@
 <spring:message code="button.salvar" var="button_salvar"
 	htmlEscape="false" />
 
-<p>
-	Bem vindo,
-	<sec:authentication property="principal.email" />
-</p>
-
 <form:form method="POST" modelAttribute="usuario"
 	action="${pageContext.request.contextPath}/cadastrarLogin"
 	cssClass="form-horizontal">

@@ -8,7 +8,6 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
 
 import br.com.cams7.arduino.ArduinoPinType;
 
@@ -17,7 +16,7 @@ import br.com.cams7.arduino.ArduinoPinType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "pino", propOrder = { "tipo", "codigo" })
+// @XmlType(name = "pinoKey", propOrder = { "tipo", "codigo" })
 public class PinoKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;

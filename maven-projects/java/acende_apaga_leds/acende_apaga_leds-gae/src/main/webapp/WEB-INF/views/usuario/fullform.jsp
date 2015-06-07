@@ -24,6 +24,8 @@
 <spring:message code="label.usuario.enabled" var="label_usuario_enabled"
 	htmlEscape="false" />
 
+<c:import url="/WEB-INF/views/message.jsp" />
+
 <form:form id="usuarioForm" modelAttribute="usuario"
 	method="${param.method}"
 	action="${pageContext.request.contextPath}/${param.action}"

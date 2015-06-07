@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 
@@ -14,10 +13,10 @@ import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "abstractPino", propOrder = { "id", "pino", "evento",
-		"alteraEvento", "intervalo", "alteraIntervalo" })
+// @XmlType(name = "pino", propOrder = { "id", "pino", "evento", "alteraEvento",
+// "intervalo", "alteraIntervalo" })
 @XmlSeeAlso({ LEDEntity.class })
-public abstract class Pino extends AbstractEntity {
+public/* abstract */class Pino extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -146,7 +145,7 @@ public abstract class Pino extends AbstractEntity {
 		this.alteraIntervalo = alteraIntervalo;
 	}
 
-	@XmlType(name = "evento")
+	// @XmlType(name = "evento")
 	@XmlEnum
 	public enum Evento {
 		ACENDE_APAGA, // Acende ou apaga
@@ -158,12 +157,12 @@ public abstract class Pino extends AbstractEntity {
 			return name();
 		}
 
-		public static Evento fromValue(String value) {
-			return valueOf(value);
-		}
+		// public static Evento fromValue(String value) {
+		// return valueOf(value);
+		// }
 	}
 
-	@XmlType(name = "intervalo")
+	// @XmlType(name = "intervalo")
 	@XmlEnum
 	public enum Intervalo {
 		INTERVALO_10MILISEGUNDOS, // 1/100 de segundo
@@ -179,9 +178,9 @@ public abstract class Pino extends AbstractEntity {
 			return name();
 		}
 
-		public static Intervalo fromValue(String value) {
-			return valueOf(value);
-		}
+		// public static Intervalo fromValue(String value) {
+		// return valueOf(value);
+		// }
 	}
 
 }

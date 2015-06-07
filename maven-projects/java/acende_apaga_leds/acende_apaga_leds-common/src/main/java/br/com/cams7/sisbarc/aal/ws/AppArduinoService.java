@@ -40,7 +40,7 @@ public interface AppArduinoService extends ArduinoService {
 	 * 
 	 */
 	@WebMethod
-	public EstadoLED alteraEstadoLED(PinoKey id, EstadoLED estado)
+	public EstadoLED alteraEstadoLED(PinoKey key, EstadoLED estado)
 			throws ArduinoException;
 
 	/**
@@ -50,7 +50,7 @@ public interface AppArduinoService extends ArduinoService {
 	 *            dos LEDs - Numero do PINO DIGITAL
 	 */
 	@WebMethod
-	public LEDEntity[] buscaEstadoLEDs(PinoKey[] ids) throws ArduinoException;
+	public LEDEntity[] buscaEstadoLEDs(PinoKey[] keys) throws ArduinoException;
 
 	/**
 	 * Altera o EVENTO e o INTERVALO
@@ -62,7 +62,7 @@ public interface AppArduinoService extends ArduinoService {
 	 * @param INTERVALO
 	 */
 	@WebMethod
-	public Evento alteraEvento(PinoKey id, Evento evento, Intervalo intervalo)
+	public Evento alteraEvento(PinoKey key, Evento evento, Intervalo intervalo)
 			throws ArduinoException;
 
 	/**
@@ -79,6 +79,6 @@ public interface AppArduinoService extends ArduinoService {
 	 *            - Numero do PINO DIGITAL/ANALOGICO
 	 */
 	@WebMethod
-	public Pino[] buscaDados(PinoKey[] ids) throws ArduinoException;
+	public Pino[] buscaDados(PinoKey[] keys) throws ArduinoException;
 
 }

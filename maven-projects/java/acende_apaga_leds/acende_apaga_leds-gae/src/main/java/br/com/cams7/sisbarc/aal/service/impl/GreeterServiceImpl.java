@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.cams7.sisbarc.aal.service.GreeterService;
 import br.com.cams7.sisbarc.aal.ws.HelloService;
-import br.com.cams7.sisbarc.aal.ws.HelloServiceImplService;
+import br.com.cams7.sisbarc.aal.ws.HelloServiceImpl;
 
 /**
  * @author cams7
@@ -76,8 +76,7 @@ public class GreeterServiceImpl implements GreeterService {
 	}
 
 	public HelloService getPort() {
-		HelloService port = (new HelloServiceImplService())
-				.getHelloServiceImplPort();
+		HelloService port = (new HelloServiceImpl()).getHelloServiceImplPort();
 
 		// Map<String, Object> context = ((BindingProvider) port)
 		// .getRequestContext();

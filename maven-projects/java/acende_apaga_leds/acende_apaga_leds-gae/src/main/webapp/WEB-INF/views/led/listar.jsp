@@ -28,9 +28,16 @@
 
 <spring:message code="label.editar" var="label_editar"
 	htmlEscape="false" />
+
 <spring:message code="button.atualizar" var="button_atualizar"
 	htmlEscape="false" />
+<spring:message code="button.arduino.update" var="button_arduino_update"
+	htmlEscape="false" />
+<spring:message code="button.arduino.synchronize"
+	var="button_arduino_synchronize" htmlEscape="false" />
 
+
+<c:import url="/WEB-INF/views/message.jsp" />
 
 <div>
 	<div style="border-bottom: 1px solid #E5E5E5;">
@@ -78,12 +85,34 @@
 		</c:forEach>
 	</table>
 
-	<form:form id="atualizaLEDs"
-		action="${pageContext.request.contextPath}/led/synch" method="GET">
-		<div class="control-group">
-			<div class="controls">
-				<button id="salvar" class="btn btn-success">${button_atualizar}</button>
-			</div>
+	<div class="control-group">
+		<div class="controls">
+			<button id="btnSynch" class="btn btn-inverse">${button_atualizar}</button>
+			<button id="btnAtualiza" class="btn btn-success">${button_arduino_update}</button>
+			<button id="btnSincroniza" class="btn btn-success">${button_arduino_synchronize}</button>
 		</div>
-	</form:form>
+	</div>
+
+	<form:form id="formSynch"
+		action="${pageContext.request.contextPath}/led/synch" method="GET" />
+	<form:form id="formAtualiza"
+		action="${pageContext.request.contextPath}/atualizaLEDs" method="PUT" />
+	<form:form id="formSincroniza"
+		action="${pageContext.request.contextPath}/sincronizaLEDs"
+		method="PUT" />
+
+	<script>
+		$(document).ready(function() {
+			$("#btnSynch").click(function() {
+				$("#formSynch").submit();
+			});
+			$("#btnAtualiza").click(function() {
+				$("#formAtualiza").submit();
+			});
+			$("#btnSincroniza").click(function() {
+				$("#formSincroniza").submit();
+			});
+		});
+	</script>
+
 </div>

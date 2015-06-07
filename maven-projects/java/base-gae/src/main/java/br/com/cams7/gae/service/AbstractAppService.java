@@ -41,6 +41,7 @@ public abstract class AbstractAppService<R extends AppRepository<E>, D extends A
 		dsType = (Class<D>) AppUtil.getType(this, DS_ARGUMENT_NUMBER);
 	}
 
+	@Override
 	public E insert(E entity) {
 		getRepository().insert(entity);
 		getDataSource().insert(entity);
@@ -50,6 +51,7 @@ public abstract class AbstractAppService<R extends AppRepository<E>, D extends A
 		return entity;
 	}
 
+	@Override
 	public E save(E entity) {
 		entity = getRepository().save(entity);
 		entity = getDataSource().save(entity);
@@ -59,6 +61,15 @@ public abstract class AbstractAppService<R extends AppRepository<E>, D extends A
 		return entity;
 	}
 
+	@Override
+	public void save(List<E> entities) {
+		getRepository().save(entities);
+		getDataSource().save(entities);
+
+		getLog().log(Level.INFO, "Updated: " + entities);
+	}
+
+	@Override
 	public void delete(E entity) {
 		getRepository().delete(entity);
 		getDataSource().delete(entity);
@@ -66,6 +77,7 @@ public abstract class AbstractAppService<R extends AppRepository<E>, D extends A
 		getLog().log(Level.INFO, "Removed: " + entity);
 	}
 
+	@Override
 	public E findOne(Long id) {
 		E entity = getRepository().findOne(id);
 		return entity;

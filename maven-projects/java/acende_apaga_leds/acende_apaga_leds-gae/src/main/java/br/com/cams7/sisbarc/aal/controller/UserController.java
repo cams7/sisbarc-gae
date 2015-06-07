@@ -4,6 +4,7 @@
 package br.com.cams7.sisbarc.aal.controller;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +52,11 @@ public class UserController extends
 		this.validator = validator;
 	}
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		super.initBinder(binder);
+	}
+
 	@Override
 	@RequestMapping(value = PAGE_MAIN, method = RequestMethod.GET)
 	public String listar(Model uiModel) {
@@ -67,11 +75,22 @@ public class UserController extends
 	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
 	public String criar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
-			BindingResult result, Model uiModel) {
+			BindingResult result, Model uiModel, Locale locale) {
 
 		validator.validate(user, result);
 
-		String page = super.criar(user, result, uiModel);
+		String page = super.criar(user, result, uiModel, locale);
+
+		if (page.equals(PAGE_LIST))
+			addINFOMessage(
+					uiModel,
+					getMessageSource().getMessage(
+							"msg.ok.summary.salvar.usuario", new Object[] {},
+							locale),
+					getMessageSource().getMessage(
+							"msg.ok.detail.salvar.usuario",
+							new Object[] { user.getUsername() }, locale));
+
 		return page;
 	}
 
@@ -86,25 +105,48 @@ public class UserController extends
 	@RequestMapping(value = "/" + PAGE_EDIT, method = RequestMethod.PUT)
 	public String editar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
-			BindingResult result, Model uiModel) {
+			BindingResult result, Model uiModel, Locale locale) {
 
 		validator.validate(user, result);
 
-		String page = super.editar(user, result, uiModel);
+		String page = super.editar(user, result, uiModel, locale);
+
+		if (page.equals(PAGE_LIST))
+			addINFOMessage(
+					uiModel,
+					getMessageSource().getMessage(
+							"msg.ok.summary.atualizar.usuario",
+							new Object[] {}, locale),
+					getMessageSource().getMessage(
+							"msg.ok.detail.atualizar.usuario",
+							new Object[] { user.getUsername() }, locale));
+
 		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", method = RequestMethod.DELETE)
-	public String remover(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
-		String page = super.remover(id, uiModel);
+	public String remover(@PathVariable(VARIABLE_ID) Long id, Model uiModel,
+			Locale locale) {
+		String page = super.remover(id, uiModel, locale);
+
+		if (page.equals(PAGE_LIST))
+			addINFOMessage(
+					uiModel,
+					getMessageSource().getMessage(
+							"msg.ok.summary.remover.usuario", new Object[] {},
+							locale),
+					getMessageSource().getMessage(
+							"msg.ok.detail.remover.usuario",
+							new Object[] { id }, locale));
+
 		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/synch", method = RequestMethod.GET)
-	public String atualizar() {
-		String page = super.atualizar();
+	public String atualizar(Model uiModel) {
+		String page = super.atualizar(uiModel);
 		return page;
 	}
 
@@ -131,11 +173,6 @@ public class UserController extends
 	@Override
 	protected String getAttributeEntities() {
 		return ATTRIBUTE_ENTITIES;
-	}
-
-	@Override
-	protected String getPageMain() {
-		return PAGE_MAIN;
 	}
 
 	@Override

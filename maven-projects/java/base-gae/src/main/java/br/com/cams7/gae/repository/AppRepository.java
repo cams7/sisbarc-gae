@@ -12,8 +12,9 @@ import br.com.cams7.app.repository.BaseRepository;
  * @author cams7
  *
  */
-public interface AppRepository<E extends AbstractEntity> extends BaseRepository<E> {
-	
+public interface AppRepository<E extends AbstractEntity> extends
+		BaseRepository<E> {
+
 	/**
 	 * @param id
 	 *            filtro da pesquisa.
@@ -46,5 +47,7 @@ public interface AppRepository<E extends AbstractEntity> extends BaseRepository<
 	public E insert(E entity);
 
 	public E save(E entity);
+
+	public void save(List<E> entities);
 
 }

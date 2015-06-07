@@ -38,8 +38,8 @@ import br.com.cams7.gae.repository.AppRepository;
  * @author cams7
  *
  */
-public abstract class AbstractDS<E extends AbstractEntity> extends AbstractBase<E>
-		implements AppRepository<E>, Serializable {
+public abstract class AbstractDS<E extends AbstractEntity> extends
+		AbstractBase<E> implements AppRepository<E>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -63,6 +63,15 @@ public abstract class AbstractDS<E extends AbstractEntity> extends AbstractBase<
 		updateSession();
 
 		return entity;
+	}
+
+	@Override
+	public void save(List<E> entities) {
+		if (entities != null)
+			for (E entity : entities)
+				data.put(entity.getId(), entity);
+
+		updateSession();
 	}
 
 	@Override

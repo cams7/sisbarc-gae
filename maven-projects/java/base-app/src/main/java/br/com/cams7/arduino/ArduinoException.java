@@ -15,7 +15,7 @@ import br.com.cams7.ws.ServiceFault;
 @WebFault(name = ArduinoException.WEBFAULT_NAME, targetNamespace = ArduinoException.WEBFAULT_TARGETNAMESPACE)
 public class ArduinoException extends Exception {
 
-	public static final String WEBFAULT_NAME = "MonitorFault";
+	public static final String WEBFAULT_NAME = "ArduinoFault";
 	public static final String WEBFAULT_TARGETNAMESPACE = "http://ws.aal.sisbarc.cams7.com.br/";
 
 	private static final long serialVersionUID = 1L;

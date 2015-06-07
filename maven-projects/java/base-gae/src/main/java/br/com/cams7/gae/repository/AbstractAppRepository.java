@@ -35,6 +35,12 @@ public abstract class AbstractAppRepository<E extends AbstractEntity> extends
 	}
 
 	@Override
+	public void save(List<E> entities) {
+		for (E entity : entities)
+			save(entity);
+	}
+
+	@Override
 	public void delete(E entity) {
 		ofy().delete().entity(entity).now();
 	}

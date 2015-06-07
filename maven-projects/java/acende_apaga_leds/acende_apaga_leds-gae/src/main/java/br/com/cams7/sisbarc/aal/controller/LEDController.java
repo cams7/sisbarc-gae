@@ -3,21 +3,22 @@
  */
 package br.com.cams7.sisbarc.aal.controller;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.cams7.arduino.ArduinoPinType;
-import br.com.cams7.gae.controller.AbstractAppController;
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
-import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.CorLED;
@@ -43,7 +44,7 @@ import br.com.cams7.sisbarc.aal.validator.PinoValidator;
  *
  */
 @Controller
-public class LEDController extends AbstractAppController<LEDService, LEDEntity> {
+public class LEDController extends AALController<LEDService, LEDEntity> {
 
 	private static final String ATTRIBUTE_ENTITY = "led";
 
@@ -55,94 +56,117 @@ public class LEDController extends AbstractAppController<LEDService, LEDEntity> 
 	private final String PAGE_INCLUDE = "incluirLED";
 	private final String PAGE_EDIT = "editarLED";
 
-	private PinoValidator validator;
-
 	@Autowired
 	public LEDController(PinoValidator validator) {
-		super();
-		this.validator = validator;
+		super(validator);
+	}
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		super.initBinder(binder);
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN, method = RequestMethod.GET)
 	public String listar(Model uiModel) {
-		return super.listar(uiModel);
+		String page = super.listar(uiModel);
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN, params = PARAM_FORM, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
 		String page = super.criarForm(uiModel);
-
-		if (page.equals(PAGE_INCLUDE)
-				&& uiModel.containsAttribute(ATTRIBUTE_ENTITY)) {
-			LEDEntity led = new LEDEntity();
-			led.setPino(new PinoKey());
-			led.setAlteraEvento(true);
-			led.setAlteraIntervalo(true);
-			led.setAtivo(true);
-			led.setAtivadoPorBotao(true);
-
-			uiModel.addAttribute(ATTRIBUTE_ENTITY, led);
-		}
-
 		return page;
 	}
 
 	@Override
 	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
 	public String criar(@Valid @ModelAttribute(ATTRIBUTE_ENTITY) LEDEntity led,
-			BindingResult result, Model uiModel) {
-		if (led.getAtivadoPorBotao() == Boolean.FALSE)
+			BindingResult result, Model uiModel, Locale locale) {
+		if (result.getFieldErrorCount("ativo") == 0
+				&& led.getAtivadoPorBotao() == Boolean.FALSE)
 			led.setAtivo(Boolean.TRUE);
 
-		validator.validate(led, result);
+		String page = super.criar(led, result, uiModel, locale);
 
-		return super.criar(led, result, uiModel);
+		if (page.equals(PAGE_LIST)) {
+			PinoKey key = led.getPino();
+			addINFOMessage(
+					uiModel,
+					getMessageSource().getMessage("msg.ok.summary.salvar.led",
+							new Object[] {}, locale),
+					getMessageSource().getMessage("msg.ok.detail.salvar.led",
+							new Object[] { key.getTipo(), key.getCodigo() },
+							locale));
+
+		}
+
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", params = PARAM_FORM, method = RequestMethod.GET)
 	public String editarForm(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
-		return super.editarForm(id, uiModel);
+		String page = super.editarForm(id, uiModel);
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = "/" + PAGE_EDIT, method = RequestMethod.PUT)
-	public String editar(
+	public String atualizaPino(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) LEDEntity led,
-			BindingResult result, Model uiModel) {
+			BindingResult result, Model uiModel, Locale locale) {
+		String page = super.atualizaPino(led, result, uiModel, locale);
+		return page;
+	}
 
-		validator.validate(led, result);
+	@Override
+	@RequestMapping(value = "/atualizaLEDs", method = RequestMethod.PUT)
+	public String atualizaPinos(Model uiModel, Locale locale) {
+		String page = super.atualizaPinos(uiModel, locale);
+		return page;
+	}
 
-		return super.editar(led, result, uiModel);
+	@Override
+	@RequestMapping(value = "/sincronizaLEDs", method = RequestMethod.PUT)
+	public String sincronizaPinos(Model uiModel, Locale locale) {
+		String page = super.sincronizaPinos(uiModel, locale);
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", method = RequestMethod.DELETE)
-	public String remover(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
-		return super.remover(id, uiModel);
+	public String remover(@PathVariable(VARIABLE_ID) Long id, Model uiModel,
+			Locale locale) {
+		String page = super.remover(id, uiModel, locale);
+
+		if (page.equals(PAGE_LIST))
+			addINFOMessage(
+					uiModel,
+					getMessageSource().getMessage("msg.ok.summary.remover.led",
+							new Object[] {}, locale),
+					getMessageSource().getMessage("msg.ok.detail.remover.led",
+							new Object[] { id }, locale));
+
+		return page;
 	}
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/synch", method = RequestMethod.GET)
-	public String atualizar() {
-		return super.atualizar();
-	}
-
-	@ModelAttribute("tipos")
-	public ArduinoPinType[] populateTipos() {
-		return ArduinoPinType.values();
+	public String atualizar(Model uiModel) {
+		String page = super.atualizar(uiModel);
+		return page;
 	}
 
 	@ModelAttribute("eventos")
 	public Evento[] populateEventos() {
-		return Evento.values();
-	}
+		Evento[] eventos = new Evento[3];
+		eventos[0] = Evento.ACENDE_APAGA;
+		eventos[1] = Evento.PISCA_PISCA;
+		eventos[2] = Evento.FADE;
 
-	@ModelAttribute("intervalos")
-	public Intervalo[] populateIntervalos() {
-		return Intervalo.values();
+		return eventos;
 	}
 
 	@ModelAttribute("cores")
@@ -170,16 +194,6 @@ public class LEDController extends AbstractAppController<LEDService, LEDEntity> 
 	@Override
 	protected String getAttributeEntities() {
 		return ATTRIBUTE_ENTITIES;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see br.com.cams7.gae.controller.AbstractAppController#getPageMain()
-	 */
-	@Override
-	protected String getPageMain() {
-		return PAGE_MAIN;
 	}
 
 	/*

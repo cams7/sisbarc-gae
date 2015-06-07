@@ -17,8 +17,8 @@ import br.com.cams7.sisbarc.aal.ws.HelloService;
  * version: 2.2
  * 
  */
-@WebServiceClient(name = HelloServiceImplService.WEBSERVICECLIENT_FULLNAME, targetNamespace = HelloServiceImplService.WEBSERVICECLIENT_TARGETNAMESPACE, wsdlLocation = HelloServiceImplService.WEBSERVICECLIENT_WSDLLOCATION)
-public class HelloServiceImplService extends Service {
+@WebServiceClient(name = HelloServiceImpl.WEBSERVICECLIENT_FULLNAME, targetNamespace = HelloServiceImpl.WEBSERVICECLIENT_TARGETNAMESPACE, wsdlLocation = HelloServiceImpl.WEBSERVICECLIENT_WSDLLOCATION)
+public class HelloServiceImpl extends Service {
 
 	public static final String WEBSERVICECLIENT_TARGETNAMESPACE = "http://ws.controller.aal.sisbarc.cams7.com.br/";
 
@@ -31,8 +31,8 @@ public class HelloServiceImplService extends Service {
 	private final static URL HELLOSERVICEIMPLSERVICE_WSDL_LOCATION;
 	private final static WebServiceException HELLOSERVICEIMPLSERVICE_EXCEPTION;
 	private final static QName HELLOSERVICEIMPLSERVICE_QNAME = new QName(
-			HelloServiceImplService.WEBSERVICECLIENT_TARGETNAMESPACE,
-			HelloServiceImplService.WEBSERVICECLIENT_FULLNAME);
+			HelloServiceImpl.WEBSERVICECLIENT_TARGETNAMESPACE,
+			HelloServiceImpl.WEBSERVICECLIENT_FULLNAME);
 
 	static {
 		URL url = null;
@@ -46,28 +46,28 @@ public class HelloServiceImplService extends Service {
 		HELLOSERVICEIMPLSERVICE_EXCEPTION = e;
 	}
 
-	public HelloServiceImplService() {
+	public HelloServiceImpl() {
 		super(__getWsdlLocation(), HELLOSERVICEIMPLSERVICE_QNAME);
 	}
 
-	public HelloServiceImplService(WebServiceFeature... features) {
+	public HelloServiceImpl(WebServiceFeature... features) {
 		super(__getWsdlLocation(), HELLOSERVICEIMPLSERVICE_QNAME, features);
 	}
 
-	public HelloServiceImplService(URL wsdlLocation) {
+	public HelloServiceImpl(URL wsdlLocation) {
 		super(wsdlLocation, HELLOSERVICEIMPLSERVICE_QNAME);
 	}
 
-	public HelloServiceImplService(URL wsdlLocation,
+	public HelloServiceImpl(URL wsdlLocation,
 			WebServiceFeature... features) {
 		super(wsdlLocation, HELLOSERVICEIMPLSERVICE_QNAME, features);
 	}
 
-	public HelloServiceImplService(URL wsdlLocation, QName serviceName) {
+	public HelloServiceImpl(URL wsdlLocation, QName serviceName) {
 		super(wsdlLocation, serviceName);
 	}
 
-	public HelloServiceImplService(URL wsdlLocation, QName serviceName,
+	public HelloServiceImpl(URL wsdlLocation, QName serviceName,
 			WebServiceFeature... features) {
 		super(wsdlLocation, serviceName, features);
 	}
@@ -80,7 +80,7 @@ public class HelloServiceImplService extends Service {
 	@WebEndpoint(name = WEBSERVICECLIENT_NAME + "Port")
 	public HelloService getHelloServiceImplPort() {
 		return super.getPort(new QName(
-				HelloServiceImplService.WEBSERVICECLIENT_TARGETNAMESPACE,
+				HelloServiceImpl.WEBSERVICECLIENT_TARGETNAMESPACE,
 				WEBSERVICECLIENT_NAME + "Port"), HelloService.class);
 	}
 
@@ -96,7 +96,7 @@ public class HelloServiceImplService extends Service {
 	@WebEndpoint(name = WEBSERVICECLIENT_NAME + "Port")
 	public HelloService getHelloServiceImplPort(WebServiceFeature... features) {
 		return super.getPort(new QName(
-				HelloServiceImplService.WEBSERVICECLIENT_TARGETNAMESPACE,
+				HelloServiceImpl.WEBSERVICECLIENT_TARGETNAMESPACE,
 				WEBSERVICECLIENT_NAME + "Port"), HelloService.class, features);
 	}
 

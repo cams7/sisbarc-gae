@@ -47,9 +47,12 @@
 <spring:message code="label.led.ativadoPorBotao"
 	var="label_led_ativadoPorBotao" htmlEscape="false" />
 
+<c:import url="/WEB-INF/views/message.jsp" />
+
 <form:form id="ledForm" modelAttribute="led" method="${param.method}"
 	action="${pageContext.request.contextPath}/${param.action}"
 	cssClass="form-horizontal">
+
 	<form:hidden path="id" />
 	<form:hidden path="alteraEvento" />
 	<form:hidden path="alteraIntervalo" />
@@ -164,14 +167,16 @@
 		<div class="control-group">
 			<label class="control-label">${label_led_ativo}</label>
 			<div class="controls">
-				<form:radiobutton path="ativo" value="true"
-					disabled="${not led.ativadoPorBotao}" />${label_sim}
-				<form:radiobutton path="ativo" value="false"
-					disabled="${not led.ativadoPorBotao}" />${label_nao}
-
-				<c:if test="${not led.ativadoPorBotao}">
+				<c:if test="${not param.createEntity and not led.ativadoPorBotao}"
+					var="ativoDisabled">
 					<form:hidden path="ativo" />
 				</c:if>
+
+				<form:radiobutton path="ativo" value="true"
+					disabled="${ativoDisabled}" />${label_sim}
+				<form:radiobutton path="ativo" value="false"
+					disabled="${ativoDisabled}" />${label_nao}
+				<form:errors path="ativo" cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 
@@ -179,14 +184,16 @@
 		<div class="control-group">
 			<label class="control-label">${label_led_ativadoPorBotao}</label>
 			<div class="controls">
-				<form:radiobutton path="ativadoPorBotao" value="true"
-					disabled="${not param.createEntity}" />${label_sim}
-				<form:radiobutton path="ativadoPorBotao" value="false"
-					disabled="${not param.createEntity}" />${label_nao}
-
-				<c:if test="${not param.createEntity}">
+				<c:if test="${not param.createEntity}" var="ativadoPorBotaoDisabled">
 					<form:hidden path="ativadoPorBotao" />
 				</c:if>
+
+				<form:radiobutton path="ativadoPorBotao" value="true"
+					disabled="${ativadoPorBotaoDisabled}" />${label_sim}
+				<form:radiobutton path="ativadoPorBotao" value="false"
+					disabled="${ativadoPorBotaoDisabled}" />${label_nao}
+				<form:errors path="ativadoPorBotao"
+					cssClass="alert alert-error input-alert" />
 			</div>
 		</div>
 	</fieldset>

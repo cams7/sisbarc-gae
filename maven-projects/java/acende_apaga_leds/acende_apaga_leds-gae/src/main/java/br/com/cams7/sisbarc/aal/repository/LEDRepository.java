@@ -3,7 +3,10 @@
  */
 package br.com.cams7.sisbarc.aal.repository;
 
+import java.util.List;
+
 import br.com.cams7.gae.repository.AppRepository;
+import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 
 /**
@@ -18,5 +21,8 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
  *
  */
 public interface LEDRepository extends AppRepository<LEDEntity> {
+	public List<LEDEntity> buscaLEDsAtivadoPorBotao();
+
+	public LEDEntity estaAtivo(PinoKey id);
 
 }

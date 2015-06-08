@@ -50,6 +50,9 @@
 		<intercept-url pattern="/potenciometro/listar**" access="isAuthenticated()" />
 		<intercept-url pattern="/potenciometro/incluir**"
 			access="hasRole('ROLE_ADMIN')" />
+		
+		<intercept-url pattern="/rest/led/**"
+			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
 
 		<form-login login-page="/login.jsf" login-processing-url="/j_spring_security_check"
 			default-target-url="/home.jsf" authentication-failure-url="/login.jsf?error=true"

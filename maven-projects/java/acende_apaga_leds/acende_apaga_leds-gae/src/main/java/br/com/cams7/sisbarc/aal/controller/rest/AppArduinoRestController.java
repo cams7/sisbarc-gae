@@ -27,7 +27,7 @@ import br.com.cams7.util.AppException;
  *
  */
 @RestController
-@RequestMapping("/led")
+@RequestMapping("/rest")
 public class AppArduinoRestController extends
 		AbstractRestController<LEDService, LEDEntity> {
 
@@ -38,7 +38,7 @@ public class AppArduinoRestController extends
 	// LED Amarela - /rest/led/DIGITAL/11/ACESO
 	// LED Verde - /rest/led/DIGITAL/10/APAGADO
 	// LED Vermelha - /rest/led/DIGITAL/9/APAGADO
-	@RequestMapping(value = "/{tipo_pino}/{pino}/{estado}", method = RequestMethod.GET)
+	@RequestMapping(value = "/led/{tipo_pino}/{pino}/{estado}", method = RequestMethod.GET)
 	public LEDEntity alteraLEDEstado(
 			@PathVariable("tipo_pino") String stringTipo,
 			@PathVariable("pino") String stringPino,
@@ -48,6 +48,11 @@ public class AppArduinoRestController extends
 		Byte pino = Byte.valueOf(stringPino);
 
 		LEDEntity led = getService().findOne(new PinoKey(tipo, pino));
+
+		if (led == null)
+			throw new AppException("O LED '" + tipo + " " + pino
+					+ "' nao foi cadastrado");
+
 		led.setEstado(EstadoLED.valueOf(stringEstado));
 
 		try {
@@ -61,7 +66,7 @@ public class AppArduinoRestController extends
 	}
 
 	// LEDs ativado por botao - /rest/led/ativado_por_botao
-	@RequestMapping(value = "/ativado_por_botao", method = RequestMethod.GET)
+	@RequestMapping(value = "/led/ativado_por_botao", method = RequestMethod.GET)
 	public List<LEDEntity> getLEDs() throws AppException {
 		try {
 			Future<List<LEDEntity>> call = getService()

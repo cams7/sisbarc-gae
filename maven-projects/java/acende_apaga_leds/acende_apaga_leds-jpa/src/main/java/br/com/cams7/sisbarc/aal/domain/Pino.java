@@ -6,11 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-import org.springframework.data.mongodb.core.index.Indexed;
-
 import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
+
+import com.googlecode.objectify.annotation.Unindex;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({ LEDEntity.class })
@@ -23,19 +23,20 @@ public/* abstract */class Pino extends AbstractEntity {
 	private Long id;
 
 	@NotNull
-	@Indexed(unique = true)
 	private PinoKey pino;
 
 	@NotNull(message = "{NotNull.pino.evento}")
 	private Evento evento;
 
 	@NotNull(message = "{NotNull.pino.alteraEvento}")
+	@Unindex
 	private Boolean alteraEvento;
 
 	@NotNull(message = "{NotNull.pino.intervalo}")
 	private Intervalo intervalo;
 
 	@NotNull(message = "{NotNull.pino.alteraIntervalo}")
+	@Unindex
 	private Boolean alteraIntervalo;
 
 	public Pino() {

@@ -8,7 +8,6 @@ import java.util.concurrent.Future;
 
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
-import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 import br.com.cams7.sisbarc.aal.repository.LEDRepository;
 
 /**
@@ -22,7 +21,5 @@ public interface LEDService extends AALService<LEDEntity>, LEDRepository {
 
 	public Future<List<LEDEntity>> getLEDsAtivadoPorBotao()
 			throws ArduinoException;
-
-	public EstadoLED getEstadoLEDAtivadoPorBotao(Byte pino);
 
 }

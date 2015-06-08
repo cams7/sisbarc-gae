@@ -23,6 +23,5 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 public interface LEDRepository extends AppRepository<LEDEntity> {
 	public List<LEDEntity> buscaLEDsAtivadoPorBotao();
 
-	public LEDEntity estaAtivo(PinoKey id);
-
+	public LEDEntity findOne(PinoKey key);
 }

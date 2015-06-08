@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import br.com.cams7.arduino.ArduinoException;
-import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
@@ -40,8 +39,8 @@ public class LEDServiceImpl extends
 	}
 
 	@Override
-	public LEDEntity estaAtivo(PinoKey id) {
-		LEDEntity led = getRepository().estaAtivo(id);
+	public LEDEntity findOne(PinoKey key) {
+		LEDEntity led = getRepository().findOne(key);
 		return led;
 	}
 
@@ -91,16 +90,6 @@ public class LEDServiceImpl extends
 		}
 
 		return new AsyncResult<List<LEDEntity>>(leds);
-	}
-
-	@Override
-	public EstadoLED getEstadoLEDAtivadoPorBotao(Byte pino) {
-		LEDEntity led = estaAtivo(new PinoKey(ArduinoPinType.DIGITAL, pino));
-
-		if (led.getAtivo() == Boolean.TRUE)
-			return EstadoLED.ACESO;
-
-		return EstadoLED.APAGADO;
 	}
 
 }

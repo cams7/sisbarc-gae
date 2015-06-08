@@ -15,6 +15,8 @@ import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * @author cams7
@@ -22,6 +24,7 @@ import com.googlecode.objectify.annotation.Entity;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
+@Index
 @Document(collection = "led")
 public class LEDEntity extends Pino {
 
@@ -37,6 +40,7 @@ public class LEDEntity extends Pino {
 	private Boolean ativadoPorBotao;
 
 	@Transient
+	@Ignore
 	private EstadoLED estado;
 
 	public LEDEntity() {

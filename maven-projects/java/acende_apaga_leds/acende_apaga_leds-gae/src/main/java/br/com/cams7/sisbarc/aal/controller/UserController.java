@@ -3,7 +3,7 @@
  */
 package br.com.cams7.sisbarc.aal.controller;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -40,9 +40,9 @@ public class UserController extends
 
 	public static final String PAGE_MAIN = "/" + ATTRIBUTE_ENTITY;
 
-	private final String PAGE_LIST = "listarUsuarios";
-	private final String PAGE_INCLUDE = "incluirUsuario";
-	private final String PAGE_EDIT = "editarUsuario";
+	private final String PAGE_LIST = "listar_usuarios";
+	private final String PAGE_INCLUDE = "incluir_usuario";
+	private final String PAGE_EDIT = "editar_usuario";
 
 	private UserValidator validator;
 
@@ -153,7 +153,7 @@ public class UserController extends
 	@ModelAttribute("roles")
 	public Set<Role> populateAutorizacoes() {
 		// Data referencing for web framework checkboxes
-		Set<Role> roles = new HashSet<Role>();
+		Set<Role> roles = new LinkedHashSet<Role>();
 
 		for (Role role : Role.values()) {
 			if (role.equals(Role.ROLE_NEWUSER))

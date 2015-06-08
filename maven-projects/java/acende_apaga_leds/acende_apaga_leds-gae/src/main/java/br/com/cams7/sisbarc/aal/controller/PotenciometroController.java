@@ -52,9 +52,9 @@ public class PotenciometroController extends
 
 	public static final String PAGE_MAIN = "/" + ATTRIBUTE_ENTITY;
 
-	private final String PAGE_LIST = "listarPotenciometros";
-	private final String PAGE_INCLUDE = "incluirPotenciometro";
-	private final String PAGE_EDIT = "editarPotenciometro";
+	private final String PAGE_LIST = "listar_potenciometros";
+	private final String PAGE_INCLUDE = "incluir_potenciometro";
+	private final String PAGE_EDIT = "editar_potenciometro";
 
 	@Autowired
 	public PotenciometroController(PinoValidator validator) {
@@ -123,14 +123,14 @@ public class PotenciometroController extends
 	}
 
 	@Override
-	@RequestMapping(value = "/atualizaPotenciometros", method = RequestMethod.PUT)
+	@RequestMapping(value = "/atualizar_potenciometros", method = RequestMethod.PUT)
 	public String atualizaPinos(Model uiModel, Locale locale) {
 		String page = super.atualizaPinos(uiModel, locale);
 		return page;
 	}
 
 	@Override
-	@RequestMapping(value = "/sincronizaPotenciometros", method = RequestMethod.PUT)
+	@RequestMapping(value = "/sincronizar_potenciometros", method = RequestMethod.PUT)
 	public String sincronizaPinos(Model uiModel, Locale locale) {
 		String page = super.sincronizaPinos(uiModel, locale);
 		return page;

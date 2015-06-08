@@ -1,7 +1,7 @@
 <%-- Fragmento com trecho utilizado no menu de navegacao. --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<spring:message code="label.usuarios" var="label_usuarios"
+<spring:message code="label.potenciometros" var="label_potenciometros"
 	htmlEscape="false" />
 <spring:message code="menu.lista" var="menu_lista" htmlEscape="false" />
 <spring:message code="menu.incluir" var="menu_incluir"
@@ -10,12 +10,12 @@
 
 <div>
 	<ul class="nav nav-list" style="padding-top: 15px;">
-		<li><em>${label_usuarios}</em></li>
+		<li><em>${label_potenciometros}</em></li>
 
-		<li class="${active == 'listar_usuarios' ? 'active' : ''}"><a
-			href="${pageContext.request.contextPath}/usuario">${menu_lista}</a></li>
-		<li class="${active == 'incluir_usuario' ? 'active' : ''}"><a
-			href="${pageContext.request.contextPath}/usuario?form">${menu_incluir}</a></li>
+		<li class="${active == 'listar_potenciometros' ? 'active' : ''}"><a
+			href="${pageContext.request.contextPath}/potenciometro">${menu_lista}</a></li>
+		<li class="${active == 'incluir_potenciometro' ? 'active' : ''}"><a
+			href="${pageContext.request.contextPath}/potenciometro?form">${menu_incluir}</a></li>
 		<li class="divider" />
 		<li><a href="${pageContext.request.contextPath}/logout">${menu_sair}</a></li>
 	</ul>

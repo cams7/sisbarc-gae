@@ -52,9 +52,9 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 
 	public static final String PAGE_MAIN = "/" + ATTRIBUTE_ENTITY;
 
-	private final String PAGE_LIST = "listarLEDs";
-	private final String PAGE_INCLUDE = "incluirLED";
-	private final String PAGE_EDIT = "editarLED";
+	private final String PAGE_LIST = "listar_leds";
+	private final String PAGE_INCLUDE = "incluir_led";
+	private final String PAGE_EDIT = "editar_led";
 
 	@Autowired
 	public LEDController(PinoValidator validator) {
@@ -122,14 +122,14 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 	}
 
 	@Override
-	@RequestMapping(value = "/atualizaLEDs", method = RequestMethod.PUT)
+	@RequestMapping(value = "/atualizar_leds", method = RequestMethod.PUT)
 	public String atualizaPinos(Model uiModel, Locale locale) {
 		String page = super.atualizaPinos(uiModel, locale);
 		return page;
 	}
 
 	@Override
-	@RequestMapping(value = "/sincronizaLEDs", method = RequestMethod.PUT)
+	@RequestMapping(value = "/sincronizar_leds", method = RequestMethod.PUT)
 	public String sincronizaPinos(Model uiModel, Locale locale) {
 		String page = super.sincronizaPinos(uiModel, locale);
 		return page;

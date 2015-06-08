@@ -23,9 +23,9 @@ public class MainController {
 
 	@RequestMapping(value = "/" + PAGE_HOME, method = RequestMethod.GET)
 	public String defaultPage(Model uiModel) {
-		uiModel.addAttribute("title",
-				"Spring Security Login Form - Database Authentication");
-		uiModel.addAttribute("message", "This is default page!");
+		uiModel.addAttribute(
+				"message",
+				"Aplica\u00E7\u00E3o que ultiliza as tecnologias Arduino, Android e JAVA WEB que roda no GAE.");
 		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, PAGE_HOME);
 
 		return PAGE_HOME;

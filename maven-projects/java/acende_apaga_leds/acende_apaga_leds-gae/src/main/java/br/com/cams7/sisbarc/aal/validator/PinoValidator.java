@@ -46,14 +46,14 @@ public class PinoValidator implements Validator {
 		PinoKey key = pino.getPino();
 
 		if (key.getTipo() == null)
-			errors.rejectValue("pino.tipo", "label.led.tipo.requiredMessage",
+			errors.rejectValue("pino.tipo", "label.pino.tipo.requiredMessage",
 					"Field pin type is required");
 
 		final String PINO_FIELD = "pino.codigo";
 
 		if (errors.getFieldErrorCount(PINO_FIELD) == 0
 				&& key.getCodigo() == null)
-			errors.rejectValue(PINO_FIELD, "label.led.pino.requiredMessage",
+			errors.rejectValue(PINO_FIELD, "label.pino.codigo.requiredMessage",
 					"Field pin is required");
 
 	}

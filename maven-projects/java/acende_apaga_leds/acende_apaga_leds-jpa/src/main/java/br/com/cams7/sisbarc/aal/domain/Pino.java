@@ -13,8 +13,6 @@ import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-// @XmlType(name = "pino", propOrder = { "id", "pino", "evento", "alteraEvento",
-// "intervalo", "alteraIntervalo" })
 @XmlSeeAlso({ LEDEntity.class })
 public/* abstract */class Pino extends AbstractEntity {
 
@@ -72,7 +70,6 @@ public/* abstract */class Pino extends AbstractEntity {
 	/**
 	 * @return the id
 	 */
-	// @XmlJavaTypeAdapter(PinIDAdapter.class)
 	public PinoKey getPino() {
 		return pino;
 	}
@@ -145,7 +142,6 @@ public/* abstract */class Pino extends AbstractEntity {
 		this.alteraIntervalo = alteraIntervalo;
 	}
 
-	// @XmlType(name = "evento")
 	@XmlEnum
 	public enum Evento {
 		ACENDE_APAGA, // Acende ou apaga
@@ -156,13 +152,8 @@ public/* abstract */class Pino extends AbstractEntity {
 		public String value() {
 			return name();
 		}
-
-		// public static Evento fromValue(String value) {
-		// return valueOf(value);
-		// }
 	}
 
-	// @XmlType(name = "intervalo")
 	@XmlEnum
 	public enum Intervalo {
 		INTERVALO_10MILISEGUNDOS, // 1/100 de segundo
@@ -177,10 +168,6 @@ public/* abstract */class Pino extends AbstractEntity {
 		public String value() {
 			return name();
 		}
-
-		// public static Intervalo fromValue(String value) {
-		// return valueOf(value);
-		// }
 	}
 
 }

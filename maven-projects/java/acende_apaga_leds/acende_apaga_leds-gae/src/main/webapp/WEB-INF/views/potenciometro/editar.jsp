@@ -1,24 +1,25 @@
-<%-- Pagina de edicao de usuario. --%>
+<%-- Pagina de edicao dos dados do LED. --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div>
-	<spring:message code="label.editar" var="label_editar"
-		htmlEscape="false" />
-	<spring:message code="msg.erro.usuario.inexistente"
-		var="usuario_inexistente" htmlEscape="false" />
 
+<spring:message code="label.editar" var="label_editar"
+	htmlEscape="false" />
+<spring:message code="msg.erro.potenciometro.inexistente"
+	var="potenciometro_inexistente" htmlEscape="false" />
+
+<div>
 	<c:choose>
-		<c:when test="${usuario != null}">
-			<c:import url="/WEB-INF/views/usuario/fullform.jsp">
-				<c:param name="action" value="editar_usuario" />
+		<c:when test="${potenciometro != null}">
+			<c:import url="/WEB-INF/views/potenciometro/form.jsp">
+				<c:param name="action" value="editar_potenciometro" />
 				<c:param name="method" value="PUT" />
 				<c:param name="sublabel" value="${label_editar}" />
-				<c:param name="enableRemove" value="true" />
+				<c:param name="createEntity" value="false" />
 			</c:import>
 
 			<form:form id="formExcluir"
-				action="${pageContext.request.contextPath}/usuario/${usuario.id}"
+				action="${pageContext.request.contextPath}/potenciometro/${potenciometro.id}"
 				method="DELETE" />
 
 			<script>
@@ -30,7 +31,7 @@
 			</script>
 		</c:when>
 		<c:otherwise>
-			<h3>${usuario_inexistente}</h3>
+			<h3>${potenciometro_inexistente}</h3>
 		</c:otherwise>
 	</c:choose>
 </div>

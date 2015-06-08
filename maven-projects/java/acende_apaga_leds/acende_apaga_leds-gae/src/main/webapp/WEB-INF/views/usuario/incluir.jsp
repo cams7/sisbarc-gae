@@ -6,7 +6,7 @@
 		htmlEscape="false" />
 
 	<c:import url="/WEB-INF/views/usuario/fullform.jsp">
-		<c:param name="action" value="incluirUsuario" />
+		<c:param name="action" value="incluir_usuario" />
 		<c:param name="method" value="POST" />
 		<c:param name="sublabel" value="${label_incluir}" />
 	</c:import>

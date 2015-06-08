@@ -21,8 +21,6 @@ import com.googlecode.objectify.annotation.Entity;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-// @XmlType(name = "led", propOrder = { "cor", "ativo", "ativadoPorBotao",
-// "estado" })
 @Entity
 @Document(collection = "led")
 public class LEDEntity extends Pino {
@@ -92,7 +90,6 @@ public class LEDEntity extends Pino {
 		this.estado = estado;
 	}
 
-	// @XmlType(name = "corLED")
 	@XmlEnum
 	public enum CorLED {
 		AMARELO, // LED Amarela
@@ -102,13 +99,8 @@ public class LEDEntity extends Pino {
 		public String value() {
 			return name();
 		}
-
-		// public static CorLED fromValue(String value) {
-		// return valueOf(value);
-		// }
 	}
 
-	// @XmlType(name = "estadoLED")
 	@XmlEnum
 	public enum EstadoLED {
 		ACESO, // Acende
@@ -117,10 +109,6 @@ public class LEDEntity extends Pino {
 		public String value() {
 			return name();
 		}
-
-		// public static EstadoLED fromValue(String value) {
-		// return valueOf(value);
-		// }
 	}
 
 }

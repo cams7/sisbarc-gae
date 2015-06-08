@@ -6,8 +6,8 @@
 	htmlEscape="false" />
 
 <div>
-	<c:import url="/WEB-INF/views/led/form.jsp">
-		<c:param name="action" value="incluir_led" />
+	<c:import url="/WEB-INF/views/potenciometro/form.jsp">
+		<c:param name="action" value="incluir_potenciometro" />
 		<c:param name="method" value="POST" />
 		<c:param name="sublabel" value="${label_incluir}" />
 		<c:param name="createEntity" value="true" />

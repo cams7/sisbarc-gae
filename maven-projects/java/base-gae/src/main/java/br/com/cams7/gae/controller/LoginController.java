@@ -41,7 +41,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 public class LoginController {
 
 	private final String ATTRIBUTE_ENTITY = "usuario";
-	public static final String PAGE_LOGIN = "cadastrarLogin";
+	public static final String PAGE_LOGIN = "cadastrar_login";
 
 	private final String PAGE_LOGOUT = "logout";
 

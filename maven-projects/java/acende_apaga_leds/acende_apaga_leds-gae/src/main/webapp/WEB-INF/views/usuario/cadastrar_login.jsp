@@ -15,7 +15,7 @@
 	htmlEscape="false" />
 
 <form:form method="POST" modelAttribute="usuario"
-	action="${pageContext.request.contextPath}/cadastrarLogin"
+	action="${pageContext.request.contextPath}/cadastrar_login"
 	cssClass="form-horizontal">
 
 	<form:hidden path="enabled" />
@@ -31,7 +31,9 @@
 		</c:import>
 	</fieldset>
 
-	<div class="control-group controls">
-		<input type="submit" value="${button_salvar}">
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" class="btn btn-success" value="${button_salvar}">
+		</div>
 	</div>
 </form:form>

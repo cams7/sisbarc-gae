@@ -4,27 +4,21 @@
 package br.com.cams7.sisbarc.aal.service.impl;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 
-import javax.xml.ws.BindingProvider;
-
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.cams7.app.domain.AbstractEntity;
-import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.gae.ds.AbstractDS;
 import br.com.cams7.gae.repository.AppRepository;
 import br.com.cams7.gae.service.AbstractAppService;
 import br.com.cams7.sisbarc.aal.domain.Pino;
-import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
+import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.service.AALService;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoServiceImpl;
@@ -162,16 +156,25 @@ public abstract class AbstractAALService<R extends AppRepository<E>, D extends A
 		AppArduinoService service = (new AppArduinoServiceImpl())
 				.getAppArduinoServicePort();
 
-		Map<String, Object> context = ((BindingProvider) service)
-				.getRequestContext();
+		// Map<String, Object> context = ((BindingProvider) service)
+		// .getRequestContext();
+		//
+		// Authentication auth = SecurityContextHolder.getContext()
+		// .getAuthentication();
+		// UserEntity currentUser = (UserEntity) auth.getPrincipal();
 
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		UserEntity currentUser = (UserEntity) auth.getPrincipal();
+		// final String ADDRESS = currentUser.getAddress()
+		// + "/acende_apaga_leds/arduino?wsdl";
 
-		String path = currentUser.getAddress() + "/acende_apaga_leds/arduino";
+		// context.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, ADDRESS);
 
-		context.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, path);
+		// Map<String, List<String>> headers = new HashMap<String,
+		// List<String>>();
+		// headers.put("email",
+		// Collections.singletonList(currentUser.getEmail()));
+		// headers.put("username",
+		// Collections.singletonList(currentUser.getUsername()));
+		// context.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
 		return service;
 	}

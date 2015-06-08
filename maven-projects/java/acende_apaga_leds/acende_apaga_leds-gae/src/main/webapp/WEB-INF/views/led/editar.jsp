@@ -12,7 +12,7 @@
 	<c:choose>
 		<c:when test="${led != null}">
 			<c:import url="/WEB-INF/views/led/form.jsp">
-				<c:param name="action" value="editarLED" />
+				<c:param name="action" value="editar_led" />
 				<c:param name="method" value="PUT" />
 				<c:param name="sublabel" value="${label_editar}" />
 				<c:param name="createEntity" value="false" />

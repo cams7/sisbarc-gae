@@ -22,12 +22,10 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
  */
 @WebService(name = AppArduinoService.WEBSERVICE_NAME, targetNamespace = AppArduinoService.WEBSERVICE_TARGETNAMESPACE)
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-// @SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use =
-// SOAPBinding.Use.LITERAL, parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 public interface AppArduinoService extends ArduinoService {
 
 	public static final String WEBSERVICE_NAME = "AppArduinoService";
-	public static final String WEBSERVICE_TARGETNAMESPACE = "http://ws.aal.sisbarc.cams7.com.br/";
+	public static final String WEBSERVICE_TARGETNAMESPACE = ArduinoException.WEBFAULT_TARGETNAMESPACE;
 
 	/**
 	 * Altera o ESTADO do LED para ACESO ou APAGADO

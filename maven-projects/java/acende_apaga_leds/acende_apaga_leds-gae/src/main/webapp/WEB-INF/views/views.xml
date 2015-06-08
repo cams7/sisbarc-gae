@@ -10,9 +10,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/error.jsp" />
 	</definition>
 
-	<definition extends="default" name="cadastrarLogin">
+	<definition extends="default" name="cadastrar_login">
 		<put-attribute name="body"
-			value="/WEB-INF/views/usuario/cadastrarLogin.jsp" />
+			value="/WEB-INF/views/usuario/cadastrar_login.jsp" />
 	</definition>
 
 	<definition extends="default" name="403">
@@ -31,33 +31,48 @@
 		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
 	</definition>
 
-	<definition extends="default" name="listarUsuarios">
+	<definition extends="default" name="listar_usuarios">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/listar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
 	</definition>
 
-	<definition extends="default" name="incluirUsuario">
+	<definition extends="default" name="incluir_usuario">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/incluir.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
 	</definition>
 
-	<definition extends="default" name="editarUsuario">
+	<definition extends="default" name="editar_usuario">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/editar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
 	</definition>
 
-	<definition extends="default" name="listarLEDs">
+	<definition extends="default" name="listar_leds">
 		<put-attribute name="body" value="/WEB-INF/views/led/listar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/led/menu.jsp" />
 	</definition>
 
-	<definition extends="default" name="incluirLED">
+	<definition extends="default" name="incluir_led">
 		<put-attribute name="body" value="/WEB-INF/views/led/incluir.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/led/menu.jsp" />
 	</definition>
 
-	<definition extends="default" name="editarLED">
+	<definition extends="default" name="editar_led">
 		<put-attribute name="body" value="/WEB-INF/views/led/editar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/led/menu.jsp" />
+	</definition>
+	
+	<definition extends="default" name="listar_potenciometros">
+		<put-attribute name="body" value="/WEB-INF/views/potenciometro/listar.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/potenciometro/menu.jsp" />
+	</definition>
+
+	<definition extends="default" name="incluir_potenciometro">
+		<put-attribute name="body" value="/WEB-INF/views/potenciometro/incluir.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/potenciometro/menu.jsp" />
+	</definition>
+
+	<definition extends="default" name="editar_potenciometro">
+		<put-attribute name="body" value="/WEB-INF/views/potenciometro/editar.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/potenciometro/menu.jsp" />
 	</definition>
 </tiles-definitions>

@@ -10,6 +10,10 @@ import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 
 /**
@@ -38,7 +42,7 @@ public class AppArduinoServiceImpl extends Service {
 		URL url = null;
 		WebServiceException exception = null;
 		try {
-			url = new URL(WEBSERVICE_WSDLLOCATION);
+			url = new URL(getWSDLLocation());
 		} catch (MalformedURLException e) {
 			exception = new WebServiceException(e);
 		}
@@ -108,6 +112,16 @@ public class AppArduinoServiceImpl extends Service {
 			throw WEBSERVICE_EXCEPTION;
 
 		return WEBSERVICE_URL;
+	}
+
+	private static final String getWSDLLocation() {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		UserEntity currentUser = (UserEntity) auth.getPrincipal();
+
+		final String ADDRESS = currentUser.getAddress()
+				+ "/acende_apaga_leds/arduino?wsdl";
+		return ADDRESS;
 	}
 
 }

@@ -84,7 +84,7 @@ public class UserRepositoryImpl extends AbstractAppRepository<UserEntity>
 		user.setEnabled((Boolean) entity.getProperty("enabled"));
 		user.setAuthorities(authorities);
 		user.setIp((String) entity.getProperty("ip"));
-		user.setPort((Short) entity.getProperty("port"));
+		user.setPort(((Number) entity.getProperty("port")).shortValue());
 
 		return user;
 

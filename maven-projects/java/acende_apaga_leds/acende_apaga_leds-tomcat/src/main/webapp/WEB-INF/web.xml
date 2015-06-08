@@ -98,16 +98,6 @@
 		</listener -->
 
 	<servlet>
-		<servlet-name>sayhello</servlet-name>
-		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>sayhello</servlet-name>
-		<url-pattern>/sayhello</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
 		<servlet-name>arduino</servlet-name>
 		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>

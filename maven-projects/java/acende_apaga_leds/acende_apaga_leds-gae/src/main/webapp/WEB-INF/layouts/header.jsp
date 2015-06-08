@@ -46,16 +46,16 @@
 							aria-labelledby="submenuIncluir">
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<li role="presentation"
-									class="${active == 'incluirUsuario' ? 'disabled' : ''}"><a
+									class="${active == 'incluir_usuario' ? 'disabled' : ''}"><a
 									role="menuitem"
 									href="${pageContext.request.contextPath}/usuario?form">${menu_usuario}</a></li>
 							</sec:authorize>
 							<li role="presentation"
-								class="${active == 'incluirLED' ? 'disabled' : ''}"><a
+								class="${active == 'incluir_led' ? 'disabled' : ''}"><a
 								role="menuitem"
 								href="${pageContext.request.contextPath}/led?form">${menu_led}</a></li>
 							<li role="presentation"
-								class="${active == 'incluirPotenciometro' ? 'disabled' : ''}"><a
+								class="${active == 'incluir_potenciometro' ? 'disabled' : ''}"><a
 								role="menuitem"
 								href="${pageContext.request.contextPath}/potenciometro?form">${menu_potenciometro}</a></li>
 						</ul></li>
@@ -74,14 +74,14 @@
 				<ul class="dropdown-menu" role="menu" aria-labelledby="menuLista">
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li role="presentation"
-							class="${active == 'listarUsuarios' ? 'disabled' : ''}"><a
+							class="${active == 'listar_usuarios' ? 'disabled' : ''}"><a
 							role="menuitem" href="${pageContext.request.contextPath}/usuario">${menu_usuarios}</a></li>
 					</sec:authorize>
 					<li role="presentation"
-						class="${active == 'listarLEDs' ? 'disabled' : ''}"><a
+						class="${active == 'listar_leds' ? 'disabled' : ''}"><a
 						role="menuitem" href="${pageContext.request.contextPath}/led">${menu_leds}</a></li>
 					<li role="presentation"
-						class="${active == 'listarPotenciometros' ? 'disabled' : ''}"><a
+						class="${active == 'listar_potenciometros' ? 'disabled' : ''}"><a
 						role="menuitem"
 						href="${pageContext.request.contextPath}/potenciometro">${menu_potenciometros}</a></li>
 				</ul></li>

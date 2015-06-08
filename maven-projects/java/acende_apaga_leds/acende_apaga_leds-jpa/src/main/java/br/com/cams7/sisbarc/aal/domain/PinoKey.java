@@ -16,7 +16,6 @@ import br.com.cams7.arduino.ArduinoPinType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-// @XmlType(name = "pinoKey", propOrder = { "tipo", "codigo" })
 public class PinoKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;

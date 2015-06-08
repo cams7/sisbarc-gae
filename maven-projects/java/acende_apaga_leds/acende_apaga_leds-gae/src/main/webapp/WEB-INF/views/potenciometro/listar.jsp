@@ -7,24 +7,19 @@
 <spring:message code="label.sim" var="label_sim" htmlEscape="false" />
 <spring:message code="label.nao" var="label_nao" htmlEscape="false" />
 
-<spring:message code="label.leds" var="label_leds" htmlEscape="false" />
+<spring:message code="label.potenciometros" var="label_potenciometros"
+	htmlEscape="false" />
 <spring:message code="label.listagem" var="label_listagem"
 	htmlEscape="false" />
 
-<spring:message code="label.led.tipo" var="label_led_tipo"
-	htmlEscape="false" />
-<spring:message code="label.led.pino" var="label_led_pino"
-	htmlEscape="false" />
-<spring:message code="label.led.evento" var="label_led_evento"
-	htmlEscape="false" />
-<spring:message code="label.led.intervalo" var="label_led_intervalo"
-	htmlEscape="false" />
-<spring:message code="label.led.cor" var="label_led_cor"
-	htmlEscape="false" />
-<spring:message code="label.led.ativo" var="label_led_ativo"
-	htmlEscape="false" />
-<spring:message code="label.led.ativadoPorBotao"
-	var="label_led_ativadoPorBotao" htmlEscape="false" />
+<spring:message code="label.potenciometro.tipo"
+	var="label_potenciometro_tipo" htmlEscape="false" />
+<spring:message code="label.potenciometro.pino"
+	var="label_potenciometro_pino" htmlEscape="false" />
+<spring:message code="label.potenciometro.evento"
+	var="label_potenciometro_evento" htmlEscape="false" />
+<spring:message code="label.potenciometro.intervalo"
+	var="label_potenciometro_intervalo" htmlEscape="false" />
 
 <spring:message code="label.editar" var="label_editar"
 	htmlEscape="false" />
@@ -41,7 +36,7 @@
 
 <div>
 	<div style="border-bottom: 1px solid #E5E5E5;">
-		<h3>${label_leds}
+		<h3>${label_potenciometros}
 			<small> ${label_listagem}</small>
 		</h3>
 	</div>
@@ -50,37 +45,25 @@
 		<thead>
 			<tr>
 				<th>#</th>
-				<th>${label_led_tipo}</th>
-				<th>${label_led_pino}</th>
-				<th>${label_led_evento}</th>
-				<th>${label_led_intervalo}</th>
-				<th>${label_led_cor}</th>
-				<th>${label_led_ativo}</th>
-				<th>${label_led_ativadoPorBotao}</th>
+				<th>${label_potenciometro_tipo}</th>
+				<th>${label_potenciometro_pino}</th>
+				<th>${label_potenciometro_evento}</th>
+				<th>${label_potenciometro_intervalo}</th>
 			</tr>
 		</thead>
-		<c:forEach items="${leds}" var="l">
+		<c:forEach items="${potenciometros}" var="p">
 			<tr>
 				<td><spring:url
-						value="${pageContext.request.contextPath}/led/${l.id}"
+						value="${pageContext.request.contextPath}/potenciometro/${p.id}"
 						var="edit_url" htmlEscape="true">
 						<spring:param name="form" />
 					</spring:url> <a href="${edit_url}"
-					title="${label_editar} ${l.pino.tipo} ${l.pino.codigo}">${l.id}</a>
+					title="${label_editar} ${p.pino.tipo} ${p.pino.codigo}">${p.id}</a>
 				</td>
-				<td>${l.pino.tipo}</td>
-				<td>${l.pino.codigo}</td>
-				<td>${l.evento}</td>
-				<td>${l.intervalo}</td>
-				<td>${l.cor}</td>
-				<td><c:choose>
-						<c:when test="${l.ativo}">${label_sim}</c:when>
-						<c:otherwise>${label_nao}</c:otherwise>
-					</c:choose></td>
-				<td><c:choose>
-						<c:when test="${l.ativadoPorBotao}">${label_sim}</c:when>
-						<c:otherwise>${label_nao}</c:otherwise>
-					</c:choose></td>
+				<td>${p.pino.tipo}</td>
+				<td>${p.pino.codigo}</td>
+				<td>${p.evento}</td>
+				<td>${p.intervalo}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -94,12 +77,13 @@
 	</div>
 
 	<form:form id="formSynch"
-		action="${pageContext.request.contextPath}/led/synch" method="GET" />
+		action="${pageContext.request.contextPath}/potenciometro/synch"
+		method="GET" />
 	<form:form id="formAtualiza"
-		action="${pageContext.request.contextPath}/atualizar_leds"
+		action="${pageContext.request.contextPath}/atualizar_potenciometros"
 		method="PUT" />
 	<form:form id="formSincroniza"
-		action="${pageContext.request.contextPath}/sincronizar_leds"
+		action="${pageContext.request.contextPath}/sincronizar_potenciometros"
 		method="PUT" />
 
 	<script>

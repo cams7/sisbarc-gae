@@ -1,8 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<%@page session="false"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<spring:message code="msg.erro.conta.desativada"
+	var="msg_conta_desativada" htmlEscape="false" />
 
-<p>Sorry, it looks like your account has been disabled for some
-	reason...</p>
-
+<div class="alert alert-warning" role="alert">${msg_conta_desativada}...</div>

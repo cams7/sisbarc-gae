@@ -30,14 +30,10 @@
 	htmlEscape="false" />
 <spring:message code="defaultValue.led.evento"
 	var="defaultValue_led_evento" htmlEscape="false" />
-<spring:message code="label.led.alteraEvento"
-	var="label_led_alteraEvento" htmlEscape="false" />
 <spring:message code="label.led.intervalo" var="label_led_intervalo"
 	htmlEscape="false" />
 <spring:message code="defaultValue.led.intervalo"
 	var="defaultValue_led_intervalo" htmlEscape="false" />
-<spring:message code="label.led.alteraIntervalo"
-	var="label_led_alteraIntervalo" htmlEscape="false" />
 <spring:message code="label.led.cor" var="label_led_cor"
 	htmlEscape="false" />
 <spring:message code="defaultValue.led.cor" var="defaultValue_led_cor"
@@ -69,7 +65,7 @@
 					<label class="control-label">${label_led_tipo}</label>
 					<div class="controls">
 						<form:select path="pino.tipo">
-							<form:option value="${null}" label="${defaultValue_led_tipo}" />
+							<form:option value="${null}" label="${defaultValue_led_tipo}..." />
 							<form:options items="${tipos}" />
 						</form:select>
 						<form:errors path="pino.tipo"
@@ -103,7 +99,8 @@
 				<c:choose>
 					<c:when test="${led.alteraEvento}">
 						<form:select path="evento">
-							<form:option value="${null}" label="${defaultValue_led_evento}" />
+							<form:option value="${null}"
+								label="${defaultValue_led_evento}..." />
 							<form:options items="${eventos}" />
 						</form:select>
 						<form:errors path="evento"
@@ -127,7 +124,7 @@
 					<c:when test="${led.alteraIntervalo}">
 						<form:select path="intervalo">
 							<form:option value="${null}"
-								label="${defaultValue_led_intervalo}" />
+								label="${defaultValue_led_intervalo}..." />
 							<form:options items="${intervalos}" />
 						</form:select>
 						<form:errors path="intervalo"
@@ -149,7 +146,7 @@
 				<c:choose>
 					<c:when test="${param.createEntity}">
 						<form:select path="cor">
-							<form:option value="${null}" label="${defaultValue_led_cor}" />
+							<form:option value="${null}" label="${defaultValue_led_cor}..." />
 							<form:options items="${cores}" />
 						</form:select>
 						<form:errors path="cor" cssClass="alert alert-error input-alert" />

@@ -38,7 +38,7 @@ import com.google.appengine.api.users.UserServiceFactory;
  *
  */
 public class AuthenticationFilter extends GenericFilterBean {
-	private static final String REGISTRATION_URL = "/cadastrarLogin";
+	private static final String REGISTRATION_URL = "/cadastrar_login";
 
 	private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 

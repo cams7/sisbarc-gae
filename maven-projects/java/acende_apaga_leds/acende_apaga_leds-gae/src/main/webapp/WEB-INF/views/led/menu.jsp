@@ -11,9 +11,9 @@
 	<ul class="nav nav-list" style="padding-top: 15px;">
 		<li><em>${label_leds}</em></li>
 
-		<li class="${active == 'listarLEDs' ? 'active' : ''}"><a
+		<li class="${active == 'listar_leds' ? 'active' : ''}"><a
 			href="${pageContext.request.contextPath}/led">${menu_lista}</a></li>
-		<li class="${active == 'incluirLED' ? 'active' : ''}"><a
+		<li class="${active == 'incluir_led' ? 'active' : ''}"><a
 			href="${pageContext.request.contextPath}/led?form">${menu_incluir}</a></li>
 		<li class="divider" />
 		<li><a href="${pageContext.request.contextPath}/logout">${menu_sair}</a></li>

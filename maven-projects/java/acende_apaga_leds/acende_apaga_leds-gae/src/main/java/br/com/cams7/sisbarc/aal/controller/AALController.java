@@ -17,6 +17,7 @@ import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.gae.controller.AbstractAppController;
+import br.com.cams7.gae.security.AuthenticationHelper;
 import br.com.cams7.gae.service.AppService;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
@@ -24,7 +25,7 @@ import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.service.AALService;
 import br.com.cams7.sisbarc.aal.validator.PinoValidator;
 import br.com.cams7.util.AppException;
-import br.com.cams7.util.AppUtil;
+import br.com.cams7.util.AppHelper;
 
 /**
  * @author cams7
@@ -47,11 +48,13 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 		if (page.equals(getPageInclude())
 				&& uiModel.containsAttribute(getAttributeEntity())) {
 			try {
-				Pino pino = (Pino) AppUtil.getNewEntity(getEntityType());
+				Pino pino = (Pino) AppHelper.getNewEntity(getEntityType());
 
 				pino.setPino(new PinoKey());
 				pino.setAlteraEvento(true);
 				pino.setAlteraIntervalo(true);
+
+				pino.setUser(AuthenticationHelper.getRefUser());
 
 				uiModel.addAttribute(getAttributeEntity(), pino);
 			} catch (AppException e) {
@@ -62,19 +65,23 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 		return page;
 	}
 
-	@Override
-	public String criar(E entity, BindingResult result, Model uiModel,
-			Locale locale) {
+	public String criar(Long userId, E entity, BindingResult result,
+			Model uiModel, Locale locale) {
 		validator.validate(entity, result);
+
+		Pino pino = (Pino) entity;
+		pino.setUser(AuthenticationHelper.getRefUser(userId));
 
 		return super.criar(entity, result, uiModel, locale);
 	}
 
-	public String atualizaPino(E entity, BindingResult result, Model uiModel,
-			Locale locale) {
-		Pino pino = (Pino) entity;
+	public String atualizaPino(Long userId, E entity, BindingResult result,
+			Model uiModel, Locale locale) {
 
-		validator.validate(pino, result);
+		validator.validate(entity, result);
+
+		Pino pino = (Pino) entity;
+		pino.setUser(AuthenticationHelper.getRefUser(userId));
 
 		String page = getPageEdit();
 

@@ -5,7 +5,7 @@ package br.com.cams7.sisbarc.aal.repository;
 
 import java.util.List;
 
-import br.com.cams7.gae.repository.AppRepository;
+import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 
@@ -20,8 +20,8 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
  * @author cams7
  *
  */
-public interface LEDRepository extends AppRepository<LEDEntity> {
-	public List<LEDEntity> buscaLEDsAtivadoPorBotao();
+public interface LEDRepository extends AALRepository<LEDEntity> {
+	public List<LEDEntity> buscaLEDsAtivadoPorBotao(UserEntity user);
 
-	public LEDEntity findOne(PinoKey key);
+	public LEDEntity findOne(UserEntity user, PinoKey key);
 }

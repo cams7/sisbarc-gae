@@ -5,7 +5,6 @@ package br.com.cams7.sisbarc.aal.repository.impl;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.cams7.gae.repository.AbstractAppRepository;
 import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
 import br.com.cams7.sisbarc.aal.repository.PotenciometroRepository;
 
@@ -33,7 +32,7 @@ import br.com.cams7.sisbarc.aal.repository.PotenciometroRepository;
  */
 @Repository
 public class PotenciometroRepositoryImpl extends
-		AbstractAppRepository<PotenciometroEntity> implements
+		AbstractAALRepository<PotenciometroEntity> implements
 		PotenciometroRepository {
 
 	public PotenciometroRepositoryImpl() {

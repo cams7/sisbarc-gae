@@ -90,8 +90,8 @@ public abstract class AbstractDS<E extends AbstractEntity> extends
 
 	@Override
 	public List<E> findAll() {
-		List<E> entity = new ArrayList<E>(data.values());
-		return entity;
+		List<E> entities = new ArrayList<E>(data.values());
+		return entities;
 	}
 
 	public void synch(List<E> entities) {
@@ -109,7 +109,8 @@ public abstract class AbstractDS<E extends AbstractEntity> extends
 	}
 
 	public boolean isEmpty() {
-		return data.isEmpty();
+		boolean isEmpty = data.isEmpty();
+		return isEmpty;
 	}
 
 	/**

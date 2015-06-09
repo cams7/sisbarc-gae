@@ -27,7 +27,7 @@ import org.springframework.data.domain.Sort;
 import br.com.cams7.app.controller.AbstractController;
 import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.util.AppException;
-import br.com.cams7.util.AppUtil;
+import br.com.cams7.util.AppHelper;
 import br.com.cams7.webapp.service.AppService;
 
 /**
@@ -103,7 +103,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 			public List<E> load(int first, int pageSize, String sortField,
 					SortOrder sortOrder, Map<String, Object> filters) {
 
-				filters = AppUtil.removeEmptyArray(filters);
+				filters = AppHelper.removeEmptyArray(filters);
 
 				if (pageSize != lastPageSize) {
 					lastPageSize = (byte) pageSize;
@@ -113,7 +113,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 									.equals(lastSortOrder))) {
 						lastSortField = sortField;
 						lastSortOrder = sortOrder;
-					} else if (((!filters.isEmpty() || lastFilters != null) && !AppUtil
+					} else if (((!filters.isEmpty() || lastFilters != null) && !AppHelper
 							.equalMaps(filters, lastFilters))) {
 
 						if (!filters.isEmpty())
@@ -165,7 +165,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 */
 	public void includeNewEntity() {
 		try {
-			setSelectedEntity(AppUtil.getNewEntity(getEntityType()));
+			setSelectedEntity(AppHelper.getNewEntity(getEntityType()));
 			getLog().info("Nova entidade");
 		} catch (AppException e) {
 			getLog().log(Level.SEVERE, e.getMessage(), e);

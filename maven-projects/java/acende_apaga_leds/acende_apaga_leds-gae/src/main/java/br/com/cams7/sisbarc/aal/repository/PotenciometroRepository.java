@@ -3,7 +3,6 @@
  */
 package br.com.cams7.sisbarc.aal.repository;
 
-import br.com.cams7.gae.repository.AppRepository;
 import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
 
 /**
@@ -18,6 +17,5 @@ import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
  *
  */
 public interface PotenciometroRepository extends
-		AppRepository<PotenciometroEntity> {
-
+		AALRepository<PotenciometroEntity> {
 }

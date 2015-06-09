@@ -27,7 +27,7 @@ import br.com.cams7.app.repository.BaseRepository;
  * @author cams7
  *
  */
-public final class AppUtil {
+public final class AppHelper {
 	public static URL getURLFile(Class<?> classType, String fileName) {
 		URL fileURL = classType.getClassLoader().getResource(fileName);
 		return fileURL;

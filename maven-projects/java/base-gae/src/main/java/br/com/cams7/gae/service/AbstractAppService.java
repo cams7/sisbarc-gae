@@ -17,7 +17,7 @@ import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.gae.ds.AbstractDS;
 import br.com.cams7.gae.repository.AppRepository;
 import br.com.cams7.util.AppException;
-import br.com.cams7.util.AppUtil;
+import br.com.cams7.util.AppHelper;
 
 /**
  * @author cesar
@@ -38,7 +38,7 @@ public abstract class AbstractAppService<R extends AppRepository<E>, D extends A
 	public AbstractAppService() {
 		super();
 
-		dsType = (Class<D>) AppUtil.getType(this, DS_ARGUMENT_NUMBER);
+		dsType = (Class<D>) AppHelper.getType(this, DS_ARGUMENT_NUMBER);
 	}
 
 	@Override
@@ -94,6 +94,39 @@ public abstract class AbstractAppService<R extends AppRepository<E>, D extends A
 		getDataSource().synch(getRepository().findAll());
 	}
 
+	/**
+	 * O <code>DataSource</code> da entidade é armazenado na sessão do usuário.
+	 * Esse método é responsável por recuperar esse objeto e deixá-lo pronto
+	 * para uso.
+	 * 
+	 * @return <code>DataSource</code> da sessão do usuário.
+	 */
+	protected D getDataSource() {
+		List<E> entities = getRepository().findAll();
+		return getDataSource(entities);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected D getDataSource(List<E> entities) {
+		final String ATTRIBUTE_DS = this.getClass().getSimpleName() + "_DS";
+
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
+				.currentRequestAttributes();
+		HttpSession session = attr.getRequest().getSession();
+		D ds = (D) session.getAttribute(ATTRIBUTE_DS);
+		if (ds == null) {
+			try {
+				ds = (D) AppHelper.getNewDataSource(dsType);
+				ds.synch(entities);
+				session.setAttribute(ATTRIBUTE_DS, ds);
+			} catch (AppException e) {
+				getLog().log(Level.SEVERE, e.getMessage(), e);
+			}
+
+		}
+		return ds;
+	}
+
 	@Override
 	protected byte getEntityArgumentNumber() {
 		return ENTITY_ARGUMENT_NUMBER;
@@ -103,31 +136,4 @@ public abstract class AbstractAppService<R extends AppRepository<E>, D extends A
 		return repository;
 	}
 
-	/**
-	 * O <code>DataSource</code> da entidade é armazenado na sessão do usuário.
-	 * Esse método é responsável por recuperar esse objeto e deixá-lo pronto
-	 * para uso.
-	 * 
-	 * @return <code>MercadoriaDataSource</code> da sessão do usuário.
-	 */
-	@SuppressWarnings("unchecked")
-	protected D getDataSource() {
-		final String ATTRIBUTE_DS = this.getClass().getSimpleName() + "_DS";
-
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
-				.currentRequestAttributes();
-		HttpSession session = attr.getRequest().getSession();
-		D ds = (D) session.getAttribute(ATTRIBUTE_DS);
-		if (ds == null) {
-			try {
-				ds = (D) AppUtil.getNewDataSource(dsType);
-				ds.synch(getRepository().findAll());
-				session.setAttribute(ATTRIBUTE_DS, ds);
-			} catch (AppException e) {
-				getLog().log(Level.SEVERE, e.getMessage(), e);
-			}
-
-		}
-		return ds;
-	}
 }

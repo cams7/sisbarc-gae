@@ -11,14 +11,17 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
 import br.com.cams7.app.domain.AbstractEntity;
+import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.gae.ds.AbstractDS;
 import br.com.cams7.gae.repository.AppRepository;
+import br.com.cams7.gae.security.AuthenticationHelper;
 import br.com.cams7.gae.service.AbstractAppService;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
+import br.com.cams7.sisbarc.aal.repository.AALRepository;
 import br.com.cams7.sisbarc.aal.service.AALService;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 import br.com.cams7.sisbarc.aal.ws.AppArduinoServiceImpl;
@@ -32,6 +35,25 @@ public abstract class AbstractAALService<R extends AppRepository<E>, D extends A
 
 	public AbstractAALService() {
 		super();
+	}
+
+	@Override
+	public List<E> findAll(UserEntity user) {
+		AALRepository<E> repository = (AALRepository<E>) getRepository();
+		List<E> entities = repository.findAll(user);
+		return entities;
+	}
+
+	@Override
+	public void synch() {
+		List<E> entities = findAll(AuthenticationHelper.getCurrentUser());
+		getDataSource().synch(entities);
+	}
+
+	@Override
+	protected D getDataSource() {
+		List<E> entities = findAll(AuthenticationHelper.getCurrentUser());
+		return getDataSource(entities);
 	}
 
 	protected PinoKey[] getKeys(List<E> entidades) {
@@ -155,26 +177,6 @@ public abstract class AbstractAALService<R extends AppRepository<E>, D extends A
 	protected AppArduinoService getPort() {
 		AppArduinoService service = (new AppArduinoServiceImpl())
 				.getAppArduinoServicePort();
-
-		// Map<String, Object> context = ((BindingProvider) service)
-		// .getRequestContext();
-		//
-		// Authentication auth = SecurityContextHolder.getContext()
-		// .getAuthentication();
-		// UserEntity currentUser = (UserEntity) auth.getPrincipal();
-
-		// final String ADDRESS = currentUser.getAddress()
-		// + "/acende_apaga_leds/arduino?wsdl";
-
-		// context.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, ADDRESS);
-
-		// Map<String, List<String>> headers = new HashMap<String,
-		// List<String>>();
-		// headers.put("email",
-		// Collections.singletonList(currentUser.getEmail()));
-		// headers.put("username",
-		// Collections.singletonList(currentUser.getUsername()));
-		// context.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
 		return service;
 	}

@@ -9,8 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import com.googlecode.objectify.annotation.Index;
-
 import br.com.cams7.arduino.ArduinoPinType;
 
 /**
@@ -18,7 +16,6 @@ import br.com.cams7.arduino.ArduinoPinType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@Index
 public class PinoKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;

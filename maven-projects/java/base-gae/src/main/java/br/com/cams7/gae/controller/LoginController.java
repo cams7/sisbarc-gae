@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.app.domain.entity.UserEntity.Role;
+import br.com.cams7.gae.security.AuthenticationHelper;
 import br.com.cams7.gae.security.GoogleAccountsAuthenticationEntryPoint;
 import br.com.cams7.gae.security.UserAuthentication;
 import br.com.cams7.gae.service.UserService;
@@ -61,10 +62,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/" + PAGE_LOGIN, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-
-		UserEntity currentUser = (UserEntity) auth.getPrincipal();
+		UserEntity currentUser = AuthenticationHelper.getCurrentUser();
 		uiModel.addAttribute(ATTRIBUTE_ENTITY, currentUser);
 
 		return PAGE_LOGIN;

@@ -8,7 +8,7 @@ package br.com.cams7.app;
 import java.util.logging.Logger;
 
 import br.com.cams7.app.domain.AbstractEntity;
-import br.com.cams7.util.AppUtil;
+import br.com.cams7.util.AppHelper;
 
 /**
  * @author cesar
@@ -27,7 +27,7 @@ public abstract class AbstractBase<E extends AbstractEntity> {
 		super();
 
 		log = Logger.getLogger(this.getClass().getName());
-		entityType = (Class<E>) AppUtil
+		entityType = (Class<E>) AppHelper
 				.getType(this, getEntityArgumentNumber());
 	}
 

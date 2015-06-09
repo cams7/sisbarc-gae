@@ -17,6 +17,8 @@ public class ArduinoException extends Exception {
 
 	public static final String WEBFAULT_NAME = "ArduinoFault";
 	public static final String WEBFAULT_TARGETNAMESPACE = "http://ws.aal.sisbarc.cams7.com.br/";
+	// public static final String WEBFAULT_TARGETNAMESPACE =
+	// "http://arduino.cams7.com.br/";
 
 	private static final long serialVersionUID = 1L;
 

@@ -17,18 +17,21 @@ import br.com.cams7.sisbarc.aal.domain.Pino;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.condition.IfNotNull;
+import com.googlecode.objectify.condition.IfTrue;
 
 /**
  * @author cams7
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@Entity
-@Index
-@Document(collection = "led")
+@Entity(name = LEDEntity.ENTITY_NAME)
+@Document(collection = LEDEntity.ENTITY_NAME)
 public class LEDEntity extends Pino {
 
 	private static final long serialVersionUID = 1L;
+
+	public static final String ENTITY_NAME = "led";
 
 	@NotNull(message = "{NotNull.led.cor}")
 	private CorLED cor;
@@ -37,6 +40,7 @@ public class LEDEntity extends Pino {
 	private Boolean ativo;
 
 	@NotNull(message = "{NotNull.led.ativadoPorBotao}")
+	@Index({ IfNotNull.class, IfTrue.class })
 	private Boolean ativadoPorBotao;
 
 	@Transient

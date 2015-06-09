@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
@@ -83,10 +84,12 @@ public class PotenciometroController extends
 	@Override
 	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
 	public String criar(
+			@RequestParam(required = true) Long userId,
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) PotenciometroEntity potenciometro,
 			BindingResult result, Model uiModel, Locale locale) {
 
-		String page = super.criar(potenciometro, result, uiModel, locale);
+		String page = super.criar(userId, potenciometro, result, uiModel,
+				locale);
 
 		if (page.equals(PAGE_LIST)) {
 			PinoKey key = potenciometro.getPino();
@@ -115,10 +118,11 @@ public class PotenciometroController extends
 	@Override
 	@RequestMapping(value = "/" + PAGE_EDIT, method = RequestMethod.PUT)
 	public String atualizaPino(
+			@RequestParam(required = true) Long userId,
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) PotenciometroEntity potenciometro,
 			BindingResult result, Model uiModel, Locale locale) {
-		String page = super
-				.atualizaPino(potenciometro, result, uiModel, locale);
+		String page = super.atualizaPino(userId, potenciometro, result,
+				uiModel, locale);
 		return page;
 	}
 

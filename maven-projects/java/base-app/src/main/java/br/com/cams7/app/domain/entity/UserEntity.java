@@ -17,12 +17,7 @@ import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.condition.IfNotEmpty;
 import com.googlecode.objectify.condition.IfNotNull;
 
-import com.googlecode.objectify.condition.IfNotZero;
-
-;
-
-@Entity
-// (name = UserEntity.ENTITY_NAME)
+@Entity(name = UserEntity.ENTITY_NAME)
 @Document(collection = UserEntity.ENTITY_NAME)
 public class UserEntity extends AbstractEntity {
 
@@ -52,11 +47,9 @@ public class UserEntity extends AbstractEntity {
 	private Set<Role> authorities;
 
 	@Transient
-	@Index({ IfNotNull.class, IfNotEmpty.class })
 	private String ip;
 
 	@Transient
-	@Index({ IfNotNull.class, IfNotZero.class })
 	private Short port;
 
 	public UserEntity() {
@@ -66,8 +59,9 @@ public class UserEntity extends AbstractEntity {
 	@Override
 	public String toString() {
 		return this.getClass().getName() + "[id = " + getId() + ", username = "
-				+ getUsername() + ", password = " + getEmail() + ", senha = "
-				+ getPassword() + ", authorities = " + getAuthorities() + "]";
+				+ getUsername() + ", email = " + getEmail() + ", password = "
+				+ getPassword() + ", authorities = " + getAuthorities()
+				+ ", ip = " + getIp() + ", port = " + getPort() + "]";
 	}
 
 	public Long getId() {

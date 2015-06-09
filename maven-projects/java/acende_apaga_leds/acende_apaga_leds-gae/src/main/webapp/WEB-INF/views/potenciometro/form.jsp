@@ -18,32 +18,36 @@
 <spring:message code="button.excluir" var="button_excluir"
 	htmlEscape="false" />
 
-<spring:message code="label.potenciometro" var="label_potenciometro" htmlEscape="false" />
+<spring:message code="label.potenciometro" var="label_potenciometro"
+	htmlEscape="false" />
 
-<spring:message code="label.potenciometro.tipo" var="label_potenciometro_tipo"
-	htmlEscape="false" />
-<spring:message code="defaultValue.potenciometro.tipo" var="defaultValue_potenciometro_tipo"
-	htmlEscape="false" />
-<spring:message code="label.potenciometro.pino" var="label_potenciometro_pino"
-	htmlEscape="false" />
-<spring:message code="label.potenciometro.evento" var="label_potenciometro_evento"
-	htmlEscape="false" />
+<spring:message code="label.potenciometro.tipo"
+	var="label_potenciometro_tipo" htmlEscape="false" />
+<spring:message code="defaultValue.potenciometro.tipo"
+	var="defaultValue_potenciometro_tipo" htmlEscape="false" />
+<spring:message code="label.potenciometro.pino"
+	var="label_potenciometro_pino" htmlEscape="false" />
+<spring:message code="label.potenciometro.evento"
+	var="label_potenciometro_evento" htmlEscape="false" />
 <spring:message code="defaultValue.potenciometro.evento"
 	var="defaultValue_potenciometro_evento" htmlEscape="false" />
-<spring:message code="label.potenciometro.intervalo" var="label_potenciometro_intervalo"
-	htmlEscape="false" />
+<spring:message code="label.potenciometro.intervalo"
+	var="label_potenciometro_intervalo" htmlEscape="false" />
 <spring:message code="defaultValue.potenciometro.intervalo"
 	var="defaultValue_potenciometro_intervalo" htmlEscape="false" />
 
 <c:import url="/WEB-INF/views/message.jsp" />
 
-<form:form id="potenciometroForm" modelAttribute="potenciometro" method="${param.method}"
+<form:form id="potenciometroForm" modelAttribute="potenciometro"
+	method="${param.method}"
 	action="${pageContext.request.contextPath}/${param.action}"
 	cssClass="form-horizontal">
 
 	<form:hidden path="id" />
 	<form:hidden path="alteraEvento" />
 	<form:hidden path="alteraIntervalo" />
+
+	<input type="hidden" name="userId" value="${potenciometro.user.key.id}">
 
 	<fieldset>
 		<legend>
@@ -57,7 +61,8 @@
 					<label class="control-label">${label_potenciometro_tipo}</label>
 					<div class="controls">
 						<form:select path="pino.tipo">
-							<form:option value="${null}" label="${defaultValue_potenciometro_tipo}..." />
+							<form:option value="${null}"
+								label="${defaultValue_potenciometro_tipo}..." />
 							<form:options items="${tipos}" />
 						</form:select>
 						<form:errors path="pino.tipo"
@@ -91,7 +96,8 @@
 				<c:choose>
 					<c:when test="${potenciometro.alteraEvento}">
 						<form:select path="evento">
-							<form:option value="${null}" label="${defaultValue_potenciometro_evento}..." />
+							<form:option value="${null}"
+								label="${defaultValue_potenciometro_evento}..." />
 							<form:options items="${eventos}" />
 						</form:select>
 						<form:errors path="evento"
@@ -128,7 +134,7 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-		</div>		
+		</div>
 	</fieldset>
 </form:form>
 

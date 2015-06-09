@@ -19,7 +19,7 @@ import br.com.cams7.app.controller.AbstractController;
 import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.gae.service.AppService;
 import br.com.cams7.util.AppException;
-import br.com.cams7.util.AppUtil;
+import br.com.cams7.util.AppHelper;
 
 /**
  * @author cams7
@@ -66,6 +66,11 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 */
 	public String listar(Model uiModel) {
 		List<E> entities = getService().findAll();
+
+		return listar(uiModel, entities);
+	}
+
+	protected String listar(Model uiModel, List<E> entities) {
 		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, getPageList());
 		uiModel.addAttribute(getAttributeEntities(), entities);
 
@@ -80,7 +85,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	 */
 	public String criarForm(Model uiModel) {
 		try {
-			E entity = AppUtil.getNewEntity(getEntityType());
+			E entity = AppHelper.getNewEntity(getEntityType());
 
 			uiModel.addAttribute(getAttributeEntity(), entity);
 			uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, getPageInclude());

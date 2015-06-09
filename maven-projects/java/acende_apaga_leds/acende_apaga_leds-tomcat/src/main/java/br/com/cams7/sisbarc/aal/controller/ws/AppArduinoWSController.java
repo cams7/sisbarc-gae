@@ -24,7 +24,7 @@ import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
  *
  */
 @Controller("arduinoWS")
-@WebService(endpointInterface = "br.com.cams7.sisbarc.aal.ws.AppArduinoService")
+@WebService(endpointInterface = AppArduinoService.WEBSERVICE_FULLNAME)
 public class AppArduinoWSController implements AppArduinoService {
 
 	@Autowired

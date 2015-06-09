@@ -31,9 +31,8 @@
 <script type="text/javascript" src="${bootstrap_js_url}"></script>
 <!-- script type="text/javascript" src="${jquery_validate_url}"></script-->
 
-<spring:message code="page.title.app" var="page_title_app"
-	htmlEscape="false" />
-<title>${page_title_app}</title>
+<spring:message code="app.title" var="app_title" htmlEscape="false" />
+<title>${app_title}</title>
 </head>
 
 <body>

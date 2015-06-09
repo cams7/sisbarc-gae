@@ -25,6 +25,8 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 public interface AppArduinoService extends ArduinoService {
 
 	public static final String WEBSERVICE_NAME = "AppArduinoService";
+	public static final String WEBSERVICE_FULLNAME = "br.com.cams7.sisbarc.aal.ws."
+			+ WEBSERVICE_NAME;
 	public static final String WEBSERVICE_TARGETNAMESPACE = ArduinoException.WEBFAULT_TARGETNAMESPACE;
 
 	/**

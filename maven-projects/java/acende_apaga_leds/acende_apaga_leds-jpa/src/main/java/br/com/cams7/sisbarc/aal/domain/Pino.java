@@ -5,15 +5,23 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.springframework.data.annotation.Transient;
 
 import br.com.cams7.app.domain.AbstractEntity;
+import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
+import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
 
-import com.googlecode.objectify.annotation.Unindex;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.condition.IfNotNull;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlSeeAlso({ LEDEntity.class })
+@XmlSeeAlso({ LEDEntity.class, PotenciometroEntity.class })
 public/* abstract */class Pino extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -23,21 +31,26 @@ public/* abstract */class Pino extends AbstractEntity {
 	private Long id;
 
 	@NotNull
+	@Index({ IfNotNull.class })
 	private PinoKey pino;
 
 	@NotNull(message = "{NotNull.pino.evento}")
 	private Evento evento;
 
 	@NotNull(message = "{NotNull.pino.alteraEvento}")
-	@Unindex
 	private Boolean alteraEvento;
 
 	@NotNull(message = "{NotNull.pino.intervalo}")
 	private Intervalo intervalo;
 
 	@NotNull(message = "{NotNull.pino.alteraIntervalo}")
-	@Unindex
 	private Boolean alteraIntervalo;
+
+	@XmlTransient
+	@JsonIgnore
+	@Transient
+	@Index({ IfNotNull.class })
+	private Ref<UserEntity> user;
 
 	public Pino() {
 		super();
@@ -57,7 +70,7 @@ public/* abstract */class Pino extends AbstractEntity {
 				+ ", pino = " + getPino() + ", evento = " + getEvento()
 				+ ",  alteraEvento = " + getAlteraEvento() + ", intervalo = "
 				+ getIntervalo() + ", alteraIntervalo = "
-				+ getAlteraIntervalo() + "]";
+				+ getAlteraIntervalo() + ", user = " + getUser() + "]";
 	}
 
 	public Long getId() {
@@ -141,6 +154,14 @@ public/* abstract */class Pino extends AbstractEntity {
 	 */
 	public void setAlteraIntervalo(Boolean alteraIntervalo) {
 		this.alteraIntervalo = alteraIntervalo;
+	}
+
+	public Ref<UserEntity> getUser() {
+		return user;
+	}
+
+	public void setUser(Ref<UserEntity> user) {
+		this.user = user;
 	}
 
 	@XmlEnum

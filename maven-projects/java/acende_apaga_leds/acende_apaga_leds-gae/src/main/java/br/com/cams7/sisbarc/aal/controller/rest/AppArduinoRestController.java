@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cams7.app.controller.AbstractRestController;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.arduino.ArduinoPinType;
+import br.com.cams7.gae.security.AuthenticationHelper;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
@@ -47,7 +48,8 @@ public class AppArduinoRestController extends
 		ArduinoPinType tipo = ArduinoPinType.valueOf(stringTipo);
 		Byte pino = Byte.valueOf(stringPino);
 
-		LEDEntity led = getService().findOne(new PinoKey(tipo, pino));
+		LEDEntity led = getService().findOne(
+				AuthenticationHelper.getCurrentUser(), new PinoKey(tipo, pino));
 
 		if (led == null)
 			throw new AppException("O LED '" + tipo + " " + pino

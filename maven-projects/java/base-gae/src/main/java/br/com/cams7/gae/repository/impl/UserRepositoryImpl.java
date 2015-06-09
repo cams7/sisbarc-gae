@@ -58,8 +58,7 @@ public class UserRepositoryImpl extends AbstractAppRepository<UserEntity>
 				email);
 
 		// Use class Query to assemble a query
-		Query query = new Query(UserEntity.class.getSimpleName())
-				.setFilter(emailFilter);
+		Query query = new Query(UserEntity.ENTITY_NAME).setFilter(emailFilter);
 
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(query);

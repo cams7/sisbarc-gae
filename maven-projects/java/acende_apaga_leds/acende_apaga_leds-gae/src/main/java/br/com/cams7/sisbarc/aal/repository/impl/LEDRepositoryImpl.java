@@ -9,12 +9,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.googlecode.objectify.cmd.Query;
-
-import br.com.cams7.gae.repository.AbstractAppRepository;
+import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.repository.LEDRepository;
+
+import com.googlecode.objectify.cmd.Query;
 
 /**
  * Implementa o contrato de persistencia da entidade <code>LED</code>.
@@ -38,7 +38,7 @@ import br.com.cams7.sisbarc.aal.repository.LEDRepository;
  *
  */
 @Repository
-public class LEDRepositoryImpl extends AbstractAppRepository<LEDEntity>
+public class LEDRepositoryImpl extends AbstractAALRepository<LEDEntity>
 		implements LEDRepository {
 
 	public LEDRepositoryImpl() {
@@ -46,16 +46,18 @@ public class LEDRepositoryImpl extends AbstractAppRepository<LEDEntity>
 	}
 
 	@Override
-	public List<LEDEntity> buscaLEDsAtivadoPorBotao() {
+	public List<LEDEntity> buscaLEDsAtivadoPorBotao(UserEntity user) {
 		Query<LEDEntity> query = ofy().load().type(LEDEntity.class);
+		query = query.filter("user", user);
 		query = query.filter("ativadoPorBotao", Boolean.TRUE);
 		List<LEDEntity> leds = query.list();
 		return leds;
 	}
 
 	@Override
-	public LEDEntity findOne(PinoKey key) {
+	public LEDEntity findOne(UserEntity user, PinoKey key) {
 		Query<LEDEntity> query = ofy().load().type(LEDEntity.class);
+		query = query.filter("user", user);
 		query = query.filter("pino.tipo", key.getTipo());
 		query = query.filter("pino.codigo", key.getCodigo());
 		LEDEntity led = query.first().now();

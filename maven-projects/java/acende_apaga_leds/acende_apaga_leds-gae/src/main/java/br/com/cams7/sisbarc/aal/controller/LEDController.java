@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
@@ -82,13 +83,14 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 
 	@Override
 	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
-	public String criar(@Valid @ModelAttribute(ATTRIBUTE_ENTITY) LEDEntity led,
+	public String criar(@RequestParam(required = true) Long userId,
+			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) LEDEntity led,
 			BindingResult result, Model uiModel, Locale locale) {
 		if (result.getFieldErrorCount("ativo") == 0
 				&& led.getAtivadoPorBotao() == Boolean.FALSE)
 			led.setAtivo(Boolean.TRUE);
 
-		String page = super.criar(led, result, uiModel, locale);
+		String page = super.criar(userId, led, result, uiModel, locale);
 
 		if (page.equals(PAGE_LIST)) {
 			PinoKey key = led.getPino();
@@ -114,10 +116,10 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 
 	@Override
 	@RequestMapping(value = "/" + PAGE_EDIT, method = RequestMethod.PUT)
-	public String atualizaPino(
+	public String atualizaPino(@RequestParam(required = true) Long userId,
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) LEDEntity led,
 			BindingResult result, Model uiModel, Locale locale) {
-		String page = super.atualizaPino(led, result, uiModel, locale);
+		String page = super.atualizaPino(userId, led, result, uiModel, locale);
 		return page;
 	}
 

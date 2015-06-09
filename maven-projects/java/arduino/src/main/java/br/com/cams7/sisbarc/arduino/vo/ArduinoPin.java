@@ -7,7 +7,7 @@ import java.util.Properties;
 
 import br.com.cams7.arduino.ArduinoPinType;
 import br.com.cams7.util.AppException;
-import br.com.cams7.util.AppUtil;
+import br.com.cams7.util.AppHelper;
 
 /**
  * @author cams7
@@ -30,7 +30,7 @@ public abstract class ArduinoPin {
 
 	static {
 		try {
-			Properties pins = AppUtil.getPropertiesFile(Arduino.class,
+			Properties pins = AppHelper.getPropertiesFile(Arduino.class,
 					"pins.properties");
 			final String SEPARATE = ",";
 

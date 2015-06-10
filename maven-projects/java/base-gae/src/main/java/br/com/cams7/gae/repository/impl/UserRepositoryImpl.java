@@ -49,13 +49,13 @@ public class UserRepositoryImpl extends AbstractAppRepository<UserEntity>
 	 * .lang.String)
 	 */
 	@Override
-	public UserEntity findByEmail(String email) {
+	public UserEntity findByGoogleId(String googleId) {
 		// Get the Datastore Service
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
-		Filter emailFilter = new FilterPredicate("email", FilterOperator.EQUAL,
-				email);
+		Filter emailFilter = new FilterPredicate("googleId",
+				FilterOperator.EQUAL, googleId);
 
 		// Use class Query to assemble a query
 		Query query = new Query(UserEntity.ENTITY_NAME).setFilter(emailFilter);
@@ -78,6 +78,7 @@ public class UserRepositoryImpl extends AbstractAppRepository<UserEntity>
 
 		UserEntity user = new UserEntity();
 		user.setId(entity.getKey().getId());
+		user.setGoogleId((String) entity.getProperty("googleId"));
 		user.setUsername((String) entity.getProperty("username"));
 		user.setEmail((String) entity.getProperty("email"));
 		user.setEnabled((Boolean) entity.getProperty("enabled"));

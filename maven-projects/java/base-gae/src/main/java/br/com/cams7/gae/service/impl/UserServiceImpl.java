@@ -25,8 +25,8 @@ public class UserServiceImpl extends
 	}
 
 	@Override
-	public UserEntity findByEmail(String email) {
-		return getRepository().findByEmail(email);
+	public UserEntity findByGoogleId(String email) {
+		return getRepository().findByGoogleId(email);
 	}
 
 }

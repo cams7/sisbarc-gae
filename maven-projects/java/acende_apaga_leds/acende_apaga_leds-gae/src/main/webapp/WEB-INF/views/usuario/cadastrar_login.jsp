@@ -27,7 +27,7 @@
 		</legend>
 
 		<c:import url="/WEB-INF/views/usuario/form.jsp">
-			<c:param name="emailReadonly" value="true" />
+			<c:param name="isAdmin" value="false" />
 		</c:import>
 	</fieldset>
 

@@ -5,6 +5,8 @@
 
 <spring:message code="menu.inicio" var="menu_inicio" htmlEscape="false" />
 <spring:message code="menu.home" var="menu_home" htmlEscape="false" />
+<spring:message code="menu.usuarioAtual" var="menu_usuarioAtual"
+	htmlEscape="false" />
 <spring:message code="menu.incluir" var="menu_incluir"
 	htmlEscape="false" />
 <spring:message code="menu.usuario" var="menu_usuario"
@@ -37,6 +39,7 @@
 				<li role="presentation"
 					class="${active == 'home' ? 'disabled' : ''}"><a
 					role="menuitem" href="${pageContext.request.contextPath}/home">${menu_home}</a></li>
+
 				<sec:authorize access="hasAnyRole('ROLE_USER,ROLE_ADMIN')">
 					<li class="dropdown-submenu"><a id="submenuIncluir"
 						class="dropdown-toggle" data-toggle="dropdown" href="#"
@@ -60,7 +63,13 @@
 								href="${pageContext.request.contextPath}/potenciometro?form">${menu_potenciometro}</a></li>
 						</ul></li>
 				</sec:authorize>
+
 				<sec:authorize access="isAuthenticated()">
+					<li role="presentation" class="divider"></li>
+					<li role="presentation"
+						class="${active == 'editar_login' ? 'disabled' : ''}"><a
+						role="menuitem"
+						href="${pageContext.request.contextPath}/editar_login?form">${menu_usuarioAtual}</a></li>
 					<li role="presentation" class="divider"></li>
 					<li role="presentation"><a role="menuitem"
 						href="${pageContext.request.contextPath}/logout">${menu_sair}</a></li>

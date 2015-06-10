@@ -14,6 +14,10 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/usuario/cadastrar_login.jsp" />
 	</definition>
+	<definition extends="default" name="editar_login">
+		<put-attribute name="body"
+			value="/WEB-INF/views/usuario/editar_login.jsp" />
+	</definition>
 
 	<definition extends="default" name="403">
 		<put-attribute name="body" value="/WEB-INF/views/403.jsp" />
@@ -60,19 +64,25 @@
 		<put-attribute name="body" value="/WEB-INF/views/led/editar.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/led/menu.jsp" />
 	</definition>
-	
+
 	<definition extends="default" name="listar_potenciometros">
-		<put-attribute name="body" value="/WEB-INF/views/potenciometro/listar.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/potenciometro/menu.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/potenciometro/listar.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/potenciometro/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="incluir_potenciometro">
-		<put-attribute name="body" value="/WEB-INF/views/potenciometro/incluir.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/potenciometro/menu.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/potenciometro/incluir.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/potenciometro/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="editar_potenciometro">
-		<put-attribute name="body" value="/WEB-INF/views/potenciometro/editar.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/potenciometro/menu.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/potenciometro/editar.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/potenciometro/menu.jsp" />
 	</definition>
 </tiles-definitions>

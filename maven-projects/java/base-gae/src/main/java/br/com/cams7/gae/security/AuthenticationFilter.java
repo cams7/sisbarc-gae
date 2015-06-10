@@ -29,6 +29,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.app.domain.entity.UserEntity.Role;
+import br.com.cams7.gae.controller.LoginController;
 
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -38,7 +39,6 @@ import com.google.appengine.api.users.UserServiceFactory;
  *
  */
 public class AuthenticationFilter extends GenericFilterBean {
-	private static final String REGISTRATION_URL = "/cadastrar_login";
 
 	private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
@@ -94,8 +94,9 @@ public class AuthenticationFilter extends GenericFilterBean {
 					if (authorities.contains(Role.ROLE_NEWUSER)) {
 						LOGGER.debug("New user authenticated. Redirecting to registration page");
 
-						((HttpServletResponse) response)
-								.sendRedirect(REGISTRATION_URL);
+						((HttpServletResponse) response).sendRedirect("/"
+								+ LoginController.PAGE_CADASTRAR_LOGIN
+								+ "?form");
 
 						return;
 					}

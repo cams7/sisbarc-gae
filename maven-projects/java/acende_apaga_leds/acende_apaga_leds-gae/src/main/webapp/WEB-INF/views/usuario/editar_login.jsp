@@ -11,24 +11,12 @@
 	<c:choose>
 		<c:when test="${usuario != null}">
 			<c:import url="/WEB-INF/views/usuario/fullform.jsp">
-				<c:param name="action" value="editar_usuario" />
+				<c:param name="action" value="editar_login" />
 				<c:param name="method" value="PUT" />
 				<c:param name="sublabel" value="${label_editar}" />
-				<c:param name="enableRemove" value="true" />
-				<c:param name="isAdmin" value="true" />
-			</c:import>
-
-			<form:form id="formExcluir"
-				action="${pageContext.request.contextPath}/usuario/${usuario.id}"
-				method="DELETE" />
-
-			<script>
-				$(document).ready(function() {
-					$("#btnExcluir").click(function() {
-						$("#formExcluir").submit();
-					});
-				});
-			</script>
+				<c:param name="enableRemove" value="false" />
+				<c:param name="isAdmin" value="false" />
+			</c:import>			
 		</c:when>
 		<c:otherwise>
 			<h3>${usuario_inexistente}</h3>

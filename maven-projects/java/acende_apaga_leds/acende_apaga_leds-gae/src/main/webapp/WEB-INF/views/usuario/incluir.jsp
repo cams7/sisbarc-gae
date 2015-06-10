@@ -9,5 +9,7 @@
 		<c:param name="action" value="incluir_usuario" />
 		<c:param name="method" value="POST" />
 		<c:param name="sublabel" value="${label_incluir}" />
+		<c:param name="enableRemove" value="false" />
+		<c:param name="isAdmin" value="true" />
 	</c:import>
 </div>

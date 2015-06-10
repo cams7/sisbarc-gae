@@ -32,7 +32,6 @@ public class GoogleAccountsAuthenticationProvider implements
 	protected MessageSourceAccessor messages = SpringSecurityMessageSource
 			.getAccessor();
 
-	// @Autowired
 	private UserService service;
 
 	public GoogleAccountsAuthenticationProvider() {
@@ -49,11 +48,13 @@ public class GoogleAccountsAuthenticationProvider implements
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		User googleUser = (User) authentication.getPrincipal();
+		String googleId = googleUser.getUserId();
 
-		UserEntity user = service.findByEmail(googleUser.getEmail());
+		UserEntity user = service.findByGoogleId(googleId);
 
 		if (user == null) {
 			user = new UserEntity();
+			user.setGoogleId(googleId);
 			user.setUsername(googleUser.getNickname());
 			user.setEmail(googleUser.getEmail());
 			user.setEnabled(true);

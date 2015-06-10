@@ -10,5 +10,5 @@ import br.com.cams7.app.domain.entity.UserEntity;
  *
  */
 public interface UserRepository extends AppRepository<UserEntity> {
-	public UserEntity findByEmail(String email);
+	public UserEntity findByGoogleId(String email);
 }

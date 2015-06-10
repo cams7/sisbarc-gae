@@ -5,6 +5,8 @@ package br.com.cams7.gae.controller;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -13,10 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +26,6 @@ import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.app.domain.entity.UserEntity.Role;
 import br.com.cams7.gae.security.AuthenticationHelper;
 import br.com.cams7.gae.security.GoogleAccountsAuthenticationEntryPoint;
-import br.com.cams7.gae.security.UserAuthentication;
 import br.com.cams7.gae.service.UserService;
 import br.com.cams7.gae.validator.UserValidator;
 
@@ -41,8 +38,12 @@ import com.google.appengine.api.users.UserServiceFactory;
 @Controller
 public class LoginController {
 
+	private final String PARAM_FORM = "form";
+
 	private final String ATTRIBUTE_ENTITY = "usuario";
-	public static final String PAGE_LOGIN = "cadastrar_login";
+
+	public static final String PAGE_CADASTRAR_LOGIN = "cadastrar_login";
+	private final String PAGE_EDITAR_LOGIN = "editar_login";
 
 	private final String PAGE_LOGOUT = "logout";
 
@@ -60,16 +61,16 @@ public class LoginController {
 		this.validator = validator;
 	}
 
-	@RequestMapping(value = "/" + PAGE_LOGIN, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_CADASTRAR_LOGIN, params = PARAM_FORM, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
 		UserEntity currentUser = AuthenticationHelper.getCurrentUser();
 		uiModel.addAttribute(ATTRIBUTE_ENTITY, currentUser);
 
-		return PAGE_LOGIN;
+		return PAGE_CADASTRAR_LOGIN;
 	}
 
-	@RequestMapping(value = "/" + PAGE_LOGIN, method = RequestMethod.POST)
-	public String register(
+	@RequestMapping(value = "/" + PAGE_CADASTRAR_LOGIN, method = RequestMethod.POST)
+	public String criar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
 			BindingResult result, Model uiModel, HttpServletRequest request) {
 
@@ -77,7 +78,7 @@ public class LoginController {
 
 		if (result.hasErrors()) {
 			uiModel.addAttribute(ATTRIBUTE_ENTITY, user);
-			return PAGE_LOGIN;
+			return PAGE_CADASTRAR_LOGIN;
 		}
 
 		Set<Role> authorities = new HashSet<Role>();
@@ -90,13 +91,7 @@ public class LoginController {
 
 		service.insert(user);
 
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-
-		Authentication auth = securityContext.getAuthentication();
-
-		// Update the context with the full authentication
-		securityContext.setAuthentication(new UserAuthentication(user, auth
-				.getDetails()));
+		AuthenticationHelper.changeAuthentication(user);
 
 		ServletContext servletContext = request.getSession()
 				.getServletContext();
@@ -109,18 +104,37 @@ public class LoginController {
 		return "redirect:/home";
 	}
 
-	// for 403 access denied page
-	@RequestMapping(value = "/" + PAGE_403, method = RequestMethod.GET)
-	public String accesssDenied(Model uiModel) {
-		// check if user is login
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			UserEntity currentUser = (UserEntity) auth.getPrincipal();
+	@RequestMapping(value = "/" + PAGE_EDITAR_LOGIN, params = PARAM_FORM, method = RequestMethod.GET)
+	public String editarForm(Model uiModel) {
+		UserEntity currentUser = AuthenticationHelper.getCurrentUser();
+		uiModel.addAttribute(ATTRIBUTE_ENTITY, currentUser);
 
-			uiModel.addAttribute("username", currentUser.getUsername());
+		return PAGE_EDITAR_LOGIN;
+	}
+
+	@RequestMapping(value = "/" + PAGE_EDITAR_LOGIN, method = RequestMethod.PUT)
+	public String editar(
+			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
+			BindingResult result, Model uiModel, Locale locale) {
+
+		validator.validate(user, result);
+
+		if (result.hasErrors()) {
+			uiModel.addAttribute(ATTRIBUTE_ENTITY, user);
+			return PAGE_EDITAR_LOGIN;
 		}
 
+		service.save(user);
+
+		AuthenticationHelper.changeAuthentication(user);
+
+		return "redirect:/home";
+
+	}
+
+	// for 403 access denied page
+	@RequestMapping(value = "/" + PAGE_403, method = RequestMethod.GET)
+	public String accesssDenied() {
 		return PAGE_403;
 	}
 
@@ -138,6 +152,21 @@ public class LoginController {
 				"/home");
 
 		response.sendRedirect(logoutUrl);
+	}
+
+	@ModelAttribute("roles")
+	public Set<Role> populateAutorizacoes() {
+		// Data referencing for web framework checkboxes
+		Set<Role> roles = new LinkedHashSet<Role>();
+
+		for (Role role : Role.values()) {
+			if (role.equals(Role.ROLE_NEWUSER))
+				continue;
+
+			roles.add(role);
+		}
+
+		return roles;
 	}
 
 }

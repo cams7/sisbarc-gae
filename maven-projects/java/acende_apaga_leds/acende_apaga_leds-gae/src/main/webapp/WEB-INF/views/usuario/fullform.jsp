@@ -37,22 +37,34 @@
 		</legend>
 
 		<c:import url="/WEB-INF/views/usuario/form.jsp">
-			<c:param name="emailReadonly" value="false" />
+			<c:param name="isAdmin" value="${param.isAdmin}" />
 		</c:import>
+
 
 		<div class="control-group">
 			<label class="control-label">${label_usuario_authorities}</label>
 			<div class="controls">
-				<form:checkboxes items="${roles}" path="authorities" />
+				<c:if test="${not param.isAdmin}" var="authoritiesDisabled">
+					<form:hidden path="authorities" />
+				</c:if>
+				<form:checkboxes items="${roles}" path="authorities"
+					disabled="${authoritiesDisabled}" />
 			</div>
 		</div>
+
 
 		<div class="control-group">
 			<label class="control-label">${label_usuario_enabled}</label>
 			<div class="controls">
-				<form:radiobutton path="enabled" value="true" />
+				<c:if test="${not param.isAdmin}" var="enabledDisabled">
+					<form:hidden path="enabled" />
+				</c:if>
+
+				<form:radiobutton path="enabled" value="true"
+					disabled="${enabledDisabled}" />
 				${label_sim}
-				<form:radiobutton path="enabled" value="false" />
+				<form:radiobutton path="enabled" value="false"
+					disabled="${enabledDisabled}" />
 				${label_nao}
 			</div>
 		</div>
@@ -64,7 +76,7 @@
 		<button id="btnSalvar" class="btn btn-success">${button_salvar}</button>
 		<a href="${pageContext.request.contextPath}/usuario"><button
 				class="btn">${button_cancelar}</button></a>
-		<c:if test="${not empty param.enableRemove}">
+		<c:if test="${param.enableRemove}">
 			<button id="btnExcluir" class="btn btn-danger">${button_excluir}</button>
 		</c:if>
 	</div>

@@ -29,14 +29,17 @@ public class UserEntity extends AbstractEntity {
 	@org.springframework.data.annotation.Id
 	private Long id;
 
-	@NotBlank(message = "{NotBlank.user.username}")
 	@Indexed(unique = true)
+	@Index({ IfNotNull.class, IfNotEmpty.class })
+	private String googleId;
+
+	@NotBlank(message = "{NotBlank.user.username}")
+	// @Indexed(unique = true)
 	private String username;
 
 	@NotBlank(message = "{NotBlank.user.email}")
 	@Email
 	@Indexed(unique = true)
-	@Index({ IfNotNull.class, IfNotEmpty.class })
 	private String email;
 
 	@Ignore
@@ -58,10 +61,12 @@ public class UserEntity extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return this.getClass().getName() + "[id = " + getId() + ", username = "
-				+ getUsername() + ", email = " + getEmail() + ", password = "
-				+ getPassword() + ", authorities = " + getAuthorities()
-				+ ", ip = " + getIp() + ", port = " + getPort() + "]";
+		return this.getClass().getName() + "[id = " + getId() + ", googleId = "
+				+ getGoogleId() + ", username = " + getUsername()
+				+ ", email = " + getEmail() + ", password = " + getPassword()
+				+ ", enabled = " + isEnabled() + ", authorities = "
+				+ getAuthorities() + ", ip = " + getIp() + ", port = "
+				+ getPort() + "]";
 	}
 
 	public Long getId() {
@@ -70,6 +75,14 @@ public class UserEntity extends AbstractEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getGoogleId() {
+		return googleId;
+	}
+
+	public void setGoogleId(String googleId) {
+		this.googleId = googleId;
 	}
 
 	public String getUsername() {

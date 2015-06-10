@@ -34,7 +34,7 @@
 	<label class="control-label">${label_usuario_email}</label>
 	<div class="controls">
 		<form:input path="email" cssClass="input-large"
-			readonly="${not param.isAdmin}" />
+			readonly="${isLoginPage}" />
 		<form:errors path="email" cssClass="alert alert-error input-alert" />
 	</div>
 </div>

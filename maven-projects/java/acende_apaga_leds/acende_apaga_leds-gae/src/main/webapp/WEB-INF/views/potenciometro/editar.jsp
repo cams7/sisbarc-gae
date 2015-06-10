@@ -31,7 +31,7 @@
 			</script>
 		</c:when>
 		<c:otherwise>
-			<h3>${potenciometro_inexistente}</h3>
+			<div class="alert alert-warning" role="alert">${potenciometro_inexistente}</div>
 		</c:otherwise>
 	</c:choose>
 </div>

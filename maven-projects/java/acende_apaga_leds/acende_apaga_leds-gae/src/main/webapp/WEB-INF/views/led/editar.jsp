@@ -31,7 +31,7 @@
 			</script>
 		</c:when>
 		<c:otherwise>
-			<h3>${led_inexistente}</h3>
+			<div class="alert alert-warning" role="alert">${led_inexistente}</div>
 		</c:otherwise>
 	</c:choose>
 </div>

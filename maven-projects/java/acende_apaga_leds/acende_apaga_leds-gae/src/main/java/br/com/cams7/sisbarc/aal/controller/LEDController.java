@@ -78,6 +78,16 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 	@RequestMapping(value = PAGE_MAIN, params = PARAM_FORM, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
 		String page = super.criarForm(uiModel);
+
+		switch (page) {
+		case PAGE_INCLUDE:
+			break;
+		case PAGE_ERROR:
+			break;
+		default:
+			break;
+		}
+
 		return page;
 	}
 
@@ -92,7 +102,10 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 
 		String page = super.criar(userId, led, result, uiModel, locale);
 
-		if (page.equals(PAGE_LIST)) {
+		switch (page) {
+		case PAGE_INCLUDE:
+			break;
+		case PAGE_LIST:
 			PinoKey key = led.getPino();
 			addINFOMessage(
 					uiModel,
@@ -101,7 +114,9 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 					getMessageSource().getMessage("msg.ok.detail.salvar.led",
 							new Object[] { key.getTipo(), key.getCodigo() },
 							locale));
-
+			break;
+		default:
+			break;
 		}
 
 		return page;
@@ -111,6 +126,16 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", params = PARAM_FORM, method = RequestMethod.GET)
 	public String editarForm(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
 		String page = super.editarForm(id, uiModel);
+
+		switch (page) {
+		case PAGE_EDIT:
+			break;
+		case PAGE_ERROR:
+			break;
+		default:
+			break;
+		}
+
 		return page;
 	}
 
@@ -120,6 +145,22 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) LEDEntity led,
 			BindingResult result, Model uiModel, Locale locale) {
 		String page = super.atualizaPino(userId, led, result, uiModel, locale);
+
+		switch (page) {
+		case PAGE_EDIT:
+			break;
+		case PAGE_LIST:
+			PinoKey key = led.getPino();
+			String summary = getMessageSource().getMessage(
+					"info.msg.pin.update.ok", new Object[] {}, locale);// Resumo
+			String detail = getMessageSource().getMessage(
+					"info.msg.pin.update",
+					new Object[] { key.getTipo(), key.getCodigo() }, locale);// Detalhes
+			addINFOMessage(uiModel, summary, detail);
+			break;
+		default:
+			break;
+		}
 		return page;
 	}
 
@@ -143,13 +184,20 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 			Locale locale) {
 		String page = super.remover(id, uiModel, locale);
 
-		if (page.equals(PAGE_LIST))
+		switch (page) {
+		case PAGE_ERROR:
+			break;
+		case PAGE_LIST:
 			addINFOMessage(
 					uiModel,
 					getMessageSource().getMessage("msg.ok.summary.remover.led",
 							new Object[] {}, locale),
 					getMessageSource().getMessage("msg.ok.detail.remover.led",
 							new Object[] { id }, locale));
+			break;
+		default:
+			break;
+		}
 
 		return page;
 	}

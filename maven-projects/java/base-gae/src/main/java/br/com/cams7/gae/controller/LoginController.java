@@ -40,10 +40,12 @@ public class LoginController {
 
 	private final String PARAM_FORM = "form";
 
-	private final String ATTRIBUTE_ENTITY = "usuario";
+	public static final String ATTRIBUTE_ENTITY = "usuario";
+	public static final String ATTRIBUTE_IS_LOGIN_PAGE = "isLoginPage";
+	protected final String ATTRIBUTE_PAGE_ACTIVE = "active";
 
-	public static final String PAGE_CADASTRAR_LOGIN = "cadastrar_login";
-	private final String PAGE_EDITAR_LOGIN = "editar_login";
+	public static final String PAGE_INCLUIR_USUARIO = "incluir_usuario";
+	public static final String PAGE_EDITAR_USUARIO = "editar_usuario";
 
 	private final String PAGE_LOGOUT = "logout";
 
@@ -61,15 +63,15 @@ public class LoginController {
 		this.validator = validator;
 	}
 
-	@RequestMapping(value = "/" + PAGE_CADASTRAR_LOGIN, params = PARAM_FORM, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_INCLUIR_USUARIO, params = PARAM_FORM, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
-		UserEntity currentUser = AuthenticationHelper.getCurrentUser();
-		uiModel.addAttribute(ATTRIBUTE_ENTITY, currentUser);
+		addAttributes(uiModel, AuthenticationHelper.getCurrentUser(),
+				PAGE_INCLUIR_USUARIO);
 
-		return PAGE_CADASTRAR_LOGIN;
+		return PAGE_INCLUIR_USUARIO;
 	}
 
-	@RequestMapping(value = "/" + PAGE_CADASTRAR_LOGIN, method = RequestMethod.POST)
+	@RequestMapping(value = "/" + PAGE_INCLUIR_USUARIO, method = RequestMethod.POST)
 	public String criar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
 			BindingResult result, Model uiModel, HttpServletRequest request) {
@@ -77,8 +79,8 @@ public class LoginController {
 		validator.validate(user, result);
 
 		if (result.hasErrors()) {
-			uiModel.addAttribute(ATTRIBUTE_ENTITY, user);
-			return PAGE_CADASTRAR_LOGIN;
+			addAttributes(uiModel, user, PAGE_INCLUIR_USUARIO);
+			return PAGE_INCLUIR_USUARIO;
 		}
 
 		Set<Role> authorities = new HashSet<Role>();
@@ -104,15 +106,15 @@ public class LoginController {
 		return "redirect:/home";
 	}
 
-	@RequestMapping(value = "/" + PAGE_EDITAR_LOGIN, params = PARAM_FORM, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_EDITAR_USUARIO, params = PARAM_FORM, method = RequestMethod.GET)
 	public String editarForm(Model uiModel) {
-		UserEntity currentUser = AuthenticationHelper.getCurrentUser();
-		uiModel.addAttribute(ATTRIBUTE_ENTITY, currentUser);
+		addAttributes(uiModel, AuthenticationHelper.getCurrentUser(),
+				PAGE_EDITAR_USUARIO);
 
-		return PAGE_EDITAR_LOGIN;
+		return PAGE_EDITAR_USUARIO;
 	}
 
-	@RequestMapping(value = "/" + PAGE_EDITAR_LOGIN, method = RequestMethod.PUT)
+	@RequestMapping(value = "/" + PAGE_EDITAR_USUARIO, method = RequestMethod.POST)
 	public String editar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
 			BindingResult result, Model uiModel, Locale locale) {
@@ -120,8 +122,8 @@ public class LoginController {
 		validator.validate(user, result);
 
 		if (result.hasErrors()) {
-			uiModel.addAttribute(ATTRIBUTE_ENTITY, user);
-			return PAGE_EDITAR_LOGIN;
+			addAttributes(uiModel, user, PAGE_EDITAR_USUARIO);
+			return PAGE_EDITAR_USUARIO;
 		}
 
 		service.save(user);
@@ -130,6 +132,12 @@ public class LoginController {
 
 		return "redirect:/home";
 
+	}
+
+	private void addAttributes(Model uiModel, UserEntity user, String page) {
+		uiModel.addAttribute(ATTRIBUTE_ENTITY, user);
+		uiModel.addAttribute(ATTRIBUTE_IS_LOGIN_PAGE, Boolean.TRUE);
+		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, page);
 	}
 
 	// for 403 access denied page

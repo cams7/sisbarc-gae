@@ -57,12 +57,14 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 				pino.setUser(AuthenticationHelper.getRefUser());
 
 				uiModel.addAttribute(getAttributeEntity(), pino);
+
+				return page;
 			} catch (AppException e) {
 				getLog().log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 
-		return page;
+		return PAGE_ERROR;
 	}
 
 	public String criar(Long userId, E entity, BindingResult result,
@@ -86,7 +88,7 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 		String page = getPageEdit();
 
 		if (result.hasErrors()) {
-			uiModel.addAttribute(getAttributeEntity(), entity);
+			addAttributes(uiModel, entity, page);
 			return page;
 		}
 
@@ -103,15 +105,9 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 
 			boolean arduinoRun = call.get();
 
-			if (arduinoRun) {
-				String summary = getMessageSource().getMessage(
-						"info.msg.pin.update.ok", new Object[] {}, locale);// Resumo
-				String detail = getMessageSource().getMessage(
-						"info.msg.pin.update", args, locale);// Detalhes
-				addINFOMessage(uiModel, summary, detail);
-
+			if (arduinoRun)
 				page = listar(uiModel);
-			} else
+			else
 				addMessageArduinoNotRun(uiModel, locale, MSG_ERROR_UPDATE);
 		} catch (InterruptedException | ExecutionException e) {
 			addERRORMessage(uiModel, MSG_ERROR_UPDATE, e.getMessage());

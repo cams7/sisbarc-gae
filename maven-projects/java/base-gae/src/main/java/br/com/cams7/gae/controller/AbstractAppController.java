@@ -33,7 +33,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	protected final String PARAM_FORM = "form";
 	protected final String VARIABLE_ID = "id";
 
-	private final String PAGE_ERROR = "error";
+	protected final String PAGE_ERROR = "error";
 
 	private final String ATTRIBUTE_SEVERITY = "message_severity";
 	private final String ATTRIBUTE_SUMMARY = "message_summary";
@@ -71,8 +71,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	}
 
 	protected String listar(Model uiModel, List<E> entities) {
-		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, getPageList());
-		uiModel.addAttribute(getAttributeEntities(), entities);
+		addAttributes(uiModel, entities, getPageList());
 
 		return getPageList();
 	}
@@ -87,8 +86,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 		try {
 			E entity = AppHelper.getNewEntity(getEntityType());
 
-			uiModel.addAttribute(getAttributeEntity(), entity);
-			uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, getPageInclude());
+			addAttributes(uiModel, entity, getPageInclude());
 
 			getLog().log(Level.INFO, "Pronto para incluir a entidade");
 
@@ -113,8 +111,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	public String criar(E entity, BindingResult result, Model uiModel,
 			Locale locale) {
 		if (result.hasErrors()) {
-			uiModel.addAttribute(getAttributeEntity(), entity);
-			uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, getPageInclude());
+			addAttributes(uiModel, entity, getPageInclude());
 			return getPageInclude();
 		}
 
@@ -136,14 +133,14 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	public String editarForm(Long id, Model uiModel) {
 		E entity = getService().findOne(id);
 
-		if (entity != null) {
-			uiModel.addAttribute(getAttributeEntity(), entity);
-			getLog().log(Level.INFO, "Pronto para editar a entidade");
+		if (entity == null)
+			return PAGE_ERROR;
 
-			return getPageEdit();
-		}
+		addAttributes(uiModel, entity, getPageEdit());
 
-		return PAGE_ERROR;
+		getLog().log(Level.INFO, "Pronto para editar a entidade");
+
+		return getPageEdit();
 	}
 
 	/**
@@ -161,7 +158,7 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	public String editar(E entity, BindingResult result, Model uiModel,
 			Locale locale) {
 		if (result.hasErrors()) {
-			uiModel.addAttribute(getAttributeEntity(), entity);
+			addAttributes(uiModel, entity, getPageEdit());
 			return getPageEdit();
 		}
 
@@ -182,11 +179,23 @@ public abstract class AbstractAppController<S extends AppService<E>, E extends A
 	public String remover(Long id, Model uiModel, Locale locale) {
 		E entity = getService().findOne(id);
 
-		if (entity != null)
-			getService().delete(entity);
+		if (entity == null)
+			return PAGE_ERROR;
+
+		getService().delete(entity);
 
 		String page = listar(uiModel);
 		return page;
+	}
+
+	protected void addAttributes(Model uiModel, E entity, String page) {
+		uiModel.addAttribute(getAttributeEntity(), entity);
+		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, page);
+	}
+
+	protected void addAttributes(Model uiModel, List<E> entities, String page) {
+		uiModel.addAttribute(getAttributeEntities(), entities);
+		uiModel.addAttribute(ATTRIBUTE_PAGE_ACTIVE, page);
 	}
 
 	/**

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.app.domain.entity.UserEntity.Role;
 import br.com.cams7.gae.controller.AbstractAppController;
+import br.com.cams7.gae.controller.LoginController;
 import br.com.cams7.gae.service.UserService;
 import br.com.cams7.gae.validator.UserValidator;
 
@@ -34,15 +35,15 @@ import br.com.cams7.gae.validator.UserValidator;
 public class UserController extends
 		AbstractAppController<UserService, UserEntity> {
 
-	private static final String ATTRIBUTE_ENTITY = "usuario";
+	private static final String ATTRIBUTE_ENTITY = LoginController.ATTRIBUTE_ENTITY;
 
 	private final String ATTRIBUTE_ENTITIES = "usuarios";
 
 	public static final String PAGE_MAIN = "/" + ATTRIBUTE_ENTITY;
 
 	private final String PAGE_LIST = "listar_usuarios";
-	private final String PAGE_INCLUDE = "incluir_usuario";
-	private final String PAGE_EDIT = "editar_usuario";
+	// private final String PAGE_INCLUDE = "incluir_usuario";
+	private final String PAGE_EDIT = LoginController.PAGE_EDITAR_USUARIO;
 
 	private UserValidator validator;
 
@@ -64,40 +65,52 @@ public class UserController extends
 		return page;
 	}
 
-	@Override
-	@RequestMapping(value = PAGE_MAIN, params = PARAM_FORM, method = RequestMethod.GET)
-	public String criarForm(Model uiModel) {
-		String page = super.criarForm(uiModel);
-		return page;
-	}
+	// @Override
+	// @RequestMapping(value = PAGE_MAIN, params = PARAM_FORM, method =
+	// RequestMethod.GET)
+	// public String criarForm(Model uiModel) {
+	// String page = super.criarForm(uiModel);
+	// return page;
+	// }
 
-	@Override
-	@RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
-	public String criar(
-			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
-			BindingResult result, Model uiModel, Locale locale) {
-
-		validator.validate(user, result);
-
-		String page = super.criar(user, result, uiModel, locale);
-
-		if (page.equals(PAGE_LIST))
-			addINFOMessage(
-					uiModel,
-					getMessageSource().getMessage(
-							"msg.ok.summary.salvar.usuario", new Object[] {},
-							locale),
-					getMessageSource().getMessage(
-							"msg.ok.detail.salvar.usuario",
-							new Object[] { user.getUsername() }, locale));
-
-		return page;
-	}
+	// @Override
+	// @RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
+	// public String criar(
+	// @Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
+	// BindingResult result, Model uiModel, Locale locale) {
+	//
+	// validator.validate(user, result);
+	//
+	// String page = super.criar(user, result, uiModel, locale);
+	//
+	// if (page.equals(PAGE_LIST))
+	// addINFOMessage(
+	// uiModel,
+	// getMessageSource().getMessage(
+	// "msg.ok.summary.salvar.usuario", new Object[] {},
+	// locale),
+	// getMessageSource().getMessage(
+	// "msg.ok.detail.salvar.usuario",
+	// new Object[] { user.getUsername() }, locale));
+	//
+	// return page;
+	// }
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", params = PARAM_FORM, method = RequestMethod.GET)
 	public String editarForm(@PathVariable(VARIABLE_ID) Long id, Model uiModel) {
 		String page = super.editarForm(id, uiModel);
+
+		switch (page) {
+		case PAGE_EDIT:
+			addAttributeIsntLoginPage(uiModel);
+			break;
+		case PAGE_ERROR:
+			break;
+		default:
+			break;
+		}
+
 		return page;
 	}
 
@@ -111,7 +124,11 @@ public class UserController extends
 
 		String page = super.editar(user, result, uiModel, locale);
 
-		if (page.equals(PAGE_LIST))
+		switch (page) {
+		case PAGE_EDIT:
+			addAttributeIsntLoginPage(uiModel);
+			break;
+		case PAGE_LIST:
 			addINFOMessage(
 					uiModel,
 					getMessageSource().getMessage(
@@ -120,6 +137,10 @@ public class UserController extends
 					getMessageSource().getMessage(
 							"msg.ok.detail.atualizar.usuario",
 							new Object[] { user.getUsername() }, locale));
+			break;
+		default:
+			break;
+		}
 
 		return page;
 	}
@@ -130,7 +151,10 @@ public class UserController extends
 			Locale locale) {
 		String page = super.remover(id, uiModel, locale);
 
-		if (page.equals(PAGE_LIST))
+		switch (page) {
+		case PAGE_ERROR:
+			break;
+		case PAGE_LIST:
 			addINFOMessage(
 					uiModel,
 					getMessageSource().getMessage(
@@ -139,8 +163,17 @@ public class UserController extends
 					getMessageSource().getMessage(
 							"msg.ok.detail.remover.usuario",
 							new Object[] { id }, locale));
+			break;
+		default:
+			break;
+		}
 
 		return page;
+	}
+
+	private void addAttributeIsntLoginPage(Model uiModel) {
+		uiModel.addAttribute(LoginController.ATTRIBUTE_IS_LOGIN_PAGE,
+				Boolean.FALSE);
 	}
 
 	@Override
@@ -182,7 +215,8 @@ public class UserController extends
 
 	@Override
 	protected String getPageInclude() {
-		return PAGE_INCLUDE;
+		// return PAGE_INCLUDE;
+		return null;
 	}
 
 	@Override

@@ -10,15 +10,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/error.jsp" />
 	</definition>
 
-	<definition extends="default" name="cadastrar_login">
-		<put-attribute name="body"
-			value="/WEB-INF/views/usuario/cadastrar_login.jsp" />
-	</definition>
-	<definition extends="default" name="editar_login">
-		<put-attribute name="body"
-			value="/WEB-INF/views/usuario/editar_login.jsp" />
-	</definition>
-
 	<definition extends="default" name="403">
 		<put-attribute name="body" value="/WEB-INF/views/403.jsp" />
 	</definition>
@@ -37,17 +28,14 @@
 
 	<definition extends="default" name="listar_usuarios">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/listar.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="incluir_usuario">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/incluir.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="editar_usuario">
 		<put-attribute name="body" value="/WEB-INF/views/usuario/editar.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/usuario/menu.jsp" />
 	</definition>
 
 	<definition extends="default" name="listar_leds">

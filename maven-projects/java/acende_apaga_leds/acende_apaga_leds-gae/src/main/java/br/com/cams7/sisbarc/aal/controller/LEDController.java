@@ -152,9 +152,9 @@ public class LEDController extends AALController<LEDService, LEDEntity> {
 		case PAGE_LIST:
 			PinoKey key = led.getPino();
 			String summary = getMessageSource().getMessage(
-					"info.msg.pin.update.ok", new Object[] {}, locale);// Resumo
+					"msg.ok.summary.atualizar.led", new Object[] {}, locale);// Resumo
 			String detail = getMessageSource().getMessage(
-					"info.msg.pin.update",
+					"msg.ok.detail.atualizar.led",
 					new Object[] { key.getTipo(), key.getCodigo() }, locale);// Detalhes
 			addINFOMessage(uiModel, summary, detail);
 			break;

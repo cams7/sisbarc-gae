@@ -4,8 +4,6 @@
 
 <spring:message code="label.usuario.googleId"
 	var="label_usuario_googleId" htmlEscape="false" />
-<spring:message code="label.usuario.username"
-	var="label_usuario_username" htmlEscape="false" />
 <spring:message code="label.usuario.email" var="label_usuario_email"
 	htmlEscape="false" />
 <spring:message code="label.usuario.ip" var="label_usuario_ip"
@@ -23,19 +21,9 @@
 </div>
 
 <div class="control-group">
-	<label class="control-label">${label_usuario_username}</label>
-	<div class="controls">
-		<form:input path="username" cssClass="input-large" />
-		<form:errors path="username" cssClass="alert alert-error input-alert" />
-	</div>
-</div>
-
-<div class="control-group">
 	<label class="control-label">${label_usuario_email}</label>
 	<div class="controls">
-		<form:input path="email" cssClass="input-large"
-			readonly="${isLoginPage}" />
-		<form:errors path="email" cssClass="alert alert-error input-alert" />
+		<form:input path="email" cssClass="input-large" readonly="true" />
 	</div>
 </div>
 

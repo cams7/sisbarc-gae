@@ -155,9 +155,10 @@ public class PotenciometroController extends
 		case PAGE_LIST:
 			PinoKey key = potenciometro.getPino();
 			String summary = getMessageSource().getMessage(
-					"info.msg.pin.update.ok", new Object[] {}, locale);// Resumo
+					"msg.ok.summary.atualizar.potenciometro", new Object[] {},
+					locale);// Resumo
 			String detail = getMessageSource().getMessage(
-					"info.msg.pin.update",
+					"msg.ok.detail.atualizar.potenciometro",
 					new Object[] { key.getTipo(), key.getCodigo() }, locale);// Detalhes
 			addINFOMessage(uiModel, summary, detail);
 			break;

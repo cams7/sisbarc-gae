@@ -25,8 +25,8 @@ public class UserServiceImpl extends
 	}
 
 	@Override
-	public UserEntity findByUsername(String username) {
-		return getRepository().findByUsername(username);
+	public UserEntity findByEmail(String username) {
+		return getRepository().findByEmail(username);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UserServiceImpl extends
 		if (username == null || "".equals(username))
 			throw new UsernameNotFoundException("username is empty or null");
 
-		UserEntity user = getRepository().findByUsername(username);
+		UserEntity user = getRepository().findByEmail(username);
 
 		return buildUserForAuthentication(user, user.getAuthorities());
 	}
@@ -69,7 +69,7 @@ public class UserServiceImpl extends
 	// org.springframework.security.core.userdetails.User
 	private User buildUserForAuthentication(UserEntity user,
 			Set<? extends GrantedAuthority> authorities) {
-		String username = user.getUsername();
+		String username = user.getEmail();
 		String password = user.getPassword();
 		boolean enabled = user.isEnabled();
 

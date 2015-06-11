@@ -55,7 +55,6 @@ public class GoogleAccountsAuthenticationProvider implements
 		if (user == null) {
 			user = new UserEntity();
 			user.setGoogleId(googleId);
-			user.setUsername(googleUser.getNickname());
 			user.setEmail(googleUser.getEmail());
 			user.setEnabled(true);
 

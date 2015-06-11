@@ -87,15 +87,15 @@
 								<f:param value="#{ledMB.totalRows}" />
 							</h:outputFormat>
 
-							<p:commandButton value="#{msg['button.arduino.synchronize']}"
-								styleClass="btn btn-success"
-								actionListener="#{ledMB.sincronizaPinos}"
-								oncomplete="PF('ledTable').filter()" update=":ledForm:mensagens" />
-
 							<p:commandButton value="#{msg['button.arduino.update']}"
 								styleClass="btn btn-success"
 								actionListener="#{ledMB.atualizaPinos}"
 								update=":ledForm:mensagens" />
+
+							<p:commandButton value="#{msg['button.arduino.synchronize']}"
+								styleClass="btn btn-success"
+								actionListener="#{ledMB.sincronizaPinos}"
+								oncomplete="PF('ledTable').filter()" update=":ledForm:mensagens" />
 						</p:panelGrid>
 					</sec:authorize>
 					<sec:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
@@ -108,8 +108,8 @@
 			</p:dataTable>
 
 			<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-				<p:dialog header="#{msg['page.title.editar.led']}" widgetVar="ledDialog"
-					modal="true" resizable="false">
+				<p:dialog header="#{msg['page.title.editar.led']}"
+					widgetVar="ledDialog" modal="true" resizable="false">
 
 					<p:ajax event="close" listener="#{ledMB.handleClose}" />
 

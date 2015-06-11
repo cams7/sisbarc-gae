@@ -104,7 +104,7 @@ public class UserController extends
 							new Object[] {}, locale),
 					getMessageSource().getMessage(
 							"msg.ok.detail.atualizar.usuario",
-							new Object[] { user.getUsername() }, locale));
+							new Object[] { user.getEmail() }, locale));
 			break;
 		default:
 			break;

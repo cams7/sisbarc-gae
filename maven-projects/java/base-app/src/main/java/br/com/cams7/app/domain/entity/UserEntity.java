@@ -33,10 +33,6 @@ public class UserEntity extends AbstractEntity {
 	@Index({ IfNotNull.class, IfNotEmpty.class })
 	private String googleId;
 
-	// @NotBlank(message = "{NotBlank.user.username}")
-	// @Indexed(unique = true)
-	private String username;
-
 	@NotBlank(message = "{NotBlank.user.email}")
 	@Email
 	@Indexed(unique = true)
@@ -62,11 +58,10 @@ public class UserEntity extends AbstractEntity {
 	@Override
 	public String toString() {
 		return this.getClass().getName() + "[id = " + getId() + ", googleId = "
-				+ getGoogleId() + ", username = " + getUsername()
-				+ ", email = " + getEmail() + ", password = " + getPassword()
-				+ ", enabled = " + isEnabled() + ", authorities = "
-				+ getAuthorities() + ", ip = " + getIp() + ", port = "
-				+ getPort() + "]";
+				+ getGoogleId() + ", email = " + getEmail() + ", password = "
+				+ getPassword() + ", enabled = " + isEnabled()
+				+ ", authorities = " + getAuthorities() + ", ip = " + getIp()
+				+ ", port = " + getPort() + "]";
 	}
 
 	public Long getId() {
@@ -83,14 +78,6 @@ public class UserEntity extends AbstractEntity {
 
 	public void setGoogleId(String googleId) {
 		this.googleId = googleId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getEmail() {

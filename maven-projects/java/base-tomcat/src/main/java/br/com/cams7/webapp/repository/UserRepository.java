@@ -8,7 +8,7 @@ import br.com.cams7.app.domain.entity.UserEntity;
 @Repository
 public interface UserRepository extends AppRepository<UserEntity> {
 
-	@Query("{ 'username' : ?0 }")
-	public UserEntity findByUsername(String username);
+	@Query("{ 'email' : ?0 }")
+	public UserEntity findByEmail(String email);
 
 }

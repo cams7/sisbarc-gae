@@ -44,11 +44,6 @@
 						onsuccess="PF('usuarioDialog').show();" />
 				</sec:authorize>
 
-				<p:column headerText="#{msg['label.usuario.username']}"
-					sortBy="#{usuario.username}">
-					<h:outputText value="#{usuario.username}" />
-				</p:column>
-
 				<p:column headerText="#{msg['label.usuario.email']}"
 					sortBy="#{usuario.email}">
 					<h:outputText value="#{usuario.email}" />

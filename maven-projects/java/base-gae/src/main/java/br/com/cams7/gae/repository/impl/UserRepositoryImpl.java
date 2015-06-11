@@ -79,7 +79,6 @@ public class UserRepositoryImpl extends AbstractAppRepository<UserEntity>
 		UserEntity user = new UserEntity();
 		user.setId(entity.getKey().getId());
 		user.setGoogleId((String) entity.getProperty("googleId"));
-		user.setUsername((String) entity.getProperty("username"));
 		user.setEmail((String) entity.getProperty("email"));
 		user.setEnabled((Boolean) entity.getProperty("enabled"));
 		user.setAuthorities(authorities);

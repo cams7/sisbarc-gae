@@ -74,15 +74,15 @@
 								<f:param value="#{potenciometroMB.totalRows}" />
 							</h:outputFormat>
 
+							<p:commandButton value="#{msg['button.arduino.update']}"
+								styleClass="btn btn-success"
+								actionListener="#{potenciometroMB.atualizaPinos}"
+								update=":potenciometroForm:mensagens" />
+
 							<p:commandButton value="#{msg['button.arduino.synchronize']}"
 								styleClass="btn btn-success"
 								actionListener="#{potenciometroMB.sincronizaPinos}"
 								oncomplete="PF('potenciometroTable').filter()"
-								update=":potenciometroForm:mensagens" />
-
-							<p:commandButton value="#{msg['button.arduino.update']}"
-								styleClass="btn btn-success"
-								actionListener="#{potenciometroMB.atualizaPinos}"
 								update=":potenciometroForm:mensagens" />
 						</p:panelGrid>
 					</sec:authorize>

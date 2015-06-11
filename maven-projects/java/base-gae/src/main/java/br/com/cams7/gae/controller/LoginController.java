@@ -87,11 +87,15 @@ public class LoginController {
 		if (UserServiceFactory.getUserService().isUserAdmin())
 			authorities.add(Role.ROLE_ADMIN);
 
-		user.setAuthorities(authorities);
+		UserEntity currentUser = AuthenticationHelper.getCurrentUser();
 
-		service.insert(user);
+		currentUser.setAuthorities(authorities);
+		currentUser.setIp(user.getIp());
+		currentUser.setPort(user.getPort());
 
-		AuthenticationHelper.changeAuthentication(user);
+		service.insert(currentUser);
+
+		AuthenticationHelper.changeAuthentication(currentUser);
 
 		ServletContext servletContext = request.getSession()
 				.getServletContext();
@@ -124,9 +128,14 @@ public class LoginController {
 			return PAGE_EDITAR_LOGIN;
 		}
 
-		service.save(user);
+		UserEntity currentUser = AuthenticationHelper.getCurrentUser();
 
-		AuthenticationHelper.changeAuthentication(user);
+		currentUser.setIp(user.getIp());
+		currentUser.setPort(user.getPort());
+
+		service.save(currentUser);
+
+		AuthenticationHelper.changeAuthentication(currentUser);
 
 		return "redirect:/home";
 
@@ -152,7 +161,6 @@ public class LoginController {
 	@RequestMapping(value = "/" + PAGE_LOGOUT, method = RequestMethod.GET)
 	public void logout(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		// SecurityContextHolder.clearContext();
 		request.getSession().invalidate();
 
 		String logoutUrl = UserServiceFactory.getUserService().createLogoutURL(

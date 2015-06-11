@@ -30,12 +30,11 @@
 	<http pattern="/resources" security="none" />
 
 	<http pattern="/_ah/login" security="none" />
+	<http pattern="/logout" security="none" />
 
 	<!-- enable use-expressions -->
 	<http use-expressions="true" entry-point-ref="gaeEntryPoint">
 		<intercept-url pattern="/_ah/admin" access="hasRole('ROLE_ADMIN')" />
-
-		<intercept-url pattern="/logout" access="permitAll" />
 
 		<intercept-url pattern="/error" access="permitAll" />
 		<intercept-url pattern="/403" access="permitAll" />

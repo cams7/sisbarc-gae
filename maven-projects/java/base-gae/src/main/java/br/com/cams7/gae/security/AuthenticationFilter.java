@@ -122,7 +122,7 @@ public class AuthenticationFilter extends GenericFilterBean {
 
 		UserEntity user = (UserEntity) authentication.getPrincipal();
 
-		if (!user.getEmail().equals(googleUser.getEmail()))
+		if (!user.getGoogleId().equals(googleUser.getUserId()))
 			return false;
 
 		return true;

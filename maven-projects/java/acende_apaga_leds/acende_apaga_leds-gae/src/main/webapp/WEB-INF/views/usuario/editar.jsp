@@ -76,9 +76,9 @@
 			<div class="control-group form-horizontal">
 				<div class="controls">
 					<button id="btnSalvar" class="btn btn-success">${button_salvar}</button>
-					<a href="${pageContext.request.contextPath}/usuario"><button
-							class="btn">${button_cancelar}</button></a>
 					<c:if test="${not isLoginPage}">
+						<a href="${pageContext.request.contextPath}/usuario"><button
+								class="btn">${button_cancelar}</button></a>
 						<button id="btnExcluir" class="btn btn-danger">${button_excluir}</button>
 					</c:if>
 				</div>

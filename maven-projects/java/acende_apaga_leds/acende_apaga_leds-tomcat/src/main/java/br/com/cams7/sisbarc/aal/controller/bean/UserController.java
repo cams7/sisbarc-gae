@@ -51,7 +51,7 @@ public class UserController extends
 		addINFOMessage(
 				getMessageFromI18N("msg.ok.summary.salvar.usuario"),
 				getMessageFromI18N("msg.ok.detail.salvar.usuario",
-						getSelectedEntity().getUsername()));
+						getSelectedEntity().getEmail()));
 
 		return listPage;
 	}
@@ -63,7 +63,7 @@ public class UserController extends
 		addINFOMessage(
 				getMessageFromI18N("msg.ok.summary.atualizar.usuario"),
 				getMessageFromI18N("msg.ok.detail.atualizar.usuario",
-						getSelectedEntity().getUsername()));
+						getSelectedEntity().getEmail()));
 
 	}
 
@@ -74,7 +74,7 @@ public class UserController extends
 		addINFOMessage(
 				getMessageFromI18N("msg.ok.summary.remover.usuario"),
 				getMessageFromI18N("msg.ok.detail.remover.usuario",
-						getSelectedEntity().getUsername()));
+						getSelectedEntity().getEmail()));
 	}
 
 	public void validatePassword(ComponentSystemEvent event) {

@@ -15,7 +15,7 @@
 	htmlEscape="false" />
 
 <form:form method="POST" modelAttribute="usuario"
-	action="${pageContext.request.contextPath}/incluir_usuario"
+	action="${pageContext.request.contextPath}/incluir_login"
 	cssClass="form-horizontal">
 
 	<form:hidden path="enabled" />

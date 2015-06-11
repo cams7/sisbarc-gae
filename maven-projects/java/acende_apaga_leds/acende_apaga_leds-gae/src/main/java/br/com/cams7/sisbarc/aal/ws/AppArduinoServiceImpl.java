@@ -29,31 +29,9 @@ public class AppArduinoServiceImpl extends Service {
 	public static final String WEBSERVICE_WSDLLOCATION = "http://localhost:8080/acende_apaga_leds/arduino?wsdl";
 	private final String WEBSERVICE_PORT = CONTROLLER_NAME + "Port";
 
-	private final static URL WEBSERVICE_URL;
-	private final static WebServiceException WEBSERVICE_EXCEPTION;
 	private final static QName WEBSERVICE_QNAME = new QName(
 			AppArduinoServiceImpl.WEBSERVICE_TARGETNAMESPACE,
 			AppArduinoServiceImpl.WEBSERVICE_NAME);
-
-	static {
-		URL url = null;
-		WebServiceException exception = null;
-		try {
-			url = new URL(getWSDLLocation());
-		} catch (MalformedURLException e) {
-			exception = new WebServiceException(e);
-		}
-		WEBSERVICE_URL = url;
-		WEBSERVICE_EXCEPTION = exception;
-	}
-
-	public AppArduinoServiceImpl() {
-		super(__getWsdlLocation(), WEBSERVICE_QNAME);
-	}
-
-	public AppArduinoServiceImpl(WebServiceFeature... features) {
-		super(__getWsdlLocation(), WEBSERVICE_QNAME, features);
-	}
 
 	public AppArduinoServiceImpl(URL wsdlLocation) {
 		super(wsdlLocation, WEBSERVICE_QNAME);
@@ -104,19 +82,15 @@ public class AppArduinoServiceImpl extends Service {
 		return service;
 	}
 
-	private static URL __getWsdlLocation() {
-		if (WEBSERVICE_EXCEPTION != null)
-			throw WEBSERVICE_EXCEPTION;
-
-		return WEBSERVICE_URL;
-	}
-
-	private static final String getWSDLLocation() {
+	public static final URL getWsdlLocation() {
 		UserEntity currentUser = AuthenticationHelper.getCurrentUser();
-
 		final String ADDRESS = currentUser.getAddress()
 				+ "/acende_apaga_leds/arduino?wsdl";
-		return ADDRESS;
+		try {
+			return new URL(ADDRESS);
+		} catch (MalformedURLException e) {
+			throw new WebServiceException(e);
+		}
 	}
 
 }

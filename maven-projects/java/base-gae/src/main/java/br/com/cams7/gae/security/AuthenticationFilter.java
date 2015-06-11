@@ -95,8 +95,7 @@ public class AuthenticationFilter extends GenericFilterBean {
 						LOGGER.debug("New user authenticated. Redirecting to registration page");
 
 						((HttpServletResponse) response).sendRedirect("/"
-								+ LoginController.PAGE_INCLUIR_USUARIO
-								+ "?form");
+								+ LoginController.PAGE_INCLUIR_LOGIN);
 
 						return;
 					}

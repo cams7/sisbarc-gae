@@ -34,7 +34,7 @@
 	<!-- enable use-expressions -->
 	<http use-expressions="true" entry-point-ref="gaeEntryPoint">
 		<intercept-url pattern="/_ah/admin" access="hasRole('ROLE_ADMIN')" />
-		
+
 		<intercept-url pattern="/logout" access="permitAll" />
 
 		<intercept-url pattern="/error" access="permitAll" />
@@ -44,11 +44,13 @@
 		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/sobre" access="permitAll" />
 
+		<intercept-url pattern="/incluir_login" access="hasRole('ROLE_NEWUSER')" />
+		<intercept-url pattern="/editar_login"
+			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
+
 		<intercept-url pattern="/usuario**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/listar_usuarios" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/incluir_usuario" access="hasRole('ROLE_NEWUSER')" />
-		<!-- intercept-url pattern="/incluir_usuario" access="hasRole('ROLE_ADMIN')" /-->
-		<intercept-url pattern="/editar_usuario" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />
+		<intercept-url pattern="/editar_usuario" access="hasRole('ROLE_ADMIN')" />
 
 		<intercept-url pattern="/led**"
 			access="hasAnyRole('ROLE_USER,ROLE_ADMIN')" />

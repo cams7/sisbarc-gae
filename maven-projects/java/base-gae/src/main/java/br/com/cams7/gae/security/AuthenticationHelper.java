@@ -4,7 +4,6 @@
 package br.com.cams7.gae.security;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.cams7.app.domain.entity.UserEntity;
@@ -19,8 +18,8 @@ import com.googlecode.objectify.Ref;
 public final class AuthenticationHelper {
 
 	public static Authentication getAuthentication() {
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		Authentication auth = securityContext.getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		return auth;
 	}
 
@@ -38,12 +37,12 @@ public final class AuthenticationHelper {
 	}
 
 	public static void changeAuthentication(UserEntity user) {
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		Authentication auth = securityContext.getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 
 		// Update the context with the full authentication
-		securityContext.setAuthentication(new UserAuthentication(user, auth
-				.getDetails()));
+		SecurityContextHolder.getContext().setAuthentication(
+				new UserAuthentication(user, auth.getDetails()));
 	}
 
 }

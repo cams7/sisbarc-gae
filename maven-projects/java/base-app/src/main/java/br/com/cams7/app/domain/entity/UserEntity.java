@@ -29,11 +29,11 @@ public class UserEntity extends AbstractEntity {
 	@org.springframework.data.annotation.Id
 	private Long id;
 
-	@Indexed(unique = true)
+	@Indexed
 	@Index({ IfNotNull.class, IfNotEmpty.class })
 	private String googleId;
 
-	@NotBlank(message = "{NotBlank.user.username}")
+	// @NotBlank(message = "{NotBlank.user.username}")
 	// @Indexed(unique = true)
 	private String username;
 

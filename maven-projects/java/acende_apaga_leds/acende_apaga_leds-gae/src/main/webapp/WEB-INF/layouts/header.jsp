@@ -67,9 +67,9 @@
 				<sec:authorize access="isAuthenticated()">
 					<li role="presentation" class="divider"></li>
 					<li role="presentation"
-						class="${active == 'editar_usuario' ? 'disabled' : ''}"><a
+						class="${active == 'editar_login' ? 'disabled' : ''}"><a
 						role="menuitem"
-						href="${pageContext.request.contextPath}/editar_usuario?form">${menu_usuarioAtual}</a></li>
+						href="${pageContext.request.contextPath}/editar_login">${menu_usuarioAtual}</a></li>
 					<li role="presentation" class="divider"></li>
 					<li role="presentation"><a role="menuitem"
 						href="${pageContext.request.contextPath}/logout">${menu_sair}</a></li>

@@ -38,14 +38,12 @@ import com.google.appengine.api.users.UserServiceFactory;
 @Controller
 public class LoginController {
 
-	private final String PARAM_FORM = "form";
-
 	public static final String ATTRIBUTE_ENTITY = "usuario";
 	public static final String ATTRIBUTE_IS_LOGIN_PAGE = "isLoginPage";
 	protected final String ATTRIBUTE_PAGE_ACTIVE = "active";
 
-	public static final String PAGE_INCLUIR_USUARIO = "incluir_usuario";
-	public static final String PAGE_EDITAR_USUARIO = "editar_usuario";
+	public static final String PAGE_INCLUIR_LOGIN = "incluir_login";
+	public static final String PAGE_EDITAR_LOGIN = "editar_login";
 
 	private final String PAGE_LOGOUT = "logout";
 
@@ -63,15 +61,15 @@ public class LoginController {
 		this.validator = validator;
 	}
 
-	@RequestMapping(value = "/" + PAGE_INCLUIR_USUARIO, params = PARAM_FORM, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_INCLUIR_LOGIN, method = RequestMethod.GET)
 	public String criarForm(Model uiModel) {
 		addAttributes(uiModel, AuthenticationHelper.getCurrentUser(),
-				PAGE_INCLUIR_USUARIO);
+				PAGE_INCLUIR_LOGIN);
 
-		return PAGE_INCLUIR_USUARIO;
+		return PAGE_INCLUIR_LOGIN;
 	}
 
-	@RequestMapping(value = "/" + PAGE_INCLUIR_USUARIO, method = RequestMethod.POST)
+	@RequestMapping(value = "/" + PAGE_INCLUIR_LOGIN, method = RequestMethod.POST)
 	public String criar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
 			BindingResult result, Model uiModel, HttpServletRequest request) {
@@ -79,8 +77,8 @@ public class LoginController {
 		validator.validate(user, result);
 
 		if (result.hasErrors()) {
-			addAttributes(uiModel, user, PAGE_INCLUIR_USUARIO);
-			return PAGE_INCLUIR_USUARIO;
+			addAttributes(uiModel, user, PAGE_INCLUIR_LOGIN);
+			return PAGE_INCLUIR_LOGIN;
 		}
 
 		Set<Role> authorities = new HashSet<Role>();
@@ -106,15 +104,15 @@ public class LoginController {
 		return "redirect:/home";
 	}
 
-	@RequestMapping(value = "/" + PAGE_EDITAR_USUARIO, params = PARAM_FORM, method = RequestMethod.GET)
+	@RequestMapping(value = "/" + PAGE_EDITAR_LOGIN, method = RequestMethod.GET)
 	public String editarForm(Model uiModel) {
 		addAttributes(uiModel, AuthenticationHelper.getCurrentUser(),
-				PAGE_EDITAR_USUARIO);
+				PAGE_EDITAR_LOGIN);
 
-		return PAGE_EDITAR_USUARIO;
+		return PAGE_EDITAR_LOGIN;
 	}
 
-	@RequestMapping(value = "/" + PAGE_EDITAR_USUARIO, method = RequestMethod.POST)
+	@RequestMapping(value = "/" + PAGE_EDITAR_LOGIN, method = RequestMethod.PUT)
 	public String editar(
 			@Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
 			BindingResult result, Model uiModel, Locale locale) {
@@ -122,8 +120,8 @@ public class LoginController {
 		validator.validate(user, result);
 
 		if (result.hasErrors()) {
-			addAttributes(uiModel, user, PAGE_EDITAR_USUARIO);
-			return PAGE_EDITAR_USUARIO;
+			addAttributes(uiModel, user, PAGE_EDITAR_LOGIN);
+			return PAGE_EDITAR_LOGIN;
 		}
 
 		service.save(user);
@@ -154,6 +152,7 @@ public class LoginController {
 	@RequestMapping(value = "/" + PAGE_LOGOUT, method = RequestMethod.GET)
 	public void logout(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
+		// SecurityContextHolder.clearContext();
 		request.getSession().invalidate();
 
 		String logoutUrl = UserServiceFactory.getUserService().createLogoutURL(

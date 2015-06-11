@@ -3,6 +3,7 @@
  */
 package br.com.cams7.sisbarc.aal.service.impl;
 
+import java.net.URL;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -175,7 +176,8 @@ public abstract class AbstractAALService<R extends AppRepository<E>, D extends A
 	}
 
 	protected AppArduinoService getPort() {
-		AppArduinoService service = (new AppArduinoServiceImpl())
+		final URL WSDL_LOCATION = AppArduinoServiceImpl.getWsdlLocation();
+		AppArduinoService service = (new AppArduinoServiceImpl(WSDL_LOCATION))
 				.getAppArduinoServicePort();
 
 		return service;

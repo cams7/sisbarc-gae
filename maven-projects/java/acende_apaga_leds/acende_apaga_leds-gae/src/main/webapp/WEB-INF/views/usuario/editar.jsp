@@ -31,9 +31,8 @@
 		<c:when test="${usuario != null}">
 			<c:import url="/WEB-INF/views/message.jsp" />
 
-			<form:form id="usuarioForm" modelAttribute="usuario"
-				method="${isLoginPage?'POST':'PUT'}"
-				action="${pageContext.request.contextPath}/editar_usuario"
+			<form:form id="usuarioForm" modelAttribute="usuario" method="PUT"
+				action="${pageContext.request.contextPath}/editar_${isLoginPage?'login':'usuario'}"
 				cssClass="form-horizontal">
 
 				<fieldset>

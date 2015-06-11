@@ -42,8 +42,7 @@ public class UserController extends
 	public static final String PAGE_MAIN = "/" + ATTRIBUTE_ENTITY;
 
 	private final String PAGE_LIST = "listar_usuarios";
-	// private final String PAGE_INCLUDE = "incluir_usuario";
-	private final String PAGE_EDIT = LoginController.PAGE_EDITAR_USUARIO;
+	private final String PAGE_EDIT = "editar_usuario";
 
 	private UserValidator validator;
 
@@ -64,37 +63,6 @@ public class UserController extends
 		String page = super.listar(uiModel);
 		return page;
 	}
-
-	// @Override
-	// @RequestMapping(value = PAGE_MAIN, params = PARAM_FORM, method =
-	// RequestMethod.GET)
-	// public String criarForm(Model uiModel) {
-	// String page = super.criarForm(uiModel);
-	// return page;
-	// }
-
-	// @Override
-	// @RequestMapping(value = "/" + PAGE_INCLUDE, method = RequestMethod.POST)
-	// public String criar(
-	// @Valid @ModelAttribute(ATTRIBUTE_ENTITY) UserEntity user,
-	// BindingResult result, Model uiModel, Locale locale) {
-	//
-	// validator.validate(user, result);
-	//
-	// String page = super.criar(user, result, uiModel, locale);
-	//
-	// if (page.equals(PAGE_LIST))
-	// addINFOMessage(
-	// uiModel,
-	// getMessageSource().getMessage(
-	// "msg.ok.summary.salvar.usuario", new Object[] {},
-	// locale),
-	// getMessageSource().getMessage(
-	// "msg.ok.detail.salvar.usuario",
-	// new Object[] { user.getUsername() }, locale));
-	//
-	// return page;
-	// }
 
 	@Override
 	@RequestMapping(value = PAGE_MAIN + "/{" + VARIABLE_ID + "}", params = PARAM_FORM, method = RequestMethod.GET)

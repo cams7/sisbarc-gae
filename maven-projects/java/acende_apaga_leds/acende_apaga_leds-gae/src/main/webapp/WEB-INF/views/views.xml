@@ -26,12 +26,16 @@
 		<put-attribute name="body" value="/WEB-INF/views/sobre.jsp" />
 	</definition>
 
-	<definition extends="default" name="listar_usuarios">
-		<put-attribute name="body" value="/WEB-INF/views/usuario/listar.jsp" />
+	<definition extends="default" name="incluir_login">
+		<put-attribute name="body" value="/WEB-INF/views/usuario/incluir.jsp" />
 	</definition>
 
-	<definition extends="default" name="incluir_usuario">
-		<put-attribute name="body" value="/WEB-INF/views/usuario/incluir.jsp" />
+	<definition extends="default" name="editar_login">
+		<put-attribute name="body" value="/WEB-INF/views/usuario/editar.jsp" />
+	</definition>
+
+	<definition extends="default" name="listar_usuarios">
+		<put-attribute name="body" value="/WEB-INF/views/usuario/listar.jsp" />
 	</definition>
 
 	<definition extends="default" name="editar_usuario">

@@ -54,7 +54,7 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 				pino.setAlteraEvento(true);
 				pino.setAlteraIntervalo(true);
 
-				pino.setUser(AuthenticationHelper.getRefUser());
+				pino.setUser(AuthenticationHelper.getKeyUser());
 
 				uiModel.addAttribute(getAttributeEntity(), pino);
 
@@ -72,7 +72,7 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 		validator.validate(entity, result);
 
 		Pino pino = (Pino) entity;
-		pino.setUser(AuthenticationHelper.getRefUser(userId));
+		pino.setUser(AuthenticationHelper.getKeyUser(userId));
 
 		return super.criar(entity, result, uiModel, locale);
 	}
@@ -83,7 +83,7 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 		validator.validate(entity, result);
 
 		Pino pino = (Pino) entity;
-		pino.setUser(AuthenticationHelper.getRefUser(userId));
+		pino.setUser(AuthenticationHelper.getKeyUser(userId));
 
 		String page = getPageEdit();
 
@@ -199,11 +199,6 @@ public abstract class AALController<S extends AppService<E>, E extends AbstractE
 	public ArduinoPinType[] populateTipos() {
 		return ArduinoPinType.values();
 	}
-
-	// @ModelAttribute("eventos")
-	// public Evento[] populateEventos() {
-	// return Evento.values();
-	// }
 
 	@ModelAttribute("intervalos")
 	public Intervalo[] populateIntervalos() {

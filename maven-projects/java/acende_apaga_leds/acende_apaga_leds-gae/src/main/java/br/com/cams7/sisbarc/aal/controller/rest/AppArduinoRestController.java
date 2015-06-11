@@ -48,8 +48,8 @@ public class AppArduinoRestController extends
 		ArduinoPinType tipo = ArduinoPinType.valueOf(stringTipo);
 		Byte pino = Byte.valueOf(stringPino);
 
-		LEDEntity led = getService().findOne(
-				AuthenticationHelper.getCurrentUser(), new PinoKey(tipo, pino));
+		LEDEntity led = getService().findOne(AuthenticationHelper.getKeyUser(),
+				new PinoKey(tipo, pino));
 
 		if (led == null)
 			throw new AppException("O LED '" + tipo + " " + pino

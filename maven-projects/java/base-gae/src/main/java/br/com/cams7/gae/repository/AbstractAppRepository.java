@@ -47,8 +47,8 @@ public abstract class AbstractAppRepository<E extends AbstractEntity> extends
 
 	@Override
 	public E findOne(Long id) {
-		Key<E> k = Key.create(getEntityType(), id);
-		return ofy().load().key(k).now();
+		Key<E> key = Key.create(getEntityType(), id);
+		return ofy().load().key(key).now();
 	}
 
 	@Override

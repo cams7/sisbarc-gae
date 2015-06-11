@@ -16,9 +16,11 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.PotenciometroEntity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.condition.IfNotNull;
+
+import com.googlecode.objectify.annotation.Parent;
+import com.googlecode.objectify.Key;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({ LEDEntity.class, PotenciometroEntity.class })
@@ -49,8 +51,8 @@ public/* abstract */class Pino extends AbstractEntity {
 	@XmlTransient
 	@JsonIgnore
 	@Transient
-	@Index({ IfNotNull.class })
-	private Ref<UserEntity> user;
+	@Parent
+	private Key<UserEntity> user;
 
 	public Pino() {
 		super();
@@ -156,11 +158,11 @@ public/* abstract */class Pino extends AbstractEntity {
 		this.alteraIntervalo = alteraIntervalo;
 	}
 
-	public Ref<UserEntity> getUser() {
+	public Key<UserEntity> getUser() {
 		return user;
 	}
 
-	public void setUser(Ref<UserEntity> user) {
+	public void setUser(Key<UserEntity> user) {
 		this.user = user;
 	}
 

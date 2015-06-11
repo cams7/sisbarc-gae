@@ -12,6 +12,7 @@ import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.gae.repository.AbstractAppRepository;
 import br.com.cams7.sisbarc.aal.repository.AALRepository;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
 /**
@@ -26,11 +27,20 @@ public abstract class AbstractAALRepository<E extends AbstractEntity> extends
 	}
 
 	@Override
-	public List<E> findAll(UserEntity user) {
+	public List<E> findAll(Key<UserEntity> user) {
 		Query<E> query = ofy().load().type(getEntityType());
-		query = query.filter("user", user);
+		query = query.ancestor(user);
+		// query = query.order("-pino.tipo");
+		// query = query.order("-pino.codigo");
 		List<E> entities = query.list();
 		return entities;
+	}
+
+	@Override
+	public E findOne(Key<UserEntity> user, Long id) {
+		Key<E> key = Key.create(user, getEntityType(), id);
+		E entity = ofy().load().key(key).now();
+		return entity;
 	}
 
 }

@@ -47,7 +47,7 @@
 	<form:hidden path="alteraEvento" />
 	<form:hidden path="alteraIntervalo" />
 
-	<input type="hidden" name="userId" value="${potenciometro.user.key.id}">
+	<input type="hidden" name="userId" value="${potenciometro.user.id}">
 
 	<fieldset>
 		<legend>

@@ -53,7 +53,7 @@
 	<form:hidden path="alteraEvento" />
 	<form:hidden path="alteraIntervalo" />
 	
-	<input type="hidden" name="userId" value="${led.user.key.id}">
+	<input type="hidden" name="userId" value="${led.user.id}">
 
 	<fieldset>
 		<legend>

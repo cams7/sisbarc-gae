@@ -5,14 +5,12 @@
 
 <spring:message code="menu.inicio" var="menu_inicio" htmlEscape="false" />
 <spring:message code="menu.home" var="menu_home" htmlEscape="false" />
-<spring:message code="menu.usuarioAtual" var="menu_usuarioAtual"
-	htmlEscape="false" />
 <spring:message code="menu.incluir" var="menu_incluir"
-	htmlEscape="false" />
-<spring:message code="menu.usuario" var="menu_usuario"
 	htmlEscape="false" />
 <spring:message code="menu.led" var="menu_led" htmlEscape="false" />
 <spring:message code="menu.potenciometro" var="menu_potenciometro"
+	htmlEscape="false" />
+<spring:message code="menu.usuario" var="menu_usuario"
 	htmlEscape="false" />
 <spring:message code="menu.sair" var="menu_sair" htmlEscape="false" />
 <spring:message code="menu.lista" var="menu_lista" htmlEscape="false" />
@@ -47,12 +45,6 @@
 
 						<ul class="dropdown-menu" role="menu"
 							aria-labelledby="submenuIncluir">
-							<sec:authorize access="hasRole('ROLE_ADMIN')">
-								<li role="presentation"
-									class="${active == 'incluir_usuario' ? 'disabled' : ''}"><a
-									role="menuitem"
-									href="${pageContext.request.contextPath}/usuario?form">${menu_usuario}</a></li>
-							</sec:authorize>
 							<li role="presentation"
 								class="${active == 'incluir_led' ? 'disabled' : ''}"><a
 								role="menuitem"
@@ -69,7 +61,7 @@
 					<li role="presentation"
 						class="${active == 'editar_login' ? 'disabled' : ''}"><a
 						role="menuitem"
-						href="${pageContext.request.contextPath}/editar_login">${menu_usuarioAtual}</a></li>
+						href="${pageContext.request.contextPath}/editar_login">${menu_usuario}</a></li>
 					<li role="presentation" class="divider"></li>
 					<li role="presentation"><a role="menuitem"
 						href="${pageContext.request.contextPath}/logout">${menu_sair}</a></li>

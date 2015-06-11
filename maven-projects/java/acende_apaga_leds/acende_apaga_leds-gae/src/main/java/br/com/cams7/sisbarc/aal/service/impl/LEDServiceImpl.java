@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
+import com.googlecode.objectify.Key;
+
 import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.gae.security.AuthenticationHelper;
@@ -35,13 +37,13 @@ public class LEDServiceImpl extends
 	}
 
 	@Override
-	public List<LEDEntity> buscaLEDsAtivadoPorBotao(UserEntity user) {
+	public List<LEDEntity> buscaLEDsAtivadoPorBotao(Key<UserEntity> user) {
 		List<LEDEntity> leds = getRepository().buscaLEDsAtivadoPorBotao(user);
 		return leds;
 	}
 
 	@Override
-	public LEDEntity findOne(UserEntity user, PinoKey key) {
+	public LEDEntity findOne(Key<UserEntity> user, PinoKey key) {
 		LEDEntity led = getRepository().findOne(user, key);
 		return led;
 	}
@@ -76,7 +78,7 @@ public class LEDServiceImpl extends
 	public Future<List<LEDEntity>> getLEDsAtivadoPorBotao()
 			throws ArduinoException {
 		List<LEDEntity> leds = buscaLEDsAtivadoPorBotao(AuthenticationHelper
-				.getCurrentUser());
+				.getKeyUser());
 
 		AppArduinoService service = getPort();
 		LEDEntity[] array = service.buscaEstadoLEDs(getKeys(leds));

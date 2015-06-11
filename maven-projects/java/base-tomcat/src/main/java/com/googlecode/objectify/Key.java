@@ -9,9 +9,9 @@ import br.com.cams7.app.domain.AbstractEntity;
  * @author cams7
  *
  */
-public abstract class Ref<E extends AbstractEntity> {
+public abstract class Key<E extends AbstractEntity> {
 
-	public Ref() {
+	public Key() {
 		super();
 	}
 

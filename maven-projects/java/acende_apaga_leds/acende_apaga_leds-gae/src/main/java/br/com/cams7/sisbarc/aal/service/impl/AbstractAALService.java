@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
+import com.googlecode.objectify.Key;
+
 import br.com.cams7.app.domain.AbstractEntity;
 import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.arduino.ArduinoException;
@@ -39,21 +41,38 @@ public abstract class AbstractAALService<R extends AppRepository<E>, D extends A
 	}
 
 	@Override
-	public List<E> findAll(UserEntity user) {
+	public List<E> findAll(Key<UserEntity> user) {
 		AALRepository<E> repository = (AALRepository<E>) getRepository();
 		List<E> entities = repository.findAll(user);
 		return entities;
 	}
 
+	// @Override
+	// public List<E> findAll() {
+	// return findAll(AuthenticationHelper.getKeyUser());
+	// }
+
+	@Override
+	public E findOne(Key<UserEntity> user, Long id) {
+		AALRepository<E> repository = (AALRepository<E>) getRepository();
+		E entity = repository.findOne(user, id);
+		return entity;
+	}
+
+	@Override
+	public E findOne(Long id) {
+		return findOne(AuthenticationHelper.getKeyUser(), id);
+	}
+
 	@Override
 	public void synch() {
-		List<E> entities = findAll(AuthenticationHelper.getCurrentUser());
+		List<E> entities = findAll(AuthenticationHelper.getKeyUser());
 		getDataSource().synch(entities);
 	}
 
 	@Override
 	protected D getDataSource() {
-		List<E> entities = findAll(AuthenticationHelper.getCurrentUser());
+		List<E> entities = findAll(AuthenticationHelper.getKeyUser());
 		return getDataSource(entities);
 	}
 

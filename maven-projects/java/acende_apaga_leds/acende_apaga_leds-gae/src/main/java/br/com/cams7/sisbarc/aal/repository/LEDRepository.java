@@ -5,6 +5,8 @@ package br.com.cams7.sisbarc.aal.repository;
 
 import java.util.List;
 
+import com.googlecode.objectify.Key;
+
 import br.com.cams7.app.domain.entity.UserEntity;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
@@ -21,7 +23,7 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
  *
  */
 public interface LEDRepository extends AALRepository<LEDEntity> {
-	public List<LEDEntity> buscaLEDsAtivadoPorBotao(UserEntity user);
+	public List<LEDEntity> buscaLEDsAtivadoPorBotao(Key<UserEntity> user);
 
-	public LEDEntity findOne(UserEntity user, PinoKey key);
+	public LEDEntity findOne(Key<UserEntity> user, PinoKey key);
 }

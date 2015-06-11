@@ -14,6 +14,7 @@ import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.repository.LEDRepository;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
 /**
@@ -46,20 +47,22 @@ public class LEDRepositoryImpl extends AbstractAALRepository<LEDEntity>
 	}
 
 	@Override
-	public List<LEDEntity> buscaLEDsAtivadoPorBotao(UserEntity user) {
+	public List<LEDEntity> buscaLEDsAtivadoPorBotao(Key<UserEntity> user) {
 		Query<LEDEntity> query = ofy().load().type(LEDEntity.class);
-		query = query.filter("user", user);
+		query = query.ancestor(user);
 		query = query.filter("ativadoPorBotao", Boolean.TRUE);
+		// query = query.order("-pino.tipo");
+		// query = query.order("-pino.codigo");
 		List<LEDEntity> leds = query.list();
 		return leds;
 	}
 
 	@Override
-	public LEDEntity findOne(UserEntity user, PinoKey key) {
+	public LEDEntity findOne(Key<UserEntity> user, PinoKey key) {
 		Query<LEDEntity> query = ofy().load().type(LEDEntity.class);
-		query = query.filter("user", user);
-		query = query.filter("pino.tipo", key.getTipo());
-		query = query.filter("pino.codigo", key.getCodigo());
+		query = query.ancestor(user);
+		// query = query.filter("pino.tipo", key.getTipo());
+		// query = query.filter("pino.codigo", key.getCodigo());
 		LEDEntity led = query.first().now();
 		return led;
 	}

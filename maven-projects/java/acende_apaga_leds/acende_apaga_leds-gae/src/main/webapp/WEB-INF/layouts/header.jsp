@@ -1,5 +1,6 @@
 <%-- Fragmento com trecho utilizado no cabecalho das paginas. --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
@@ -10,6 +11,7 @@
 <spring:message code="menu.led" var="menu_led" htmlEscape="false" />
 <spring:message code="menu.potenciometro" var="menu_potenciometro"
 	htmlEscape="false" />
+<spring:message code="menu.login" var="menu_login" htmlEscape="false" />
 <spring:message code="menu.usuario" var="menu_usuario"
 	htmlEscape="false" />
 <spring:message code="menu.sair" var="menu_sair" htmlEscape="false" />
@@ -35,7 +37,7 @@
 
 			<ul class="dropdown-menu" role="menu" aria-labelledby="menuInicio">
 				<li role="presentation"
-					class="${active == 'home' ? 'disabled' : ''}"><a
+					class="${active eq 'home' ? 'disabled' : ''}"><a
 					role="menuitem" href="${pageContext.request.contextPath}/home">${menu_home}</a></li>
 
 				<sec:authorize access="hasAnyRole('ROLE_USER,ROLE_ADMIN')">
@@ -46,20 +48,50 @@
 						<ul class="dropdown-menu" role="menu"
 							aria-labelledby="submenuIncluir">
 							<li role="presentation"
-								class="${active == 'incluir_led' ? 'disabled' : ''}"><a
+								class="${active eq 'incluir_led' ? 'disabled' : ''}"><a
 								role="menuitem"
 								href="${pageContext.request.contextPath}/led?form">${menu_led}</a></li>
 							<li role="presentation"
-								class="${active == 'incluir_potenciometro' ? 'disabled' : ''}"><a
+								class="${active eq 'incluir_potenciometro' ? 'disabled' : ''}"><a
 								role="menuitem"
 								href="${pageContext.request.contextPath}/potenciometro?form">${menu_potenciometro}</a></li>
 						</ul></li>
 				</sec:authorize>
 
+				<sec:authorize access="isAnonymous()">
+					<li role="presentation" class="divider"></li>
+					<c:choose>
+						<c:when
+							test="${pageContext.request.serverName eq 'acende-apaga-leds.appspot.com'}">
+							<spring:url value="https://appengine.google.com/_ah/conflogin"
+								var="appengine_url" htmlEscape="true">
+								<spring:param name="continue"
+									value="https://acende-apaga-leds.appspot.com" />
+							</spring:url>
+							<spring:url value="https://accounts.google.com/ServiceLogin"
+								var="login_url" htmlEscape="true">
+								<spring:param name="service" value="ah" />
+								<spring:param name="passive" value="true" />
+								<spring:param name="continue" value="${appengine_url}" />
+							</spring:url>
+
+							<li role="presentation"><a role="menuitem"
+								href="${login_url}">${menu_login}</a></li>
+						</c:when>
+						<c:otherwise>
+							<spring:url value="${pageContext.request.contextPath}/_ah/login"
+								var="login_url" htmlEscape="true">
+								<spring:param name="continue" value="home" />
+							</spring:url>
+							<li role="presentation"><a role="menuitem"
+								href="${login_url}">${menu_login}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li role="presentation" class="divider"></li>
 					<li role="presentation"
-						class="${active == 'editar_login' ? 'disabled' : ''}"><a
+						class="${active eq 'editar_login' ? 'disabled' : ''}"><a
 						role="menuitem"
 						href="${pageContext.request.contextPath}/editar_login">${menu_usuario}</a></li>
 					<li role="presentation" class="divider"></li>
@@ -75,14 +107,14 @@
 				<ul class="dropdown-menu" role="menu" aria-labelledby="menuLista">
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li role="presentation"
-							class="${active == 'listar_usuarios' ? 'disabled' : ''}"><a
+							class="${active eq 'listar_usuarios' ? 'disabled' : ''}"><a
 							role="menuitem" href="${pageContext.request.contextPath}/usuario">${menu_usuarios}</a></li>
 					</sec:authorize>
 					<li role="presentation"
-						class="${active == 'listar_leds' ? 'disabled' : ''}"><a
+						class="${active eq 'listar_leds' ? 'disabled' : ''}"><a
 						role="menuitem" href="${pageContext.request.contextPath}/led">${menu_leds}</a></li>
 					<li role="presentation"
-						class="${active == 'listar_potenciometros' ? 'disabled' : ''}"><a
+						class="${active eq 'listar_potenciometros' ? 'disabled' : ''}"><a
 						role="menuitem"
 						href="${pageContext.request.contextPath}/potenciometro">${menu_potenciometros}</a></li>
 				</ul></li>
@@ -93,7 +125,7 @@
 
 			<ul class="dropdown-menu" role="menu" aria-labelledby="menuAjuda">
 				<li role="presentation"
-					class="${active == 'sobre' ? 'disabled' : ''}"><a
+					class="${active eq 'sobre' ? 'disabled' : ''}"><a
 					role="menuitem" href="${pageContext.request.contextPath}/sobre">${menu_sobre}</a></li>
 			</ul></li>
 	</ul>

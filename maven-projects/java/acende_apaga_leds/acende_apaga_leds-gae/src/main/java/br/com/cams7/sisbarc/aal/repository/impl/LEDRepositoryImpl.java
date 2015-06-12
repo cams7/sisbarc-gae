@@ -61,8 +61,8 @@ public class LEDRepositoryImpl extends AbstractAALRepository<LEDEntity>
 	public LEDEntity findOne(Key<UserEntity> user, PinoKey key) {
 		Query<LEDEntity> query = ofy().load().type(LEDEntity.class);
 		query = query.ancestor(user);
-		// query = query.filter("pino.tipo", key.getTipo());
-		// query = query.filter("pino.codigo", key.getCodigo());
+		query = query.filter("pino.tipo", key.getTipo());
+		query = query.filter("pino.codigo", key.getCodigo());
 		LEDEntity led = query.first().now();
 		return led;
 	}

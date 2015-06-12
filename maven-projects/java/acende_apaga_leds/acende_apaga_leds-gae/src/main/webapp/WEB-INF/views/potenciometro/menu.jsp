@@ -12,9 +12,9 @@
 	<ul class="nav nav-list" style="padding-top: 15px;">
 		<li><em>${label_potenciometros}</em></li>
 
-		<li class="${active == 'listar_potenciometros' ? 'active' : ''}"><a
+		<li class="${active eq 'listar_potenciometros' ? 'active' : ''}"><a
 			href="${pageContext.request.contextPath}/potenciometro">${menu_lista}</a></li>
-		<li class="${active == 'incluir_potenciometro' ? 'active' : ''}"><a
+		<li class="${active eq 'incluir_potenciometro' ? 'active' : ''}"><a
 			href="${pageContext.request.contextPath}/potenciometro?form">${menu_incluir}</a></li>
 		<li class="divider" />
 		<li><a href="${pageContext.request.contextPath}/logout">${menu_sair}</a></li>

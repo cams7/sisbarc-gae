@@ -11,6 +11,7 @@ import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
 
 import br.com.cams7.app.domain.entity.UserEntity;
+import br.com.cams7.arduino.AppArduinoService;
 import br.com.cams7.gae.security.AuthenticationHelper;
 
 /**

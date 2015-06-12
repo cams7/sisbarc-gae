@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
+import br.com.cams7.arduino.AppArduinoService;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
@@ -17,7 +18,6 @@ import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 import br.com.cams7.sisbarc.aal.task.AppArduinoScheduler;
-import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 
 /**
  * @author cams7

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cams7.sisbarc.aal.ws;
+package br.com.cams7.arduino;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -25,9 +25,10 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 public interface AppArduinoService extends ArduinoService {
 
 	public static final String WEBSERVICE_NAME = "AppArduinoService";
-	public static final String WEBSERVICE_FULLNAME = "br.com.cams7.sisbarc.aal.ws."
-			+ WEBSERVICE_NAME;
 	public static final String WEBSERVICE_TARGETNAMESPACE = ArduinoException.WEBFAULT_TARGETNAMESPACE;
+
+	public static final String WEBSERVICE_FULLNAME = ArduinoException.WEBSERVICE_PACKAGE
+			+ "." + WEBSERVICE_NAME;
 
 	/**
 	 * Altera o ESTADO do LED para ACESO ou APAGADO

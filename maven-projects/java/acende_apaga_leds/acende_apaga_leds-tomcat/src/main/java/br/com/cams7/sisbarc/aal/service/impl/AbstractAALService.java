@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
 import br.com.cams7.app.domain.AbstractEntity;
+import br.com.cams7.arduino.AppArduinoService;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.sisbarc.aal.domain.Pino;
 import br.com.cams7.sisbarc.aal.domain.Pino.Evento;
@@ -17,7 +18,6 @@ import br.com.cams7.sisbarc.aal.domain.Pino.Intervalo;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.service.AALService;
 import br.com.cams7.sisbarc.aal.task.AppArduinoScheduler;
-import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 import br.com.cams7.webapp.repository.AppRepository;
 import br.com.cams7.webapp.service.AbstractAppService;
 

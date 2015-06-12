@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.googlecode.objectify.Key;
 
 import br.com.cams7.app.domain.entity.UserEntity;
+import br.com.cams7.arduino.AppArduinoService;
 import br.com.cams7.arduino.ArduinoException;
 import br.com.cams7.gae.security.AuthenticationHelper;
 import br.com.cams7.sisbarc.aal.domain.PinoKey;
@@ -21,7 +22,6 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 import br.com.cams7.sisbarc.aal.ds.LEDDS;
 import br.com.cams7.sisbarc.aal.repository.LEDRepository;
 import br.com.cams7.sisbarc.aal.service.LEDService;
-import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 
 /**
  * @author cams7

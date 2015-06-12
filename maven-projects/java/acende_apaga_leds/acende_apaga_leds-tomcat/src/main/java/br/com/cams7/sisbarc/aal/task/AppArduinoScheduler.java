@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.cams7.arduino.AppArduinoService;
 import br.com.cams7.arduino.ArduinoException;
 //import javax.naming.Context;
 //import javax.naming.InitialContext;
@@ -22,7 +23,6 @@ import br.com.cams7.sisbarc.aal.domain.PinoKey;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity;
 import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
 import br.com.cams7.sisbarc.aal.service.LEDService;
-import br.com.cams7.sisbarc.aal.ws.AppArduinoService;
 import br.com.cams7.sisbarc.arduino.ArduinoScheduler;
 import br.com.cams7.sisbarc.arduino.vo.Arduino;
 import br.com.cams7.sisbarc.arduino.vo.Arduino.ArduinoEvent;

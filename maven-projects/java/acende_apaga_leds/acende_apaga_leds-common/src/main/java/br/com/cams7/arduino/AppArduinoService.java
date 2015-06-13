@@ -20,14 +20,14 @@ import br.com.cams7.sisbarc.aal.domain.entity.LEDEntity.EstadoLED;
  * @author cesar
  *
  */
-@WebService(name = AppArduinoService.WEBSERVICE_NAME, targetNamespace = AppArduinoService.WEBSERVICE_TARGETNAMESPACE)
+@WebService(name = AppArduinoService.WEBSERVICE_NAME, targetNamespace = AppArduinoService.WEBSERVICE_TARGET_NAMESPACE)
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface AppArduinoService extends ArduinoService {
 
 	public static final String WEBSERVICE_NAME = "AppArduinoService";
-	public static final String WEBSERVICE_TARGETNAMESPACE = ArduinoException.WEBFAULT_TARGETNAMESPACE;
+	public static final String WEBSERVICE_TARGET_NAMESPACE = ArduinoException.WEBFAULT_TARGET_NAMESPACE;
 
-	public static final String WEBSERVICE_FULLNAME = ArduinoException.WEBSERVICE_PACKAGE
+	public static final String WEBSERVICE_ENDPOINT_INTERFACE = ArduinoException.WEBFAULT_PACKAGE
 			+ "." + WEBSERVICE_NAME;
 
 	/**

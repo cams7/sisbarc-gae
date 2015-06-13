@@ -24,7 +24,7 @@ import br.com.cams7.sisbarc.aal.task.AppArduinoScheduler;
  *
  */
 @Controller("arduinoWS")
-@WebService(endpointInterface = AppArduinoService.WEBSERVICE_FULLNAME)
+@WebService(endpointInterface = AppArduinoService.WEBSERVICE_ENDPOINT_INTERFACE)
 public class AppArduinoWSController implements AppArduinoService {
 
 	@Autowired

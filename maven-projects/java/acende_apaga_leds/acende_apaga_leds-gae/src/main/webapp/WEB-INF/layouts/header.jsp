@@ -58,6 +58,14 @@
 						</ul></li>
 				</sec:authorize>
 
+				<sec:authorize access="hasAnyRole('ROLE_USER,ROLE_ADMIN')">
+					<li role="presentation" class="divider"></li>
+					<li role="presentation"
+						class="${active eq 'editar_login' ? 'disabled' : ''}"><a
+						role="menuitem"
+						href="${pageContext.request.contextPath}/editar_login">${menu_usuario}</a></li>
+				</sec:authorize>
+
 				<sec:authorize access="isAnonymous()">
 					<li role="presentation" class="divider"></li>
 					<c:choose>
@@ -88,12 +96,8 @@
 						</c:otherwise>
 					</c:choose>
 				</sec:authorize>
+
 				<sec:authorize access="isAuthenticated()">
-					<li role="presentation" class="divider"></li>
-					<li role="presentation"
-						class="${active eq 'editar_login' ? 'disabled' : ''}"><a
-						role="menuitem"
-						href="${pageContext.request.contextPath}/editar_login">${menu_usuario}</a></li>
 					<li role="presentation" class="divider"></li>
 					<li role="presentation"><a role="menuitem"
 						href="${pageContext.request.contextPath}/logout">${menu_sair}</a></li>

@@ -12,13 +12,13 @@ import br.com.cams7.ws.ServiceFault;
  *
  */
 
-@WebFault(name = ArduinoException.WEBFAULT_NAME, targetNamespace = ArduinoException.WEBFAULT_TARGETNAMESPACE)
+@WebFault(name = ArduinoException.WEBFAULT_NAME, targetNamespace = ArduinoException.WEBFAULT_TARGET_NAMESPACE)
 public class ArduinoException extends Exception {
 
 	public static final String WEBFAULT_NAME = "ArduinoFault";
-	public static final String WEBFAULT_TARGETNAMESPACE = "http://arduino.cams7.com.br";
+	public static final String WEBFAULT_TARGET_NAMESPACE = "http://arduino.cams7.com.br";
 
-	public static final String WEBSERVICE_PACKAGE = "br.com.cams7.arduino";
+	public static final String WEBFAULT_PACKAGE = "br.com.cams7.arduino";
 
 	private static final long serialVersionUID = 1L;
 
